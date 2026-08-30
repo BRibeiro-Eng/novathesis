@@ -49,8 +49,12 @@ $18\,600$~t/d --- lido da configuração do modelo dimensional, nunca fixado no
 código --- e comparada com os parâmetros em produção. As 30 células
 vector--ano reproduzem declive, ordenada na origem, $\hat\sigma$ e $R^2$
 oficiais dentro da tolerância pré-registada de $10^{-6}$, com erro máximo
-observado da ordem de $10^{-10}$; a identidade dos conjuntos de dias
-selecionados foi igualmente verificada célula a célula
+observado da ordem de $10^{-10}$; os \emph{fingerprints} dos conjuntos de
+dias selecionados coincidem célula a célula no \emph{snapshot}. Uma
+limitação fica declarada desde já: com o modelo Power BI original já
+inacessível, a identidade das observações selecionadas é inferida da
+equivalência numérica e dos \emph{fingerprints}, não demonstrada por
+verificação independente contra a fonte
 (mecanismo e limitações na Secção~\ref{sec:reprodutibilidade}).
 
 O ponto não é informático, é epistémico: tudo o que as secções seguintes
@@ -102,8 +106,9 @@ elétrica é excluída dos endpoints de resolução diária (E3--E5) e avaliada 
 E2 apenas por um diagnóstico mensal próprio.
 
 \paragraph{Os resíduos são fortemente dependentes.} A autocorrelação residual
-de primeira ordem das regressões oficiais situa-se entre $0{,}6$ e $0{,}95$
-consoante o vector e o ano. Sob esta dependência, os erros-padrão clássicos e
+de primeira ordem das regressões oficiais situa-se entre $0{,}46$ e $0{,}90$
+consoante o vector e o ano completo (medição sistemática na
+Secção~\ref{sec:diagnosticos-desc}). Sob esta dependência, os erros-padrão clássicos e
 os $p$-values dos testes de diagnóstico habituais deixam de ser fiáveis, e a
 banda de alarme $\pm 2\hat\sigma$ deixa de ter a cobertura nominal que o seu
 desenho pressupõe. É este facto --- medido nos próprios dados --- que
@@ -228,7 +233,12 @@ deriva que um sistema de monitorização deveria expor. As predições em cargas
 de referência com bandas de confiança HAC, por vector e ano, traduzem esta
 instabilidade em unidades de consumo e constam das figuras deste capítulo;
 a sensibilidade à largura de banda HAC (multiplicadores $0{,}5\times$ e
-$2\times$) não altera nenhuma das conclusões.
+$2\times$) não altera nenhuma das conclusões. A rota de sensibilidade por
+\emph{bootstrap} residual sob a hipótese nula qualifica-as, no entanto: com
+blocos de 60 dias, nenhum dos testes de declive mantém $p<0{,}05$ mesmo antes
+de ajustamento --- as rejeições dependem da resolução temporal assumida para
+a dependência, e essa discordância entre rotas é reportada como parte do
+resultado, não escondida escolhendo a rota conveniente.
 
 \section{Calibração das bandas de alarme}
 \label{sec:e4-calibracao}
@@ -270,14 +280,33 @@ vector, oscila entre o silêncio quase total e o ruído permanente consoante o
 par de anos --- consequência direta da instabilidade dos parâmetros e da
 dependência residual que o desenho da banda ignora. O diagnóstico parcial de
 2026 aponta na mesma direção, sem estatuto confirmatório: no vapor de 10~bar,
-a banda de 2025 cobre $6\%$ dos dias decorridos --- 172 alarmes em 183 dias,
-um colapso coerente com a subida de nível identificada no E3.
+a banda de 2025 cobre $6\%$ dos dias decorridos --- 172 alarmes em 183 dias.
+A direção importa: é um colapso por \emph{sobreprevisão} --- a média
+observada na amostra parcial de 2026 ($6{,}5$~t~GNE/d) fica muito abaixo da
+predição média da baseline de 2025 ($14{,}4$). O nível, que tinha subido até
+2025 (Secção~\ref{sec:e3-estabilidade}), inverteu nesta amostra; a data e a
+causa da alteração não estão identificadas, e o E3, que termina em 2025, nada
+afirma sobre 2026.
+
+Duas qualificações completam o quadro. Primeiro, a sensibilidade aos blocos:
+das sete sub-coberturas confirmadas, três das mais moderadas (vapor de 10~bar
+2020${\to}$2021 e 2021${\to}$2022, vapor de 3~bar 2022${\to}$2023) deixam de
+excluir a referência com blocos de 30--60 dias; as falhas grandes ---
+fuel gás 2020${\to}$2021, vapor de 10~bar 2024${\to}$2025, vapor de 3~bar
+2021${\to}$2022 e 2024${\to}$2025 --- resistem a todos os comprimentos
+declarados. Segundo, a cobertura marginal esconde falhas localizadas: no
+vapor de 10~bar 2024${\to}$2025, o segundo semestre cobre apenas $14\%$ dos
+dias; no fuel gás 2020${\to}$2021, o défice concentra-se no primeiro semestre
+($43\%$). Uma média anual compatível com a referência pode coexistir com
+subperíodos francamente descalibrados.
 
 O quadro que emerge das duas últimas secções é consistente: as bandas falham
 nas duas direções, e falham mais nos vectores onde os parâmetros são mais
-instáveis. A análise de cobertura condicional (tercis de carga por semestre),
-a distribuição das rajadas de alarme e o erro de forma da banda constante
-face ao intervalo de predição correto constam do Anexo~\ref{app:tabelas}.
+instáveis. A análise de cobertura condicional completa (tercis de carga por
+semestre), a distribuição das rajadas de alarme e o erro de forma da banda
+constante face ao intervalo de predição clássico --- um comparador
+homocedástico e iid, não uma banda robusta validada --- constam do
+Anexo~\ref{app:tabelas}.
 
 \section{Detectabilidade}
 \label{sec:e5-detectabilidade}
@@ -328,8 +357,9 @@ transformação determinista da densidade) --- e comparam-se as perdas absolutas
 no ano seguinte, sem reestimação. O efeito é a diferença emparelhada
 $\Delta_{\mathrm{MAE}} = \mathrm{MAE}_{Q} - \mathrm{MAE}_{Q+Z}$ com intervalo
 MBB a 95\%: positivo com exclusão de zero, as covariáveis acrescentam;
-negativo, prejudicam. O ganho \emph{in-sample}, que é garantido por
-construção, não entra no critério.
+negativo, prejudicam. O ajustamento dentro da amostra --- que na soma dos
+quadrados melhora por construção ao acrescentar regressores --- não entra no
+critério.
 
 \begin{table}[htbp]
   \centering
@@ -359,29 +389,35 @@ O resultado (Tabela~\ref{tab:e6-incremental}) desautoriza as duas respostas
 simples. As covariáveis não são inúteis: no vapor de 10~bar acrescentam valor
 confirmado em quatro das cinco transições, com reduções de erro entre $2\%$ e
 $18\%$ e nenhum par negativo --- o único caso em que o degrau multivariado
-que a ISO 50006 sanciona teria ajudado de forma consistente. Mas também não
-são um remédio: no fuel gás, o vector com melhor modelo em $Q$, as
+que a ISO 50006 sanciona teria ajudado de forma consistente, ainda que dois
+desses ganhos percam a exclusão de zero em blocos de 30--60 dias. Mas também
+não são um remédio: no fuel gás, o vector com melhor modelo em $Q$, as
 covariáveis \emph{pioram} a previsão em duas transições com exclusão de zero
 --- na transição 2024${\to}$2025 o erro absoluto médio agrava-se $32\%$ --- e
 no vapor de 24~bar prejudicam em quatro das cinco. O vapor de 3~bar exibe o
-padrão mais instrutivo: $+42\%$ de redução de erro em 2023${\to}$2024,
-prejuízo confirmado em 2022${\to}$2023, nada nas restantes --- o mesmo
+padrão mais instrutivo: ganhos confirmados de $+42\%$ em 2023${\to}$2024 ---
+robusto a todos os blocos testados --- e $+10\%$ em 2024${\to}$2025, prejuízo
+confirmado em 2022${\to}$2023, nada nos dois primeiros pares --- o mesmo
 conjunto de covariáveis oscila entre valioso e nocivo consoante o par de
 anos.
 
-O mecanismo é o mesmo diagnosticado na Secção~\ref{sec:e3-estabilidade},
-agora na dimensão das covariáveis: coeficientes $\gamma$ ajustados ao regime
-do ano de treino não sobrevivem à mudança de regime do ano seguinte ---
-\emph{overfitting} para a frente. Onde a relação com as covariáveis é
-fisicamente estável (10~bar), o valor incremental existe e repete-se; onde
-não é, as covariáveis importam para dentro do modelo mais uma fonte de
-não-estacionariedade. A consequência prescritiva, desenvolvida no
-Capítulo~\ref{cha:discussao}: a admissão de covariáveis numa baseline não
-pode ser decisão de catálogo --- exige demonstração forward caso a caso, e a
-análise de sensibilidade da Secção~\ref{sec:sintese-modos-falha} mostra que
-mesmo o caso favorável do 10~bar é menos sólido do que esta tabela sugere. A
-comparação secundária de cobertura das bandas dos dois modelos e os
-coeficientes estimados constam do Anexo~\ref{app:tabelas}.
+Duas cautelas de interpretação. Primeiro, as perdas forward são compatíveis
+com coeficientes $\gamma$ pouco transportáveis entre regimes --- os próprios
+coeficientes estimados mudam de sinal entre anos de treino --- mas o contraste
+não identifica a causa: sobreajuste, alteração operacional, deslocação do
+suporte das covariáveis (Secção~\ref{sec:diagnosticos-desc}) e variáveis
+omitidas são explicações concorrentes que estes dados não separam. Segundo,
+melhor MAE não é melhor monitorização: no caso mais favorável, o vapor de
+10~bar em 2024${\to}$2025, o modelo aumentado reduz o erro médio em $6\%$ mas
+a cobertura da respetiva banda \emph{desce} de $53\%$ para $48\%$ --- a
+melhoria na métrica pontual não repara a banda. A consequência prescritiva,
+desenvolvida no Capítulo~\ref{cha:discussao}: a admissão de covariáveis numa
+baseline não pode ser decisão de catálogo --- exige demonstração forward caso
+a caso com critérios que incluam a banda, e a análise de sensibilidade da
+Secção~\ref{sec:sintese-modos-falha} mostra que mesmo o caso favorável do
+10~bar é menos sólido do que esta tabela sugere. A comparação secundária de
+cobertura das bandas dos dois modelos e os coeficientes estimados constam do
+Anexo~\ref{app:tabelas}.
 
 
 \section{Diagnósticos complementares}
@@ -403,35 +439,45 @@ de primeira ordem em desfasamento civil situa-se entre $0{,}45$ e $0{,}90$
 nos 24 anos-vector completos (estatística de Durbin--Watson entre $0{,}15$ e
 $1{,}08$), com os valores mais altos e menos variáveis no vapor de 3~bar
 ($0{,}76$--$0{,}90$) --- confirmando, vector a vector e ano a ano, o perfil
-preliminar da Secção~\ref{sec:d0-perfil}. A estrutura de variância acompanha:
-os índices descritivos de heterocedasticidade (Breusch--Pagan, ARCH em
-desfasamentos civis) são elevados na generalidade das células, e o desvio
-móvel de 30 dias oscila, dentro do mesmo ano, por fatores que a banda
-constante $\pm 2\hat\sigma$ não acomoda. A sazonalidade mensal existe mas é
+preliminar da Secção~\ref{sec:d0-perfil}. A estrutura de variância acompanha,
+com heterogeneidade: os índices descritivos de heterocedasticidade
+(Breusch--Pagan, ARCH em desfasamentos civis) são elevados em muitas células
+e quase nulos noutras, e o desvio móvel de 30 dias oscila, dentro do mesmo
+ano, por fatores que a banda constante $\pm 2\hat\sigma$ não acomoda. A sazonalidade mensal existe mas é
 modesta em quota de variância ($\eta^2$ entre $0{,}03$ e $0{,}09$) ---
 estrutura temporal omitida, não explicação dominante. Este bloco é o
 fundamento empírico de toda a maquinaria HAC/MBB do capítulo: não foi uma
 preferência metodológica, foi uma imposição dos dados.
 
-\paragraph{Não há regimes operatórios discretos a que atribuir a
-instabilidade (D5).} No espaço operacional padronizado (carga e covariáveis),
-o melhor agrupamento $k$-\emph{means} é $k{=}2$ com \emph{silhouette}
-$0{,}35$ --- fraco --- e o DBSCAN pré-parametrizado devolve um único
-\emph{cluster} com 71 dias de ruído. O espaço operacional dos anos completos
-é essencialmente unimodal: a instabilidade dos parâmetros
-(Secção~\ref{sec:e3-estabilidade}) não é o artefacto de dois regimes óbvios
-que uma segmentação simples separaria, e uma família de baselines por regime
-não é identificável a partir dos dados sem o calendário operacional.
+\paragraph{Nenhuma segmentação em regimes é validável a partir dos dados
+(D5).} No espaço operacional padronizado (carga e covariáveis), o melhor
+agrupamento $k$-\emph{means} é $k{=}2$ com \emph{silhouette} $0{,}35$ ---
+fraco --- e o DBSCAN pré-parametrizado devolve um único \emph{cluster} com 71
+dias de ruído ($3{,}6\%$). A leitura exige simetria: estes métodos não
+validam uma segmentação operacional, mas também não demonstram a inexistência
+de regimes --- o $k$-\emph{means} força partições e o DBSCAN depende da
+parametrização. O que fica estabelecido é negativo e útil: a instabilidade
+dos parâmetros (Secção~\ref{sec:e3-estabilidade}) não é o artefacto de
+regimes óbvios que uma segmentação simples separaria, e uma família de
+baselines por regime não é identificável a partir destes dados sem o
+calendário operacional.
 
-\paragraph{A avaliação forward é interpolação, não extrapolação (D6).} A
-sobreposição das densidades de carga entre anos consecutivos
-(índice de \emph{overlap} de núcleos, 0 a 1) situa-se entre $0{,}79$ e
-$0{,}83$ nos cinco pares completos, com $0{,}79$ no par diagnóstico
-2025${\to}$2026. Os anos de aplicação vivem, em grande medida, dentro do
-suporte de carga dos anos de treino: as falhas de estabilidade e de
-calibração das Secções~\ref{sec:e3-estabilidade}
-e~\ref{sec:e4-calibracao} ocorrem \emph{no interior} do domínio amostrado, e
-não podem ser desculpadas como extrapolação para cargas nunca vistas.
+\paragraph{Em carga, a avaliação decorre dentro do domínio amostrado; nas
+covariáveis, o espaço desloca-se (D6).} A sobreposição das densidades de
+\emph{carga} entre anos consecutivos (índice de \emph{overlap} de núcleos, 0
+a 1) situa-se entre $0{,}79$ e $0{,}83$ nos cinco pares completos, com
+$0{,}79$ no par diagnóstico 2025${\to}$2026: as falhas de estabilidade e de
+calibração das Secções~\ref{sec:e3-estabilidade} e~\ref{sec:e4-calibracao}
+ocorrem, no que a $Q$ respeita, no interior do domínio amostrado, e não podem
+ser desculpadas como extrapolação para cargas nunca vistas. O mesmo não vale
+para as covariáveis: o \emph{overlap} da pressão de \emph{flash} cai a
+$0{,}46$--$0{,}47$ em dois pares e o da temperatura a $0{,}25$ no par
+diagnóstico de 2026, com a mediana deslocada --- as distribuições
+operacionais mudam sem sair do intervalo observado. Estas medidas são
+marginais e não estabelecem nem excluem extrapolação \emph{conjunta}; a
+deslocação das covariáveis é, porém, uma das explicações concorrentes para a
+má transportabilidade dos modelos aumentados
+(Secção~\ref{sec:e6-suficiencia}).
 
 \paragraph{Os vectores não falham de forma independente (D9).} As correlações
 cruzadas dos resíduos padronizados entre vectores são aproximadamente nulas
@@ -439,24 +485,40 @@ em todos os pares excepto um: vapor de 24~bar contra vapor de 10~bar, com
 $r = -0{,}58$ agregado nos anos completos, entre $-0{,}36$ e $-0{,}82$
 consoante o ano, e $-0{,}93$ no parcial de 2026 --- uma anti-correlação forte
 e persistente, compatível com o despacho entre níveis de pressão da rede de
-vapor: o que um nível consome a mais, o outro tende a consumir a menos.
-Registam-se ainda 77 dias com desvios simultâneos $|z| > 2$ em dois ou mais
-vectores. A consequência para o desenho de alarmes é directa: alarmes
+vapor: o que um nível consome a mais, o outro tende a consumir a menos ---
+uma hipótese compatível com os dados, não um mecanismo identificado; medição
+ou reconciliação comum e condições operacionais omitidas são explicações
+alternativas em aberto. Registam-se ainda 67 dias com desvios simultâneos
+$|z| > 2$ em dois ou mais vectores nos anos completos --- quase todos com o
+par 24/10~bar em sinais opostos --- e dez no parcial de 2026, estes numa
+única sequência civil (25 de março a 3 de abril). A consequência para o
+desenho de alarmes é directa: alarmes
 simultâneos em vectores acoplados não são evidência independente, e qualquer
 agregação de alarmes que os some como se o fossem sobrestima a informação
 disponível.
 
-Os restantes blocos confirmam sem alterar o quadro: as caudas dos resíduos
-são moderadamente assimétricas (assimetria entre $-2{,}1$ e $+2{,}2$, com
-intervalos MBB largos), nenhuma semana ISO domina qualquer ajuste anual
-(efeito máximo da remoção de uma semana: $0{,}27\hat\sigma$ na predição, em
-1\,284 remoções), e a verificação de plausibilidade física regista 8 declives
-anuais negativos em 35 células e 10 trocas de sinal entre anos completos
-consecutivos --- fisicamente implausíveis para relações energia--carga e
-coerentes com a identificação fraca diagnosticada em E2/E3 --- com as gamas
-de engenharia formais declaradas indisponíveis. O diagnóstico de eventos
-operacionais (D4) e a análise pós-arranque ficam não estimáveis pela
-indisponibilidade do calendário (Secção~\ref{sec:e5-detectabilidade}).
+Os restantes blocos completam o quadro sem o alterar. As caudas dos resíduos
+são pesadas em células específicas, não uniformemente: quatro anos-vector têm
+excesso de curtose acima de 10 (máximo $15{,}7$, no fuel gás de 2024), com
+intervalos MBB largos --- e, em contraponto, o vapor de 3~bar é quase
+simétrico e mesocúrtico em todos os anos, mostrando que uma distribuição
+marginal bem-comportada pode coexistir com forte persistência e má
+transportabilidade. Na influência local, o efeito máximo da remoção de uma
+semana ISO sobre as predições é moderado ($0{,}27\hat\sigma$, em 1\,284
+remoções), mas os declives quase nulos dos vapores têm sinal instável a
+omissões semanais: retirar a semana de 8--14 de dezembro de 2025 troca o
+sinal do declive do vapor de 10~bar, e no vapor de 24~bar de 2022 dezanove
+das 52 omissões semanais trocam o sinal --- mais um argumento para
+interpretar efeitos em cargas de referência, nunca sinais de coeficientes. A
+verificação de plausibilidade regista 8 declives anuais negativos em 35
+células e 10 trocas de sinal entre anos completos consecutivos ---
+difíceis de sustentar como resposta física de consumo à carga e coerentes com
+a identificação fraca diagnosticada em E2/E3, embora consumo líquido,
+acoplamento entre vectores ou variáveis omitidas permaneçam explicações
+possíveis --- com as gamas de engenharia formais, que permitiriam arbitrar,
+declaradas indisponíveis. O diagnóstico de eventos operacionais (D4) e a
+análise pós-arranque ficam não estimáveis pela indisponibilidade do
+calendário (Secção~\ref{sec:e5-detectabilidade}).
 
 
 \section{Síntese: os modos de falha}
@@ -485,8 +547,8 @@ patologias qualitativamente distintas.
     Vector & E2 --- skill & E3 --- estabilidade & E4 --- calibração & E6 --- covariáveis \\
     \midrule
     Fuel gás & real (0{,}30--0{,}40 em 4/5) & rejeitada & falha em 2 pares (0{,}62; 0{,}98) & prejudicam (até $-32\%$) \\
-    Vapor 24 bar & nulo; MM30 domina & não rejeitada & dentro do IC (5/5) & prejudicam (4/5) \\
-    Vapor 10 bar & nulo & rejeitada; nível sobe em 2026 & falha em 4 pares; colapso YTD (0{,}06) & úteis (4/5), mas frágeis \\
+    Vapor 24 bar & quase nulo; MM30 domina & não rejeitada & dentro do IC (5/5) & prejudicam (4/5) \\
+    Vapor 10 bar & nulo & rejeitada; nível sobe até 2025 & falha em 4 pares; colapso YTD (0{,}06) & úteis (4/5), mas frágeis \\
     Vapor 3 bar & errático (sinal instável) & rejeitada (sobrevive a BY); declive muda de sinal & a pior (0{,}38--0{,}997, duas direções) & erráticas ($-14\%$ a $+42\%$) \\
     \bottomrule
   \end{tabular}
@@ -500,12 +562,17 @@ atravessam a deriva. O \emph{vapor de 24~bar} é o caso insidioso: passa nos
 testes de estabilidade e de calibração porque não há relação nenhuma a
 falhar --- declives anuais em torno de zero, \emph{skill} nulo, uma média
 disfarçada de modelo. É saúde aparente por vacuidade, e é o vector que mais
-enganaria uma auditoria superficial. O \emph{vapor de 10~bar} tem uma
-mudança de regime em curso: nível a subir, banda de 2025 a cobrir $6\%$ dos
-dias de 2026 --- o modelo já não descreve a unidade que existe. O
-\emph{vapor de 3~bar} falha em todas as dimensões ao mesmo tempo, com o
-declive a trocar de sinal entre anos --- identificação fraca sobre uma
-relação que provavelmente nunca foi aproximadamente linear e estática. A
+enganaria uma auditoria superficial. O \emph{vapor de 10~bar} tem o nível em
+movimento: subiu de $2$ para $15$~t~GNE/d à mesma carga entre 2020 e 2025 e
+inverteu na amostra parcial de 2026, com a banda de 2025 a cobrir $6\%$ dos
+dias por sobreprevisão --- o modelo anual persegue um nível que não pára
+quieto. O
+\emph{vapor de 3~bar} concentra as falhas mais graves em todas as dimensões
+--- declive a trocar de sinal entre anos, a pior calibração nas duas direções
+--- sem falhar em absolutamente tudo: tem ganhos E2 pontuais e o maior ganho
+incremental E6 do estudo ($+42\%$, robusto aos blocos), o retrato de uma
+identificação fraca sobre uma relação que provavelmente nunca foi
+aproximadamente linear e estática. A
 \emph{energia elétrica} falha antes de qualquer estatística: um alarme
 diário sobre uma alocação mensal uniforme é estruturalmente cego por
 construção (Secção~\ref{sec:d0-perfil}).
@@ -521,7 +588,11 @@ desativação), mais eficazmente a recalibração o esconde; sobram para os
 alarmes os desvios rápidos, precisamente os que a dependência residual e a
 descalibração das bandas tornam pouco fiáveis. O sistema é assim cego por
 construção aos fenómenos lentos que mais importam e ruidoso nos rápidos que
-menos importam.
+menos importam. Sublinhe-se o estatuto da afirmação: é uma propriedade do
+desenho, demonstrada pela deriva paramétrica que o refit comprovadamente
+absorve (Secção~\ref{sec:e3-estabilidade}) --- o que ficou efetivamente
+mascarado em cada ano não é mensurável sem o calendário operacional
+(Secção~\ref{sec:e5-detectabilidade}).
 
 \paragraph{Sensibilidade: o que sobrevive a mexer nas convenções.} Todo o
 diagnóstico assenta em duas convenções herdadas do método de produção: o
@@ -531,35 +602,45 @@ pré-registada reavaliou as 104 conclusões confirmatórias
 $1{,}0\times$ e $1{,}2\times$, janelas civis e janelas de 12 meses ancoradas
 a 1 de julho --- num total de 624 reavaliações, com a célula de referência a
 reproduzir exatamente os testes deterministas do capítulo. Ao limiar, o
-diagnóstico é moderadamente robusto: nas janelas civis, apenas 21 das 312
-reavaliações mudam de rótulo, quase todas perdas de significância em pares
-fronteiriços; as exceções substantivas ficam identificadas --- a rejeição de
-estabilidade do fuel gás não sobrevive ao limiar reduzido, a descalibração
-do vapor de 3~bar em 2023${\to}$2024 degenera (a sub-cobertura vive nos dias
-junto ao limiar), e o valor incremental do vapor de 10~bar
-(Secção~\ref{sec:e6-suficiencia}) cai em três células e num
-re-sorteio da própria célula de referência --- é a conclusão mais frágil do
-capítulo, e fica qualificada como tal.
+diagnóstico é moderadamente robusto: nas duas células de limiar do esquema
+civil, 20 das 208 reavaliações mudam de rótulo ($9{,}6\%$), quase todas
+perdas de significância em pares fronteiriços, a que acresce um re-sorteio na
+própria célula de referência. As exceções substantivas ficam identificadas:
+a rejeição de estabilidade do fuel gás não sobrevive ao limiar reduzido; a
+sobre-cobertura do vapor de 3~bar em 2023${\to}$2024 degenera para cobertura
+total (zero alarmes) em ambas as células de limiar --- a mudança de seleção e
+de ajuste não permite isolar uma causa única; e o valor incremental do vapor
+de 10~bar (Secção~\ref{sec:e6-suficiencia}) assenta em limites inferiores
+encostados a zero: no par 2024${\to}$2025, o rótulo muda com a seed da
+reavaliação (limite $+0{,}007$ contra $-0{,}003$, com a mesma estimativa) e
+com o limiar reduzido --- é a conclusão mais frágil do capítulo, e fica
+qualificada como tal.
 
-A janela é outra história: re-ancorar os doze meses de janeiro para julho
-muda 133 das 312 reavaliações ($43\%$). O caso mais informativo é a própria
-estabilidade: com janelas julho--junho, o vapor de 24~bar --- estável em
-janelas civis --- passa a rejeitar a igualdade dos declives nas três células,
-e o vapor de 10~bar deixa de a rejeitar, com a subida de nível de 2026
-diluída entre duas janelas. O veredicto de estabilidade de uma baseline
-anual depende, em parte mensurável, de uma convenção administrativa --- o mês
-em que a janela começa --- e não apenas da física do processo. Para um
-método que a ISO 50006 trata como neutro, é um resultado central: a escolha
-da janela é uma decisão de modelação com consequências, e as guidelines do
-Capítulo~\ref{cha:discussao} tratam-na como tal.
+A janela é outra história: substituir as janelas civis por janelas
+julho--junho muda 133 das 312 reavaliações ($43\%$). A comparação não isola a
+âncora: além de mover a fronteira dos anos, o esquema julho--junho retira o
+primeiro semestre de 2020 e acrescenta o primeiro de 2026 --- muda a partição
+\emph{e} a cobertura temporal. O caso mais informativo é a própria
+estabilidade: com janelas julho--junho, o vapor de 24~bar --- igualdade não
+rejeitada em janelas civis --- passa a rejeitá-la nas três células, e o vapor
+de 10~bar deixa de a rejeitar; no mesmo esquema, o valor incremental do
+10~bar inverte para perdas confirmadas --- estimado, note-se, noutra
+população e noutro período. A conclusão suportada é que o veredicto sobre uma
+baseline anual depende de forma mensurável da partição temporal escolhida ---
+onde começa a janela e que meses cobre --- e não apenas da física do
+processo. Para um método que a ISO 50006 trata como neutro, é um resultado
+central: a escolha da janela é uma decisão de modelação com consequências, e
+as guidelines do Capítulo~\ref{cha:discussao} tratam-na como tal.
 
 \paragraph{Resposta à questão de investigação.} As baselines em produção na
-unidade não são válidas para os fins que a ISO 50006 lhes atribui. Não por
-um defeito único e corrigível, mas por cinco modos de falha distintos que
-partilham uma causa: um modelo linear estático, reestimado anualmente sobre
-janelas convencionais, aplicado a um processo contínuo não-estacionário cujo
-comportamento os dados --- agora reconciliados e auditáveis --- documentam
-com precisão. O Capítulo~\ref{cha:discussao} converte cada patologia numa
-prescrição; o que este capítulo estabelece é que nenhuma prescrição pode
+unidade não são válidas, de forma uniforme, para os fins que a ISO 50006
+lhes atribui: a adequação depende do vector, do par de anos, do comparador e
+do objetivo --- e nenhum vector passa o diagnóstico completo. Os cinco modos
+de falha são distintos, mas partilham uma raiz de desenho: um modelo linear
+estático, reestimado anualmente sobre janelas convencionais, aplicado a um
+processo contínuo não-estacionário cujo comportamento os dados --- agora
+replicados e auditáveis, dentro das limitações de proveniência declaradas ---
+documentam em detalhe. O Capítulo~\ref{cha:discussao} converte cada patologia
+numa prescrição; o que este capítulo estabelece é que nenhuma prescrição pode
 assumir o que estas baselines assumiram.
 
