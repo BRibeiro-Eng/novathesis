@@ -1,0 +1,59 @@
+{
+  "compilacao": "latexmk, codigo 0",
+  "paginas_proposta": 12,
+  "paginas_pdf_completo": [
+    38,
+    49
+  ],
+  "original_sha256": "daaeb2555c6627d796fc1608117e9e16a71473cc01e05342556ed241a3f9677e",
+  "original_preservado": true,
+  "caixas_preservadas": true,
+  "citacoes_e_labels_preservados": true,
+  "referencias_indefinidas": false,
+  "overfull_capitulo_3": false,
+  "figuras_sugeridas": {
+    "C3-V01": [
+      2
+    ],
+    "F04": [
+      5
+    ],
+    "C3-V02": [
+      7
+    ],
+    "C3-V03": [
+      8
+    ],
+    "C3-V04": [
+      8
+    ],
+    "C3-V05": [
+      9
+    ],
+    "C3-V06": [
+      9
+    ],
+    "C3-V07": [
+      10
+    ],
+    "C3-V08": [
+      10
+    ],
+    "C3-V09": [
+      11
+    ],
+    "C3-V10": [
+      11
+    ]
+  },
+  "trechos_alterados": 5,
+  "palavras_trechos_antes": 590,
+  "palavras_trechos_depois": 412,
+  "nota": "Contagem de palavras por espacos no LaTeX; mantidos avisos preexistentes do template fora do capitulo 3. A variante tem uma copia de compilacao isolada; o PDF principal da tese nao foi substituido.",
+  "inspecao_visual_paginas_excerto": [
+    1,
+    8,
+    12
+  ],
+  "resultado_visual": "Texto e caixas legiveis; mantidas as quebras de caixas permitidas pelo estilo de revisao."
+}

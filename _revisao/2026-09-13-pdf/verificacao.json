@@ -1,0 +1,25 @@
+{
+  "pages": 107,
+  "visible_comments": 104,
+  "missing": [],
+  "body_preserved": true,
+  "normal_compilation": "passed",
+  "pdf_sha256": "5869bb91569b67315ec159726f4d75071ab2dbd1861660bb152eeed8a68ee0d7",
+  "sample_pages": {
+    "PT-01": [
+      3
+    ],
+    "F03": [
+      33
+    ],
+    "C7-06": [
+      79
+    ],
+    "AP-A": [
+      99
+    ],
+    "FR-01": [
+      106
+    ]
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "date": "2026-09-13",
+  "comments_only": true,
+  "files": [
+    {
+      "path": "2-MainMatter/chapter-1-introducao.tex",
+      "original_sha256": "066de96c4df05288f4684d01d512f77fabba6ff75a9cf499ac70c2db52324178",
+      "annotated_sha256": "a4bf7d68a2d45d38f70cf7bcb99bfacc8018060a48dcd40160d53b25b215795c",
+      "comments": 9
+    },
+    {
+      "path": "2-MainMatter/chapter-2-enquadramento.tex",
+      "original_sha256": "daa980f11950f3a768c289eb69cf526ecde9cfb77a12189fd3e0845eae549448",
+      "annotated_sha256": "76ebeffc6c615663026ada439f65fffc6af178da5c1409c36438113f0c408a9b",
+      "comments": 9
+    },
+    {
+      "path": "2-MainMatter/chapter-3-revisao.tex",
+      "original_sha256": "351d351e09b0d441348504bfdac0204090554d72ec48b7d7cb11595bcf3c51d0",
+      "annotated_sha256": "458c4d8035561f68bc886f64b87d998124b7477e15b89489ba47169845518586",
+      "comments": 6
+    },
+    {
+      "path": "2-MainMatter/chapter-4-metodos.tex",
+      "original_sha256": "cb95935419afbf75b03c5ce3e25c0b094aec13f57b09bbffe0df4902c445e1fb",
+      "annotated_sha256": "6a4c88aa499d9041083ca8e84a12afbae8e549b7d022c2c87c7015db2c0cbbe5",
+      "comments": 14
+    },
+    {
+      "path": "2-MainMatter/chapter-5-plataforma.tex",
+      "original_sha256": "6fbc2f214fd648770231f910931953ac440d20dc97b445ef6133aed0c403a736",
+      "annotated_sha256": "1c1ec2f65f500ca365f1c9d387b10dc561a25613005da1dc4f23b57dca5320b2",
+      "comments": 7
+    },
+    {
+      "path": "2-MainMatter/chapter-6-diagnostico.tex",
+      "original_sha256": "ca3f0f5373aa4a0d525a7fd5145d261c5224aa37852200fea859b12348e248fe",
+      "annotated_sha256": "87ac1547cfa1b4380314a560770017d5546e51dbb270395602b2da868d5009a0",
+      "comments": 22
+    },
+    {
+      "path": "2-MainMatter/chapter-7-discussao.tex",
+      "original_sha256": "c23e48fcb3437501f78d647ec2cc5e724f1a51e947f78d262999c18bdacc793d",
+      "annotated_sha256": "012020ed1a67cbc3864dd04db3a9f0002ecfb86d92baf3cc10f3e44c150aae3a",
+      "comments": 23
+    },
+    {
+      "path": "2-MainMatter/chapter-8-conclusoes.tex",
+      "original_sha256": "59c26205289fb51fd1d7b712b770fa912f7c81812446f0596f1d6d59c9ca4dca",
+      "annotated_sha256": "0ad652d330441f36ed2ac302dc0d17f98b293ce5216a0aebc94e16f70f3d3d55",
+      "comments": 2
+    },
+    {
+      "path": "1-FrontMatter/abstract-pt.tex",
+      "original_sha256": "3bef2acb7fcd1873c317ca354b8be93cf55c9174caa58670924c47ec54e3e34e",
+      "annotated_sha256": "d6606f9f9ba35eeb9b8f2bafd33f877d045de0835e4d3ec98809bc053e361e84",
+      "comments": 1
+    },
+    {
+      "path": "1-FrontMatter/abstract-en.tex",
+      "original_sha256": "7a14d394aaeaf4b35d945e11a6b6878a81ac1607aa01a1b0159c1a2329af1d6b",
+      "annotated_sha256": "70d852ca4fdb347db574f6c3e4c66e5336a6d57010613748119bb4c93aa2e2a9",
+      "comments": 1
+    },
+    {
+      "path": "1-FrontMatter/acronyms.tex",
+      "original_sha256": "2f15b15ab244ac36e08d4eae103caea4d68e0feb08235472b12158e39ccb8da7",
+      "annotated_sha256": "d79e1fea3be1fa982594f07ed0c8dd5867b8a7134e161fef3df740ebaa2ec78e",
+      "comments": 1
+    },
+    {
+      "path": "1-FrontMatter/symbols.tex",
+      "original_sha256": "f9d3bf4a4dc2f142998483b931c3f2ae6262ab3e33779b783439f8f0badfb3d8",
+      "annotated_sha256": "cd09e5f398347f4958dbe20ad7ec419f63a71c9814404eef89ee83526413aa43",
+      "comments": 1
+    },
+    {
+      "path": "1-FrontMatter/glossary.tex",
+      "original_sha256": "1badafa86e61d371dba16974fa4f384a722c8f1acfc536c642e8b83bcbb65d27",
+      "annotated_sha256": "db98801efeca92ee5a7b5b8a54a6abf141a5fd0bf2adea07729128af54018286",
+      "comments": 1
+    },
+    {
+      "path": "3-BackMatter/appendix-A-protocolo-sr.tex",
+      "original_sha256": "c4577e6d0c1e24c185849f4bc18d5caf247d1e24d772b23e76c7dc5fc8fcb8bb",
+      "annotated_sha256": "9163c9cbbc28d517434ed18421f77766d4ce0b57c6bd94013714f19820feec34",
+      "comments": 1
+    },
+    {
+      "path": "3-BackMatter/appendix-B-validacao.tex",
+      "original_sha256": "9c3405d341fb163b761aa315771b9d7aa5e4d78bb12e9a805b176ece4b2e55bf",
+      "annotated_sha256": "b83d02744c3f40b4bb96410fa09fe35ae3b96733ded422f021b94cb013f29fae",
+      "comments": 1
+    },
+    {
+      "path": "3-BackMatter/appendix-C-dicionario.tex",
+      "original_sha256": "37cfb32949e4469dda80f059b6c54cdab9f6e4cd93b0038b56637d7ee2273668",
+      "annotated_sha256": "95ec7c17346d6fa55a9672bc3e7aa9a663ab8e1867c028fc8283bec38b55a46c",
+      "comments": 1
+    },
+    {
+      "path": "3-BackMatter/appendix-D-tabelas.tex",
+      "original_sha256": "4b0bf45f3ca60194130895fc0f790f2f1529e1ca498adeb95f9ddc72ee5ca864",
+      "annotated_sha256": "ee4a0cc4614425fbe614098c1324680e0819aa9f44a5165ad9d0a05f99a39f07",
+      "comments": 1
+    },
+    {
+      "path": "3-BackMatter/appendix-E-manual.tex",
+      "original_sha256": "6ec6d08acb5af794b5c5e953e92ef106fcc1924c6e607b1b3a746e9f3b3ecba7",
+      "annotated_sha256": "e074eb120064e8047d8fbac8b0433d72de738b30cc544cdf29e83a7c1d75e7c9",
+      "comments": 1
+    },
+    {
+      "path": "3-BackMatter/appendix-F-adversarial.tex",
+      "original_sha256": "a1081c7f73ed2d48384303b0093c627afd1559ffb4abcdb4a104e6ec3dbd441f",
+      "annotated_sha256": "ffff05c2a90154d3db38afe630309308d103b03ceaaeafbacbdb1e439489657a",
+      "comments": 1
+    },
+    {
+      "path": "3-BackMatter/appendix-G-matematica.tex",
+      "original_sha256": "fe987bb24864441640c773f2f81e0e61a72c97186decc7ac23bde34c7c4de8ca",
+      "annotated_sha256": "c98ec942f9612c776ad98c02560415d62a941f515e62951d75a32a49a9230418",
+      "comments": 1
+    }
+  ]
+}

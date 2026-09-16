@@ -1,0 +1,27 @@
+{
+  "aplicado": true,
+  "ficheiro": "/Users/bernardoribeiro/Desktop/Tese/novathesis/2-MainMatter/chapter-3-revisao.tex",
+  "alteracoes": [
+    "abertura",
+    "extracao",
+    "fontes",
+    "temas",
+    "fecho"
+  ],
+  "sha256_antes": "daaeb2555c6627d796fc1608117e9e16a71473cc01e05342556ed241a3f9677e",
+  "sha256_depois": "b6781db24204b47b4af09385d01a0cc1e0ecd440fbad08b0abedfb17548d0fc6",
+  "raiz_latex_preservada": "%!TEX root = ../template.tex",
+  "citacoes_labels_caixas_preservados": true,
+  "compilacao_exit_code": 0,
+  "pdf_principal": "/Users/bernardoribeiro/Desktop/Tese/novathesis/template.pdf",
+  "pdf_capitulo": "/Users/bernardoribeiro/Desktop/Tese/novathesis/_revisao/2026-09-14-capitulo-3-estilo/capitulo-3-aplicado.pdf",
+  "paginas_pdf_principal": [
+    34,
+    45
+  ],
+  "paginas_capitulo": 12,
+  "cinco_reescritas_confirmadas_no_pdf": true,
+  "onze_caixas_de_figuras_confirmadas": true,
+  "referencias_indefinidas": false,
+  "overfull_capitulo3": false
+}

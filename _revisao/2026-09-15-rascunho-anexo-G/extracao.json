@@ -1,0 +1,374 @@
+{
+  "appendix_pages": 36,
+  "bibliography_pages": 6,
+  "total_pages": 42,
+  "links": {
+    "internal": 94,
+    "external": 77,
+    "omitted": [
+      {
+        "page": 105,
+        "destination": "page.87"
+      },
+      {
+        "page": 105,
+        "destination": "page.42"
+      },
+      {
+        "page": 105,
+        "destination": "page.26"
+      },
+      {
+        "page": 105,
+        "destination": "page.12"
+      },
+      {
+        "page": 105,
+        "destination": "page.18"
+      },
+      {
+        "page": 105,
+        "destination": "page.19"
+      },
+      {
+        "page": 105,
+        "destination": "page.43"
+      },
+      {
+        "page": 105,
+        "destination": "page.43"
+      },
+      {
+        "page": 105,
+        "destination": "page.43"
+      },
+      {
+        "page": 105,
+        "destination": "page.76"
+      },
+      {
+        "page": 105,
+        "destination": "page.76"
+      },
+      {
+        "page": 106,
+        "destination": "page.42"
+      },
+      {
+        "page": 106,
+        "destination": "page.43"
+      },
+      {
+        "page": 106,
+        "destination": "page.27"
+      },
+      {
+        "page": 106,
+        "destination": "page.42"
+      },
+      {
+        "page": 106,
+        "destination": "page.84"
+      },
+      {
+        "page": 106,
+        "destination": "page.26"
+      },
+      {
+        "page": 106,
+        "destination": "page.32"
+      },
+      {
+        "page": 106,
+        "destination": "page.42"
+      },
+      {
+        "page": 106,
+        "destination": "page.42"
+      },
+      {
+        "page": 106,
+        "destination": "page.79"
+      },
+      {
+        "page": 106,
+        "destination": "page.87"
+      },
+      {
+        "page": 106,
+        "destination": "page.42"
+      },
+      {
+        "page": 106,
+        "destination": "page.42"
+      },
+      {
+        "page": 106,
+        "destination": "page.85"
+      },
+      {
+        "page": 106,
+        "destination": "page.75"
+      },
+      {
+        "page": 107,
+        "destination": "page.76"
+      },
+      {
+        "page": 107,
+        "destination": "page.76"
+      },
+      {
+        "page": 107,
+        "destination": "page.76"
+      },
+      {
+        "page": 107,
+        "destination": "page.42"
+      },
+      {
+        "page": 107,
+        "destination": "page.12"
+      },
+      {
+        "page": 107,
+        "destination": "page.74"
+      },
+      {
+        "page": 107,
+        "destination": "page.76"
+      },
+      {
+        "page": 107,
+        "destination": "page.2"
+      },
+      {
+        "page": 107,
+        "destination": "page.3"
+      },
+      {
+        "page": 107,
+        "destination": "page.10"
+      },
+      {
+        "page": 107,
+        "destination": "page.14"
+      },
+      {
+        "page": 107,
+        "destination": "page.16"
+      },
+      {
+        "page": 107,
+        "destination": "page.39"
+      },
+      {
+        "page": 107,
+        "destination": "page.74"
+      },
+      {
+        "page": 107,
+        "destination": "page.76"
+      },
+      {
+        "page": 107,
+        "destination": "page.19"
+      },
+      {
+        "page": 107,
+        "destination": "page.3"
+      },
+      {
+        "page": 107,
+        "destination": "page.10"
+      },
+      {
+        "page": 107,
+        "destination": "page.11"
+      },
+      {
+        "page": 107,
+        "destination": "page.13"
+      },
+      {
+        "page": 107,
+        "destination": "page.74"
+      },
+      {
+        "page": 107,
+        "destination": "page.37"
+      },
+      {
+        "page": 107,
+        "destination": "page.76"
+      },
+      {
+        "page": 107,
+        "destination": "page.42"
+      },
+      {
+        "page": 107,
+        "destination": "page.42"
+      },
+      {
+        "page": 107,
+        "destination": "page.77"
+      },
+      {
+        "page": 108,
+        "destination": "page.90"
+      },
+      {
+        "page": 108,
+        "destination": "page.iv"
+      },
+      {
+        "page": 108,
+        "destination": "page.18"
+      },
+      {
+        "page": 108,
+        "destination": "page.19"
+      },
+      {
+        "page": 108,
+        "destination": "page.40"
+      },
+      {
+        "page": 108,
+        "destination": "page.42"
+      },
+      {
+        "page": 108,
+        "destination": "page.6"
+      },
+      {
+        "page": 108,
+        "destination": "page.41"
+      },
+      {
+        "page": 108,
+        "destination": "page.2"
+      },
+      {
+        "page": 108,
+        "destination": "page.10"
+      },
+      {
+        "page": 108,
+        "destination": "page.11"
+      },
+      {
+        "page": 108,
+        "destination": "page.13"
+      },
+      {
+        "page": 108,
+        "destination": "page.74"
+      },
+      {
+        "page": 108,
+        "destination": "page.40"
+      },
+      {
+        "page": 108,
+        "destination": "page.77"
+      },
+      {
+        "page": 108,
+        "destination": "page.25"
+      },
+      {
+        "page": 108,
+        "destination": "page.44"
+      },
+      {
+        "page": 108,
+        "destination": "page.84"
+      },
+      {
+        "page": 108,
+        "destination": "page.27"
+      },
+      {
+        "page": 108,
+        "destination": "page.24"
+      },
+      {
+        "page": 109,
+        "destination": "page.22"
+      },
+      {
+        "page": 109,
+        "destination": "page.76"
+      },
+      {
+        "page": 109,
+        "destination": "page.18"
+      },
+      {
+        "page": 109,
+        "destination": "page.19"
+      },
+      {
+        "page": 109,
+        "destination": "page.44"
+      },
+      {
+        "page": 109,
+        "destination": "page.79"
+      },
+      {
+        "page": 109,
+        "destination": "page.76"
+      },
+      {
+        "page": 109,
+        "destination": "page.iv"
+      },
+      {
+        "page": 109,
+        "destination": "page.43"
+      },
+      {
+        "page": 109,
+        "destination": "page.iv"
+      },
+      {
+        "page": 109,
+        "destination": "page.5"
+      },
+      {
+        "page": 109,
+        "destination": "page.22"
+      },
+      {
+        "page": 109,
+        "destination": "page.87"
+      },
+      {
+        "page": 109,
+        "destination": "page.85"
+      },
+      {
+        "page": 110,
+        "destination": "page.85"
+      },
+      {
+        "page": 110,
+        "destination": "page.87"
+      }
+    ]
+  },
+  "samples": {
+    "abertura": 0,
+    "notacao": 1,
+    "auditoria": 10,
+    "pares": 15,
+    "canais": 28,
+    "simulacao": 32,
+    "fecho": 35
+  },
+  "original_pdf_pages": 155,
+  "output_size_bytes": 535955
+}

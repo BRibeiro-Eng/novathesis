@@ -1,0 +1,820 @@
+%!TEX root = ../template.tex
+%% ====================================================================
+%% Capitulo 7 -- Discussao e proposta metodologica
+%% Primeira versao completa 2026-09-08. Linguagem descritiva, sem rotulos
+%% internos de organizacao do trabalho. Proveniencia dos numeros:
+%%   estimadores robustos:  outputs/T11/runs/20260830T114345550731Z-363f433da25e
+%%   bandas honestas:       outputs/T12/runs/20260830T122854929917Z-459cf49c965c
+%%   gate de aceitacao:     outputs/T13/runs/20260830T165208669276Z-b583143cacb9
+%%   candidatos robustos:   outputs/T14/runs/20260830T165252925802Z-ad4bf78ea405
+%%   fichas por baseline:   outputs/T15/runs/20260830T165318477358Z-3d408fcdae7a
+%%   referencia congelada:  outputs/PART_C/C1/runs/20260903T002922246855Z-eba4e32107a0
+%%   envelopes fixos:       outputs/PART_C/C6/runs/20260903T003533726541Z-892a18a0e064
+%%   injecao de desvios:    outputs/PART_C/C5/runs/20260903T004416308950Z-2c5caf3d5988
+%%   verdade conhecida:     outputs/PART_C/C8/runs/20260902T165944891648Z-ae3e8022c6a5
+%%                          (stress …T224337596785Z-745ef41d27f7, joint …T181655416848Z-46ca4436f02f)
+%% Os lotes da exploracao com referencia congelada que a reinspecao de
+%% 2026-09-03 classificou como nao finais (comparacao de esquemas de
+%% referencia, janelas de reajuste, injecao sobre estados publicados,
+%% agregacao por frequencia, eletricidade) NAO sao citados com numeros;
+%% onde entram, entram qualitativamente e assinalados. Depois da
+%% republicacao (Task 7 do plano de 2026-09-03), substituir onde marcado
+%% com %% PENDENTE-REPUBLICACAO.
+%% A matematica de cada instrumento vai para o anexo matematico.
+%% ====================================================================
+
+\chapter{Discussão e proposta metodológica}
+\label{cha:discussao}
+
+O Capítulo~\ref{cha:diagnostico} estabeleceu que o método de \emph{baselines}
+em produção se reproduz exatamente e não é adequado, de forma uniforme, aos
+fins que a ISO~50006 lhe atribui. Este capítulo faz três coisas com esse
+resultado. Primeiro, lê-o em conjunto: o que os cinco modos de falha têm em
+comum, o que a norma exige e não exige, e porque é que a pergunta certa
+sobre uma \emph{baseline} de eficiência não é ``prevê bem?'' mas ``revela o
+desvio que existe para revelar?''. Segundo, converte o diagnóstico numa
+proposta --- um conjunto de linhas orientadoras para construir, aceitar e
+manter \emph{baselines} em processo contínuo --- e demonstra-a na própria
+unidade: que candidatos da classe linear estática, robustificada e com
+bandas honestas, passam um critério de aceitação declarado antes de
+qualquer resultado; e o que se aprende quando, em vez de reajustar o modelo
+todos os anos, se congela uma referência e se mede tudo o resto como desvio
+face a ela, incluindo com verdade conhecida por simulação. Terceiro,
+devolve a proposta ao instrumento do Capítulo~\ref{cha:plataforma} como
+especificação de um bloco de saúde das \emph{baselines}, e declara os
+limites de tudo o que aqui se afirma. A matemática de cada instrumento
+consta do Anexo~\ref{app:matematica}.
+
+\section{Leitura integrada do diagnóstico}
+\label{sec:leitura-integrada}
+
+\paragraph{Reproduzir não é validar.} O primeiro resultado do
+Capítulo~\ref{cha:diagnostico} --- a replicação exata das trinta células
+vetor--ano --- é a condição de tudo o resto, mas não diz nada sobre a
+adequação do modelo: diz que o que se critica é o que está em produção.
+Tudo o que se seguiu mostra que um método pode ser reproduzível, documentado
+e aplicado com disciplina há seis anos, e ainda assim não cumprir nenhuma
+das três funções que lhe são pedidas --- normalizar o consumo pela carga
+(a carga só tem conteúdo preditivo no fuel gás), sustentar comparações entre
+períodos (a relação anual não é invariante e o veredicto depende de onde
+começa o ano) e alimentar alarmes (a banda cobre entre $38\%$ e $99{,}7\%$
+dos dias consoante o vetor e o par de anos).
+
+\paragraph{Cinco modos de falha, uma raiz.} Cada vetor falha à sua maneira
+--- o fuel gás por deriva paramétrica que a recalibração absorve; o vapor de
+24~bar por vacuidade, uma média disfarçada de modelo; o de 10~bar por um
+nível em movimento; o de 3~bar por identificação fraca de uma relação que
+provavelmente nunca foi linear nem estática; a energia elétrica por não ser
+uma medição diária. A diversidade importa porque condena a receita única: um
+remédio para a deriva do fuel gás não serve ao 24~bar, onde não há relação a
+estabilizar. Mas os cinco partilham uma raiz de desenho, e é sobre ela que a
+proposta deste capítulo se constrói: um modelo linear estático, reestimado
+anualmente sobre janelas convencionais, aplicado a um processo cujo
+comportamento muda mais devagar do que um ano e mais depressa do que a
+recalibração o assinala. O mecanismo é o da Secção~\ref{sec:sintese-modos-falha}:
+cada janeiro, o reajuste reabsorve nos parâmetros o desvio acumulado no ano
+anterior, e o sistema de alarmes, recalibrado sobre o regime já desviado,
+volta a tratar como normal o que devia assinalar.
+
+\paragraph{Previsão e deteção são perguntas diferentes.} O diagnóstico mediu
+sobretudo previsão --- \emph{skill} face a referências triviais, erro fora
+da amostra, cobertura de bandas --- porque é o que se pode medir sem
+calendário operacional. Mas a função de uma \emph{baseline} de eficiência
+não é prever o consumo de amanhã: é servir de referência estável contra a
+qual um desvio se torna visível. As duas exigências entram em tensão, e a
+Secção~\ref{sec:poder-preditivo} já a expôs: uma média móvel de trinta dias
+prevê o consumo de vapor melhor do que a relação anual com a carga
+precisamente porque incorpora o passado recente --- e, ao incorporá-lo,
+incorpora também qualquer desvio persistente, tratando-o como o novo
+normal. Um modelo que segue o processo é um bom preditor e um mau detetor;
+uma referência congelada é um mau preditor e a única coisa que mede o
+desvio. O que este capítulo propõe não é escolher entre os dois: é
+reconhecer que são dois objetos com funções distintas, e que o método em
+produção tenta ser ambos com um só modelo reajustado uma vez por ano ---
+tarde de mais para prever, cedo de mais para detetar.
+
+\paragraph{Três formas de avaliar, três estimandos.} O que se segue avalia
+\emph{baselines} de três maneiras que respondem a perguntas diferentes, e
+que convém distinguir antes de ler qualquer número. A primeira, herdada do
+Capítulo~\ref{cha:diagnostico}, reajusta o modelo em cada ano e aplica-o ao
+seguinte: mede a transportabilidade da relação anual. A segunda, usada na
+demonstração das linhas orientadoras (Secção~\ref{sec:demonstracao}),
+mantém esses mesmos cinco pares anuais mas substitui o estimador, a banda ou
+ambos, e adjudica cada candidato por um critério declarado a priori: mede se
+existe um candidato aceitável dentro de uma classe. A terceira
+(Secção~\ref{sec:referencia-congelada}) congela uma referência em 2020 e
+aplica-a a 2021--2025 sem lhe tocar: mede o desvio face a um ponto fixo, e o
+que cada componente de um sistema de monitorização --- normalizador,
+escala, monitor, banda --- faz a esse desvio. Os três estimandos são
+diferentes por construção, e o mesmo vetor pode ter leituras que só parecem
+contraditórias: o vapor de 24~bar é ``estável e calibrado'' na primeira
+(declives iguais, banda de produção compatível em cinco pares) e, na
+terceira, ``desloca-se de nível sem que nenhum normalizador acrescente nada
+à média de 2020''. Não há contradição: a primeira pergunta pela relação com
+a carga ano a ano, a terceira pelo nível face a um ano fixo. A
+Tabela~\ref{tab:estimandos} fixa os três antes de qualquer resultado.
+
+\begin{table}[htbp]
+  \centering
+  \caption[Os três estimandos deste capítulo]{As três formas de avaliar uma
+  \emph{baseline} usadas na dissertação, o que cada uma mede e o que não
+  pode estabelecer.}
+  \label{tab:estimandos}
+  \small
+  \begin{tabular}{p{3.0cm}p{3.6cm}p{3.6cm}p{3.4cm}}
+    \toprule
+    Avaliação & Desenho & O que mede & O que não estabelece \\
+    \midrule
+    Diagnóstico (Cap.~\ref{cha:diagnostico}) & modelo do ano $y$ aplicado a $y{+}1$, cinco pares 2020--2025 & transportabilidade da relação anual; calibração da banda; valor de covariáveis & utilidade para deteção; causa da instabilidade \\
+    Demonstração (Secção~\ref{sec:demonstracao}) & os mesmos cinco pares; estimador, banda e critério de aceitação declarados a priori & se algum candidato da classe passa o critério & impossibilidade da classe; necessidade de modelos com estado \\
+    Referência congelada (Secção~\ref{sec:referencia-congelada}) & referência de 2020 aplicada a 2021--2025; simulação com verdade conhecida & desvio face a um ponto fixo; o que cada componente faz ao desvio & poupança, alarme validado, mecanismo; factos sobre a refinaria a partir da simulação \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Implicações para a conformidade normativa}
+\label{sec:implicacoes-normativas}
+
+A ISO~50001~\cite{ISO50001_2018} obriga a monitorizar, medir e analisar o
+desempenho energético; a ISO~50006~\cite{ISO50006_2014} operacionaliza-o em
+indicadores e \emph{baselines}, com variáveis relevantes, fatores estáticos
+e normalização; a ISO~50015 e o IPMVP~\cite{ISO50015_2014,IPMVP_2022} tratam
+da medição e verificação de poupanças. Como o Capítulo~\ref{cha:enquadramento}
+mostrou, as três dizem \emph{o que} deve existir e são quase omissas sobre
+\emph{como validar} o que existe --- e carregam o pressuposto tácito de que a
+relação entre consumo e variáveis relevantes é estável no período de
+referência e transportável para o de reporte. O Capítulo~\ref{cha:diagnostico}
+é, em rigor, um teste desse pressuposto num processo contínuo, e o resultado
+é que ele não se verifica em nenhum dos cinco vetores da unidade.
+
+A consequência normativa é incómoda mas precisa. Um sistema de gestão de
+energia pode ser formalmente conforme --- \emph{baselines} definidas,
+variáveis relevantes identificadas, indicadores calculados, revisões
+anuais documentadas --- e assentar em modelos que não prevêem melhor do que
+uma média, cujos parâmetros mudam de sinal entre anos e cujas bandas de
+alarme oscilam entre o silêncio e o ruído. A conformidade certifica a
+existência do instrumento, não a sua validade; e a norma, ao não exigir
+validação, não protege a organização dessa diferença. A ISO~50006 admite
+explicitamente a recalibração da \emph{baseline} quando as condições mudam
+--- e é precisamente essa admissão que, aplicada como rotina anual, produz o
+mecanismo da Secção~\ref{sec:leitura-integrada}: a recalibração sancionada
+pela norma é o que esconde o desvio que a norma quer ver.
+
+Daqui decorre a posição desta dissertação: os requisitos de validação têm
+de ser acrescentados pela organização, porque a norma não os traz. O
+protocolo de avaliação do Capítulo~\ref{cha:metodos} e as linhas
+orientadoras que se seguem são uma proposta concreta desses requisitos ---
+compatível com o enquadramento normativo, porque não pede nada que a norma
+proíba, e mais exigente do que ele, porque pede que uma \emph{baseline} prove
+antes de ser usada aquilo que a norma assume.
+
+\section{Linhas orientadoras para a construção e aceitação de \emph{baselines}}
+\label{sec:guidelines}
+
+As linhas orientadoras foram formuladas antes da demonstração, revistas em
+quatro rondas de revisão adversarial independente (Anexo~\ref{app:adversarial})
+e fixadas na versão que aqui se descreve. Cada uma responde a um modo de
+falha do Capítulo~\ref{cha:diagnostico} ou a um defeito apontado na revisão;
+nenhuma foi ajustada depois de conhecidos os resultados da
+Secção~\ref{sec:demonstracao}. Apresentam-se por ordem de aplicação.
+
+\paragraph{Dados reconciliados como pré-condição.} Nenhuma \emph{baseline} se
+estima sobre dados que não passaram a validação de fontes do
+Capítulo~\ref{cha:plataforma}: imputações sinalizadas e contadas,
+proveniência com \emph{hashes}, e um perfil dos dados --- cobertura,
+mecanismo de falta, efeito de qualquer filtro de seleção --- lido e aceite
+por uma pessoa antes de qualquer análise. O erro de seleção que invalidou a
+análise preliminar desta dissertação (um limiar de carga escrito à mão em vez
+de lido da configuração oficial) é o exemplo do que este passo existe para
+apanhar.
+
+\paragraph{Domínio definido nas variáveis explicativas, nunca no consumo.} A
+\emph{baseline} declara o intervalo de carga em que foi estimada, justificado
+por percentis de operação ou limites físicos, e um critério de regime
+estacionário (variação de carga abaixo de um limiar; exclusão das primeiras
+48 a 72~horas após arranque). A seleção faz-se sobre os regressores
+pré-especificados, nunca sobre o consumo --- selecionar sobre a variável
+resposta trunca a distribuição do erro e enviesa o modelo~\cite{Heckman1979}. O que a
+Secção~\ref{sec:perfil-dados} mostrou --- o limiar oficial remove outro
+regime operatório, não uma cauda --- torna esta declaração obrigatória: o
+domínio de validade existe de qualquer forma; a diferença está em declará-lo
+ou descobri-lo. Na aplicação, um dia fora do domínio é sinalizado como tal
+e o seu alarme é suprimido: não é uma anomalia, é uma pergunta a que o
+modelo não sabe responder.
+
+\paragraph{Exclusões por causa, nunca por valor.} Um dia é excluído do treino
+por um código de razão pré-registado e ligado ao registo de operações
+(paragem, arranque, intervenção, campanha), com a declaração de que usos
+essa exclusão afeta --- treino, avaliação de desempenho e avaliação de
+alarmes são decisões distintas. Nunca por ser um valor extremo. Fica
+declarado o risco residual: um registo operacional pode ele próprio ter sido
+motivado por um comportamento energético anómalo, e ``documentado'' não é
+sinónimo de ``exógeno''.
+
+\paragraph{Especificação antes de robustificação.} Entre o modelo univariado
+na carga e qualquer modelo não linear existe o degrau que a ISO~50006 e o
+IPMVP sancionam~\cite{ISO50006_2014,IPMVP_2022}: a regressão linear múltipla com variáveis relevantes
+pré-especificadas (densidade da carga, condições de \emph{flash}, sinais de
+modo de operação). A Secção~\ref{sec:suficiencia} mostrou o que este degrau
+vale na unidade --- consistente num vetor, prejudicial noutros --- e daí a
+regra: uma covariável é admitida só por valor preditivo incremental
+demonstrado fora da amostra, para a frente no tempo, com um critério que
+inclua a banda e não apenas o erro pontual; nunca por catálogo.
+
+\paragraph{Estimação robusta, pré-especificada.} O estimador primário é
+declarado antes de ver os dados --- um estimador-M de Huber~\cite{Huber1964,HuberRonchetti2009} com constante
+de afinação fixa ($c = 1{,}345$~\cite{HollandWelsch1977}) e escala pela
+mediana dos desvios absolutos ---
+com os mínimos quadrados reportados ao lado, e um limiar de divergência
+declarado entre os dois que, se excedido, obriga a investigar: a divergência
+pode significar má especificação, não valores atípicos. A alavancagem
+trata-se separadamente, porque um estimador de Huber não resiste a pontos de
+alavancagem elevada~\cite{RousseeuwLeroy1987}. O estimador de Theil--Sen~\cite{Sen1968} serve de referência livre de
+distribuição em regressão simples. Um ponto e uma banda robustos são
+problemas diferentes, e a linha seguinte trata do segundo.
+
+\paragraph{Bandas honestas, com três desfechos possíveis.} A banda de alarme
+constante $\pm 2\hat\sigma$ assume resíduos independentes e homocedásticos que
+a Secção~\ref{sec:diagnosticos-desc} mostrou não existirem. A rota primária
+modela explicitamente a dependência residual --- um processo autorregressivo
+sobre os resíduos~\cite{BoxJenkins2015}, com desfasamentos civis exatos e
+ordem escolhida só no treino --- e produz intervalos condicionais, a um passo, validados pela
+cobertura empírica no ano seguinte. A rota de sensibilidade é a regressão
+quantílica~\cite{KoenkerBassett1978}, com restrições de não
+cruzamento~\cite{Chernozhukov2010} e incerteza por \emph{bootstrap}
+de blocos --- sobre uma janela plurianual, nunca sobre um ano ($n \approx
+300$ dias a $\tau = 0{,}025$ deixa cerca de sete observações em cada cauda).
+O ponto essencial é o terceiro desfecho: a avaliação pode concluir que
+\emph{nenhuma} rota é suportada para um vetor, e esse veredicto é
+reportável e bloqueia o alarme por banda nesse vetor. Uma banda não
+validada não é uma banda pior; é a ausência de banda.
+
+\paragraph{Critério de aceitação com validação temporal encadeada.} Um
+candidato --- estimador, banda e domínio --- só entra em produção depois de
+passar um critério declarado antes de qualquer resultado, avaliado para a
+frente no tempo. A formulação original exigia uma partição selada: construção
+e afinação em 2020--2023, seleção congelada em 2024, uma única avaliação em
+2025 intocado. Foi substituída, por decisão datada, por validação temporal
+encadeada --- os mesmos cinco pares anuais do diagnóstico ---, porque 2025 e
+o parcial de 2026 já tinham informado o Capítulo~\ref{cha:diagnostico} e
+nenhum resultado obtido depois disso pode chamar-se \emph{holdout}. O critério
+tem dois membros e aceita um candidato apenas se ambos se cumprem: conteúdo
+preditivo --- ganho sobre a média do ano de treino, com o intervalo de
+confiança a excluir zero, em pelo menos quatro dos cinco pares (é o que
+impede que um modelo vazio, com $R^2 \approx 0$, seja aceite por ter uma
+banda razoável, o defeito da primeira versão das linhas orientadoras); e
+banda suportada --- cobertura compatível com a nominal, pelo intervalo, em
+pelo menos quatro dos cinco pares. O limiar de quatro em cinco foi fixado
+antes de qualquer resultado e não se mexe depois; a
+Secção~\ref{sec:demonstracao} mostra o que depende dele.
+
+\paragraph{Recalibração por evidência, com políticas separadas.} Gerar um
+alarme, investigar, suspender temporariamente um modelo, recalibrar e
+verificar a recalibração são cinco decisões com políticas distintas e
+declaradas. A recalibração exige uma mudança detetada --- um sinal de um
+monitor sequencial~\cite{Page1954,Lai1995} sobre as inovações, não uma data
+no calendário --- mais
+uma revisão documentada; mas a revisão pode concluir ``causa desconhecida,
+recalibrar com sinalização'', porque exigir causa demonstrada
+incondicionalmente atrasaria a adaptação exatamente quando o sistema muda.
+Os mesmos resíduos nunca servem para declarar a mudança e para certificar o
+modelo recalibrado: a certificação usa só dados posteriores. É esta linha
+que substitui a recalibração anual de rotina, e é a resposta direta ao
+mecanismo da Secção~\ref{sec:leitura-integrada}.
+
+\paragraph{Mínimos de dados e governança.} Não se estima uma \emph{baseline}
+se o número de observações está abaixo de um mínimo declarado (formalizando
+o parâmetro que o método de produção já tem), se o treino cobre menos do que
+uma fração declarada do domínio de aplicação, ou se a fração imputada excede
+um teto. A governança --- versões, registo de alterações, aprovação nominal,
+revisão agendada --- e uma ficha de uma página por \emph{baseline} (domínio,
+janela, exclusões com códigos de razão, estimador, método de banda e o seu
+desfecho, resultados da aceitação, \emph{hash} de proveniência) fecham o
+conjunto. A ISO~50001 é uma norma de sistema de gestão; sem governança, as
+linhas orientadoras não são adotáveis.
+
+\section{Demonstração na unidade}
+\label{sec:demonstracao}
+
+As linhas orientadoras foram demonstradas nos quatro vetores diários da
+unidade, sobre os mesmos cinco pares anuais 2020${\to}$2021 a
+2024${\to}$2025 do Capítulo~\ref{cha:diagnostico}, com constantes fixadas a
+priori ou afinadas apenas dentro do ano de treino, conclusões só por
+exclusão do intervalo de confiança por \emph{bootstrap} de blocos móveis, e
+margens materiais declaradas como não elicitadas --- não há, nesta unidade,
+um limiar acordado a partir do qual um desvio importa. Nenhuma linha desta
+secção se descreve como \emph{holdout}.
+
+\subsection{Estimadores robustos}
+\label{sec:demo-robustos}
+
+Para cada vetor e par anual estimaram-se três retas sobre o ano de treino
+--- mínimos quadrados (o método de produção), Huber e Theil--Sen --- e
+compararam-se as perdas absolutas diárias no ano seguinte, sem reestimação,
+por contraste emparelhado $|e_{\mathrm{OLS}}| - |e_{\mathrm{rob}}|$ com
+intervalo de confiança a 95\%. São quarenta contrastes.
+
+\begin{table}[htbp]
+  \centering
+  \caption[Estimadores robustos contra mínimos quadrados]{Contrastes
+  emparelhados de perda absoluta no ano seguinte, quatro vetores $\times$
+  cinco pares. ``Robusto melhor'' e ``OLS melhor'': o intervalo MBB a 95\%
+  exclui zero do lado respetivo.}
+  \label{tab:robustos}
+  \begin{tabular}{lccc}
+    \toprule
+    Estimador & Robusto melhor & OLS melhor & Sem evidência \\
+    \midrule
+    Huber ($c = 1{,}345$) & 11 & 6 & 3 \\
+    Theil--Sen            & 7  & 8 & 5 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Nenhum estimador domina (Tabela~\ref{tab:robustos}). O Huber ganha em onze
+dos vinte contrastes e perde em seis; o Theil--Sen é mais extremo, sete
+contra oito. O maior ganho é do Theil--Sen no vapor de 3~bar em
+2022${\to}$2023 ($+4{,}68$~t~GNE/d, $+15{,}3\%$). Três leituras
+qualificam a contagem. Contar vitórias não é agregar: no vapor de 24~bar o
+Huber ganha três pares em cinco e tem, ainda assim, o erro absoluto médio
+agregado ligeiramente pior. A explicação intuitiva --- ``a robustez ajuda
+onde há caudas pesadas'' --- é contradita pelos próprios dados: o vapor de
+3~bar, onde o Huber mais ganha, é o vetor com menor curtose residual, e o
+fuel gás de 2024, com curtose $15{,}7$, não beneficia. E melhor ponto não é
+melhor banda: no vapor de 24~bar em 2024${\to}$2025 o Huber reduz o erro
+médio em $2{,}9\%$ e a banda marginal construída sobre a sua escala robusta
+cobre $48{,}5\%$ dos dias, contra $93{,}9\%$ da banda de produção --- a
+escala robusta é $0{,}55$ da escala dos mínimos quadrados, e uma banda mais
+estreita em torno de um ponto marginalmente melhor é uma banda muito pior:
+a nitidez só vale sujeita à calibração~\cite{Gneiting2007}.
+A robustez na estimação e a robustez do detetor são problemas distintos, e
+esta é a razão de a linha orientadora os separar.
+
+\subsection{Bandas honestas}
+\label{sec:demo-bandas}
+
+A rota primária ajustou, sobre os resíduos dos mínimos quadrados de cada ano
+de treino, um processo autorregressivo com desfasamentos civis exatos e
+ordem escolhida pelo critério de informação bayesiano~\cite{Schwarz1978} só
+no treino (entre um e sete dias), com predição a um passo no ano seguinte e recurso declarado à banda
+marginal quando o histórico não chega; produziu duas construções, uma
+gaussiana ($\pm 2\hat\sigma$ das inovações, primária no veredicto) e uma por
+quantis empíricos das inovações. A rota de sensibilidade foi a regressão
+quantílica a $\tau = 0{,}02275$ e $0{,}97725$ --- os quantis que
+correspondem a $\pm 2\sigma$ numa normal --- com verificação de não
+cruzamento que recusa o resultado em vez de o corrigir. Uma banda é
+suportada num vetor se o intervalo de confiança da sua cobertura inclui
+$95{,}45\%$ em pelo menos quatro dos cinco pares, sem degeneração.
+
+\begin{table}[htbp]
+  \centering
+  \caption[Bandas alternativas nos vinte pares]{Cobertura no ano seguinte
+  das quatro construções de banda, vinte pares vetor--transição. ``Inclui'':
+  o intervalo MBB da cobertura inclui a referência de $95{,}45\%$; ``sub'' e
+  ``sobre'': exclui-a por baixo ou por cima; NE: não estimável (não
+  convergência declarada). Meia-largura mediana relativa à banda de
+  produção.}
+  \label{tab:bandas}
+  \begin{tabular}{lccccc}
+    \toprule
+    Banda & Inclui & Sub & Sobre & NE & Meia-largura \\
+    \midrule
+    Produção $\pm 2\hat\sigma$   & 10 & 7  & 3 & 0 & $1{,}00$ \\
+    AR, gaussiana                & 9  & 6  & 5 & 0 & $0{,}63$ \\
+    AR, quantis empíricos        & 10 & 6  & 4 & 0 & $0{,}59$ \\
+    Quantílica anual             & 5  & 12 & 2 & 1 & $0{,}97$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+O veredicto é que \textbf{nenhuma rota candidata é suportada em nenhum dos
+quatro vetores} (Tabela~\ref{tab:bandas}) --- e é preciso dizê-lo com
+exatidão, porque a frase ``nenhuma banda é suportada'' seria falsa: a banda
+de produção do vapor de 24~bar é compatível com a referência nos cinco pares.
+O que a rota autorregressiva faz é instrutivo nas duas direções. Recupera
+as falhas mais graves da produção --- no vapor de 10~bar em 2024${\to}$2025
+a cobertura passa de $52{,}9\%$ para $95{,}6\%$ (mais $42{,}7$ pontos,
+intervalo $[30{,}2;\,56{,}3]$); no de 3~bar em 2021${\to}$2022, de $37{,}8\%$
+para $76{,}1\%$ --- e quebra três dos cinco sucessos do 24~bar, porque a sua
+banda, $0{,}63$ da largura da produção, é estreita de mais onde a de
+produção já era adequada. O saldo nos vinte pares é de menos um. Dois
+pormenores mudam a leitura. A rota autorregressiva não é só uma banda: ao
+usar os resíduos dos dias anteriores, muda o \emph{centro} da predição ---
+é um modelo diferente, com memória, e parte do que recupera é o nível que os
+mínimos quadrados anuais não seguem (o que a Secção~\ref{sec:referencia-congelada}
+retoma). E a regressão quantílica sobre um ano tem sete ou oito observações
+por cauda: o seu resultado negativo é da implementação anual, que a linha
+orientadora já desaconselhava, e não da rota.
+
+\subsection{O critério de aceitação e o que decidiu}
+\label{sec:demo-gate}
+
+O critério foi aplicado por adjudicação pura sobre os resultados já
+publicados --- o poder preditivo do Capítulo~\ref{cha:diagnostico} e as
+bandas da secção anterior ---, sem recalcular nada, com cada valor lido de
+uma corrida identificada e verificada por \emph{hash}. Um candidato é um par
+(estimador, banda); com os mínimos quadrados e as quatro construções de
+banda, são dezasseis decisões.
+
+\begin{table}[htbp]
+  \centering
+  \caption[Critério de aceitação: candidatos de mínimos quadrados]{Adjudicação
+  dos dezasseis candidatos com estimador de mínimos quadrados. Conteúdo
+  preditivo: pares (em cinco) com ganho sobre a média do treino e intervalo a
+  excluir zero; banda: pares com cobertura compatível com a nominal. Aceite
+  se ambos $\geq 4/5$.}
+  \label{tab:gate}
+  \small
+  \begin{tabular}{lcccccc}
+    \toprule
+    Vetor & Cont. preditivo & Produção & AR gauss. & AR emp. & Quantílica & Aceites \\
+    \midrule
+    Fuel gás     & \textbf{4/5} & 3/5 & 3/5 & 3/5 & 2/5 + NE & 0/4 \\
+    Vapor 24 bar & 1/5 & \textbf{5/5} & 2/5 & 2/5 & 2/5 & 0/4 \\
+    Vapor 10 bar & 0/5 & 1/5 & 3/5 & 3/5 & 0/5 & 0/4 \\
+    Vapor 3 bar  & 2/5 & 1/5 & 1/5 & 2/5 & 1/5 & 0/4 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Nenhum dos dezasseis candidatos é aceite} (Tabela~\ref{tab:gate}), e
+as razões separam-se limpamente por vetor. O fuel gás cai só pela banda:
+tem conteúdo preditivo em quatro dos cinco pares, mas nenhuma construção o
+acompanha com cobertura compatível em mais de três. Os vapores caem pelo
+conteúdo preditivo --- um, zero e dois pares em cinco --- e a única célula
+em que uma banda passa, a de produção do 24~bar, protege um modelo sem
+relação a proteger: é o espelho do fuel gás, uma banda suportada sem modelo
+por trás.
+
+Os candidatos robustos completos --- Huber e Theil--Sen, cada um com a banda
+marginal sobre a sua escala robusta e com a rota autorregressiva sobre os
+seus resíduos, mais dezasseis decisões --- não mudam o desfecho: zero
+aceites. Os quatro candidatos do fuel gás mantêm o conteúdo preditivo
+(quatro em cinco com ambos os estimadores) e nenhuma banda passa de três em
+cinco; os vapores continuam sem conteúdo preditivo (o melhor, Theil--Sen no
+3~bar, chega a três em cinco). Trocar o estimador pontual não resgata a
+classe. A correção autorregressiva sobe o número de pares compatíveis de
+nove, com a banda marginal, para dezoito --- sem nunca chegar a quatro num
+mesmo candidato; o caso extremo é o vapor de 24~bar com Theil--Sen em
+2024${\to}$2025, em que a banda marginal cobre $14{,}6\%$ e a autorregressiva
+$96{,}6\%$.
+
+O que o zero em trinta e dois significa, e o que não significa, tem de ficar
+escrito com o mesmo cuidado. Significa que nenhuma das combinações avaliadas
+--- três estimadores, seis construções de banda, quatro vetores --- cumpre
+o critério declarado sob a regra de quatro em cinco. Não demonstra a
+impossibilidade da classe linear, nem a necessidade de modelos com estado
+--- essa frase chegou a constar das fichas e foi retirada. E o resultado é
+sensível ao limiar: com uma regra de três em cinco seriam três candidatos
+aceites em dezasseis; a regra de quatro em cinco estava pré-registada e não
+se altera depois de conhecido o resultado, mas o leitor deve saber que a
+decisão assenta em cinco pares anuais, e que a potência de uma regra binária
+sobre cinco observações dependentes nunca foi calculada (Secção~\ref{sec:limitacoes}).
+O que a demonstração estabelece de sólido é o \emph{procedimento}: um
+critério declarado a priori, adjudicação separada do cálculo, razões de
+rejeição distintas por vetor, e um resultado negativo que fica publicado
+como tal em vez de ser ajustado até aparecer um vencedor.
+
+\subsection{Fichas por \emph{baseline}}
+\label{sec:demo-fichas}
+
+A última linha orientadora foi demonstrada produzindo, para cada um dos
+quatro vetores, a ficha de uma página que a governança exige: domínio de
+validade, janela, exclusões, estimador, método de banda e o seu desfecho,
+resultados do critério de aceitação, e proveniência --- setenta e seis
+campos por vetor, cada um lido de uma corrida identificada e verificado por
+\emph{hash} contra o manifesto de origem, sem nenhum valor escrito à mão. As
+fichas não calculam nada: consolidam. E é exatamente por isso que servem de
+especificação para a plataforma (Secção~\ref{sec:implicacoes-plataforma}): o
+que uma pessoa precisa de saber para confiar numa \emph{baseline} cabe numa
+página, desde que cada campo tenha origem rastreável. Duas erratas
+apanhadas em revisão --- um máximo de 2026 publicado como se fosse do
+período 2020--2025, e uma frase sobre ``deriva de nível como falha estrutural
+documentada'' que as corridas não sustentam --- foram corrigidas na versão
+final e ficam registadas no Anexo~\ref{app:adversarial}.
+
+\section{Referência congelada e verdade conhecida}
+\label{sec:referencia-congelada}
+
+A demonstração anterior manteve a perspetiva do método de produção:
+reajustar todos os anos e perguntar se o ajuste transporta. A exploração
+que se segue muda de perspetiva. Congela uma \emph{referência} --- a relação
+estimada em 2020, com a sua escala de erro e, quando aplicável, o seu estado
+inicial --- e aplica-a a 2021--2025 sem lhe tocar. Tudo o que se mede na
+aplicação passa a ser desvio face a 2020, e o desenho separa três objetos
+que o método de produção mistura num só: o resíduo da referência (o desvio
+físico face ao ponto fixo), o estado filtrado (o que um modelo adaptativo
+segue) e a inovação (o que o filtro não previu). O reajuste anual é aqui
+uma sensibilidade, não o primário. Todos os resumos usam uma população
+declarada --- dias de 2021--2025 retidos pela seleção oficial, dentro do
+suporte de carga de 2020, com observação e predição finitas --- e uma
+comparação entre modelos faz-se sempre na interseção dessas populações; foi
+a imposição desta regra, numa revisão independente, que inverteu várias
+ordenações da primeira versão desta exploração, e a versão que aqui se cita
+é a corrigida.
+
+\subsection{O que muda quando não se reajusta}
+\label{sec:referencia-fixa}
+
+\paragraph{A referência congelada mede o desvio.} Aplicada a 2021--2025 na
+população comum aos cinco normalizadores avaliados ($n = 876$ dias), a
+relação de 2020 tem, no fuel gás, \emph{skill} de $41$ a $54\%$ face à média
+de 2020 --- os normalizadores continuam a bater a média cinco anos depois.
+No vapor de 24~bar nenhum normalizador acrescenta nada à média de 2020 (de
+$-5{,}6\%$ a $+0{,}3\%$); no de 10~bar o ganho é de $2$ a $6\%$; no de
+3~bar a média de 2020 é o melhor ``modelo'' de todos, por $16$ a $25\%$. O
+desvio padronizado médio face à referência é de $0{,}97\sigma$ no fuel gás
+e $1{,}73\sigma$ no vapor de 10~bar: a aplicação já não se parece com o ano
+de referência, e um normalizador congelado em 2020 é o que mede essa
+distância. Uma banda de $95\%$ calibrada em 2020 cobre, em 2021--2025 e nos
+dias em que a comparação é admissível, entre $0{,}564$ e $0{,}984$ dos dias
+consoante o vetor, o modelo e a regra --- mediana entre vetores de
+$0{,}71$ a $0{,}86$ por modelo ---, com o vapor de 24~bar acima de $0{,}94$
+em todos os tercis de carga e o de 10~bar a cair a $0{,}43$ no tercil de
+carga baixa. Isto é a medição, não um defeito a corrigir: a banda diz que a
+aplicação já não se parece com a referência, e nenhuma banda é alargada até
+o número voltar. Perder cobertura nominal face a uma referência congelada
+não é, por si, um veredicto de ineficiência (Secção~\ref{sec:limitacoes});
+é a quantidade que um sistema de monitorização deve mostrar e o método de
+produção reabsorve.
+
+\paragraph{Um controlo adaptativo cobre mais, por seguir o desvio.} Nos
+mesmos dias, um controlo por quantis móveis dos noventa dias civis
+anteriores --- só com passado admissível --- cobre $0{,}87$ a $0{,}91$ dos
+dias nos quatro vetores, contra $0{,}60$ a $0{,}99$ da banda fixa; e fá-lo
+com uma banda mais estreita, em unidades da escala de 2020, no vapor de
+10~bar ($3{,}02$ contra $4{,}48$) e no de 24~bar, e mais larga no fuel gás.
+Cobre mais porque se adapta ao desvio que a banda fixa existe para revelar
+--- é a Secção~\ref{sec:leitura-integrada} em números --- e por isso não é
+um substituto: é um controlo, pontuável em $38\%$ dos dias primários
+(exige sessenta erros admissíveis nos noventa dias anteriores).
+
+\paragraph{Um desvio inserido sobrevive à referência fixa e não sobrevive ao
+reajuste.} Para medir o mecanismo diretamente, inseriu-se um desvio
+conhecido --- um degrau e uma rampa, em unidades da escala de cada vetor
+--- sobre os dados reais de aplicação, e mediu-se a fração desse desvio que
+sobrevive em cada canal. O resíduo da referência congelada preserva-o por
+inteiro, em qualquer das três leituras (janela inteira, dias em amplitude
+plena, primeira quinzena em amplitude plena) --- é uma identidade algébrica,
+não um mérito, e é o que ``referência'' significa. Um reajuste da referência
+sobre o período desviado apaga um degrau por completo e deixa passar $3\%$
+de uma rampa. E a inovação de um filtro de nível~\cite{DurbinKoopman2012} assimila um
+desvio sustentado em poucos dias: da primeira quinzena de um degrau retém
+$0{,}136$; da janela inteira, $0{,}002$; uma rampa nunca chega a produzir
+inovação, porque sobe mais devagar do que o filtro aprende. Esta última
+leitura é sobre a inovação de um filtro, não sobre uma estatística de
+monitorização --- se um monitor deteta a mudança é a pergunta da secção
+seguinte. O que fica estabelecido aqui é o mecanismo do
+Capítulo~\ref{cha:diagnostico}, agora medido: reajustar é apagar.
+
+\paragraph{Reajustar com janelas curtas segue melhor onde há o que seguir.}
+%% PENDENTE-REPUBLICACAO: numeros das janelas de reajuste (lote C5-refit)
+%% so depois da republicacao da Task 7; ate la, leitura qualitativa.
+A sensibilidade que reajusta a referência com janelas móveis de seis, doze e
+vinte e quatro meses, ou expansiva~\cite{PesaranTimmermann2007}, dá uma
+leitura qualitativa que não
+depende dos números finais (em revisão à data desta versão): no vapor de
+10~bar --- o vetor com o desvio de $1{,}73\sigma$ --- a janela mais curta
+tem o menor erro e o maior salto de parâmetros entre reajustes, e o erro
+cresce com o comprimento da janela; no fuel gás a ordem inverte-se, e a
+janela expansiva tem o menor erro e o menor salto, porque não há desvio que
+compense o ruído de reajustar com poucos dados. Quem segue melhor é quem
+salta mais, mas só onde há o que seguir --- e um sistema que escolhesse a
+janela pelo erro escolheria, no 10~bar, exatamente o modelo que mais depressa
+esconde o desvio.
+
+\subsection{Monitor e \emph{baseline} com verdade conhecida}
+\label{sec:verdade-conhecida}
+
+A pergunta que o calendário operacional tornou não estimável no
+Capítulo~\ref{cha:diagnostico} --- que desvio o sistema deteta, e o que
+importa mais para o detetar --- só pode responder-se com verdade conhecida.
+Construiu-se, para cada vetor, um gerador com a relação de 2020 (mínimos
+quadrados com as covariáveis de referência), ruído autorregressivo de
+primeira ordem com $\rho = 0{,}6$ e dispersão igual à dos resíduos de 2020,
+366 dias de treino com a máscara real de dias admissíveis de 2020 e uma
+aplicação de noventa dias; os limiares de cada monitor foram calibrados sob
+a hipótese nula a uma taxa de falso sinal de $5\%$ e verificados (quarenta
+canais entre $0{,}020$ e $0{,}072$, um acima do nominal pelo limite de
+Wilson~\cite{Wilson1927}, compatível com o acaso). Sobre este gerador inseriram-se
+alternativas conhecidas --- degrau e rampa de uma escala, alargamento da
+dispersão, recuperação, resposta à carga --- em quatrocentas réplicas por
+célula, e mediu-se a taxa de deteção de cada combinação de \emph{baseline}
+(mínimos quadrados ou modelo aditivo~\cite{HastieTibshirani1986,Wood2017}) e
+monitor (resíduo bruto, filtro de
+nível, soma acumulada, e canais de carga e de escala). \textbf{Nada nesta
+secção é um facto sobre a refinaria}: é o comportamento de métodos sobre um
+gerador que escrevemos, e deve ser lido como tal.
+
+\begin{table}[htbp]
+  \centering
+  \caption[Contrastes co-primários com verdade conhecida]{Diferença de taxa
+  de deteção de um degrau de $1\sigma$, emparelhada por réplica, com intervalo
+  percentil de 2\,000 reamostragens. Esquerda: trocar a \emph{baseline}
+  (mínimos quadrados $\to$ modelo aditivo) com o monitor de nível fixo.
+  Direita: trocar o monitor (filtro de nível $\to$ soma acumulada) com a
+  \emph{baseline} fixa. Gerador com $\rho = 0{,}6$.}
+  \label{tab:coprimarias}
+  \begin{tabular}{lcccc}
+    \toprule
+    Vetor & Trocar a \emph{baseline} & IC 95\% & Trocar o monitor & IC 95\% \\
+    \midrule
+    Fuel gás     & $-0{,}028$ & $[-0{,}052;\,-0{,}005]$ & $+0{,}323$ & $[0{,}273;\,0{,}370]$ \\
+    Vapor 24 bar & $-0{,}013$ & $[-0{,}040;\,0{,}015]$  & $+0{,}438$ & $[0{,}388;\,0{,}487]$ \\
+    Vapor 10 bar & $-0{,}020$ & $[-0{,}045;\,0{,}003]$  & $+0{,}490$ & $[0{,}440;\,0{,}540]$ \\
+    Vapor 3 bar  & $-0{,}028$ & $[-0{,}060;\,0{,}003]$  & $+0{,}390$ & $[0{,}343;\,0{,}438]$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{O monitor pesa; a \emph{baseline} não --- nas oito células
+declaradas.} As oito comparações declaradas como primárias antes da
+execução (Tabela~\ref{tab:coprimarias}) dizem, nos quatro vetores, a mesma
+coisa: trocar o monitor de nível por uma soma acumulada compra entre um terço
+e metade da taxa de deteção de um degrau de uma escala, com os quatro
+intervalos longe de zero; trocar a \emph{baseline} linear por um modelo
+aditivo custa um a três pontos, e só no fuel gás o intervalo exclui zero ---
+a favor da linear. Os quatrocentos e quarenta contrastes secundários,
+publicados sem nunca serem promovidos, dizem onde isto \emph{não} vale: num
+alargamento puro de dispersão a soma acumulada \emph{perde} ($-0{,}28$ em
+média), porque acumula desvios de média e esses cancelam-se; em rampas e
+recuperações compra $0{,}29$ e $0{,}20$; e num banco com interação
+carga$\times$densidade a \emph{baseline} aditiva ganha. A escolha do monitor
+é um compromisso, não uma melhoria --- e nenhuma recomendação vale sem a
+natureza do desvio e a autocorrelação medidas ao lado.
+
+\paragraph{A dependência decide quanto se deteta.} O gerador primário tem
+$\rho = 0{,}6$, que é a autocorrelação residual observada no fuel gás; os
+três vapores estão entre $0{,}8$ e $0{,}9$, e a subir
+(Secção~\ref{sec:diagnosticos-desc}). O lote de sensibilidade responde ao que
+isso muda. Num degrau de uma escala, a soma acumulada deteta $0{,}96$ das
+réplicas a $\rho = 0{,}6$, $0{,}59$ a $\rho = 0{,}9$ e $0{,}39$ a
+$\rho = 0{,}95$ --- neste último caso igual ao resíduo bruto ($0{,}35$): a
+vantagem do monitor desaparece. Numa rampa, a taxa cai de $0{,}64$ para
+$0{,}27$ e $0{,}17$. A leitura para os vapores é, por isso, mais modesta do
+que a das oito células primárias: na dependência que eles exibem, um degrau
+de uma escala é detetado dentro do horizonte em cerca de metade das
+réplicas pelo melhor monitor, e uma rampa em um quarto. O monitor continua
+a pesar; a detetabilidade absoluta é pobre, e o resultado do fuel gás não
+transfere.
+
+\paragraph{O desvio mínimo detetável, no gerador.} Sobre a curva de deteção
+por amplitude de degrau, o desvio a que a soma acumulada deteta metade das
+vezes situa-se entre $0{,}51\sigma$ (vapor de 3~bar) e $0{,}63\sigma$ (vapor
+de 10~bar), contra $0{,}87$ a $1{,}10\sigma$ do filtro de nível e $0{,}95$ a
+$1{,}15\sigma$ do resíduo bruto. Em percentagem do consumo médio dos dias
+retidos de 2020, o desvio mínimo detetável da soma acumulada é $4{,}5\%$ no
+fuel gás, $9{,}4\%$ no vapor de 3~bar e $14{,}7\%$ no de 24~bar; o vapor de
+10~bar é um fluxo líquido com sinal e não admite percentagem. Trinta e duas
+das oitenta curvas estão censuradas à direita --- todas nos canais de carga e
+de escala, que não existem para ver um degrau de nível --- e são publicadas
+como limite aberto, nunca como número. Estes valores são propriedades do
+gerador a $\rho = 0{,}6$; na refinaria, e nos vapores, o parágrafo anterior
+diz o que se pode esperar.
+
+\paragraph{Três sinais falsos, demonstrados.} O mesmo aparelho serviu para
+demonstrar, com verdade conhecida, três leituras sedutoras que a prática de
+monitorização produz. Primeira: duas séries \emph{independentes} têm $R^2$
+diário de $0{,}0025$, mensal de $0{,}18$ e acumulado de $0{,}9999$ --- a
+correlação de séries acumuladas é inteiramente fabricada pela
+acumulação~\cite{Yule1926,GrangerNewbold1974}, e
+um gráfico de consumo acumulado contra carga acumulada não é evidência de
+relação nenhuma. Segunda: branquear a série antes de monitorizar --- usar as
+inovações de um modelo autorregressivo como estatística --- remove
+exatamente a mudança de nível que se quer ver~\cite{AlwanRoberts1988,Wardell1994}: num degrau de uma escala, a
+inovação autorregressiva sinaliza à sua taxa nula ($0{,}095$), enquanto uma
+média móvel de trinta dias deteta $0{,}895$. Terceira: a leitura de que a
+anticorrelação entre os vapores de 24 e 10~bar
+(Secção~\ref{sec:diagnosticos-desc}) ``impede a coocorrência'' de alarmes ---
+que constou de uma versão anterior desta exploração e foi retirada ---
+assentava em pontuar o vapor de 10~bar como unilateral; na lateralidade
+declarada, com os quatro vetores desviados, um canal conjunto sinaliza em
+$0{,}068$ das réplicas contra $0{,}570$ da melhor margem individual, e com um
+só vetor desviado em $0{,}022$. Uma contagem conjunta exige mais do que a
+melhor margem e por isso deteta menos; não é a correlação que o impede.
+
+\paragraph{O que a exploração com referência congelada ainda não fecha.}
+Esta exploração foi submetida a duas revisões independentes. A primeira
+aprovou a integridade da cadeia de resultados e reprovou a conformidade
+científica de sete pontos, todos corrigidos e republicados. A segunda,
+sobre a versão republicada, identificou que várias das suas partes --- a
+comparação entre esquemas de referência, a ordenação de janelas de
+reajuste, a inserção de desvios sobre estados publicados, a agregação a
+frequências semanal e mensal e o suporte da eletricidade --- ainda não
+estimam exatamente a comparação declarada (comparam populações diferentes,
+comprimem o calendário, ou incluem extrapolações no resultado primário). As
+correções estão em curso à data desta versão; este capítulo cita, com
+números, apenas os lotes que essa revisão classificou como aceitáveis, e
+onde uma parte em revisão entra, entra qualitativamente e assinalada.
+
+\section{Implicações para a plataforma}
+\label{sec:implicacoes-plataforma}
+
+O Capítulo~\ref{cha:plataforma} entregou um instrumento que torna o
+diagnóstico possível; este capítulo devolve-lhe uma especificação. O que se
+segue é o bloco de saúde das \emph{baselines} --- o que o \emph{dashboard}
+tem de mostrar para que uma \emph{baseline} seja usada com conhecimento do
+seu estado --- formulado como requisitos, cada um ancorado num resultado
+desta dissertação.
+
+\paragraph{Duas pistas, não uma.} O método de produção usa um só modelo para
+normalizar e para alarmar. A plataforma deve manter duas pistas visíveis
+lado a lado: o modelo anual em vigor, para reporte normalizado e comparação
+entre períodos, como a ISO~50006 pede; e uma referência congelada, com o
+desvio padronizado face a ela e um monitor sequencial sobre esse desvio,
+para deteção. A Secção~\ref{sec:referencia-fixa} mostrou que só a segunda
+mede o desvio; a Secção~\ref{sec:verdade-conhecida} mostrou que o monitor
+sobre ela é o que mais pesa na deteção. A data e a razão de cada mudança de
+referência são registadas.
+
+\paragraph{Domínio visível, alarme suprimido fora dele.} Cada
+\emph{baseline} publica o intervalo de carga e as condições em que foi
+estimada; um dia fora desse domínio é mostrado como ``fora de domínio'', não
+como anomalia, e o seu alarme é suprimido. O limiar de carga oficial já
+define um domínio implícito (Secção~\ref{sec:perfil-dados}); a plataforma
+torna-o explícito.
+
+\paragraph{Calibração monitorizada, não assumida.} A cobertura efetiva da
+banda de alarme nos últimos noventa e cento e oitenta dias, com intervalo de
+confiança que respeite a dependência, é um indicador do bloco de saúde ---
+não a taxa de alarmes, que confunde descalibração com desvio. Uma cobertura
+que exclui a nominal pelo intervalo desencadeia a política de investigação,
+não uma recalibração automática.
+
+\paragraph{Ficha por \emph{baseline}.} Os setenta e seis campos da
+Secção~\ref{sec:demo-fichas} --- domínio, janela, exclusões com códigos de
+razão, estimador, método de banda e desfecho, resultados do critério de
+aceitação, proveniência --- são a ficha que acompanha cada \emph{baseline}
+na plataforma, gerada dos resultados e nunca editada à mão. Uma
+\emph{baseline} sem ficha não está em produção.
+
+\paragraph{Políticas separadas e registadas.} Alarme, investigação, suspensão,
+recalibração e verificação pós-recalibração são cinco estados com transições
+declaradas; a recalibração exige sinal do monitor mais revisão documentada,
+com a opção ``causa desconhecida, recalibrar com sinalização''; a
+certificação do modelo recalibrado usa só dados posteriores. O registo de
+versões, aprovações e revisões é parte do bloco, não um documento à parte.
+
+\paragraph{O que a plataforma não pode fazer sem informação que não tem.}
+Nenhum dos requisitos acima classifica um desvio como ineficiência, nem um
+alarme como falso. Isso exige o calendário operacional, rótulos de eventos e
+margens materiais elicitadas com a operação --- as três coisas que esta
+dissertação não teve. A plataforma pode e deve registar o desvio e o alarme
+com a sua proveniência; a classificação é uma decisão humana até que essa
+informação exista, e o desenho deve deixar espaço para a receber.
+
+\section{Limitações}
+\label{sec:limitacoes}
+
+\paragraph{Do estudo.} Uma unidade, seis anos completos, um único
+\emph{snapshot} de dados já explorados: não há afirmação fora de amostra que
+sobreviva, e o desenho não a tenta --- a demonstração das linhas
+orientadoras é retrospetiva e encadeada, nunca \emph{holdout}, porque 2025 e
+o parcial de 2026 já tinham informado o diagnóstico. As conclusões são
+condicionais ao modelo linear, à seleção oficial e às janelas anuais que o
+método de produção herdou. O calendário operacional, os rótulos de eventos e
+as margens materiais não estavam disponíveis: nenhum desvio é ineficiência,
+nenhuma excursão é falso alarme, nenhuma cobertura é qualidade de deteção,
+e a detetabilidade só foi estudada em simulação. Há erro de medição na
+carga, possível endogeneidade (a operação reage aos alarmes), agregação
+diária que esconde dinâmica intra-diária, um mecanismo de falta não
+identificável sem fonte operacional, e nenhum padrão de referência
+independente do modelo Power BI original para as observações selecionadas.
+A energia elétrica é uma alocação mensal e fica fora de qualquer inferência
+diária.
+
+\paragraph{Da inferência.} Todos os veredictos assentam em cinco pares
+anuais e em regras binárias sobre eles; a potência dessas regras sob a
+dependência observada não foi calculada, e o zero em trinta e dois passa a
+três em trinta e dois com uma regra de três em cinco. O intervalo de
+confiança por \emph{bootstrap} de blocos usa um bloco base de sete dias
+sobre resíduos com autocorrelação até $0{,}90$; a sua cobertura nominal não
+está demonstrada --- a validação por simulação a $\rho = 0{,}90$ deu
+$0{,}8925$ (intervalo de Wilson $0{,}86$ a $0{,}92$), o que não é evidência
+de cobertura inferior a $0{,}90$ nem prova de cobertura de $0{,}95$. Um
+contraste que exclui zero por pouco está dentro do erro de calibração do
+próprio instrumento, e a sensibilidade ao comprimento de bloco reportada
+nas Secções~\ref{sec:estabilidade} e~\ref{sec:calibracao} é o sintoma
+visível disso. A correção de multiplicidade aplica-se só à família dos
+testes de estabilidade; todos os outros resultados são por contraste, e a
+sua contagem não é evidência conjunta. ``Não rejeitado'' nunca é
+``equivalente''~\cite{Lakens2017}: não há margens práticas elicitadas.
+
+\paragraph{Da simulação.} O gerador primário tem $\rho = 0{,}6$, o regime do
+fuel gás, não o dos vapores; depende da relação de referência, das
+máscaras, do ruído e do orçamento de réplicas escolhidos; o modelo aditivo
+corre com hiperparâmetros fixos; o desvio mínimo detetável é do gerador, não
+da unidade; e um número obtido em quatrocentas réplicas de um gerador que
+escrevemos não é um facto sobre a refinaria, por muitas réplicas que tenha.
+
+\paragraph{Das linhas orientadoras.} A classe linear robustificada, com
+bandas honestas e critério de aceitação, leva o modelo estático ao máximo
+defensável --- e não resolve a não-estacionariedade estrutural que o
+diagnóstico documenta. O critério de aceitação é um procedimento com
+critérios declarados, demonstrado com $n = 5$; o que ele decide depende do
+limiar, e o que não decide é a impossibilidade da classe. A resposta
+completa --- modelos com estado de degradação, referência congelada com
+monitor sequencial em produção, validação com eventos reais --- é a
+investigação seguinte (Capítulo~\ref{cha:conclusoes}), para a qual ficam
+prontos a plataforma, o diagnóstico, o critério de aceitação e a evidência
+auditável que os sustenta.

@@ -1,0 +1,390 @@
+%!TEX root = ../template.tex
+%% ====================================================================
+%% Capitulo 5 -- Resultados I --- A plataforma
+%% Primeira versao completa 2026-09-08. Linguagem descritiva.
+%% Fontes da vistoria (2026-09-08): ~/tese-extraccao (modelo v22 de
+%% 2026-07-31: modelo.bim, medidas, queries, particoes, metadados, 25 TSV,
+%% .pbix com 4 paginas, 33 prints), notas do Mind Palace de 2026-07-01/03
+%% (mapeamento e validacao a 3 fontes) e memoria do projeto (2026-07-05).
+%% Marcas %% CONFIRMAR assinalam factos a confirmar pelo autor.
+%% Figuras: prints em ~/tese-extraccao/prints_dashboard (recortar e
+%% anonimizar antes de incluir); sugeridas 4, uma por pagina.
+%% ====================================================================
+
+\chapter{Resultados I --- A plataforma}
+\label{cha:plataforma}
+
+O primeiro resultado desta dissertação é um instrumento. Este capítulo
+descreve o que foi entregue --- a arquitetura da plataforma de
+monitorização energética que está em uso na refinaria ---, prova que a
+camada de dados diz a verdade, apresenta o \emph{dashboard} que a torna
+legível, e declara o que ficou de fora. Tudo o que o
+Capítulo~\ref{cha:diagnostico} conclui sobre as \emph{baselines} é uma
+consulta ao modelo de dados aqui descrito; se este capítulo falhasse, o
+seguinte não teria base. A ordem do capítulo é a ordem da confiança: só
+depois de se ter mostrado que os números batem certo é que faz sentido
+mostrar como se leem.
+
+% [REV-2026-09-13][C5-01][P2][ESTRUTURA] Separar resultado entregue de características da implementação
+% O inventário da arquitetura repete o Cap. 4. Aqui bastam funcionalidades,
+% âmbito coberto e evidência de entrega/uso: versão, data, modo de publicação,
+% cadência de atualização e responsável pela manutenção. Tempo de refresh,
+% latência dos dados e desempenho em tarefas concretas são evidências
+% melhores de utilidade que número de medidas ou tamanho do ficheiro.
+% Se não foram medidos, limitar a conclusão a implementação funcional.
+% [/REV-2026-09-13]
+\section{Arquitetura entregue}
+\label{sec:arquitetura}
+
+\paragraph{O que é.} A plataforma é um modelo tabular em Power BI ---
+\emph{Energy Performance Monitor}, versão 22, de 31 de julho de 2026 ---
+com um esquema em estrela de 32 tabelas, 243 colunas, 13 relações, 159
+medidas e 21 consultas de transformação, que cobre 16 unidades processuais
+em três fábricas e nos extras (enxofres e \emph{flares}), sete vetores
+energéticos, resolução diária, de 1 de janeiro de 2020 ao dia anterior a
+cada atualização. O modelo ocupa 68,7~MB e importa os dados; o historiador
+é consultado através da plataforma de dados da refinaria, os balanços e os
+relatórios de eletricidade lidos das pastas de rede onde o Processamento de
+Dados os mantém, e os planos de fabrico do arquivo de planeamento. As
+consultas ao historiador são geradas a partir das tabelas de mapeamento
+no momento da atualização; nenhuma \emph{tag} está escrita no código.
+
+\paragraph{Três decisões que o definem.} A primeira é a que a
+Secção~\ref{sec:modelo-dimensional} descreve: os três canais de origem
+coexistem na tabela de factos e uma regra de precedência declarada escolhe
+por linha, com a origem registada --- é o que torna a validação da secção
+seguinte possível, porque um dia com balanço e \emph{tag} em simultâneo é
+um dia com duas medições independentes da mesma coisa. A segunda é que a
+\emph{baseline} é materializada no modelo: a tabela de coeficientes por
+unidade, vetor e ano é calculada uma vez por atualização e as medidas de
+resíduo, banda e excesso leem-na por pesquisa, em vez de reestimarem a
+regressão em cada visual --- o que tornou o \emph{dashboard} responsivo e,
+mais importante, tornou a \emph{baseline} exportável e auditável como uma
+tabela. A terceira é que todos os parâmetros que um utilizador pode querer
+mudar --- ano de referência da \emph{baseline}, métrica (toneladas,
+percentagem ou desvios-padrão), janela (último dia, 7 dias, 30 dias,
+acumulado), unidade, vetor, período --- são seletores do modelo e não
+cópias de páginas: as 159 medidas são genéricas em relação ao contexto de
+filtro, e a mesma medida serve as quatro páginas.
+
+\paragraph{Como está organizado.} As medidas vivem em tabelas de domínio
+--- consumos e conversões gerais, \emph{baselines}, resíduos e bandas,
+séries temporais e acumulados, índice de intensidade, seletores e cartões
+--- para que quem mantém o modelo encontre cada cálculo pelo que ele faz.
+Os visuais que o Power BI nativo não oferece (o diagrama de dispersão com
+banda e cor temporal, o mapa de calor de calendário, a cascata, a matriz
+de prioridades, os cartões de indicador) são declarados em Vega-Lite ou em
+HTML dentro do próprio relatório, sem dependências externas, e leem as
+mesmas medidas. Seis marcadores guardam as vistas de arranque de cada
+página.
+
+\paragraph{Evolução.} A primeira arquitetura, de março de 2026, ligava-se
+ao historiador por consulta direta, usava um limiar de carga único e
+estimava a regressão em tempo de consulta; a versão de julho, aqui
+descrita, importa, lê o limiar de cada unidade da sua dimensão,
+materializa a \emph{baseline} e reconcilia três canais. Entre as duas
+versões o mapeamento mestre chegou à sua vigésima segunda revisão, e a
+validação da secção seguinte motivou a maior parte das últimas.
+%% CONFIRMAR: publicacao (workspace Power BI Service? cadencia de atualizacao?
+%% utilizadores — equipa TEC de monitorizacao) — a memoria do projeto diz
+%% "em producao"; precisar onde e desde quando.
+
+% [REV-2026-09-13][C5-02][P1][VALIDACAO] As três leituras podem partilhar o mesmo erro
+% Relatório, reconstrução e dashboard podem derivar do mesmo balanço e
+% dos mesmos medidores. Descrever independência do processamento e
+% dependência das fontes, sem as chamar três medições independentes.
+% Divergência pode vir de fronteiras/definições diferentes, não de um valor
+% fisicamente errado. Especificar os 400 casos, unidade da tolerância
+% (t ou MWh, conforme vetor), denominador, regra para zeros/ausentes e
+% tratamento do sinal. Separar confirmação física e concordância contabilística.
+% [/REV-2026-09-13]
+\section{Validação da camada de dados}
+\label{sec:validacao-dados}
+
+Um \emph{dashboard} que apresenta números errados com confiança é pior do
+que nenhum \emph{dashboard}. Antes de qualquer visual ser dado por
+terminado, a camada de dados foi validada a três fontes: para cada
+unidade, vetor e mês de janeiro a maio de 2026, o valor do
+\emph{dashboard} foi comparado com o relatório oficial de consumo emitido
+por cada fábrica (o ``Envio'') e com uma reconstrução independente a
+partir do mapeamento mestre aplicado diretamente às folhas de medidores do
+balanço --- 400 células, com tolerância de 2~t ou 0,2\%, o que for maior.
+As três fontes são, em princípio, três leituras da mesma realidade física;
+onde discordam, uma delas está errada, e o método existe para descobrir
+qual.
+
+% [REV-2026-09-13][F08][P2][FIGURA] Prova visual da reconciliação antes e depois
+% Após descrever a amostra, inserir dois painéis. (a) Barras empilhadas
+% por versão com coincidente/divergente/sem consumo/sem dados; manter os
+% mesmos 400 casos e distinguir vazios de sucessos. (b) Discrepância por
+% unidade-vetor ou gráfico de diferenças, com limites de tolerância e
+% identificação das causas corrigidas. Usar apenas as versões verificadas,
+% não o fecho "esperado". Uma tabela de causas/n.º de casos/impacto
+% complementa; mover os relatos repetidos de bugs para o Apêndice C.
+% [/REV-2026-09-13]
+\paragraph{O ponto de partida.} Na versão 13 do mapeamento, 242 células
+coincidiam, 64 estavam vazias (combinações unidade--vetor sem consumo) e
+94 divergiam. O trabalho de julho de 2026 foi explicar as 94, uma a uma,
+até nenhuma ficar classificada como inconsistente. Ficaram explicadas por
+sete causas, e o resultado mais instrutivo da validação é onde essas
+causas estavam: em todas as três fontes.
+
+\paragraph{Erros no motor.} O canal de balanço não tinha mecanismo de
+inclusão: a coluna de factor do mapeamento aplicava-se só ao canal de
+\emph{tags} (conversão de kg/h para t/h), e as dezoito linhas com factor
+zero --- circuitos internos, medidores partilhados --- entravam por
+inteiro, enquanto uma linha de crédito (factor $-1$) não era subtraída.
+Duas unidades apareciam com o dobro do vapor real (48\,461 contra
+26\,019~t num nível; 160\,322 contra 80\,696~t noutro, em cinco meses); a
+correção, uma coluna nova de factor de inclusão para o canal de balanço,
+moveu 251~kt de vapor em módulo sem tocar no canal de \emph{tags}. Um
+filtro de nomes de folhas que só aceitava as fábricas excluía as folhas
+dos enxofres e dos \emph{flares}: essas unidades nunca entravam na tabela,
+e o mapeamento --- que já estava certo --- não podia ser validado. Um
+ficheiro de segurança deixado na pasta de leitura dos relatórios de
+eletricidade era lido ao vivo e somado ao definitivo, duplicando quatro
+unidades em janeiro. E, antes destes, o desvio de colunas do balanço de
+utilidades (Secção~\ref{sec:fontes}) sub-reportava os três níveis de vapor
+em 5 a 7\% em todas as unidades --- o único destes erros que era
+universal e silencioso.
+
+\paragraph{Erros no mapeamento.} Uma referência de medidor em falta na
+produção de vapor de 3~bar da destilação atmosférica produzia um défice
+todos os meses --- 29,6; 61,1; 33,3; 9,4; 0,8~t --- que passava por baixo
+da tolerância relativa em quatro dos cinco meses; foi encontrada por
+procura do perfil mensal do défice entre as 481 referências da folha de
+medidores, com coincidência a 0,1~t nos cinco meses. A alocação da
+produção de vapor entre as duas unidades de vácuo seguia uma convenção
+diferente da do controlo processual; das oito fórmulas oficiais, seis
+foram confirmadas a $\pm0{,}5$~t e duas rejeitadas e devolvidas ao
+controlo processual com a evidência (uma delas referia uma linha de
+outra versão do ficheiro). Duas referências de fuel gás dos enxofres
+tinham grafias que nunca existiram na folha --- um hífen no sítio errado,
+uma letra a mais.
+
+\paragraph{Erros na fonte oficial.} No relatório cumulativo de uma
+unidade, um bloco de linhas de fevereiro tinha a coluna colada de maio:
+produção de vapor a 24~bar 3\,264,0 no relatório contra 2\,215,4 nas
+medições; consumo de vapor a 3~bar 1\,120,0 contra 2\,430,7; energia
+elétrica 828,9 contra 569,1~MWh. O consumo específico do mês parecia
+validar o valor colado --- porque era recalculado sobre ele com a carga
+verdadeira, que escapara à colagem; o que o denunciou foi a igualdade ao
+decimal entre a célula de fevereiro e a de maio. O Processamento de Dados
+confirmou e corrigiu o relatório; as três células fecharam a três fontes
+ao decimal. É o episódio que inverte a hierarquia habitual: a
+``verdade-terreno'' estava errada e o \emph{dashboard} certo, e só uma
+validação com três leituras independentes o podia mostrar.
+
+% [REV-2026-09-13][C5-03][P1][EVIDENCIA] 400/400 aparece como facto e como resultado por confirmar
+% O comentário existente diz que 400/400 era "esperado". Até existir
+% evidência da execução final, esta afirmação não pode provar a validação
+% completamente limpa. Referenciar relatório/data/versão e separar casos
+% numéricos de vazios. Esclarecer mudança de 64 para 65 vazios.
+% Não extrapolar janeiro--maio de 2026 para 2020--2025 sem verificação
+% histórica; a análise de baselines usa sobretudo esse intervalo anterior.
+% [/REV-2026-09-13]
+\paragraph{O fecho.} A progressão foi 242 células coincidentes na versão
+13, 263 depois do factor de inclusão, 392 de 400 com a versão 15 (327
+coincidentes mais 65 vazias), 395 com o relatório de fevereiro corrigido e
+400 de 400 com a versão 15.1 --- a primeira validação completamente limpa
+da cadeia, dos relatórios ao motor ao mapeamento.
+%% CONFIRMAR: o 400/400 foi observado no refresh seguinte a v15.1 (a nota
+%% de 2026-07-03 diz "esperado"); se sim, indicar a data.
+O fuel gás foi validado a duas fontes, por decisão de âmbito, e a
+ressalva fica escrita: o \emph{dashboard} coincide com o relatório porque
+ambos leem o mesmo balanço de produção; é consistência entre fontes
+dependentes, não verificação, e se o balanço vier errado erram os dois
+sem aviso.
+
+% [REV-2026-09-13][C5-04][P2][DADOS] A definição de carga interfere diretamente no diagnóstico
+% Explicar a correspondência entre 24 unidades da validação e 16 do
+% dashboard, e qual definição de Q entra em cada indicador e regressão.
+% Mostrar efeito de reprocessamento na seleção pelo limiar e no ajuste,
+% além do consumo específico. Se a escolha permanece pendente, separar
+% replicação da convenção existente da validade física dessa convenção;
+% não a deixar como detalhe administrativo.
+% [/REV-2026-09-13]
+\paragraph{A carga.} A carga foi validada por outro caminho: a soma dos
+componentes de carga de cada unidade contra a linha de carga do balanço,
+em 118 de 120 células (24 unidades, cinco meses) a $\pm0{,}1$~t; as duas
+que não fecham são definição, não erro --- a linha de carga da destilação
+atmosférica exclui o resíduo atmosférico reprocessado, que em fevereiro
+valeu 9\% da carga do mês. Ficou identificada uma questão que o
+\emph{dashboard} não resolve sozinho: os relatórios oficiais e o balanço
+usam duas definições de carga (hidrocarbonetos ao nível do componente,
+excluindo hidrogénio, limpezas, \emph{quench} e retornos, contra a linha
+total do balanço), ambas reproduzíveis, e a escolha muda os consumos
+específicos --- 2,4\% numa unidade só pelo hidrogénio, um factor de sete
+noutra. É uma decisão de definição de indicador, registada como pendente
+e devolvida a quem define o indicador.
+
+\paragraph{O que a validação ensinou.} Quatro lições passaram a regras
+da plataforma. Uma tolerância relativa em números grandes esconde termos
+pequenos e sistemáticos: o segundo teste obrigatório é a consistência do
+resíduo --- se a diferença tem sempre o mesmo sinal e nunca é nula, é
+estrutural, por mais pequena que seja. Um filtro de ficheiros por prefixo
+é uma armadilha (``fábrica I'' é prefixo de ``fábrica II''); os filtros
+passaram a exigir o nome canónico completo e a recusar duplicados em vez
+de os somar. Os ficheiros de segurança nunca ficam na pasta de leitura. E
+a validação a três fontes não é um passo de projeto: é um teste de
+aceitação permanente, que a plataforma repete a cada fecho mensal, porque
+apanhou erros nas três fontes e nenhuma delas, isolada, era fiável.
+
+% [REV-2026-09-13][F09][P2][FIGURA] Dois screenshots anotados no corpo, quatro páginas no manual
+% Usar (1) vista da refinaria com percurso unidade -> vetor e (2) detalhe
+% de baseline com reta, dados, banda e acumulado; colocar cada imagem
+% após o respetivo parágrafo. Recortar ao canvas e anotar 3--5 elementos
+% referidos no texto; incluir data, filtros, janela e referência visíveis.
+% Usar capturas reais verificadas de prints_dashboard, sem inventar estados.
+% Mover capturas integrais das quatro páginas e instruções para o Apêndice E.
+% Uma figura por página só se os rótulos ficarem legíveis à dimensão final.
+% [/REV-2026-09-13]
+\section{O \emph{dashboard}}
+\label{sec:dashboard}
+
+O \emph{dashboard} tem quatro páginas, desenhadas como um percurso de
+diagnóstico: da refinaria para a unidade, da unidade para o vetor, do
+vetor para a \emph{baseline} que o julga. Todas partilham o cabeçalho
+--- métrica, janela, ano e mês, ano de referência da \emph{baseline}, data
+da última atualização --- e a mesma semântica: um desvio é sempre medido
+contra a \emph{baseline} do ano de referência selecionado, aplicada à carga
+do próprio dia, e é positivo quando o consumo excede o previsto.
+%% FIGURA: prints_dashboard (uma por pagina), recortadas ao canvas.
+
+% [REV-2026-09-13][C5-05][P2][INTERPRETACAO] A ordenação do dashboard herda os limites das baselines
+% "Melhor/pior unidade", Pareto de excesso e semáforos podem ordenar erro
+% de modelo, escala e exposição em vez de desempenho energético. Descrever
+% como comportamento atual, sem o validar por utilidade presumida.
+% Na proposta, preferir "maior desvio observado", mostrar domínio/qualidade,
+% volume processado e incerteza; não usar média de R² como certificação de
+% qualidade. Acrescentar um exemplo de como uma decisão mudaria ao conhecer
+% o estado da baseline, sem alegar poupança não medida.
+% [/REV-2026-09-13]
+\paragraph{Vista comparativa da refinaria.} A primeira página responde à
+pergunta da reunião da manhã: onde olhar primeiro. Uma matriz de
+semáforos cruza as 16 unidades com os seis vetores e mostra o desvio na
+métrica e janela escolhidas, distinguindo ``sem vetor'', ``sem
+\emph{baseline}'' e ``sem dados na janela''; um cartão de extremos
+identifica a melhor e a pior unidade e o melhor e o pior par
+unidade--vetor; um gráfico de barras ordena as unidades pelo desvio; um
+diagrama de Pareto por par unidade--vetor mostra que poucos pares
+concentram o excesso acumulado; um cartão de excesso acumulado dá o total
+do período, o ritmo a 7 e a 30 dias contra a \emph{baseline}, e as unidades
+que mais contribuem; a tendência mensal do excesso da refinaria contra a
+\emph{baseline} mensal; um cartão dos piores e melhores dias do período
+com o par dominante em cada um; e um cartão de qualidade das
+\emph{baselines} do ano de referência --- coeficiente de determinação
+médio, contagem de relações adequadas, marginais e inadequadas, e a
+qualidade por unidade. Este último cartão é a primeira forma em que o
+diagnóstico do Capítulo~\ref{cha:diagnostico} entrou na plataforma: ainda
+antes de qualquer teste, mostra ao utilizador que a maioria das relações
+com a carga explica pouco.
+
+\paragraph{Detalhe da unidade.} A segunda página fixa uma unidade e mostra
+os seus vetores: cartões de melhor e pior vetor, índice de intensidade,
+GNE total e específico do dia e acumulado do período com variação face à
+\emph{baseline}, CO$_2$ equivalente, e excesso acumulado decomposto por
+vetor com o seu ritmo. Um gráfico de linhas sobrepõe o consumo total ao
+consumo específico com as médias móveis de 7 e 30 dias; um gráfico de
+barras a 100\% mostra, por vetor, a fração de dias abaixo e acima da
+banda de $\pm2\sigma$; um mapa de calor de calendário --- um quadrado por
+dia, colorido pelo resíduo padronizado --- torna visíveis os períodos
+persistentes e as sequências, com uma sobreposição opcional do plano de
+fabrico para ligar os dias a campanhas; e uma matriz de prioridades coloca
+cada vetor num plano de fração de dias em alarme contra desvio médio
+fora da banda, com o tamanho proporcional ao excesso acumulado. É a
+página que responde ``qual vetor, e há quanto tempo''.
+
+\paragraph{Índice de intensidade.} A terceira página apresenta o índice
+de intensidade energética da unidade (Secção~\ref{sec:metricas}) no dia e
+nas janelas de 7 e 30 dias, sobre as bandas de quartil da indústria; os
+cartões de índice atual e médio, do factor padrão da unidade, do quadrante
+e do peso da unidade no índice da refinaria; uma cascata que decompõe o
+índice por vetor e pela \emph{baseline}; e o consumo real contra a energia
+padrão dia a dia, com o contexto de carga e de qualidade da
+\emph{baseline} ao lado. Serve para situar a unidade face a uma referência
+externa que a refinaria já usa; não substitui a \emph{baseline} interna nem
+foi objeto do diagnóstico.
+
+\paragraph{\emph{Baselines} e diagnóstico.} A quarta página é a que a
+avaliação do Capítulo~\ref{cha:diagnostico} tomou como objeto. Para um
+vetor, uma unidade e um ano de referência: o diagrama de dispersão do
+consumo contra a carga, com a reta estimada, a banda de $\pm2\sigma$ e os
+pontos coloridos pelo tempo, do mais antigo ao mais recente; um cartão de
+estatísticas com a equação, o coeficiente de determinação no ano de
+referência e no período, o desvio-padrão residual, a fração de dias acima
+e abaixo da banda; um painel com as oito regras de carta de controlo e o
+número de ocorrências de cada uma, o total de dias limpos e com violação e
+a regra dominante; a soma acumulada dos resíduos desde o início do
+período, com o ritmo a 7 e a 30 dias, que mostra um desvio persistente
+antes de a banda diária o assinalar; e os resíduos padronizados no tempo
+com as bandas de 1, 2 e 3 desvios-padrão, ou, por alternância, o consumo
+observado contra o previsto. No estado de julho de 2026, para o fuel gás
+da destilação atmosférica com referência em 2024, o painel mostrava sete
+das oito regras violadas e 124 dias em 295 com pelo menos uma violação, a
+regra dominante a ser oito dias consecutivos do mesmo lado --- o retrato,
+já visível no instrumento, do que o Capítulo~\ref{cha:diagnostico} mede
+com inferência adequada.
+
+\paragraph{O que a monitorização passou a permitir.} Antes da plataforma,
+o consumo por unidade e vetor existia em relatórios mensais por fábrica,
+fechados algumas semanas depois do mês, sem normalização pela carga e sem
+comparação entre unidades além da leitura manual. Com ela, o mesmo consumo
+está disponível ao dia, para as 16 unidades e os sete vetores, com a
+carga, a \emph{baseline}, o resíduo e o acumulado no mesmo lugar, e com a
+proveniência de cada valor registada --- que canal o forneceu, e se um
+poder calorífico ou uma propriedade foi medido ou assumido. A pergunta
+``esta unidade consome mais do que devia?'' passou a ter uma resposta
+consultável; a pergunta seguinte --- se essa resposta é estatisticamente
+válida --- é a do capítulo seguinte.
+
+\section{Cobertura e limitações da plataforma}
+\label{sec:cobertura}
+
+\paragraph{O que está dentro.} Dezasseis unidades processuais, sete
+vetores, seis anos e sete meses de história diária, três canais
+reconciliados, \emph{baselines} por ano e vetor materializadas e
+exportáveis, índice de intensidade por unidade, planos de fabrico desde
+2020 e propriedades da carga onde o historiador as tem.
+
+\paragraph{O que ficou de fora, por decisão.} O gás natural e o
+\emph{tail gas} não entram no perímetro de nenhuma unidade. O coque, por
+ser subproduto queimado no regenerador e não combustível orçamentável,
+tem \emph{baseline} própria mas fica fora do agregado global. As secções
+sem casa própria no \emph{dashboard} (as secções auxiliares agregadas na
+composição de cada unidade) contam para a unidade que as contém, com a
+composição declarada na dimensão. Os \emph{flares} não têm
+\emph{baseline}, porque não têm carga.
+
+\paragraph{O que ficou de fora, por limitação dos dados.} A energia
+elétrica é uma alocação mensal distribuída uniformemente pelos dias:
+qualquer leitura diária dela é uma leitura do mês, e o
+Capítulo~\ref{cha:diagnostico} trata-a como tal. Uma parte das
+\emph{tags} do historiador referidas no mapeamento está anotada como ``a
+verificar'' e o valor correspondente vem do balanço; onde uma
+propriedade da carga não tem \emph{tag}, o modelo usa o valor por omissão
+declarado e regista-o como assumido. Os poderes caloríficos sem
+\emph{tag} são propagados do último valor conhecido quando um mês não os
+traz, com a origem registada. A resolução é diária: transientes de
+arranque, perturbações de turno e alterações rápidas de utilidades não
+são visíveis --- o instrumento é tático e supervisório, não de sala de
+controlo. Não há calendário operacional integrado (paragens, arranques,
+intervenções), o que o plano de fabrico sobreposto ao calendário mitiga
+mas não substitui; a consequência para a avaliação está na
+Secção~\ref{sec:detetabilidade}.
+
+\paragraph{O que a validação deixou aberto.} A definição de carga para os
+indicadores (com ou sem resíduo reprocessado; hidrocarbonetos ao nível do
+componente ou linha total do balanço) é uma decisão pendente que muda os
+consumos específicos; duas fórmulas de alocação foram devolvidas ao
+controlo processual; o fuel gás está validado a duas fontes dependentes; e
+o mecanismo de zeros fabricados no canal de balanço, que a estimação de
+\emph{baselines} exclui por filtro, continua por resolver na fonte.
+
+\paragraph{O que o instrumento não decide.} A plataforma mostra desvios
+face a uma \emph{baseline}; não diz se a \emph{baseline} é válida, nem se um
+desvio é ineficiência. A primeira pergunta é a do
+Capítulo~\ref{cha:diagnostico}; a segunda exige informação que a
+refinaria tem e a plataforma ainda não recebe --- eventos operacionais,
+rótulos, margens de materialidade --- e a Secção~\ref{sec:implicacoes-plataforma}
+diz como o desenho fica preparado para a receber.

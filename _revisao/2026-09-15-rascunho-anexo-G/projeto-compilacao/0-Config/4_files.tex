@@ -1,0 +1,174 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Config/4_files.tex
+%% NOVA thesis configuration file
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE Config/4_files.tex}%
+
+%=============================================================================
+% THE FILES
+%=============================================================================
+
+%-------------------------------------------------------------
+%% Except for the bibliography, all the other FILE NAMES below
+%%     inside braces must correspond to a file with extension
+%%     ".tex" and located in the "Chapters" folder
+%-------------------------------------------------------------
+
+%-------------------------------------------------------------
+% BibTeX bibliography files and customization.
+%.............................................................
+%
+% May be used multiple times with a single file name each time
+%-------------------------------------------------------------
+\ntaddfile{bib}{bibliography.bib}
+%\ntaddfile{bib}{anotherbibfile.bib}
+
+
+
+%-------------------------------------------------------------
+% File with the dedication text.
+%.............................................................
+%
+% Ignored if 'status=working'
+%-------------------------------------------------------------
+\ntaddfile{dedication}{dedication}
+
+
+
+%-------------------------------------------------------------
+% File with the acknowledgments text.
+%.............................................................
+%
+% Ignored if 'status=working'
+%-------------------------------------------------------------
+\ntaddfile{acknowledgements}{acknowledgements}
+
+
+
+%-------------------------------------------------------------
+% File with the statement text.
+%.............................................................
+%
+% Ignored if 'status=working'
+%-------------------------------------------------------------
+% \ntaddfile{statement}[en]{univ-school/statement-en}
+% \ntaddfile{statement}[pt]{univ-school/statement-pt}
+
+
+
+%-------------------------------------------------------------
+% File with the qute text.
+%.............................................................
+%
+% Ignored if 'status=working'
+%-------------------------------------------------------------
+\ntaddfile{quote}{quote}
+
+
+
+%-------------------------------------------------------------
+% Abstracts
+%
+%     \ntaddfile{abstract}[<lang>]{<filename>}
+%.............................................................
+%
+% <lang>: -> cat (catalan), cz (czech), de (german), dk (danish), en (english), 
+%            es (spanish), fr (french), gr (greek), it (italian), nl (dutch), 
+%            pl (polish), pt (portuguese), sk (slovak), uk (ukrainian)
+%            zhs (chinese simplified), zht (chinese traditional)
+%
+% <filename>: -> must be '1-Frontmatter/filename.tex'
+%
+% Specifically for ULISBOA-FMV, the extended asbtract
+%       \ntaddfile{abstract}[pt-ext]{abstract-pt-ext}
+%-------------------------------------------------------------
+\ntaddfile{abstract}[pt]{abstract-pt}  % Abstract in Portuguese
+\ntaddfile{abstract}[en]{abstract-en}  % Abstract in English
+% \ntaddfile{abstract}[de]{abstract-de}  % Abstract in German
+% \ntaddfile{abstract}[es]{abstract-es}  % Abstract in Spanish
+% \ntaddfile{abstract}[fr]{abstract-fr}  % Abstract in French
+% \ntaddfile{abstract}[it]{abstract-it}  % Abstract in Italian
+% \ntaddfile{abstract}[gr]{abstract-gr}  % Abstract in Greek
+% \ntaddfile{abstract}[uk]{abstract-uk}  % Abstract in Ukrainian
+% \ntaddfile{abstract}[zhs]{abstract-zhs}  % Abstract in Chinese (Simplified)
+% \ntaddfile{abstract}[zht]{abstract-zht}  % Abstract in Chinese (Traditional)
+% % \ntaddfile{abstract}[pt-ext]{abstract-pt-ext}  % Extended abstract in Portuguese (e.g., for ulisboa/fmv)
+
+
+
+%-------------------------------------------------------------
+% Glossaies (glossary, acronyms, symbols, etc)
+%
+%     \ntaddfile{glossaries}[<type>]{<filename>}
+%.............................................................
+%
+% <filename>: -> must be '1-Frontmatter/filename.tex'
+%
+% <type>:  glossary -> Glossay (longer dictionary like entries)
+%           acronym -> Acronyms and their meaning
+%           symbols -> Symbols and their meaning
+%-------------------------------------------------------------
+\ntaddfile{glossaries}[glossary]{glossary}
+\ntaddfile{glossaries}[acronym]{acronyms}
+\ntaddfile{glossaries}[symbols]{symbols}
+% \ntaddfile{glossaries}[symbols]{chemical}
+
+
+
+%-------------------------------------------------------------
+% Main text - document chapters
+%
+\ntaddfile{chapter}{chapter-1-introducao}
+\ntaddfile{chapter}{chapter-2-enquadramento}
+\ntaddfile{chapter}{chapter-3-revisao}
+\ntaddfile{chapter}{chapter-4-metodos}
+\ntaddfile{chapter}{chapter-5-plataforma}
+\ntaddfile{chapter}{chapter-6-diagnostico}
+\ntaddfile{chapter}{chapter-7-discussao}
+\ntaddfile{chapter}{chapter-8-conclusoes}
+
+
+
+%-------------------------------------------------------------
+% Apppendices
+%
+\ntaddfile{appendix}{appendix-A-protocolo-sr}
+\ntaddfile{appendix}{appendix-B-validacao}
+\ntaddfile{appendix}{appendix-C-dicionario}
+\ntaddfile{appendix}{appendix-D-tabelas}
+\ntaddfile{appendix}{appendix-E-manual}
+\ntaddfile{appendix}{appendix-F-adversarial}
+\ntaddfile{appendix}{appendix-G-matematica-rascunho}
+
+
+
+%-------------------------------------------------------------
+% Apppendices
+%
+% (sem annexs)
+
+
+
+%-------------------------------------------------------------
+% Covers
+%
+%     \ntaddfile{cover}[<cover-id>]{<filename>}
+%.............................................................
+%
+% <filename>:   -> must be '1-Frontmatter/filename.tex'
+%
+% <cover-id>: 1 -> The main cover
+%             2 -> The front page
+%             N -> The back cover
+%         spine -> The back cover
+%
+% The given file will be used to render the cover <cover-id>
+% Note: if you want to skip prnting the frontpage, do not
+%       redefine the frontpage! Instead use the command
+%       \ntsetup{print/frontpage=false}
+%-------------------------------------------------------------
+% \ntaddfile{cover}[1]{cover-page}
+
+

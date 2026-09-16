@@ -1,0 +1,188 @@
+{
+  "date": "2026-09-15",
+  "scope": "Mapa editorial; consulta dirigida; sem reexecução de estudos ou edição da tese.",
+  "entries": 107,
+  "groups": 12,
+  "status_counts": {
+    "T": 56,
+    "C": 38,
+    "P": 13
+  },
+  "sources": [
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/0-Config/4_files.tex",
+      "sha256": "b915e787ccebd8a9a2cdc3c474d6672974414c489ff651eee55da8183757d4f9",
+      "bytes": 6131
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/1-FrontMatter/symbols.tex",
+      "sha256": "cd09e5f398347f4958dbe20ad7ec419f63a71c9814404eef89ee83526413aa43",
+      "bytes": 1066
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/2-MainMatter/chapter-1-introducao.tex",
+      "sha256": "cef96b4c17caaa55308ee77ac63bdd9d5785a9918f7d63b67521237ff62fbcd0",
+      "bytes": 31626
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/2-MainMatter/chapter-2-enquadramento.tex",
+      "sha256": "e6e239547adb6211681d397a391ba656e32ee0f7c8df4f8404e658419773b36d",
+      "bytes": 41407
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/2-MainMatter/chapter-3-revisao.tex",
+      "sha256": "b6781db24204b47b4af09385d01a0cc1e0ecd440fbad08b0abedfb17548d0fc6",
+      "bytes": 37232
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/2-MainMatter/chapter-4-metodos.tex",
+      "sha256": "1d75b7ce9319c38257b9401ea5f179afc4ad7521c617b9381c7bda39b16dd038",
+      "bytes": 39502
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/2-MainMatter/chapter-5-plataforma.tex",
+      "sha256": "03b1a9dcf359ecf58ca142bd92feeafaa319c0e74246e0f602b3e974c0b95e02",
+      "bytes": 25113
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/2-MainMatter/chapter-6-diagnostico.tex",
+      "sha256": "d720e26fbec68d73eb79f9612eae319657679ea3b4262d1da68d49b113aebe05",
+      "bytes": 57619
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/2-MainMatter/chapter-7-discussao.tex",
+      "sha256": "faa9fe80b79ff4fc09245299e6962b4c8221c73c7d50409a072bb07d44aca322",
+      "bytes": 67261
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/2-MainMatter/chapter-8-conclusoes.tex",
+      "sha256": "49408972042194a5562e356b447a5d3a4e5b11d1cb38b5d9db56bab85fb96be5",
+      "bytes": 2369
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/3-BackMatter/appendix-A-protocolo-sr.tex",
+      "sha256": "678fa8d143b4af6d8950857a200c9c18a976661cdec03f9a2ae9274b085e5746",
+      "bytes": 1099
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/3-BackMatter/appendix-B-validacao.tex",
+      "sha256": "638923f76db91d6fe561253c4971b71f08c91de79b4697106c7456fc83561dc0",
+      "bytes": 1205
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/3-BackMatter/appendix-C-dicionario.tex",
+      "sha256": "3a02dbc5cf6084a3631d2d6e431287ea4a7631403937d6fb37c8387c0b8b57ec",
+      "bytes": 1171
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/3-BackMatter/appendix-D-tabelas.tex",
+      "sha256": "693562f1865bb66d68fa1e02ac1081f08e9bfaece1739b5c0007019973f614c6",
+      "bytes": 1127
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/3-BackMatter/appendix-E-manual.tex",
+      "sha256": "6a029006aae2abf914a45ce39cb8b975100259d405c4224661f2b3caccb88efb",
+      "bytes": 1103
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/3-BackMatter/appendix-F-adversarial.tex",
+      "sha256": "76a83b1682f9e86523ba563bb2d95a727d52a37d22d81c508e84452f3d49cbef",
+      "bytes": 1191
+    },
+    {
+      "path": "/Users/bernardoribeiro/Desktop/Tese/novathesis/3-BackMatter/appendix-G-matematica.tex",
+      "sha256": "03e248c74ad3e7d745991cc2942c1fc13ebf9664efca0aa0318abf4759290b4e",
+      "bytes": 1893
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/Screening/level3_extraction/PROTOCOL.md",
+      "sha256": "81b32da9fbd79c602b8162fd650cc5a9472a9ff202617d3914984b85f19a70f6",
+      "bytes": 136732
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/Screening/level3_extraction/VALIDATION_PROTOCOL_C.md",
+      "sha256": "eb5dcfbc19e974f974fd1afaa21fdbc69575d2929309559d541dac0f5cbf604d",
+      "bytes": 66589
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/Screening/level3_extraction/bibliometrics/biblio/analysis.py",
+      "sha256": "6876db681e346353e3b54768c3478b98a2425531310e0c25be550f57c8b89703",
+      "bytes": 15586
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/Screening/level3_extraction/bibliometrics/biblio/networks.py",
+      "sha256": "fdc15f44364dade09fb6f3b1867f2351121736c49999c90c15b6374422578cae",
+      "bytes": 22317
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/baselines-cc/config/params.yaml",
+      "sha256": "62e1fae92935001e1e3377fac1fd2d13a9c38318265cc7f9dba91c1f98611668",
+      "bytes": 16209
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/baselines-cc/src/baselines/inference.py",
+      "sha256": "48f0cb82e5732dae077cb88ff5b354f842c4dd4a7a07220a26f94579f64787f8",
+      "bytes": 39775
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/baselines-cc/src/baselines/partc/joint.py",
+      "sha256": "a36b065ef551f9bbd4bc4c3f4a2edb2e5242bd1895b14f768d20ff49d4d01897",
+      "bytes": 26177
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/baselines-cc/src/baselines/partc/models/__init__.py",
+      "sha256": "3edd399fdebcdd50e6c70249fe01ed657930b5ae00b0d9ae0ea0fc5f7a011bbb",
+      "bytes": 7211
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/baselines-cc/src/baselines/partc/models/additive.py",
+      "sha256": "be63484b8d1d3ce5356cd6368cc41536fce072755b610914e07a015b07aa7599",
+      "bytes": 12711
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/baselines-cc/src/baselines/partc/models/monitors.py",
+      "sha256": "e6dcdc63afa8d3dfba6145408a4d589992df8347b1cc6e79152fe58b064d37ed",
+      "bytes": 14841
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/baselines-cc/src/baselines/partc/models/state.py",
+      "sha256": "67c9c774cf52caa19f622854808248eefc7b7e5699e83130ed99ad5868699f42",
+      "bytes": 25989
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/baselines-cc/src/baselines/partc/reference.py",
+      "sha256": "98b508c5e9d8ff72833b4175db7cdd8ffe964bd80598e4a2f67f5a48621417af",
+      "bytes": 20258
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/baselines-cc/src/baselines/partc/simulation.py",
+      "sha256": "618f5fa440fdf93e38cf8908ca24b9ab53318af97ce7ef2ed69e72a8a28d3542",
+      "bytes": 60445
+    },
+    {
+      "path": "/Users/bernardoribeiro/LocalResearch/baselines-cc/src/baselines/replication.py",
+      "sha256": "803fe22bdb8d3df75a684d17ce1edbb6c5732005963d69871a5c522fa6fc0427",
+      "bytes": 38953
+    },
+    {
+      "path": "/Users/bernardoribeiro/tese-extraccao/medidas/_TODAS_AS_MEDIDAS.dax",
+      "sha256": "77ed18ebc3c42f50593447d9c6c14a081ea9fac27700f3368a41028514937914",
+      "bytes": 202784
+    },
+    {
+      "path": "/Users/bernardoribeiro/tese-extraccao/particoes/BaselineFit__BaselineFit.dax",
+      "sha256": "147904d8f81fd8b16bd52488f3b86b0cabba8ea900363dfe1b5cbf7e7b29523b",
+      "bytes": 4250
+    },
+    {
+      "path": "/Users/bernardoribeiro/tese-extraccao/power_query/FactEnergia_Tags.m",
+      "sha256": "b013fd1bb81eec67717460ab1a5a70b2259c5ae9dbc430f51f17e78bb91b2655",
+      "bytes": 4130
+    }
+  ],
+  "checks": {
+    "all_origin_labels_exist": true,
+    "all_support_files_exist": true,
+    "unique_entry_ids": true
+  }
+}

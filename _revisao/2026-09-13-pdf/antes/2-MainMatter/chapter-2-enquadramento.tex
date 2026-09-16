@@ -1,0 +1,299 @@
+%!TEX root = ../template.tex
+%% ====================================================================
+%% Capitulo 2 -- Enquadramento
+%% Esqueleto gerado 2026-08-13 a partir do indice v1
+%% Seccoes 2.1-2.3 preenchidas em 2026-08-28 (rascunho v0 -> LaTeX)
+%% Fonte do rascunho: dissertacao/cap2_rascunho_v0.md
+%% Pendencias marcadas com \todo{...}; ver tambem notas no fim do ficheiro.
+%% ====================================================================
+
+% [REV-2026-09-13][C2-01][P2][ESTRUTURA] Dar base de engenharia ao argumento estatístico
+% O capítulo desenvolve longamente as normas, mas deixa vazios o processo
+% contínuo e o caso CDU. Para uma tese de Engenharia Química, antecipar
+% uma apresentação breve da CDU e dos fluxos energéticos antes da crítica
+% normativa; depois explicar EnPI/EnB, pressupostos e modos de falha.
+% Opção recomendada: processo/fronteiras -> conceitos -> normas ->
+% síntese das exigências de avaliação. Se a ordem atual ficar, completar
+% 2.4/2.5 e remeter para elas logo ao introduzir os vetores.
+% [/REV-2026-09-13]
+\chapter{Enquadramento}
+\label{cha:enquadramento}
+
+% [REV-2026-09-13][C2-02][P1][NORMAS] Edição histórica versus enquadramento atual
+% A ISO identifica a ISO 50006:2023 como edição 2 publicada e a de 2014
+% como retirada. A ressalva existente no fim de 2.3 é útil, mas tardia:
+% declarar aqui que se analisa a edição histórica de 2014 e confirmar qual
+% enquadrou a implementação. Comparar com 2023 antes de afirmar lacunas do
+% quadro atual; o estatuto de orientação não permite inferir ausência de
+% orientações de validação. A página pública confirma edição/âmbito,
+% não verifica as cláusulas do texto integral.
+% Fonte verificada: https://www.iso.org/standard/79367.html
+% [/REV-2026-09-13]
+\section{Gestão de energia e o quadro normativo}
+\label{sec:normas}
+
+A gestão de energia industrial encontra-se hoje codificada num corpo normativo estruturado em torno da ISO~50001, que especifica os requisitos de um sistema de gestão de energia (SGE), e de um conjunto de normas de suporte, desenvolvidas pelo comité técnico ISO/TC~301, que operacionalizam componentes específicos desse sistema. Para o presente trabalho relevam três documentos: a ISO~50001:2018, adotada em Portugal como NP~EN~ISO~50001:2019~\cite{ISO50001_2018}, que estabelece os requisitos do sistema; a ISO~50006~\cite{ISO50006_2014}, que fornece princípios e orientações para a medição do desempenho energético através de indicadores de desempenho energético (EnPI, na sigla anglófona que a literatura consagrou; IDE na versão portuguesa da norma) e consumos energéticos de referência (EnB, ou CER); e a ISO~50015~\cite{ISO50015_2014}, que estabelece princípios gerais para a medição e verificação (M\&V) do desempenho energético de organizações. A distinção de estatuto entre estes documentos é essencial para a análise que se segue: a ISO~50001 é uma norma de requisitos, certificável, redigida na forma verbal \enquote{deve}; a ISO~50006 e a ISO~50015 são normas de orientação, redigidas na forma \enquote{deverá/poderá}, sem carácter vinculativo --- a própria ISO~50015 declara que os seus princípios não são exigidos pela ISO~50001~\cite[Introdução]{ISO50015_2014}.
+
+A ISO~50001 estrutura o SGE sobre o ciclo de melhoria contínua \emph{Plan-Do-Check-Act} (PDCA). Na fase de planeamento, a organização realiza uma avaliação energética (\S6.3), identifica os usos significativos de energia (USE), determina EnPI \enquote{adequados para medir e monitorizar o seu desempenho energético} e que \enquote{permitam demonstrar a melhoria do desempenho energético} (\S6.4), e estabelece EnB a partir da avaliação energética, \enquote{tendo em conta um período de tempo adequado} (\S6.5). Na fase de verificação, a organização monitoriza, mede, analisa e avalia o desempenho (\S9.1): a melhoria do desempenho energético \enquote{deve ser avaliada comparando os valores de IDE [\ldots] com os correspondentes CER}, e a organização \enquote{deve investigar e responder a desvios significativos no desempenho energético} (\S9.1.1). O par EnPI--EnB é, portanto, o mecanismo central através do qual a norma torna o desempenho energético mensurável e a melhoria demonstrável --- e é sobre este par que incide toda a análise desta dissertação.
+
+\begin{figure}[htbp]
+  \centering
+  \missingfigure[figwidth=0.85\textwidth]{FIG 2.1 --- A família ISO 50001 e a localização do par EnPI--EnB no ciclo PDCA. Redesenho próprio (sem reprodução de figuras IPQ/BSI): PDCA com as cláusulas da 50001 posicionadas (6.3--6.6 no Plan; 8.1 no Do; 9.1 no Check; 10 no Act); 50006 ancorada a 6.4/6.5; 50015 ancorada a 9.1. Traço contínuo = requisito; tracejado = orientação.}
+  \caption[A família ISO 50001 e o par EnPI--EnB no ciclo PDCA]{A família ISO~50001 e a localização do par EnPI--EnB no ciclo PDCA. Adaptado de \cite{ISO50001_2018,ISO50006_2014}.}
+  \label{fig:familia-iso}
+\end{figure}
+
+A ISO~50006 desenvolve o par EnPI--EnB. Define o processo de medição do desempenho em cinco passos --- obtenção de informação a partir da avaliação energética, identificação dos EnPI, estabelecimento dos EnB, utilização de ambos, e manutenção e ajustamento~\cite[Figura~2]{ISO50006_2014} --- e introduz os conceitos operativos de que o Capítulo~\ref{cha:diagnostico} fará uso intensivo: fronteira do EnPI (\S4.2.2), variável relevante (\S3.14: fator quantificável com impacto significativo no desempenho energético e que muda rotineiramente), fator estático (\S3.17: fator com impacto significativo que não muda rotineiramente) e normalização (\S3.13: modificação dos dados energéticos para permitir comparação de desempenho \enquote{em condições equivalentes}). A norma tipifica ainda os EnPI em quatro classes --- valor medido, rácio de valores medidos, modelo estatístico e modelo de engenharia (\S4.3.3, Tabela~2) --- tipologia a que regressamos na Secção~\ref{sec:enb} por ser o ponto onde o método de \emph{baseline} usado na refinaria se localiza dentro do vocabulário da própria norma.
+
+A ISO~50015, por fim, enquadra a M\&V como processo: plano de M\&V documentado, fronteiras, seleção de métricas, plano de recolha de dados, estabelecimento e ajustamento de EnB, análise, reporte e incerteza (\S5--\S8). Os seus princípios --- exatidão apropriada e gestão da incerteza, transparência e reprodutibilidade, competência, imparcialidade, métodos apropriados (\S4) --- são, nas palavras da norma, princípios e não requisitos (\S4.1). No plano internacional coexistem com a família ISO dois protocolos de M\&V com génese no setor dos edifícios e dos contratos de desempenho energético: o IPMVP~\cite{IPMVP_2022} e a ASHRAE Guideline~14~\cite{ASHRAE14_2014}, ambos citados pela bibliografia da própria ISO~50015. A comparação entre estes protocolos e as normas ISO, desenvolvida na Secção~\ref{sec:assimetria}, é instrutiva precisamente porque revela que o silêncio da família ISO quanto a critérios quantitativos de validação é uma escolha de desenho normativo, não uma impossibilidade técnica.
+
+\section{\emph{Baselines} energéticas: conceitos e construção}
+\label{sec:enb}
+
+\subsection{O par EnPI--EnB}
+\label{sec:enb-par}
+
+O conceito central é simples: um EnPI é uma \enquote{medida ou unidade do desempenho energético, conforme definido pela organização} (ISO~50001, \S3.4.4); o EnB é \enquote{referência(s) quantitativa(s) que fornecem uma referência para comparação do desempenho energético} (\S3.4.7), construída com dados \enquote{obtidos de um período específico de tempo e/ou condições, conforme definido pela organização} (\S3.4.7, Nota~1). A melhoria do desempenho energético demonstra-se comparando o valor do EnPI no período de reporte com o valor de referência do período de \emph{baseline}~\cite[Figuras~1 e~3]{ISO50006_2014}. Quando variáveis relevantes afetam significativamente o desempenho, a comparação direta deixa de ser válida e a organização \enquote{deve realizar a normalização do(s) valor(es) do IDE e do correspondente CER} (ISO~50001, \S6.5) --- tipicamente através de um modelo que descreve a relação entre consumo e variáveis relevantes no período de \emph{baseline}~\cite[\S4.5.1 e Anexo~D]{ISO50006_2014}.
+
+Repare-se, desde já, em duas expressões que a redação normativa usa com naturalidade e que carregam todo o peso estatístico do edifício: a comparação deve fazer-se \emph{em condições equivalentes} (ISO~50006, \S3.13), e o período de \emph{baseline} deve \emph{capturar a variabilidade dos padrões operacionais} (\S4.4.2). Ambas pressupõem que as condições operacionais são descritíveis pelas variáveis escolhidas e que a variabilidade observada num período --- tipicamente doze meses (\S4.4.2) --- é representativa da variabilidade futura. São pressupostos de estacionariedade: não da série de consumo, mas da \emph{relação} entre consumo e variáveis relevantes. Não são enunciados como pressupostos em parte alguma do texto normativo.
+
+\subsection{A cadeia de medição implícita}
+\label{sec:enb-cadeia}
+
+Lidas em conjunto, a 50001 (requisitos), a 50006 (construção de EnPI/EnB) e a 50015 (M\&V) desenham uma cadeia de medição: uma sequência de operações que transforma dados de processo em declarações sobre desempenho energético e, no limite, em alarmes e decisões. A cadeia nunca é apresentada como tal em nenhuma das normas --- cada documento descreve o seu troço --- mas a sua reconstrução explícita (Figura~\ref{fig:cadeia-normativa}) é o instrumento analítico deste capítulo, porque permite perguntar, elo a elo, três coisas: o que é exigido, o que é deixado à organização, e que pressuposto tácito o elo precisa de importar para funcionar.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+      font=\small,
+      elo/.style={draw, rounded corners=2pt, align=center, minimum height=11mm, inner sep=2pt, text width=26mm},
+      press/.style={align=center, text width=27mm, font=\scriptsize\itshape, text=orange!60!black},
+      seta/.style={-{Stealth[length=2.5mm]}, thick},
+      node distance=14mm and 4mm
+    ]
+    % linha superior
+    \node[elo] (n1) {1. Avaliação energética\\[1pt] {\scriptsize 50001 \S6.3}};
+    \node[elo, right=of n1] (n2) {2. USE e fronteiras\\[1pt] {\scriptsize 50001 \S6.3 · 50006 \S4.2.2}};
+    \node[elo, right=of n2] (n3) {3. Variáveis relevantes, fatores estáticos\\[1pt] {\scriptsize 50006 \S4.2.4--4.2.5}};
+    \node[elo, right=of n3] (n4) {4. EnPI: tipo e forma\\[1pt] {\scriptsize 50001 \S6.4 · 50006 \S4.3}};
+    % linha inferior (fluxo da direita para a esquerda)
+    \node[elo, below=of n4] (n5) {5. EnB: período e modelo\\[1pt] {\scriptsize 50001 \S6.5 · 50006 \S4.4}};
+    \node[elo, left=of n5] (n6) {6. Comparação normalizada\\[1pt] {\scriptsize 50006 \S4.5, Anexo~D}};
+    \node[elo, left=of n6] (n7) {7. Desvio significativo $\to$ ação\\[1pt] {\scriptsize 50001 \S9.1, \S10}};
+    % pressupostos tácitos
+    \node[press, below=1mm of n3.south] {suficiência das variáveis};
+    \node[press, below=1mm of n4.south] {forma funcional adequada};
+    \node[press, below=1mm of n5.south] {representatividade do período};
+    \node[press, below=1mm of n6.south] {transportabilidade (estacionariedade estrutural)};
+    \node[press, below=1mm of n7.south] {calibração e detetabilidade};
+    % setas
+    \draw[seta] (n1) -- (n2);
+    \draw[seta] (n2) -- (n3);
+    \draw[seta] (n3) -- (n4);
+    \draw[seta] (n4) -- (n5);
+    \draw[seta] (n5) -- (n6);
+    \draw[seta] (n6) -- (n7);
+    % retroação: revisão do EnB
+    \draw[seta, dashed] (n7.north) to[out=60, in=120]
+      node[midway, above, font=\scriptsize, align=center] {revisão do EnB\\ 50001 \S6.5 · 50006 \S4.6} (n5.north);
+  \end{tikzpicture}
+  \caption[A cadeia de medição normativa e os seus pressupostos tácitos]{A cadeia de medição implícita na família ISO~50001 e, em itálico, o pressuposto tácito que cada elo importa. Reconstrução própria a partir de \cite{ISO50001_2018,ISO50006_2014,ISO50015_2014}.}
+  \label{fig:cadeia-normativa}
+\end{figure}
+
+Percorramos os elos onde o texto normativo é mais revelador.
+
+\paragraph{Variáveis relevantes (elo 3).} A ISO~50006 dedica ao problema orientação prática: recomenda gráficos de tendência e diagramas X--Y entre consumo e variável candidata, e observa que \enquote{em muitos casos, uma relação linear simples é adequada para determinar a relevância} (\S4.2.4). O critério de significância, porém, \enquote{é determinado pela organização} (ISO~50001, \S3.4.9, Nota~1) --- a norma diz \emph{como olhar}, mas não fixa nenhum limiar de decisão, nenhum procedimento de teste e, sobretudo, nenhum teste de \emph{suficiência}: nada obriga a organização a demonstrar que o conjunto de variáveis escolhido esgota a variação sistemática do consumo. A escolha de uma única variável --- a carga processada, no caso em estudo --- é tão conforme à norma quanto a escolha de cinco.
+
+\paragraph{Tipo de EnPI (elo 4).} A Tabela~2 da ISO~50006 é o documento mais interessante de toda a família para o argumento desta dissertação, porque a própria norma enumera, na coluna de observações, as fragilidades de cada tipo. Para o tipo \enquote{valor medido}: não tem em conta os efeitos das variáveis relevantes, \enquote{dando resultados enganadores na maioria das aplicações}. Para o rácio: não considera a carga de base nem efeitos não lineares, sendo \enquote{enganador em instalações com carga de base elevada}. Para o modelo estatístico: \enquote{pode ser impreciso se não for confirmado por testes estatísticos} e \enquote{os modelos devem ser mantidos para assegurar resultados válidos} (\S4.3.3, Tabela~2).\footnote{Traduções do autor a partir do original inglês; as passagens críticas são reproduzidas no original em nota nas ocorrências seguintes.} A norma conhece, portanto, os modos de falha --- enuncia-os --- mas não converte nenhum deles em requisito verificável: não diz \emph{que} testes, \emph{com que limiares}, \emph{com que frequência}, nem \emph{o que fazer} quando falham. A Tabela~\ref{tab:tipologia-enpi} condensa esta tipologia e localiza o método em produção na refinaria --- regressão linear univariada por vetor energético, $E = a \cdot Q + b$ --- na classe \enquote{modelo estatístico}, herdando por escrito os \emph{caveats} que a própria norma lhe associa.
+
+\begin{table}[htbp]
+  \centering\small
+  \caption[Tipologia de EnPI da ISO 50006 e localização do método em produção]{Tipologia de EnPI da ISO~50006 (\S4.3.3, Tabela~2, condensada; traduções do autor) e localização do método de \emph{baseline} em produção na unidade em estudo.}
+  \label{tab:tipologia-enpi}
+  \begin{tabularx}{\textwidth}{@{}l X X@{}}
+    \toprule
+    \textbf{Tipo de EnPI} & \textbf{Aplicação típica (norma)} & \textbf{Fragilidades enunciadas pela própria norma} \\
+    \midrule
+    Valor medido & Reduções absolutas; monitorização de custos & Ignora variáveis relevantes; \enquote{resultados enganadores na maioria das aplicações} \\
+    Rácio de valores medidos & Eficiência com uma só variável e carga de base pequena; \emph{benchmarking} & Ignora carga de base e efeitos não lineares \\
+    \textbf{Modelo estatístico} $\leftarrow$ \emph{método em produção} & Várias variáveis relevantes; carga de base; normalização & Impreciso se não confirmado por testes estatísticos; exige manutenção para assegurar validade \\
+    Modelo de engenharia & Variáveis numerosas ou interdependentes; fase de projeto & Exige manutenção para assegurar validade \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+% [REV-2026-09-13][C2-03][P1][ESTATISTICA] R² não é um teste com pressuposto de normalidade
+% Corrigir o ponto (iii): R² é uma estatística descritiva calculável sem
+% independência, homoscedasticidade ou normalidade. "Valor-p" não designa um
+% teste específico; os pressupostos dependem do teste e da sua calibração.
+% A inferência t/F clássica tem condições próprias, mas versões robustas
+% não partilham todas elas. O argumento defensável é que R² e significância
+% in-sample não demonstram desempenho temporal, calibração ou deteção.
+% Rever também a linha 4 da matriz de rastreabilidade.
+% [/REV-2026-09-13]
+\paragraph{Estabelecimento e teste do EnB (elo 5).} A cláusula \S4.4.3 da ISO~50006 é o ponto de máxima aproximação de toda a família a um requisito de validação --- e, por isso mesmo, o ponto onde o silêncio é mais nítido: \enquote{Se apropriado, o EnB deverá ser testado quanto à validade, para assegurar que constitui uma referência apropriada para comparação. Quando se usam modelos, a validade do EnB pode ser determinada usando testes estatísticos como o valor-$p$, o teste~$F$ ou o coeficiente de determinação [\ldots]. Se se determinar que um modelo não é válido, a organização deverá considerar ajustar o EnB ou determinar um novo modelo}.\footnote{No original: \enquote{If appropriate, the EnB should be tested for validity to ensure that it is an appropriate reference for comparison. When models are used, the validity of the EnB can be determined using statistical tests such as the P-Value, F-Test or the coefficient of determination [\ldots].} \cite[\S4.4.3]{ISO50006_2014}.} Três observações: \begin{enumerate*}[(i)] \item \enquote{se apropriado} e \enquote{deverá} --- recomendação condicional, não requisito; \item os testes são nomeados, mas nenhum limiar de aceitação é fixado; \item todos os testes citados ($p$, $F$, $R^2$) pressupõem, para serem válidos, exatamente aquilo que nunca é mandado verificar --- independência, homoscedasticidade e normalidade dos resíduos\end{enumerate*}. A norma sugere instrumentos de validação cuja própria validade depende de pressupostos que a norma não manda testar.
+
+\paragraph{Revisão do EnB (elo 7, retroação).} A ISO~50001 fixa três gatilhos de revisão do EnB: quando os EnPI \enquote{deixaram de refletir o desempenho energético da organização}; quando \enquote{ocorram mudanças significativas nos fatores estáticos}; ou \enquote{de acordo com um método predeterminado} (\S6.5). A ISO~50006 acrescenta os ajustamentos não-rotineiros e nota que os métodos predeterminados \enquote{tipicamente repõem o EnB em intervalos definidos} (\S3.1, Nota~3), sancionando explicitamente a prática da recalibração periódica. O que nenhum dos gatilhos fornece é um \emph{mecanismo de deteção}: o primeiro é circular (como sabe a organização que os EnPI deixaram de refletir o desempenho, se o instrumento de medição do desempenho são os próprios EnPI?); o segundo pressupõe que a mudança de fator estático é conhecida e identificada; o terceiro --- o calendário --- não é sensível a mudança nenhuma. O Capítulo~\ref{cha:diagnostico} mostrará a consequência empírica: a recalibração anual, perfeitamente conforme à norma, absorve no intercepto a deriva estrutural que devia alarmar.
+
+\subsection{Onde as normas param e a implementação começa}
+\label{sec:enb-camadas}
+
+A análise anterior obriga a uma distinção de três camadas, que atravessa toda a dissertação e sem a qual a crítica seria imprecisa. Primeira camada, \textbf{o que as normas exigem} (ISO~50001, \enquote{deve}): que existam EnPI e EnB, que a melhoria se demonstre por comparação entre ambos, que se normalize quando as variáveis relevantes afetam significativamente o desempenho, que os desvios significativos sejam investigados, e que o EnB seja revisto nos três gatilhos. Segunda camada, \textbf{o que as normas sugerem} (ISO~50006/50015, \enquote{deverá}, anexos informativos): a tipologia de EnPI, testes de validade nomeados sem limiares, o período de \emph{baseline} de doze meses, a gestão da incerteza \enquote{ao nível apropriado} (ISO~50015, \S4.2) e os diagnósticos possíveis da incerteza de modelo --- \enquote{estatísticas~$t$, valores de $R^2$, valores-$p$, níveis de confiança, limites de predição do modelo} (ISO~50015, \S7, Nota) --- \enquote{na medida do praticável} (\S7). Terceira camada, \textbf{o que a implementação escolhe} --- e que nenhuma norma prescreve nem proíbe: no caso em estudo, a forma $E = a \cdot Q + b$ com uma única variável explicativa; a estimação por mínimos quadrados ordinários; as bandas de alarme em $\pm 2\sigma$, com $\sigma$ estimado a partir dos resíduos de treino; e a recalibração anual por calendário.
+
+% [REV-2026-09-13][C2-04][P1][NORMAS] Adequação normativa não se reduz à existência do instrumento
+% O próprio texto cita requisitos de adequação dos EnPI e demonstração de
+% melhoria. Da ausência de limiares universais não decorre que um método
+% inválido seja conforme ou que uma auditoria apenas verifique existência.
+% Distinguir: ausência de teste quantitativo prescrito; responsabilidade
+% da organização pela adequação; conclusão de auditoria, aqui não avaliada.
+% Reformular "o método é conforme" para "a forma do modelo e a revisão
+% periódica não são, por si, excluídas pelas cláusulas analisadas".
+% Aplicar a mesma restrição à Introdução e à Sec. 7.2.
+% [/REV-2026-09-13]
+Esta atribuição precisa é essencial: o objeto da crítica do Capítulo~\ref{cha:diagnostico} não é a conformidade --- o método em produção \emph{é} conforme, localiza-se dentro do espaço que as normas permitem. O objeto da crítica é o facto de o espaço permitido conter, sem qualquer barreira normativa, implementações cujos pressupostos estatísticos são sistematicamente violados pelos dados a que se aplicam --- e de as normas não fornecerem ao operador nenhum instrumento que o alerte para isso. Dito de outro modo: a conformidade normativa não é evidência de validade estatística, e as normas não contêm o mecanismo que permitiria distinguir uma da outra.
+
+\begin{figure}[htbp]
+  \centering
+  \missingfigure[figwidth=0.85\textwidth]{FIG 2.3 --- Redesenho anotado do conceito EnPI/EnB/meta (a partir da Figura 1 da ISO 50006): eixo temporal com período de baseline e de reporte, valor de referência e valor corrente do EnPI, melhoria e meta. Anotação 1: as bandas de alarme em torno da baseline não aparecem em nenhuma figura normativa --- são extensão de implementação. Anotação 2: tudo pressupõe que a relação estimada à esquerda continua válida à direita.}
+  \caption[O conceito EnPI/EnB/meta e a extensão de implementação]{O conceito EnPI/EnB/meta e a fronteira entre o que a norma desenha e o que a implementação acrescenta. Adaptado de \cite[Figura~1]{ISO50006_2014}.}
+  \label{fig:enpi-enb-meta}
+\end{figure}
+
+% [REV-2026-09-13][C2-05][P2][ESTRUTURA] Fundir passagens repetidas e separar texto normativo de interpretação
+% As Secs. 2.2.2, 2.2.3 e 2.3.1 repetem a mesma crítica. Manter uma
+% explicação curta e uma única matriz requisito/orientação/escolha local,
+% com edição e cláusula. Assinalar "interpretação desta dissertação" para
+% pressupostos reconstruídos: a norma não declara literalmente todos os
+% elos do diagrama. Nas citações, preferir paráfrases com cláusula e
+% reservar transcrições breves para a distinção verbal realmente analisada.
+% [/REV-2026-09-13]
+\section{A assimetria normativa}
+\label{sec:assimetria}
+
+\subsection{Formulação}
+\label{sec:assimetria-formulacao}
+
+Chamamos assimetria normativa ao desequilíbrio, documentado cláusula a cláusula na secção anterior, entre a densidade prescritiva das normas quanto à \emph{existência} dos instrumentos de medição do desempenho energético e o seu silêncio quanto à \emph{validade} desses instrumentos. A família ISO~50001 obriga a que haja EnPI, EnB, normalização, investigação de desvios e revisão da referência; nomeia, inclusive, os instrumentos estatísticos com que a validade poderia ser aferida; mas em nenhum ponto converte a aferição em requisito, fixa limiares de aceitação, exige a verificação dos pressupostos dos modelos ou fornece critérios operacionais para detetar que uma referência deixou de ser válida. O resultado prático é que um sistema de gestão certificado pode operar indefinidamente sobre \emph{baselines} estatisticamente inválidas sem que nenhum requisito normativo seja violado --- situação que o Capítulo~\ref{cha:diagnostico} documenta empiricamente para os cinco vetores energéticos da unidade em estudo.
+
+A assimetria tem uma segunda face, menos evidente: as normas embutem pressupostos estatísticos que nunca enunciam. A comparação \enquote{em condições equivalentes} pressupõe a suficiência das variáveis relevantes; a extrapolação do modelo de \emph{baseline} para o período de reporte pressupõe a estabilidade estrutural da relação; o período de referência de doze meses pressupõe que um ciclo anual é representativo; os gatilhos de revisão pressupõem que a mudança é observável por quem opera. Nenhum destes pressupostos é neutro num processo contínuo sujeito a \emph{fouling}, desativação de catalisador e deslocamento gradual do espaço operacional --- a especificidade desenvolvida na Secção~\ref{sec:processos-continuos}.
+
+\subsection{Matriz de rastreabilidade: cláusula, silêncio, pressuposto, teste}
+\label{sec:assimetria-matriz}
+
+A Tabela~\ref{tab:matriz-rastreabilidade} formaliza a análise: para cada cláusula relevante, o que é exigido ou sugerido, o que fica por especificar, o pressuposto tácito que a cláusula importa, e o \emph{endpoint} do protocolo de diagnóstico (Secção~\ref{sec:protocolo-baselines}) que o operacionaliza. É esta última coluna que dá ao Capítulo~\ref{cha:diagnostico} rastreabilidade completa norma\,$\to$\,resultado.
+
+\begin{table}[htbp]
+  \centering\footnotesize
+  \caption[Matriz de rastreabilidade cláusula--silêncio--pressuposto--teste]{Matriz de rastreabilidade: cláusula normativa, silêncio, pressuposto tácito e \emph{endpoint} de diagnóstico que o testa (E1--E6 e bateria descritiva D; ver Secção~\ref{sec:protocolo-baselines}).}
+  \label{tab:matriz-rastreabilidade}
+  \begin{tabularx}{\textwidth}{@{}c >{\raggedright\arraybackslash}p{2.1cm} X X X c@{}}
+    \toprule
+    \# & \textbf{Cláusula} & \textbf{Exige/sugere} & \textbf{Deixa por especificar} & \textbf{Pressuposto tácito} & \textbf{Teste} \\
+    \midrule
+    1 & 50001 \S6.4; 50006 \S4.3 & EnPI \enquote{adequados para medir e monitorizar} & Critério de adequação; teste de conteúdo preditivo & O EnPI mede desempenho, não ruído & E2 \\
+    2 & 50001 \S3.4.9~N1; 50006 \S4.2.4 & Determinar variáveis relevantes (métodos gráficos) & Limiar de significância; teste de \emph{suficiência} do conjunto & As variáveis descrevem o estado operacional & E6 \\
+    3 & 50006 \S4.4.2 & Período que \enquote{capture a variabilidade} (tip.\ 12 meses) & Verificação de representatividade & Um ciclo anual antecipa o futuro & E3, E4 \\
+    4 & 50006 \S4.4.3 & \enquote{Testar a validade} do EnB ($p$, $F$, $R^2$ nomeados) & \enquote{Se apropriado}; sem limiares; sem verificação de pressupostos dos testes & Resíduos independentes, homoscedásticos, normais & E1, E2, D \\
+    5 & 50001 \S6.5; 50006 \S4.5, An.~D & Normalizar por variáveis relevantes via modelo & Validação do modelo de normalização; incerteza & A relação transporta-se do treino para o reporte & E3 \\
+    6 & 50001 \S9.1.1 & Investigar \enquote{desvios significativos} & Definição de significativo (remetida para a organização) & Existe calibração conhecida do desvio & E4 \\
+    7 & 50001 \S6.5~a)--c); 50006 \S4.6, \S3.1~N3 & Rever o EnB (3 gatilhos; \emph{reset} periódico sancionado) & Mecanismo de \emph{deteção} de invalidade; gatilho~a) circular & Mudanças invalidantes são conhecidas ou visíveis & E5 \\
+    8 & 50015 \S7 + Nota & Identificar e quantificar incerteza ($t$, $R^2$, $p$, limites de predição nomeados) & Obrigatoriedade; limiares; reporte junto ao resultado & A incerteza declarada é gerível caso a caso & E4 \\
+    9 & 50015 \S4.1, Introd. & Princípios de M\&V (exatidão, reprodutibilidade) & \enquote{Princípios, não requisitos}; não exigidos pela 50001 & A boa prática é adotada voluntariamente & --- \\
+    10 & 50006 \S4.2.6.4 & Rever qualidade dos dados; examinar \emph{outliers} & Procedimento e critério de exclusão; efeito sobre $\sigma$ & \emph{Outliers} são raros e identificáveis & D \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+A leitura vertical da coluna dos pressupostos produz a lista compacta que estrutura o resto da dissertação: \textbf{suficiência} (as variáveis descrevem o estado), \textbf{forma} (a classe de modelo captura a relação), \textbf{representatividade} (o período de treino antecipa o futuro), \textbf{transportabilidade} (a relação não muda entre treino e aplicação), \textbf{calibração} (os desvios têm escala conhecida) e \textbf{detetabilidade} (a invalidação é observável). As cinco patologias do Capítulo~\ref{cha:diagnostico} são, uma a uma, violações empíricas destes pressupostos.
+
+% [REV-2026-09-13][C2-06][P2][FONTES] Comparar vias e edições sem extrapolar os limiares
+% Manter a distinção já feita entre simulação calibrada, regressão de
+% baseline e incerteza de poupanças; explicitar a via também em cada célula
+% da tabela. A recomendação R² >= 0,75 do IPMVP aparece apoiada numa fonte
+% secundária e ainda por confirmar: não a apresentar como requisito ou
+% recomendação atual verificada. Identificar edição/cláusula consultadas.
+% "Critérios mais exigentes" exige comparação no mesmo estimando; os testes
+% da tese e os limiares de M&V medem propriedades diferentes.
+% [/REV-2026-09-13]
+\subsection{O silêncio como escolha: comparação com o IPMVP e a ASHRAE Guideline 14}
+\label{sec:assimetria-comparacao}
+
+Poderia argumentar-se que o silêncio quantitativo das normas ISO é inevitável --- que critérios de validação universais não podem ser fixados para organizações de todos os tipos e dimensões; é, de resto, a justificação implícita do \enquote{conforme definido pela organização} que percorre os três documentos. A comparação com os protocolos de M\&V do domínio dos edifícios desmente a inevitabilidade, e fá-lo em três frentes distintas.
+
+Primeira frente: \emph{limiares de calibração de modelos}. A ASHRAE Guideline~14 exige, como requisito de conformidade da via de simulação calibrada, um erro médio normalizado (NMBE) máximo de $\pm 5\,\%$ e um coeficiente de variação do erro quadrático médio, CV(RMSE), máximo de $15\,\%$ face a dados de calibração mensais --- $\pm 10\,\%$ e $30\,\%$, respetivamente, para dados horários~\cite[\S4.3.2.4\,f), \S5.3.3.3.10]{ASHRAE14_2014}. As orientações de M\&V do programa federal norte-americano (FEMP) adotam exatamente os mesmos limiares, por remissão declarada para a ASHRAE~\cite[\S4.5.3.2, Tabela~4-2]{FEMP_2015}. O IPMVP, que desde as edições de 2009 remete os detalhes técnicos de calibração para a Guideline~14~\cite{RuizBandera2017}, recomenda adicionalmente --- tal como o \emph{ASHRAE Handbook} --- que o $R^2$ de um modelo calibrado nunca seja inferior a $0{,}75$~\cite{RuizBandera2017}.\todo{Confirmar formulação na edição corrente do IPMVP (EVO 10000-1) quando o download for aprovado.}
+
+Segunda frente, mais próxima do caso em estudo: \emph{limiares sobre o próprio modelo de regressão de baseline}. A via prescritiva de edifício inteiro da Guideline~14 --- precisamente o cenário de uma \emph{baseline} de regressão sobre dados de contagem, análogo estrutural do método em produção na refinaria --- impõe que o modelo de \emph{baseline} tenha CV(RMSE) máximo de $20\,\%$ para energia (escalando para $25\,\%$ e $30\,\%$ com períodos de reporte mais longos), que o período de \emph{baseline} cubra pelo menos doze meses contínuos com um mínimo de nove pontos válidos, e que \emph{nenhum ponto seja eliminado} do período de \emph{baseline}~\cite[\S4.3.2.1]{ASHRAE14_2014}; a via de simulação calibrada admite exclusões, mas limita-as a $25\,\%$ dos dados medidos e exige a documentação das razões~\cite[\S4.3.2.4]{ASHRAE14_2014}. O FEMP, na Opção~C (análise de regressão sobre dados de faturação --- de novo o análogo do caso Galp), formula-o sem ambiguidade: \enquote{a validade estatística dos modelos de regressão finais tem de ser demonstrada}~\cite[\S4.4]{FEMP_2015}.\footnote{No original: \enquote{Statistical validity of the final regression models must be demonstrated.} \cite[\S4.4]{FEMP_2015}.}
+
+Terceira frente: \emph{incerteza com critério de aceitação}. A Guideline~14 não se limita a pedir que a incerteza seja reportada com cada relatório de poupanças: fixa um teto --- a incerteza tem de ser inferior a $50\,\%$ das poupanças anuais reportadas, a um nível de confiança de $68\,\%$~\cite[\S4.3.2.4\,h)]{ASHRAE14_2014}.
+
+Independentemente do juízo sobre estes limiares em concreto --- a literatura discute a sua suficiência estatística, e o Capítulo~\ref{cha:metodos} adotará critérios mais exigentes --- a sua simples existência demonstra que protocolos com ambição de aplicação geral \emph{conseguem} fixar critérios quantitativos de aceitação de modelos, regras de tratamento de dados e tetos de incerteza. A família ISO~50001 escolheu não o fazer. A Tabela~\ref{tab:comparacao-frameworks} sintetiza a comparação.
+
+\begin{table}[htbp]
+  \centering\footnotesize
+  \caption[Comparação de quadros normativos quanto a requisitos de validação]{Comparação de quadros normativos e protocolos de M\&V quanto a requisitos de validação de modelos de \emph{baseline}.}
+  \label{tab:comparacao-frameworks}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.2cm} X X X X@{}}
+    \toprule
+    \textbf{Dimensão} & \textbf{ISO 50001:2018} & \textbf{ISO 50006:2014 / 50015:2014} & \textbf{IPMVP} & \textbf{ASHRAE G14} \\
+    \midrule
+    Estatuto & Requisitos (certificável) & Orientação & Protocolo voluntário & \emph{Guideline} \\
+    Validação do modelo de \emph{baseline} & --- & \enquote{deverá, se apropriado} (50006 \S4.4.3) & Sim, por adesão ao protocolo & Sim (requisito de conformidade) \\
+    Limiares quantitativos & Nenhum & Nenhum (testes/diagnósticos apenas nomeados) & $R^2 \geq 0{,}75$ (rec.); detalhe remetido para a G14 & NMBE $\pm5/\pm10\,\%$, CV(RMSE) $15/30\,\%$ (calibração, \S4.3.2.4); CV(RMSE) $\leq 20$--$30\,\%$ no modelo de regressão de base (\S4.3.2.1) \\
+    Tratamento de exclusões e \emph{outliers} & --- & Rever, sem critério (50006 \S4.2.6.4) & Justificação exigida & Proibidas na via prescritiva; $\leq 25\,\%$, documentadas, na simulação \\
+    Verificação dos pressupostos dos testes & --- & --- & Parcial & Parcial \\
+    Incerteza reportada com o resultado & --- & \enquote{na medida do praticável} (50015 \S7) & Sim (Apêndice~B) & Sim, com teto: $<50\,\%$ das poupanças a $68\,\%$ de confiança \\
+    Deteção de invalidação da \emph{baseline} & 3 gatilhos qualitativos (\S6.5) & Qualitativa (50006 \S4.6; 50015 \S5.10.2) & Ajustes não-rotineiros & --- \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Duas notas de rigor. Primeira: os limiares ASHRAE/IPMVP/FEMP foram desenvolvidos para modelos de energia de edifícios, com sazonalidade meteorológica dominante; a sua transposição direta para processo contínuo não é defendida aqui --- o que se importa é o \emph{princípio} de critérios de aceitação explícitos, não os números. Segunda: mesmo estes protocolos são imperfeitos --- \textcite{RuizBandera2017} documentam inconsistências de definição entre eles e entre as suas sucessivas edições (a confusão sistemática entre MBE e NMBE, fórmulas divergentes, limiares que mudam de versão para versão), e todos são omissos quanto à verificação dos pressupostos distribucionais dos seus próprios índices e quanto à não-estacionariedade estrutural. O \emph{gap} identificado no Capítulo~\ref{cha:revisao} é, portanto, comum a todo o panorama normativo, não exclusivo da família ISO; a família ISO é simplesmente o caso extremo, por não fixar sequer os índices.
+
+\paragraph{Nota sobre as edições analisadas.} A presente análise reporta-se à ISO~50006:2014 e à ISO~50015:2014, as edições a que houve acesso e, presumivelmente, as que enquadram o método de \emph{baseline} em produção na instalação em estudo.\todo{Confirmar com a Galp a edição de referência do SGE.} Existe uma segunda edição da ISO~50006, de 2023, harmonizada com a ISO~50001:2018, que introduz, entre outras alterações, uma cláusula dedicada à incerteza de modelo (\S8.2)~\cite{ISO50006_2023}; não foi possível consultá-la no âmbito deste trabalho. Regista-se como limitação (Secção~\ref{sec:limitacoes}): as afirmações desta secção sobre o silêncio normativo estão verificadas contra as edições de 2014, e a possibilidade de a edição de 2023 mitigar parcialmente algum dos silêncios identificados não pôde ser excluída nem confirmada. Assinale-se, porém, que a ISO~50006:2023 mantém o estatuto de norma de orientação, pelo que o argumento central --- a ausência de \emph{requisitos} de validação no único documento certificável da família, a ISO~50001 --- não depende dessa edição.
+
+\subsection{Síntese}
+\label{sec:assimetria-sintese}
+
+O quadro normativo obriga a medir e a demonstrar melhoria, sugere sem obrigar os instrumentos de validação, e é silencioso sobre os pressupostos estatísticos de que a validade desses instrumentos depende. Para um processo estacionário e bem comportado, o silêncio é inconsequente. A questão a que o resto da dissertação responde empiricamente é o que acontece quando o processo não é estacionário --- quando o \emph{fouling}, as transições de consumidores e o deslocamento do espaço operacional fazem parte da física da unidade (Secção~\ref{sec:processos-continuos}) --- e o espaço de implementação permitido pela norma é preenchido pela escolha mais simples que nele cabe: uma regressão univariada estática, com bandas de $\pm 2\sigma$, recalibrada por calendário (Secção~\ref{sec:caso-estudo}).
+
+% [REV-2026-09-13][F02][P2][FIGURA] Quadro físico de mecanismos e variáveis observáveis
+% Depois do primeiro parágrafo desta secção, inserir uma tabela de quatro
+% colunas: mecanismo; efeito esperado em energia/carga; variável observável;
+% explicações alternativas. Incluir fouling do pré-aquecimento, composição
+% do crude, severidade de separação, integração térmica e balanço entre
+% níveis de vapor. Distinguir mecanismos gerais dos efetivamente presentes
+% na CDU. Esta tabela liga a física às escolhas de covariáveis e evita
+% que sinais de regressão sejam interpretados como leis causais.
+% [/REV-2026-09-13]
+\section{Especificidade dos processos contínuos}
+\label{sec:processos-continuos}
+
+%% >> Fouling, desativacao de catalisador e variabilidade da carga como nao-estacionariedade estrutural que nao e ineficiencia.
+%% >> Fecho: cada mecanismo fisico viola um dos seis pressupostos da Tabela~\ref{tab:matriz-rastreabilidade}.
+
+
+% [REV-2026-09-13][F03][P2][FIGURA] Diagrama de processo e fronteira energética da CDU
+% Figura essencial, logo após apresentar a unidade: crude -> pré-aquecimento
+% -> dessalgação -> forno -> coluna -> produtos, ajustado ao esquema real.
+% Assinalar entradas/saídas de fuel gás, vapor 24/10/3 bar e eletricidade,
+% retornos e produção creditada, fronteira do indicador e pontos de medição.
+% Sem caudais inventados; se não houver dados autorizados, esquema funcional
+% sem escala. Legenda distingue consumo bruto, líquido e alocado. Desenho
+% vetorial, uma página no máximo. Mais útil aqui que uma fotografia geral
+% da refinaria; uma fotografia só se identificar equipamento relevante.
+% [/REV-2026-09-13]
+\section{O caso de estudo: a refinaria de Sines e a unidade de destilação atmosférica}
+\label{sec:caso-estudo}
+
+% [REV-2026-09-13][C2-07][P2][CONTEUDO] Contextualizar seleção da unidade e energia equivalente
+% Acrescentar função/capacidade apenas com fonte, razão documentada da escolha,
+% perímetro material e energético, mistura/reprocessamento de carga,
+% principais consumidores e utilidades partilhadas. Explicar GNE como
+% convenção de contabilização e EII como referência de benchmarking.
+% Não confundir equivalência energética, energia primária e exergia.
+% Citar literatura de refinação/integração térmica para os mecanismos;
+% a bibliografia atual está concentrada em normas e estatística.
+% [/REV-2026-09-13]
+%% >> A CDU, os cinco vectores energeticos, o EII e o metodo de baseline em producao.
+%% >> Devolver a bola a sintese 2.3.4: "este e o objeto que o resto da dissertacao disseca".

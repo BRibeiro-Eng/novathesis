@@ -1,0 +1,700 @@
+%!TEX root = ../template.tex
+%% Capitulo 3 -- redacao das seccoes gerais e bibliometricas, 2026-09-14.
+%% Fonte numerica: snapshot de 2026-09-13, bibliometrics/results/union_inclusiva.
+%% A=331 e B=42 nao sao conjuntos aninhados nos ficheiros de origem:
+%% intersecao=40, uniao=333. Nao corrigir elegibilidade por inferencia.
+%% Numeros e fontes verificados em _revisao/2026-09-14-capitulo-3/.
+%% As caixas sao sugestoes editoriais visiveis; nao sao figuras inseridas.
+
+\chapter{Revisão sistemática do âmbito}
+\label{cha:revisao}
+
+O enquadramento apresentado no capítulo anterior estabelece a função dos
+indicadores de desempenho energético e dos consumos energéticos de referência
+num sistema de gestão de energia. Importa agora conhecer a forma como essa
+função tem sido concretizada na literatura: que modelos são utilizados,
+em que organizações são aplicados e que condições de utilização são
+explicitamente descritas. Este capítulo organiza essa evidência através de
+uma revisão de âmbito, articulando uma caracterização bibliométrica ampla
+com uma síntese dirigida às indústrias de processo contínuo.
+
+A revisão tem como objeto a evidência reportada nas publicações recuperadas.
+A frequência de uma família de modelos permite caracterizar a sua presença
+nesse conjunto, mas não estabelece a sua adequação a uma unidade de refinação.
+Essa distinção orienta a organização do capítulo: apresentam-se o protocolo,
+a pesquisa e a seleção; descrevem-se os procedimentos e os resultados
+bibliométricos disponíveis; e delimita-se a informação que requer a leitura
+aprofundada do corpus analítico. Os resultados quantitativos desta versão
+correspondem à extração de dados congelada em 13 de setembro de 2026 e
+mantêm caráter preliminar nos aspetos cuja verificação ainda não está concluída.
+
+\section{Protocolo e pré-registo}
+\label{sec:protocolo-sr}
+
+\subsection{Finalidade e perguntas da revisão}
+
+Adotou-se uma revisão de âmbito por se pretender mapear modelos,
+contextos de aplicação e características metodológicas de uma literatura
+heterogénea, que inclui estudos de caso, propostas conceptuais, ferramentas
+e revisões. Não se procura estimar um efeito agregado de uma intervenção.
+O relato é orientado pela extensão PRISMA-ScR, que estrutura a apresentação
+do protocolo, dos critérios de seleção, da extração e da síntese da
+evidência~\cite{Tricco2018}. A utilização desta orientação de relato não
+substitui a explicitação das decisões metodológicas nem constitui uma
+certificação da validade dos resultados.
+
+O protocolo está identificado no Open Science Framework pelo DOI
+\nolinkurl{10.17605/OSF.IO/TDW6C}~\cite{Ribeiro2026Protocolo}.
+A documentação operacional regista alterações ao âmbito das afirmações,
+à interpretação da elegibilidade e ao controlo da extração assistida por
+inteligência artificial. Entre estas, a versão C-2.3 do protocolo de
+validação encontra-se registada localmente como aprovada e depositada em
+23 de julho de 2026. O protocolo inicial, as emendas e a cronologia de
+execução constituem documentos distintos; a sua identificação e articulação
+devem acompanhar a versão final da revisão no Apêndice~\ref{app:protocolo-sr}.
+
+As quatro perguntas de investigação são interpretadas ao nível da revisão.
+A SQ1 caracteriza a distribuição dos modelos EnPI/EnB por ano, setor, tipo
+de organização e enquadramento normativo. A SQ2 identifica mecanismos de
+variabilidade operacional e limitações dos modelos reportados nos estudos
+de processo contínuo. A SQ3 reúne as adaptações propostas para esses
+contextos, distinguindo a proposta de uma adaptação da demonstração da sua
+eficácia. A SQ4 examina aplicações, requisitos e barreiras descritos como
+potencialmente transferíveis para a refinação de petróleo. A avaliação
+empírica na refinaria de Sines pertence a uma componente própria da
+dissertação e não é tomada como resultado da revisão bibliográfica.
+
+% [REV-2026-09-13][C3-01][P2][CONTEUDO]
+\revisaotese{C3-01}{P2}{CONTEUDO}
+{Completar a cronologia documental antes da versão final}
+{O DOI e a data da emenda C-2.3 acima provêm dos documentos locais do
+protocolo. Confirmar no depósito público a data do registo inicial e
+identificar a versão efetivamente depositada de cada emenda posterior,
+incluindo as alterações operacionais de setembro. O estado atual permite
+redigir o método e resultados preliminares, mas não declarar concluída
+a auditoria de todos os campos nem o rastreio de referências.}%
+% [/REV-2026-09-13]
+
+\subsection{Âmbito e organização em dois corpora}
+
+O Corpus A é definido como o conjunto de publicações que satisfazem os
+critérios de elegibilidade em texto integral, independentemente do setor
+de aplicação, e suporta a resposta à SQ1. O Corpus B é definido pelo
+protocolo como um subconjunto de A destinado à síntese das SQ2--SQ4.
+Assim, uma publicação pertencente a B também deve contribuir para a
+análise bibliométrica de A, uma única vez. A divisão em dois corpora
+define profundidades de análise diferentes e não duas amostras que
+possam ser somadas.
+
+A pertença a B exige uma aplicação, validação ou demonstração empírica
+do modelo num processo contínuo de um dos setores previamente definidos:
+refinação de petróleo, petroquímica, cimento, pasta e papel, siderurgia
+ou outra produção contínua de metais primários, produção química contínua,
+gases industriais e produção de vidro por fusão contínua. Uma menção
+ao setor numa introdução ou numa revisão de literatura não satisfaz,
+por si só, esse requisito. A presença de incrustação, desativação de
+catalisadores ou outros mecanismos de variabilidade é uma característica
+a extrair dos estudos e não um critério para os selecionar. Evita-se,
+deste modo, definir o conjunto de análise pelo fenómeno que nele se
+pretende investigar.
+
+% [REV-2026-09-14][C3-V01][P2][FIGURA]
+\revisaotese{C3-V01}{P2}{FIGURA}
+{Esquema do desenho da revisão e das perguntas}
+{Colocar aqui um esquema vetorial simples: publicações elegíveis
+$\rightarrow$ Corpus A/SQ1, com uma área interior Corpus B/SQ2--SQ4;
+ao lado, representar a validação empírica em Sines como componente
+distinta da dissertação. Identificar o desenho como a relação prevista
+no protocolo e não acrescentar contagens enquanto a inconsistência de
+pertença descrita adiante não estiver resolvida. Este esquema ainda
+precisa de ser desenhado; não deve repetir o detalhe do fluxo PRISMA.}%
+% [/REV-2026-09-14]
+
+
+\section{Estratégia de pesquisa e seleção}
+\label{sec:pesquisa}
+
+\subsection{Fontes de informação e lógica de pesquisa}
+
+A estratégia documentada combina pesquisas na Scopus e na Web of Science,
+organizadas em duas expressões complementares. A expressão A procura o
+enquadramento normativo associado à ISO~50001 ou à ISO~50006. A expressão B
+procura conceitos de indicadores e referências energéticas associados
+ao contexto industrial. As designações das expressões de pesquisa não
+correspondem às designações dos corpora: a proveniência de um registo
+numa expressão não determina a sua elegibilidade nem a profundidade
+da análise posterior.
+
+O intervalo temporal previsto para a pesquisa nas bases inicia-se em
+1996. O protocolo admite a entrada de publicações anteriores por rastreio
+de referências, com identificação explícita dessa via. O recorte
+linguístico é o inglês. As expressões completas, os campos pesquisados,
+os filtros específicos de cada plataforma e as datas de execução são
+necessários para reproduzir a pesquisa, de acordo com o objetivo de
+transparência do PRISMA-S~\cite{Rethlefsen2021PRISMAS}. A data de exportação
+de um ficheiro bibliográfico não é utilizada como substituto da data
+de execução da pesquisa.
+
+O enquadramento ISO delimita a pergunta, mas também condiciona a
+literatura recuperada. Trabalhos sobre normalização energética,
+monitorização de processos ou deteção de mudança podem ser relevantes
+sem utilizar essa terminologia. Por esse motivo, o protocolo prevê
+rastreio retrospetivo e prospetivo de referências e pesquisa complementar
+quando se verificam os critérios estabelecidos nas emendas. O fecho desse
+rastreio exige documentar os registos adicionais e a respetiva seleção.
+A ausência desses registos na extração utilizada neste capítulo não
+permite concluir que o seu contributo seja nulo.
+
+% [REV-2026-09-13][C3-02][P2][METODO]
+\revisaotese{C3-02}{P2}{METODO}
+{Dados da pesquisa ainda a integrar}
+{Completar o Apêndice~\ref{app:protocolo-sr} com as expressões literais,
+datas e totais por base, identificando os filtros que efetivamente
+limitaram a recuperação de teses e literatura cinzenta. No ficheiro
+analítico, a origem A/B/ambas está ausente para todos os registos.
+Recuperar esta informação dos logs; um valor vazio não significa
+entrada por snowballing. Manter a distinção entre pesquisa prevista,
+pesquisa executada e pesquisa complementar por fechar.}%
+% [/REV-2026-09-13]
+
+\subsection{Elegibilidade e extração da informação}
+
+A seleção combina a triagem de títulos e resumos com a avaliação do
+texto integral. Os registos mantidos como incluídos ou de decisão
+incerta na triagem avançam para esta última avaliação; a classificação
+preliminar não determina a inclusão definitiva. O limiar de elegibilidade
+metodológica requer que a publicação apresente, proponha, avalie ou
+critique um modelo de medição do desempenho energético com detalhe
+suficiente para o identificar e caracterizar. Uma referência incidental
+a EnPI ou EnB, sem conteúdo sobre o modelo, não é suficiente. A existência
+de validação é uma característica do estudo a analisar, e não uma
+condição geral de entrada: uma proposta conceptual ou uma crítica
+metodológica pode ser elegível.
+
+Os filtros documentados abrangem o tipo de documento, o idioma, o ano
+e a situação de retratação. A possibilidade de extrair texto do ficheiro
+é verificada para viabilizar a leitura assistida; os problemas de
+recuperação ou de extração são distinguidos das exclusões por conteúdo.
+A revisão é conduzida por um revisor humano, com pré-extrações separadas
+produzidas por duas famílias de modelos de linguagem. Estas pré-extrações
+incluem, quando aplicável, excertos e páginas que permitem localizar a
+evidência. A utilização de dois modelos não equivale à participação de
+dois revisores humanos independentes.
+
+O controlo da extração distingue decisões que determinam a composição
+dos corpora de classificações descritivas e de campos necessários à
+síntese aprofundada. As divergências orientam a verificação; a
+concordância entre modelos é apenas um sinal de concordância entre
+pré-extrações. A avaliação da fiabilidade requer comparação com decisões
+humanas documentadas. Os procedimentos previstos e as alterações à sua
+execução devem ser apresentados no Apêndice~\ref{app:validacao}, com
+identificação dos campos e das publicações efetivamente verificados.
+
+\subsection{Fluxo de seleção e estado da composição}
+
+O export de triagem utilizado contém 925 registos, dos quais 326 estão
+classificados como excluídos e 599 como incluídos ou de decisão incerta.
+Identificaram-se posteriormente três duplicados, ficando 596 publicações
+para recuperação do texto integral. O registo de recuperação, congelado
+em 10 de julho de 2026, documenta 459 textos recuperados e 137 não
+recuperados. Entre os recuperados, 10 foram excluídos por idioma e um
+por retratação. A diferença entre os 448 restantes e os 331 registos
+incluídos em A corresponde a 117 exclusões por elegibilidade metodológica.
+Estes valores permitem reconstruir o segmento conhecido do fluxo
+PRISMA~\cite{Page2021PRISMA}, mas ainda não os totais brutos identificados
+em cada base nem os resultados do rastreio de referências.
+
+A não recuperação foi desigual entre grupos observáveis. No universo
+de 596 registos, recuperou-se o texto de 91,6\% dos que tinham DOI,
+comparativamente a 30,3\% dos que não tinham. A taxa foi de 85,0\% nos
+registos previamente classificados como incluídos e de 65,4\% nos de
+decisão incerta. Por conseguinte, o conjunto recuperado não representa
+uma perda uniforme de publicações. A elegibilidade dos textos não
+recuperados permanece desconhecida, pelo que estes não são contabilizados
+como exclusões por conteúdo.
+
+Existe ainda uma inconsistência na relação entre os corpora exportados.
+A lista de A contém 331 identificadores e a de B contém 42, mas apenas
+40 identificadores são comuns. Para conservar todos os registos de B
+na exploração bibliométrica, construiu-se adicionalmente a união
+$A\cup B$, com 333 publicações distintas. A Tabela~\ref{tab:composicao-corpora}
+explicita essa relação. Esta operação preserva os registos originais;
+não constitui uma nova decisão de elegibilidade. Os resultados
+preliminares apresentados na secção seguinte usam a união inclusiva,
+mantendo-se a execução sobre os 331 registos de A como análise de
+sensibilidade à composição.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Composição dos conjuntos na extração de 13 de setembro de 2026.
+  A relação observada ainda não satisfaz a relação $B\subseteq A$
+  prevista no protocolo. A unidade de contagem é a publicação.}
+  \label{tab:composicao-corpora}
+  \begin{tabular}{lr}
+    \toprule
+    Conjunto & Publicações \\
+    \midrule
+    Corpus A registado & 331 \\
+    Corpus B registado & 42 \\
+    Interseção $A\cap B$ & 40 \\
+    Registos de A fora de B, $A\setminus B$ & 291 \\
+    Registos de B fora de A, $B\setminus A$ & 2 \\
+    União inclusiva, $A\cup B$ & 333 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% [REV-2026-09-14][C3-05][P1][DADOS]
+\revisaotese{C3-05}{P1}{DADOS}
+{Resolver a incompatibilidade entre as listas antes de fechar o corpus}
+{Os registos \texttt{rayyan-472535628} e \texttt{rayyan-472535750}
+estão simultaneamente classificados como pertencentes a B e excluídos
+por elegibilidade metodológica de A. Confirmar a decisão em cada caso,
+atualizar a lista e só então regenerar o fluxo, a tabela e as figuras.
+Os 333 usados nesta redação são uma união exploratória, não um Corpus A
+definitivamente aumentado. A resolução desta questão pode alterar
+também as contagens de exclusão.}%
+% [/REV-2026-09-14]
+
+% [REV-2026-09-13][F04][P2][FIGURA]
+\revisaotese{F04}{P2}{FIGURA}
+{Inserir o fluxograma PRISMA no fim da seleção}
+{Usar como base \texttt{prisma\_flow.pdf}, já gerado na pasta
+\nolinkurl{bibliometrics/results/union_inclusiva/figures/} do projeto
+LocalResearch. O fluxo distingue triagem, duplicados tardios, textos
+não recuperados e exclusões; assinala os totais iniciais e o
+snowballing ainda por documentar, assim como o conflito A/B. Na
+versão final, substituir as caixas pendentes por dados documentados
+e mostrar B como subconjunto, sem somar A e B. Todas as sugestões
+de ficheiros seguintes referem-se à mesma pasta.}%
+% [/REV-2026-09-13]
+
+
+\section{Análise bibliométrica (Corpus A)}
+\label{sec:corpus-a}
+
+\subsection{Unidade de análise, variáveis e tratamento dos dados}
+
+A análise combina bibliometria descritiva, relativa à produção e às
+relações entre publicações, com o mapeamento de características extraídas
+do texto integral. Esta combinação permite relacionar a evolução e a
+organização da literatura com os modelos e os contextos estudados.
+As redes bibliográficas e de termos complementam as distribuições
+descritivas, segundo famílias de análise habitualmente utilizadas no
+mapeamento científico~\cite{Aria2017Bibliometrix,VanEck2010VOSviewer}.
+A implementação utilizada nesta dissertação é um conjunto de scripts
+Python, executável também através de um notebook; não corresponde a
+uma execução dos programas apresentados nessas referências.
+
+A unidade de contagem é a publicação, identificada por uma chave única.
+Uma publicação pode apresentar vários modelos ou várias aplicações,
+e diferentes publicações podem descrever o mesmo estudo. Não se
+equipara, por isso, o número de publicações ao número de instalações,
+de experiências ou de validações independentes. Distingue-se também
+o tipo de documento, como artigo de revista ou comunicação em atas,
+do tipo de estudo, como caso aplicado, revisão ou proposta metodológica.
+
+Os metadados bibliográficos incluem autores, ano, título, fonte,
+tipo de documento, DOI e palavras-chave. Os campos de conteúdo
+abrangem o tipo de estudo, a presença de várias instalações, o local
+dos casos, o setor, o tipo de organização, o enquadramento normativo,
+os protocolos de medição e verificação, os drivers regulamentares,
+as famílias de modelos e as metodologias complementares. A localização
+de um caso é mantida separada do país de afiliação dos autores.
+O setor é conservado na formulação original e, para algumas figuras,
+é também apresentado num agrupamento derivado, sujeito a revisão.
+
+Nas variáveis que admitem várias categorias, cada publicação contribui
+uma vez para cada categoria que lhe é atribuída. As percentagens
+calculadas sobre o total de publicações podem, portanto, somar mais
+de 100\%. Nos cruzamentos, uma publicação contribui uma vez por célula;
+nas comparações entre grupos usam-se os respetivos denominadores.
+Os diagramas de interseções representam combinações exatas de categorias.
+No diagrama aluvial, o peso total de cada publicação é repartido pelas
+combinações observadas, pelo que a largura dos fluxos representa uma
+contagem fracionada e não o número integral de artigos.
+
+Para complementar os metadados do export, consultaram-se o OpenAlex
+e a Crossref em 13 de setembro de 2026~\cite{Priem2022OpenAlex,Crossref2026API}.
+As correspondências por DOI foram confrontadas com os títulos;
+discrepâncias foram separadas para revisão. Obtiveram-se metadados
+utilizáveis do OpenAlex para 284 das 333 publicações e da Crossref
+para 280. Recuperaram-se 224 resumos e informação de afiliação para
+269 publicações. As respostas dos fornecedores, as datas, as regras
+de normalização e os ficheiros de entrada foram conservados para
+permitir reproduzir a análise. As contagens de citações das duas
+fontes e as contagens históricas do export mantêm-se separadas.
+
+\subsection{Cobertura e estado de verificação}
+
+O conjunto inclusivo dispõe de informação de autoria, ano e fonte
+para as 333 publicações, de palavras-chave para 325 e de DOI para 301.
+O campo de resumo estava vazio no export original, pelo que as
+análises de resumos dependem do enriquecimento bibliográfico.
+A disponibilidade de metadados externos não é utilizada como condição
+de inclusão: as publicações sem DOI ou sem correspondência num
+fornecedor permanecem no conjunto de análise.
+
+A situação é diferente nos campos extraídos do texto integral.
+Na vista provisória adotada, usam-se os valores concordantes entre
+as duas pré-extrações; as divergências, os valores produzidos por
+apenas um dos modelos e as células sem extração permanecem por
+resolver. Esta regra impede que a escolha automática de um modelo
+se transforme numa adjudicação, mas produz um subconjunto disponível
+que não deve ser considerado representativo do conjunto completo.
+Também os valores concordantes podem conter erros partilhados e
+carecem do controlo humano previsto no protocolo.
+
+A extensão desta limitação varia entre campos. Existe concordância
+para o tipo de estudo em 260 publicações, para o tipo de organização
+em 238 e para a família de modelos em 162. Neste último campo,
+118 publicações apresentam divergência e 53 dispõem apenas de uma
+pré-extração utilizável. Assim, os 171 casos ainda por resolver
+correspondem a 51,4\% do conjunto inclusivo. As distribuições seguintes
+descrevem a informação disponível, apresentando os denominadores e
+evitando interpretar os dados em falta como ausência da característica.
+
+% [REV-2026-09-14][C3-V02][P2][FIGURA]
+\revisaotese{C3-V02}{P2}{FIGURA}
+{Mostrar a cobertura antes das distribuições de conteúdo}
+{Inserir \texttt{field\_status.pdf} imediatamente após estes parágrafos.
+As barras devem separar concordância entre IA, divergência, extração
+única e ausência de extração. Esta figura explica por que motivo os
+denominadores dos resultados de conteúdo diferem dos 333 registos.
+Após a verificação humana, regenerar a figura com os estados efetivos;
+não mudar apenas a legenda de ``concordante'' para ``validado''.}%
+% [/REV-2026-09-14]
+
+% [REV-2026-09-13][C3-03][P2][ANALISE]
+\revisaotese{C3-03}{P2}{ANALISE}
+{Atualizar os resultados de conteúdo após a verificação}
+{As contagens desta versão foram conferidas com as tabelas exportadas,
+mas descrevem pré-extrações concordantes, não uma classificação
+integralmente adjudicada. Rever as células, regenerar o script e
+atualizar texto e figuras em conjunto. Um contexto pouco representado
+indica a cobertura deste corpus; não demonstra a inexistência de
+métodos nem a inadequação dos publicados.}%
+% [/REV-2026-09-13]
+
+\subsection{Evolução temporal e fontes de publicação}
+
+As 333 publicações da vista inclusiva distribuem-se entre 1997 e 2026.
+Das publicações identificadas, 282 são de 2015 ou de anos posteriores
+(84,7\%) e 168 são de 2020 ou de anos posteriores (50,5\%). A série
+inclui 35 publicações em 2020 e 34 em 2025. O único registo de 2026
+pertence a um ano parcialmente coberto pela pesquisa e não é
+interpretado como uma quebra da produção científica. A evolução
+observada caracteriza a literatura recuperada pela estratégia
+adotada; a sua forma também depende do recorte temático, das bases
+consultadas e da possibilidade de obter os textos integrais.
+
+Na classificação documental disponível, 214 registos correspondem
+a artigos de revista (64,3\%) e 119 a publicações em atas de
+conferências (35,7\%). A presença de trabalhos de conferência é
+relevante para a descrição do conjunto e para a análise de
+recuperação, mas não permite atribuir qualidade metodológica
+em função do formato de publicação.
+
+% [REV-2026-09-14][C3-V03][P2][FIGURA]
+\revisaotese{C3-V03}{P2}{FIGURA}
+{Evolução anual como primeira figura de resultados}
+{Usar \texttt{annual.pdf}, com publicações anuais e acumuladas em
+dois painéis. Sombrear ou anotar 2026 como cobertura parcial. Pode
+acrescentar-se a composição por tipo de documento num painel pequeno,
+a partir de \texttt{document\_type.csv}. Reservar
+\texttt{annual\_study\_types.pdf} para a versão com tipos de estudo
+verificados, pois atualmente contém classificações por resolver.}%
+% [/REV-2026-09-14]
+
+Depois da normalização elementar das designações, os registos
+distribuem-se por 195 nomes de fontes de publicação. As dez fontes
+mais frequentes reúnem 27,6\% do conjunto. Destacam-se
+\emph{Energies}, com 24 publicações, e o \emph{Journal of Cleaner
+Production}, com 12, seguindo-se \emph{Energy} e \emph{Energy
+Procedia}, com nove cada. Esta dispersão por fontes justifica
+articular literatura de gestão de energia, engenharia e métodos
+de medição. O número de designações deve ser confirmado por
+identificadores de fonte e resolução de variantes antes de se
+tratar cada designação como uma revista ou série distinta.
+
+% [REV-2026-09-14][C3-V04][P2][FIGURA]
+\revisaotese{C3-V04}{P2}{FIGURA}
+{Fontes principais e dispersão da literatura}
+{Combinar \texttt{source.pdf} e \texttt{source\_concentration.pdf}
+numa figura de dois painéis: fontes mais frequentes e percentagem
+acumulada por ordem de frequência. Manter a tabela completa no
+apêndice de extração. Resolver variantes por ISSN quando possível;
+não apresentar a curva descritiva como demonstração da lei de Bradford.}%
+% [/REV-2026-09-14]
+
+\subsection{Perfis de estudo e contextos de aplicação}
+
+Entre as 260 publicações com classificação concordante do tipo de
+estudo, 154 correspondem a um caso aplicado e 54 a estudos multicaso.
+Identificam-se ainda 18 revisões ou sínteses, 16 trabalhos de
+desenvolvimento de ferramentas, 14 trabalhos metodológicos ou
+teóricos e quatro modelos ou referenciais de maturidade. As restantes
+73 publicações não têm ainda essa classificação resolvida. A
+frequência dos estudos aplicados é visível no subconjunto disponível,
+mas o desenho multicaso não deve ser confundido com a utilização de
+várias instalações nem com validação externa do modelo.
+
+O tipo de organização apresenta 238 classificações concordantes:
+71 em manufatura discreta, 58 em processos contínuos, 57 em edifícios,
+21 em contextos mistos, 17 em serviços e 14 sem especificação.
+Permanecem 95 classificações por resolver. Estes números não
+estabelecem uma predominância geral da manufatura discreta na
+literatura EnPI/EnB. Além da incompletude da classificação, a etiqueta
+``processo contínuo'' tem um âmbito mais amplo do que a pertença
+ao Corpus B, que exige os critérios setoriais e de aplicação
+definidos no protocolo.
+
+Os dados geográficos requerem cuidado adicional. O campo relativo
+à localização dos casos apresenta valores concordantes em 144
+publicações, incluindo situações não aplicáveis, e contém
+formulações em texto livre que necessitam de normalização.
+As classificações geográficas derivadas são, por isso, utilizadas
+para exploração e não para concluir uma concentração definitiva
+dos locais de aplicação. Os dados de afiliação enriquecidos
+permitem uma análise distinta, sobre a localização das equipas
+de investigação; não são usados para preencher a localização
+de casos industriais que o artigo não identifique.
+
+% [REV-2026-09-14][C3-V05][P2][FIGURA]
+\revisaotese{C3-V05}{P2}{FIGURA}
+{Caracterizar os estudos e os contextos sem ocultar lacunas}
+{Colocar aqui uma figura com \texttt{paper\_type.pdf} e
+\texttt{type\_of\_organisation.pdf}. Manter a categoria por
+resolver. Uma figura geográfica adicional só se justifica depois
+de rever as localizações: separar países dos casos
+(\texttt{countries\_case.pdf}) de países das afiliações
+(\texttt{enriched\_affiliation\_countries.pdf}). Preferir barras
+comparáveis a um mapa-mundo quando a cobertura for escassa.}%
+% [/REV-2026-09-14]
+
+\subsection{Famílias de modelos e enquadramento normativo}
+
+Nas 162 publicações com classificação concordante das famílias de
+modelos, surgem rácios simples de intensidade energética em 74,
+regressão com uma variável independente em 48 e regressão múltipla
+em 41. São também identificados modelos físicos em 21, métodos
+agrupados como deteção de mudança ou controlo estatístico de
+processo em 20 e aprendizagem automática em 19. As categorias
+não são mutuamente exclusivas. A presença de duas famílias no
+mesmo artigo não demonstra que tenham sido comparadas nas mesmas
+condições nem integradas num modelo híbrido.
+
+A distinção entre rácio e regressão é relevante para a leitura
+destes resultados. Um indicador que divide o consumo pela produção
+não equivale a uma relação ajustada aos dados com coeficientes
+estimados; uma média de consumos específicos constitui ainda
+outra categoria de descrição. Por sua vez, a categoria agregada
+de deteção de mudança ou controlo estatístico reúne procedimentos
+com funções distintas. A sua ocorrência não demonstra, isoladamente,
+que uma referência seja atualizada ou que o método trate a
+não estacionariedade do processo. Estas diferenças precisam de
+ser recuperadas na síntese metodológica, para além das etiquetas
+bibliométricas.
+
+% [REV-2026-09-14][C3-V06][P2][FIGURA]
+\revisaotese{C3-V06}{P2}{FIGURA}
+{Distribuição e combinações dos modelos}
+{Usar \texttt{enpi\_enb\_model\_types.pdf} para as frequências
+e \texttt{upset\_enpi\_enb\_model\_types.pdf} para as
+interseções exatas. Indicar 162 classificações disponíveis e 171
+por resolver nesta versão. Antes da redação final, rever os casos
+em que o protocolo atribuiu regressão múltipla por defeito, sem
+especificação do número de variáveis, e desagregar a categoria
+change-point/SPC se a interpretação depender dessa distinção.}%
+% [/REV-2026-09-14]
+
+A análise por setor procura identificar associações entre o contexto
+de aplicação e a família de modelos, sem impor uma ordenação de
+sofisticação ou de adequação. O cruzamento é calculado apenas para
+publicações com ambos os campos disponíveis e conserva a possibilidade
+de várias etiquetas. Assim, uma célula vazia significa que não
+foi registada essa combinação no subconjunto analisável; não
+constitui evidência de inexistência de aplicações no setor.
+
+% [REV-2026-09-14][C3-V07][P2][FIGURA]
+\revisaotese{C3-V07}{P2}{FIGURA}
+{Priorizar a matriz setor--modelo para responder à SQ1}
+{Inserir aqui
+\nolinkurl{cross_sectors_derived__enpi_enb_model_types.pdf}.
+Apresentar contagens nas células e o número de artigos com ambos
+os campos; acompanhar com os totais por setor. Rever o agrupamento
+setorial derivado antes de interpretar refinação, petroquímica
+ou metais. O diagrama \texttt{alluvial.pdf} pode ficar no apêndice
+como exploração de setor--modelo--norma; não substitui esta matriz.}%
+% [/REV-2026-09-14]
+
+O enquadramento normativo apresenta classificação concordante em
+258 publicações. A ISO~50001 é identificada em 185 e a ISO~50006
+em 48; seis incluem a ISO~50002 e 29 apresentam outros referenciais
+nomeados. Em 66, as pré-extrações concordam na categoria de ausência
+de norma identificada. Esta codificação descreve o enquadramento
+registado, não a certificação da organização nem a demonstração
+de conformidade do modelo com todos os requisitos de uma norma.
+
+Nos protocolos de medição e verificação, existem 271 classificações
+concordantes. Identificam-se 12 publicações com IPMVP, nove com
+ASHRAE~14 e sete com SEP~M\&V. Em 249, as duas pré-extrações
+atribuem a categoria de ausência de protocolo identificado.
+Esta última contagem necessita de verificação das ausências no
+texto integral: não permite concluir que não tenha existido
+medição, validação ou comparação com dados, nem que os modelos
+sejam inválidos. A mesma separação entre característica reportada
+e avaliação de adequação aplica-se aos drivers regulamentares
+e às metodologias complementares.
+
+% [REV-2026-09-14][C3-V08][P2][FIGURA]
+\revisaotese{C3-V08}{P2}{FIGURA}
+{Enquadramento normativo e medição e verificação}
+{Combinar \texttt{ems\_standard.pdf} e \texttt{mv\_protocol.pdf}
+em dois painéis com os respetivos denominadores. Usar
+\nolinkurl{cross_ems_standard__enpi_enb_model_types.pdf}
+como figura adicional apenas se o cruzamento suportar uma
+interpretação substantiva após a verificação. A legenda deve
+distinguir enquadramento identificado, ausência codificada e
+classificação por resolver; evitar a expressão ``adoção da norma''
+quando só foi extraída a sua presença no artigo.}%
+% [/REV-2026-09-14]
+
+\subsection{Estrutura temática, colaboração e referências}
+
+A análise temática utiliza as palavras-chave disponíveis após
+normalização de grafias e de equivalências explícitas, conservando
+os termos originais. O export não separa de forma sistemática
+palavras-chave de autor e termos de indexação, pelo que a origem
+deste vocabulário constitui uma limitação da análise. Na rede
+exploratória, dois termos estão ligados quando aparecem na mesma
+publicação; o peso da ligação é o número de publicações em que
+coocorrem. A implementação retém termos com pelo menos três
+ocorrências e limita a visualização a 65 termos, identificando
+comunidades por um procedimento de otimização gulosa da modularidade.
+As distribuições temporais usam intervalos fixos de cinco anos.
+
+Os agrupamentos obtidos servem para localizar temas e selecionar
+publicações representativas para leitura. Não se atribui
+automaticamente a um grupo o estatuto de tema emergente, central
+para a prática ou metodologicamente mais avançado. A análise dos
+224 resumos enriquecidos oferece uma exploração complementar
+do vocabulário e de tópicos, mas a sua cobertura parcial impede
+que substitua as variáveis extraídas do texto integral. Em
+particular, o uso de um termo num título ou resumo não demonstra
+a execução de um procedimento de validação.
+
+% [REV-2026-09-14][C3-V09][P2][FIGURA]
+\revisaotese{C3-V09}{P2}{FIGURA}
+{Mapa temático com interpretação apoiada em artigos}
+{Usar \texttt{keyword\_network.pdf} como figura complementar,
+depois de nomear os grupos pela leitura dos artigos que os
+compõem. Acrescentar \texttt{keyword\_temporal\_map.pdf}
+se a evolução dos temas acrescentar informação à SQ1. Explicitar
+os limiares, o vocabulário de origem e os denominadores por período.
+As restantes redes e os tópicos automáticos podem ficar no apêndice;
+não é necessário inserir as 97 figuras exploratórias no capítulo.}%
+% [/REV-2026-09-14]
+
+A estrutura social da produção científica é explorada por autoria
+e afiliação. As redes de coautoria ligam autores presentes na
+mesma publicação, enquanto as redes de instituições e países
+descrevem afiliações partilhadas. Os nomes de autores provenientes
+do export não estão integralmente desambiguados, pelo que
+homónimos e variantes podem afetar a estrutura observada. As
+afiliações não são interpretadas como os locais de aplicação
+dos modelos, e os rankings de frequência não representam a
+produção completa dos autores ou das instituições.
+
+A estrutura das referências é analisada por relações distintas.
+Uma citação direta liga uma publicação citante à publicação citada.
+O acoplamento bibliográfico relaciona duas publicações quando
+partilham referências; na implementação, exige-se um mínimo de
+duas referências partilhadas e normaliza-se o peso pela raiz
+quadrada do produto dos números de referências indexadas de cada publicação. A cocitação
+relaciona referências citadas em conjunto por uma publicação.
+Estas redes descrevem proximidades bibliográficas e bases de
+referência comuns~\cite{VanEck2010VOSviewer}; nenhuma estabelece,
+por si só, equivalência entre modelos ou transferibilidade
+entre contextos industriais.
+
+As citações recebidas constituem uma medida descritiva de atenção
+bibliográfica. Nos 284 registos com metadados OpenAlex utilizáveis,
+a mediana é de sete citações na data de consulta. A comparação
+entre publicações exige considerar o tempo de exposição e a
+cobertura do fornecedor, e não se fundem contagens provenientes
+de bases diferentes. Nas redes por autores ou fontes citadas,
+a resolução de metadados incidiu nas 80 referências de maior
+frequência, das quais se obtiveram 79 correspondências; os
+resultados dessas projeções são, portanto, condicionados por
+esse recorte adicional.
+
+% [REV-2026-09-14][C3-V10][P2][FIGURA]
+\revisaotese{C3-V10}{P2}{FIGURA}
+{Escolher uma rede bibliográfica com função na síntese}
+{Preferir \texttt{bibliographic\_coupling.pdf} se o objetivo for
+mostrar grupos de publicações com referências comuns. Usar
+\texttt{cocitation.pdf} para discutir bases intelectuais, sem
+confundir as duas relações. Manter a legenda numerada e remeter
+a identificação completa dos nós para a tabela. As redes de
+coautoria, instituições e rankings de citações devem ficar no
+apêndice salvo se ajudarem a explicar a cobertura da revisão.}%
+% [/REV-2026-09-14]
+
+\subsection{Alcance dos resultados e ligação à síntese narrativa}
+
+A exploração bibliométrica permite descrever a dimensão, a
+evolução temporal, a dispersão das fontes e a diversidade de
+contextos e de famílias de modelos presentes no conjunto
+recuperado. Mostra também que os diferentes eixos de análise
+têm coberturas distintas. A correção da composição A/B, a
+verificação dos campos de conteúdo e a conclusão do rastreio
+de referências são necessárias para converter esta exploração
+numa caracterização final do corpus elegível.
+
+Os resultados descritivos delimitam perguntas para a leitura
+aprofundada: em que condições os modelos foram construídos,
+que variáveis normalizam o consumo, como são avaliados fora
+da amostra de ajuste e que limites ou adaptações são reportados.
+Essas características não estão integralmente extraídas para
+o conjunto amplo e não são deduzidas da família do modelo,
+da norma mencionada ou da posição numa rede de citações.
+A síntese do Corpus B deve recuperar essa informação e
+fundamentar a discussão sobre condições de transferência
+para a refinação, preservando a distinção entre resultados
+da literatura e resultados do caso de Sines.
+
+
+\section{Síntese narrativa (Corpus B)}
+\label{sec:corpus-b}
+% [REV-2026-09-13][F05][P2][FIGURA]
+\revisaotese{F05}{P2}{FIGURA}
+{Mapa de evidência que sustenta a lacuna}
+{Depois de explicar a extração, usar uma matriz: linhas = estudos ou
+famílias; colunas = contexto industrial, variáveis, horizonte, validação
+temporal, dependência, deriva, cobertura, eventos reais e implantação.
+Codificar "avaliado", "não reportado" e "não aplicável" distintamente,
+com referências nas linhas e texto de síntese por SQ. É a figura/tabela
+mais útil para justificar o que a tua proposta acrescenta. Manter os
+dados de extração completos no Apêndice B; não substituir síntese por cor.}%
+% [/REV-2026-09-13]
+
+%% >> O que os estudos em processo continuo propoem, reconhecem e nao resolvem, por sub-questao.
+
+
+\section{Síntese: o \emph{gap}}
+\label{sec:gap}
+% [REV-2026-09-13][C3-04][P2][ARGUMENTO]
+\revisaotese{C3-04}{P2}{ARGUMENTO}
+{Fecho da revisão tem de ligar evidência e decisões do estudo}
+{Comparar abordagens existentes, condições em que funcionam, limites de
+validação e o que falta operacionalizar. Terminar com três lacunas
+documentadas e a decisão metodológica que responde a cada uma no Cap. 4.
+Não escrever a conclusão universal prevista no comentário-esqueleto sem
+evidência. Avaliar criticamente pelo menos os estudos mais próximos do
+caso, mesmo que avaliação de risco de viés formal não seja objetivo
+obrigatório de uma scoping review.}%
+% [/REV-2026-09-13]
+
+%% >> Nao existe metodologia sistematica para avaliar e construir baselines energeticas em processo continuo dentro do enquadramento normativo.
+

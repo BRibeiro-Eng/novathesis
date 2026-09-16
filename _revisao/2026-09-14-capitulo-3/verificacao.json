@@ -1,0 +1,60 @@
+{
+  "data": "2026-09-14",
+  "capitulo": "/Users/bernardoribeiro/Desktop/Tese/novathesis/2-MainMatter/chapter-3-revisao.tex",
+  "pdf_tese": "/Users/bernardoribeiro/Desktop/Tese/novathesis/template.pdf",
+  "pdf_capitulo": "/Users/bernardoribeiro/Desktop/Tese/novathesis/_revisao/2026-09-14-capitulo-3/capitulo-3.pdf",
+  "paginas_pdf": [
+    34,
+    46
+  ],
+  "paginas_impressas": [
+    22,
+    34
+  ],
+  "figuras_sugeridas": {
+    "C3-V01": [
+      36
+    ],
+    "F04": [
+      38
+    ],
+    "C3-V02": [
+      40
+    ],
+    "C3-V03": [
+      41
+    ],
+    "C3-V04": [
+      41
+    ],
+    "C3-V05": [
+      42
+    ],
+    "C3-V06": [
+      43
+    ],
+    "C3-V07": [
+      43
+    ],
+    "C3-V08": [
+      43
+    ],
+    "C3-V09": [
+      44
+    ],
+    "C3-V10": [
+      45
+    ]
+  },
+  "sintese_b_e_gap_preservados": true,
+  "latexmk_exit_code": 0,
+  "referencias_indefinidas": 0,
+  "overfull_capitulo3": 0,
+  "caveats": [
+    "Resultados de conteúdo baseados em pré-extrações concordantes, ainda sem verificação humana integral.",
+    "A=331, B=42, interseção=40; união exploratória=333. A elegibilidade não foi alterada.",
+    "Metadados externos e análise congelados em 2026-09-13.",
+    "O wrapper do plugin teve um erro de descodificação da saída; a compilação nativa latexmk terminou com código 0.",
+    "Avisos preexistentes no template: duas chaves bibliográficas duplicadas de divulgação de IA e caixas overfull fora do capítulo 3."
+  ]
+}

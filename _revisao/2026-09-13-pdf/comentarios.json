@@ -1,0 +1,1042 @@
+[
+  {
+    "file": "2-MainMatter/chapter-1-introducao.tex",
+    "id": "C1-01",
+    "p": "P2",
+    "kind": "ESTRUTURA",
+    "anchor": "\\chapter{Introdução}",
+    "title": "Estado da dissertação e ordem de revisão",
+    "body": "Revisão crítica de 2026-09-13. O arco plataforma -> diagnóstico -> proposta\né defensável, mas os Caps. 3 e 8, as Secs. 2.4/2.5, os resumos e os\nApêndices A--G ainda não contêm a evidência prometida. Prioridade: fechar\no caso físico e a síntese bibliográfica; corrigir os critérios de\ninferência/aceitação; completar os apêndices citados; só depois fechar\nconclusões e resumos. Não apresentar como entregues elementos ainda em\nesqueleto. Procurar REV-2026-09-13 em todos os .tex; o índice e o plano\nvisual estão em _revisao/2026-09-13-avaliacao-critica.md.",
+    "line": 28
+  },
+  {
+    "file": "2-MainMatter/chapter-1-introducao.tex",
+    "id": "C1-02",
+    "p": "P2",
+    "kind": "CONTEUDO",
+    "anchor": "Uma refinaria mede tudo e sabe pouco sobre a sua energia.",
+    "title": "Abertura e definição de fiabilidade",
+    "body": "Substituir a generalização sobre todas as refinarias por uma dificuldade\nobservada neste caso, documentada com a rotina anterior e as suas fontes.\nA definição posterior exige alarmes sem erros e ausência de omissões,\nalgo que nenhum detetor estatístico garante e que aqui não se mediu.\nDefinir fiabilidade por rastreabilidade, domínio declarado, desempenho\nquantificado e incerteza comunicada. Distinguir consumo esperado sob\ncondições de referência de consumo ótimo ou do que a unidade \"devia\"\nconsumir: a regressão histórica não estima um ótimo termodinâmico.",
+    "line": 44
+  },
+  {
+    "file": "2-MainMatter/chapter-1-introducao.tex",
+    "id": "F01",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "%% FIGURA 1.1 (sugestao)",
+    "title": "Priorizar o esquema das duas camadas",
+    "body": "Aproveitar esta sugestão existente como única figura da Introdução.\nLocal: depois do parágrafo que apresenta as duas camadas. Desenhar fontes\n-> reconciliação -> indicador -> referência -> desvio -> investigação,\ncom duas faixas (dados/analítica) e os capítulos correspondentes.\nDistinguir graficamente entrega em produção de proposta ainda por testar.\nMeia página; desenho vetorial próprio; legenda explica que rastreabilidade\nnão equivale a exatidão física nem um desvio identifica a sua causa.\nDispensar a Figura 1.3 se repetir este mapa; usar uma tabela para objetivos.",
+    "line": 111
+  },
+  {
+    "file": "2-MainMatter/chapter-1-introducao.tex",
+    "id": "C1-03",
+    "p": "P2",
+    "kind": "ARGUMENTO",
+    "anchor": "A segunda parte é um pressuposto que as normas fazem sem o enunciar.",
+    "title": "Não tornar a não-estacionariedade uma impossibilidade universal",
+    "body": "\"Em processo contínuo é falso por física\" é excessivo: a estabilidade pode\nser aproximada numa janela e num domínio operacional delimitados.\nFouling e desativação são mecanismos candidatos; a CDU não é uma unidade\ncatalítica. Distinguir mudança de carga/composição, degradação física,\nalteração da medição e intervenções. Fouling pode constituir perda de\neficiência, pelo que \"deriva estrutural\" e \"ineficiência\" não são classes\nmutuamente exclusivas. Preferir \"a estabilidade deve ser verificada\".",
+    "line": 163
+  },
+  {
+    "file": "2-MainMatter/chapter-1-introducao.tex",
+    "id": "C1-04",
+    "p": "P1",
+    "kind": "ARGUMENTO",
+    "anchor": "É este o problema:",
+    "title": "Delimitar a lacuna que a revisão ainda tem de demonstrar",
+    "body": "Não se pode concluir \"não existe uma metodologia\" antes da síntese do\nCap. 3. Ausência no corpus também não prova inexistência universal.\nFormulação provisória: \"falta demonstrar, no caso estudado, a adequação\ndas baselines aos usos pretendidos e definir um procedimento operacional\nde avaliação\". Depois da revisão, delimitar a lacuna por âmbito, período,\nfontes pesquisadas e características que as abordagens existentes cobrem.\nA inovação pode ser a integração e demonstração industrial do procedimento,\nmesmo que os seus componentes já existam.",
+    "line": 211
+  },
+  {
+    "file": "2-MainMatter/chapter-1-introducao.tex",
+    "id": "C1-05",
+    "p": "P2",
+    "kind": "ESTRUTURA",
+    "anchor": "Os três objetivos são acompanhados por uma revisão sistemática",
+    "title": "Alinhar perguntas da tese com perguntas da revisão",
+    "body": "As SQ1--SQ4 são perguntas de revisão, mas o Cap. 6 diz responder à\n\"segunda questão\" formulada de outra maneira. Criar perguntas empíricas\nidentificáveis: consistência dos dados; adequação por uso/vetor; utilidade\ne limites das alternativas. Mostrar numa tabela objetivo -> pergunta ->\nevidência -> capítulo -> estado (respondido/parcial/não estimável).\nManter SQ1--SQ4 como subquestões da revisão. A bibliometria de títulos e\nmetadados, sozinha, não classifica modelos e respetiva validação em SQ1.",
+    "line": 264
+  },
+  {
+    "file": "2-MainMatter/chapter-1-introducao.tex",
+    "id": "C1-06",
+    "p": "P1",
+    "kind": "TRANSPARENCIA",
+    "anchor": "O desenho de investigação assenta em três rotas de evidência",
+    "title": "Especificado antes da execução não significa dados nunca vistos",
+    "body": "O Cap. 4 declara exploração em abril e o Cap. 7 declara que 2025 já\ninformou o diagnóstico. Distinguir pré-registo público com data/ID,\nprotocolo versionado antes da corrida final e decisões tomadas após\nexploração. Dar cronologia, versão/hash e conhecimento disponível em cada\nmomento. Reservar \"independentes\" para revisões cuja independência possa\nser descrita; se foram realizadas por modelos de IA, declarar isso no\nApêndice F e a adjudicação humana, sem as equiparar a revisão por pares.",
+    "line": 324
+  },
+  {
+    "file": "2-MainMatter/chapter-1-introducao.tex",
+    "id": "C1-07",
+    "p": "P2",
+    "kind": "ESTRUTURA",
+    "anchor": "\\section{Contribuições}",
+    "title": "Contribuições demonstradas e extensão a outros processos",
+    "body": "Concentrar em três contribuições verificáveis: integração/reconciliação;\ndiagnóstico temporal com limites explícitos; procedimento de avaliação e\nproposta de monitorização. \"Qualquer organização\" e \"reutilizável em\nqualquer unidade\" excedem um estudo de caso. Explicitar condições de\ntransferência e recursos mínimos. A revisão bibliográfica e o bloco de\nsaúde só devem constar como entregues no estado que os Caps. 3 e 7\nefetivamente documentarem.",
+    "line": 350
+  },
+  {
+    "file": "2-MainMatter/chapter-1-introducao.tex",
+    "id": "C1-08",
+    "p": "P3",
+    "kind": "REDACAO",
+    "anchor": "\\section{Estrutura do documento}",
+    "title": "Reduzir repetição entre abertura, contribuições e roteiro",
+    "body": "A Introdução repete várias vezes o reajuste que absorve a deriva, a\nfiabilidade em duas camadas e o percurso dos capítulos. Objetivo editorial:\nreduzir cerca de um quarto depois de estabilizar as perguntas, conservando\nproblema, lacuna delimitada, objetivos, âmbito e contribuições.\nDeixar a demonstração do mecanismo para os Caps. 6/7. No fecho, usar\n\"passaria a trazer\" para os elementos do bloco de saúde ainda propostos.",
+    "line": 465
+  },
+  {
+    "file": "2-MainMatter/chapter-2-enquadramento.tex",
+    "id": "C2-01",
+    "p": "P2",
+    "kind": "ESTRUTURA",
+    "anchor": "\\chapter{Enquadramento}",
+    "title": "Dar base de engenharia ao argumento estatístico",
+    "body": "O capítulo desenvolve longamente as normas, mas deixa vazios o processo\ncontínuo e o caso CDU. Para uma tese de Engenharia Química, antecipar\numa apresentação breve da CDU e dos fluxos energéticos antes da crítica\nnormativa; depois explicar EnPI/EnB, pressupostos e modos de falha.\nOpção recomendada: processo/fronteiras -> conceitos -> normas ->\nsíntese das exigências de avaliação. Se a ordem atual ficar, completar\n2.4/2.5 e remeter para elas logo ao introduzir os vetores.",
+    "line": 12
+  },
+  {
+    "file": "2-MainMatter/chapter-2-enquadramento.tex",
+    "id": "C2-02",
+    "p": "P1",
+    "kind": "NORMAS",
+    "anchor": "\\section{Gestão de energia e o quadro normativo}",
+    "title": "Edição histórica versus enquadramento atual",
+    "body": "A ISO identifica a ISO 50006:2023 como edição 2 publicada e a de 2014\ncomo retirada. A ressalva existente no fim de 2.3 é útil, mas tardia:\ndeclarar aqui que se analisa a edição histórica de 2014 e confirmar qual\nenquadrou a implementação. Comparar com 2023 antes de afirmar lacunas do\nquadro atual; o estatuto de orientação não permite inferir ausência de\norientações de validação. A página pública confirma edição/âmbito,\nnão verifica as cláusulas do texto integral.\nFonte verificada: https://www.iso.org/standard/79367.html",
+    "line": 26
+  },
+  {
+    "file": "2-MainMatter/chapter-2-enquadramento.tex",
+    "id": "C2-03",
+    "p": "P1",
+    "kind": "ESTATISTICA",
+    "anchor": "\\paragraph{Estabelecimento e teste do EnB (elo 5).}",
+    "title": "R² não é um teste com pressuposto de normalidade",
+    "body": "Corrigir o ponto (iii): R² é uma estatística descritiva calculável sem\nindependência, homoscedasticidade ou normalidade. \"Valor-p\" não designa um\nteste específico; os pressupostos dependem do teste e da sua calibração.\nA inferência t/F clássica tem condições próprias, mas versões robustas\nnão partilham todas elas. O argumento defensável é que R² e significância\nin-sample não demonstram desempenho temporal, calibração ou deteção.\nRever também a linha 4 da matriz de rastreabilidade.",
+    "line": 130
+  },
+  {
+    "file": "2-MainMatter/chapter-2-enquadramento.tex",
+    "id": "C2-04",
+    "p": "P1",
+    "kind": "NORMAS",
+    "anchor": "Esta atribuição precisa é essencial:",
+    "title": "Adequação normativa não se reduz à existência do instrumento",
+    "body": "O próprio texto cita requisitos de adequação dos EnPI e demonstração de\nmelhoria. Da ausência de limiares universais não decorre que um método\ninválido seja conforme ou que uma auditoria apenas verifique existência.\nDistinguir: ausência de teste quantitativo prescrito; responsabilidade\nda organização pela adequação; conclusão de auditoria, aqui não avaliada.\nReformular \"o método é conforme\" para \"a forma do modelo e a revisão\nperiódica não são, por si, excluídas pelas cláusulas analisadas\".\nAplicar a mesma restrição à Introdução e à Sec. 7.2.",
+    "line": 150
+  },
+  {
+    "file": "2-MainMatter/chapter-2-enquadramento.tex",
+    "id": "C2-05",
+    "p": "P2",
+    "kind": "ESTRUTURA",
+    "anchor": "\\section{A assimetria normativa}",
+    "title": "Fundir passagens repetidas e separar texto normativo de interpretação",
+    "body": "As Secs. 2.2.2, 2.2.3 e 2.3.1 repetem a mesma crítica. Manter uma\nexplicação curta e uma única matriz requisito/orientação/escolha local,\ncom edição e cláusula. Assinalar \"interpretação desta dissertação\" para\npressupostos reconstruídos: a norma não declara literalmente todos os\nelos do diagrama. Nas citações, preferir paráfrases com cláusula e\nreservar transcrições breves para a distinção verbal realmente analisada.",
+    "line": 173
+  },
+  {
+    "file": "2-MainMatter/chapter-2-enquadramento.tex",
+    "id": "C2-06",
+    "p": "P2",
+    "kind": "FONTES",
+    "anchor": "\\subsection{O silêncio como escolha: comparação com o IPMVP e a ASHRAE Guideline 14}",
+    "title": "Comparar vias e edições sem extrapolar os limiares",
+    "body": "Manter a distinção já feita entre simulação calibrada, regressão de\nbaseline e incerteza de poupanças; explicitar a via também em cada célula\nda tabela. A recomendação R² >= 0,75 do IPMVP aparece apoiada numa fonte\nsecundária e ainda por confirmar: não a apresentar como requisito ou\nrecomendação atual verificada. Identificar edição/cláusula consultadas.\n\"Critérios mais exigentes\" exige comparação no mesmo estimando; os testes\nda tese e os limiares de M&V medem propriedades diferentes.",
+    "line": 222
+  },
+  {
+    "file": "2-MainMatter/chapter-2-enquadramento.tex",
+    "id": "F02",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\section{Especificidade dos processos contínuos}",
+    "title": "Quadro físico de mecanismos e variáveis observáveis",
+    "body": "Depois do primeiro parágrafo desta secção, inserir uma tabela de quatro\ncolunas: mecanismo; efeito esperado em energia/carga; variável observável;\nexplicações alternativas. Incluir fouling do pré-aquecimento, composição\ndo crude, severidade de separação, integração térmica e balanço entre\nníveis de vapor. Distinguir mecanismos gerais dos efetivamente presentes\nna CDU. Esta tabela liga a física às escolhas de covariáveis e evita\nque sinais de regressão sejam interpretados como leis causais.",
+    "line": 274
+  },
+  {
+    "file": "2-MainMatter/chapter-2-enquadramento.tex",
+    "id": "F03",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\section{O caso de estudo: a refinaria de Sines e a unidade de destilação atmosférica}",
+    "title": "Diagrama de processo e fronteira energética da CDU",
+    "body": "Figura essencial, logo após apresentar a unidade: crude -> pré-aquecimento\n-> dessalgação -> forno -> coluna -> produtos, ajustado ao esquema real.\nAssinalar entradas/saídas de fuel gás, vapor 24/10/3 bar e eletricidade,\nretornos e produção creditada, fronteira do indicador e pontos de medição.\nSem caudais inventados; se não houver dados autorizados, esquema funcional\nsem escala. Legenda distingue consumo bruto, líquido e alocado. Desenho\nvetorial, uma página no máximo. Mais útil aqui que uma fotografia geral\nda refinaria; uma fotografia só se identificar equipamento relevante.",
+    "line": 292
+  },
+  {
+    "file": "2-MainMatter/chapter-2-enquadramento.tex",
+    "id": "C2-07",
+    "p": "P2",
+    "kind": "CONTEUDO",
+    "anchor": "%% >> A CDU, os cinco vectores energeticos",
+    "title": "Contextualizar seleção da unidade e energia equivalente",
+    "body": "Acrescentar função/capacidade apenas com fonte, razão documentada da escolha,\nperímetro material e energético, mistura/reprocessamento de carga,\nprincipais consumidores e utilidades partilhadas. Explicar GNE como\nconvenção de contabilização e EII como referência de benchmarking.\nNão confundir equivalência energética, energia primária e exergia.\nCitar literatura de refinação/integração térmica para os mecanismos;\na bibliografia atual está concentrada em normas e estatística.",
+    "line": 305
+  },
+  {
+    "file": "2-MainMatter/chapter-3-revisao.tex",
+    "id": "C3-01",
+    "p": "P2",
+    "kind": "CONTEUDO",
+    "anchor": "\\section{Protocolo e pré-registo}",
+    "title": "Fechar a revisão com estado verificável",
+    "body": "Indicar ID/URL e data do registo, perguntas, critérios de elegibilidade,\ndatas de pesquisa e emendas. PRISMA-ScR orienta o relato; não certifica\no método nem substitui um protocolo. Se só existe piloto de extração,\nassumi-lo aqui e ajustar Introdução/conclusões; não apresentar uma síntese\ncompleta por antecipação.\nFonte verificada: https://www.prisma-statement.org/scoping",
+    "line": 14
+  },
+  {
+    "file": "2-MainMatter/chapter-3-revisao.tex",
+    "id": "C3-02",
+    "p": "P2",
+    "kind": "METODO",
+    "anchor": "\\section{Estratégia de pesquisa e seleção}",
+    "title": "Tornar a revisão reprodutível e limitar o viés do corpus ISO",
+    "body": "Dar bases/plataformas, strings completas por base, datas, idiomas,\nintervalo temporal, deduplicação, seleção e motivos de exclusão.\nDefinir A e B e a regra exata de passagem entre eles. Uma pesquisa que\nexige \"ISO 50001/50006\" pode omitir trabalhos relevantes de deteção de\nmudança, M&V, modelação energética e fouling que não usam esses termos.\nJustificar o recorte; considerar rastreio de referências e pesquisa\ncomplementar, declarados como emenda se não estavam no protocolo.",
+    "line": 30
+  },
+  {
+    "file": "2-MainMatter/chapter-3-revisao.tex",
+    "id": "F04",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\section{Análise bibliométrica (Corpus A)}",
+    "title": "Fluxo PRISMA com a formação dos dois corpora",
+    "body": "Inserir antes desta secção, no fim da seleção. Mostrar registos por\nfonte, duplicados, triagem, textos completos, exclusões com motivos e\ninclusões; depois a ramificação documentada para Corpus A e B.\nNão preencher contagens estimadas. O fluxo principal deve estar no corpo\nporque define a amostra bibliográfica; o Apêndice B guarda o detalhe.\nDistinguir registos, publicações e estudos quando não coincidam.",
+    "line": 47
+  },
+  {
+    "file": "2-MainMatter/chapter-3-revisao.tex",
+    "id": "C3-03",
+    "p": "P2",
+    "kind": "ANALISE",
+    "anchor": "\\section{Análise bibliométrica (Corpus A)}",
+    "title": "Contagem bibliométrica não demonstra adequação metodológica",
+    "body": "Definir unidade de contagem, denominadores e regras de classificação de\nsetor, modelo e validação; admitir múltiplas etiquetas se necessário.\nUm setor pouco representado indica cobertura do corpus, não inexistência\nde métodos nem inadequação dos publicados. Evitar word clouds e redes\nde palavras sem uma pergunta substantiva. Uma tabela por setor/uso/modelo\ne evolução anual com contagens e denominadores costuma ser suficiente.",
+    "line": 57
+  },
+  {
+    "file": "2-MainMatter/chapter-3-revisao.tex",
+    "id": "F05",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\section{Síntese narrativa (Corpus B)}",
+    "title": "Mapa de evidência que sustenta a lacuna",
+    "body": "Depois de explicar a extração, usar uma matriz: linhas = estudos ou\nfamílias; colunas = contexto industrial, variáveis, horizonte, validação\ntemporal, dependência, deriva, cobertura, eventos reais e implantação.\nCodificar \"avaliado\", \"não reportado\" e \"não aplicável\" distintamente,\ncom referências nas linhas e texto de síntese por SQ. É a figura/tabela\nmais útil para justificar o que a tua proposta acrescenta. Manter os\ndados de extração completos no Apêndice B; não substituir síntese por cor.",
+    "line": 73
+  },
+  {
+    "file": "2-MainMatter/chapter-3-revisao.tex",
+    "id": "C3-04",
+    "p": "P2",
+    "kind": "ARGUMENTO",
+    "anchor": "\\section{Síntese: o \\emph{gap}}",
+    "title": "Fecho da revisão tem de ligar evidência e decisões do estudo",
+    "body": "Comparar abordagens existentes, condições em que funcionam, limites de\nvalidação e o que falta operacionalizar. Terminar com três lacunas\ndocumentadas e a decisão metodológica que responde a cada uma no Cap. 4.\nNão escrever a conclusão universal prevista no comentário-esqueleto sem\nevidência. Avaliar criticamente pelo menos os estudos mais próximos do\ncaso, mesmo que avaliação de risco de viés formal não seja objetivo\nobrigatório de uma scoping review.",
+    "line": 90
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "C4-01",
+    "p": "P2",
+    "kind": "ESTRUTURA",
+    "anchor": "\\chapter{Materiais e métodos}",
+    "title": "Separar método reproduzível da história do desenvolvimento",
+    "body": "Acrescentar uma secção inicial com desenho do estudo, unidade de análise,\njanelas, perguntas e métricas primárias. Trazer para aqui as definições\ndos candidatos, critérios e simulador atualmente introduzidos no Cap. 7.\nMover inventários extensos, erros de implementação, contagens de testes\ne pormenores de publicação de corridas para apêndices. No corpo,\nconservar decisões que alteram o estimando ou a validade dos resultados.",
+    "line": 17
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "C4-02",
+    "p": "P1",
+    "kind": "DADOS",
+    "anchor": "\\paragraph{O historiador de processo.}",
+    "title": "Agregação diária e conversão energética precisam de equações",
+    "body": "Distinguir caudal instantâneo/médio (t/h), totalizador (t) e energia.\nExplicar fuso horário, dias incompletos, mínimo de horas válidas e regra\nnos dias de 23/25 horas. Média x 24 só é justificável sob a convenção\ntemporal adotada. Para combustível com PCI variável, verificar se\nenergia = soma(massa_h x PCI_h) ou massa_diária x PCI_médio:\no segundo omite a covariância entre caudal e PCI. Quantificar o erro\nou documentar por que a aproximação é aceitável.",
+    "line": 48
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "C4-03",
+    "p": "P2",
+    "kind": "CONSISTENCIA",
+    "anchor": "\\paragraph{Inventário e extração.}",
+    "title": "O inventário não fecha aritmeticamente",
+    "body": "São anunciadas sete classes e 3 862 ficheiros, mas enumeram-se seis\nclasses que somam 3 809 (81+84+708+434+426+2 076): faltam identificar\n53 ficheiros. Confirmar no manifesto sem corrigir por inferência.\nExplicar se as seis divergências de hash afetam dados usados e qual\nversão ficou congelada. Relacionar 32 tabelas do modelo, 25 exportadas\ne 13 usadas na análise numa tabela compacta de âmbito/proveniência.",
+    "line": 122
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "F06",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\section{Modelo dimensional e reconciliação}",
+    "title": "Arquitetura de dados com granularidade e proveniência",
+    "body": "Depois de apresentar as tabelas de factos, inserir um esquema com dois\npainéis: (a) historiador/balanços/relatórios -> agregação e conversão ->\nprecedência por linha -> factos; (b) estrela simplificada energia/carga/\npropriedades com calendário, unidade e vetor. Escrever a granularidade\nde cada facto e marcar eletricidade mensal alocada. Não mostrar as 32\ntabelas nem um screenshot ilegível do modelo inteiro. Referenciar o\ndicionário e mostrar onde se retêm origem, flags e versões.",
+    "line": 151
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "C4-04",
+    "p": "P1",
+    "kind": "METROLOGIA",
+    "anchor": "\\paragraph{Três canais, uma regra de precedência.}",
+    "title": "Consistência documental, reconciliação e exatidão física",
+    "body": "Definir \"reconciliação\": aqui parece significar harmonização de fontes,\nprecedência e confronto, não reconciliação estatística sujeita a balanços\nde massa/energia. Não inferir exatidão metrológica da concordância.\nDocumentar medidores a montante, calibração/qualidade disponíveis e\ndependências entre canais. Acrescentar cobertura e discrepância por\nano/vetor para excluir mudanças de fonte/conversão como explicação da\nderiva; cinco meses de validação não validam automaticamente seis anos.",
+    "line": 206
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "C4-05",
+    "p": "P1",
+    "kind": "DADOS",
+    "anchor": "\\paragraph{O que o modelo não faz.}",
+    "title": "Imputação, zeros e seleção na variável resposta",
+    "body": "\"Não imputa\" contradiz a propagação/backfill de PCI e os valores por\nomissão de propriedades; restringir a afirmação ao consumo/carga sem\ncanal disponível. Quantificar imputações por variável/ano e a sua presença\nno conjunto avaliado. Distinguir zero físico, dado ausente e zero fabricado,\nsobretudo no vapor líquido. Excluir todos os zeros por resposta pode\nalterar a população; mostrar sensibilidade e códigos de razão.\nBackfill usa informação futura: declarar efeitos numa avaliação temporal.",
+    "line": 234
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "C4-06",
+    "p": "P2",
+    "kind": "ENERGIA",
+    "anchor": "\\paragraph{Uma unidade comum.}",
+    "title": "Escrever o balanço de conversão e justificar constantes",
+    "body": "Incluir equações e tabela unidades de entrada -> fator -> t GNE/d.\nAssociar explicitamente 698/738/758 kcal/kg a cada pressão e indicar\norigem, condições, referência entálpica, retorno de condensado e se são\nequivalentes contabilísticos. Declarar PCI ou PCS de 11 820 kcal/kg.\nExplicar eletricidade: E_eq = MWh x 860,4/(11 820 x 0,57), com unidades\ncoerentes, e o significado do rendimento. Examinar sensibilidade dos\nindicadores a constantes fixas. Evitar chamar eficiência termodinâmica\nao que depende de fronteiras e convenções de alocação.",
+    "line": 257
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "C4-07",
+    "p": "P1",
+    "kind": "CRONOLOGIA",
+    "anchor": "\\paragraph{A \\emph{baseline} em produção.}",
+    "title": "Precisar o que acontece efetivamente em janeiro",
+    "body": "O método descrito estima cada ano com todos os dias disponíveis e\npermite selecionar o ano de referência. Isso não demonstra que os alarmes\noperacionais troquem automaticamente em janeiro para a reta do ano\nanterior. Distinguir ajuste retrospetivo, ano corrente parcial e regra\nreal de aplicação. Afirmar mascaramento anual observado exige documentar\no histórico das referências usadas; sem ele, apresentar o mecanismo\ncomo consequência possível do desenho/experiência de simulação.",
+    "line": 292
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "C4-08",
+    "p": "P2",
+    "kind": "INDICADORES",
+    "anchor": "\\paragraph{Resíduos, bandas e acumulados.}",
+    "title": "Excesso positivo não estima desperdício ou poupança",
+    "body": "Definir e_t = E_t - previsão e distinguir soma(e_t) de soma(max(e_t,0)).\nA segunda é positiva mesmo com erros centrados e cresce com ruído e\nnúmero de dias; não é desperdício, oportunidade de poupança nem critério\nde eficiência entre vetores. Mostrar também desvio líquido, exposição\ne escala. A soma simples de resíduos é um acumulado descritivo; reservar\nCUSUM de deteção para a recorrência com referência k, limiar h e\ncalibração de sinais. Especificar lateralidade e contagem de episódios.",
+    "line": 321
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "C4-09",
+    "p": "P2",
+    "kind": "INDICADORES",
+    "anchor": "\\paragraph{O índice de intensidade energética.}",
+    "title": "Delimitar o EII e as emissões derivados da plataforma",
+    "body": "Indicar versão/fonte autorizada do método Solomon, convenções de bruto/\nlíquido e se a aplicação diária é índice adaptado ou equivalente ao\nbenchmark oficial. Validar separadamente se alegar equivalência. Para\nCO2, indicar fonte/unidade dos fatores e separar emissões diretas de\ncombustíveis e emissões atribuídas a vapor/eletricidade; um fator único\npor GNE não demonstra emissões físicas por vetor. Se for proxy de\nreporte interno, dizê-lo, sem ampliar o âmbito da tese.",
+    "line": 352
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "C4-10",
+    "p": "P2",
+    "kind": "INFERENCIA",
+    "anchor": "\\paragraph{As perguntas e a inferência.}",
+    "title": "Definir população, alvo inferencial e limites de HAC/MBB",
+    "body": "Dar tabela por teste com H0/estimando, unidade, pares/dias, comparador,\nIC, família de multiplicidade e estatuto. HAC/MBB não tornam qualquer\nsérie não-estacionária automaticamente tratável: discutir condições da\nsérie de perdas/indicadores reamostrada, quebras e dependência persistente.\nPrecisar se os IC condicionam nos modelos já ajustados ou incorporam\nreestimação do treino. Explicar blocos civis com lacunas (elegibilidade,\nconcatenação e reinício), não apenas citar o comprimento.",
+    "line": 431
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "C4-11",
+    "p": "P1",
+    "kind": "VALIDACAO",
+    "anchor": "A validação do \\emph{bootstrap} por",
+    "title": "O alvo nominal de 95% não foi validado pelo teste a 90%",
+    "body": "357/400 = 89,25% de cobertura simulada. Não rejeitar cobertura inferior\na 90% não valida um IC nominal de 95%; o alvo foi ainda escolhido após\nconhecer o resultado. Manter este ensaio como diagnóstico e declarar\nprévia ou posteriormente os critérios com precisão. Mostrar cobertura\npor rho, n e bloco com IC Monte Carlo; não transferir validação do bloco\nde 60 dias para o bloco base de sete. Resultados fronteiriços precisam\nda qualificação no local, além da secção final de limitações.",
+    "line": 442
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "F07",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\paragraph{Demonstração das linhas orientadoras.}",
+    "title": "Linha temporal dos três desenhos de avaliação",
+    "body": "Inserir aqui, antes da demonstração: três faixas alinhadas em 2020--2026.\n(a) treino y -> teste y+1 nos cinco pares; (b) mesmos pares para comparar\ncandidatos, com afinação interna; (c) referência 2020 -> aplicação\n2021--2025. Marcar 2026 parcial e indicar que os dados já foram explorados.\nUma faixa auxiliar distingue observação real de simulação. Legenda\ndeclara disponibilidade de Q_t/covariáveis e dos resíduos passados,\npara separar normalização ex post de previsão genuína a um passo.",
+    "line": 499
+  },
+  {
+    "file": "2-MainMatter/chapter-4-metodos.tex",
+    "id": "C4-12",
+    "p": "P2",
+    "kind": "REPRODUTIBILIDADE",
+    "anchor": "\\section{Reprodutibilidade e proveniência}",
+    "title": "Integridade não certifica correção científica",
+    "body": "Hashes e corridas imutáveis são pontos fortes, mas não provam que\nfiltros, estimandos ou interpretação estejam certos. Substituir \"provar\nque não foi editado\" por \"detetar divergências face a um manifesto\nidentificado\", com a âncora de confiança. No corpo, apresentar um exemplo\nnúmero -> tabela -> corrida -> dados/versão; transferir detalhes de\ninfraestrutura para apêndice. Prever pacote público sanitizado com código,\nambiente e dados sintéticos, se os dados industriais não forem divulgáveis.",
+    "line": 538
+  },
+  {
+    "file": "2-MainMatter/chapter-5-plataforma.tex",
+    "id": "C5-01",
+    "p": "P2",
+    "kind": "ESTRUTURA",
+    "anchor": "\\section{Arquitetura entregue}",
+    "title": "Separar resultado entregue de características da implementação",
+    "body": "O inventário da arquitetura repete o Cap. 4. Aqui bastam funcionalidades,\nâmbito coberto e evidência de entrega/uso: versão, data, modo de publicação,\ncadência de atualização e responsável pela manutenção. Tempo de refresh,\nlatência dos dados e desempenho em tarefas concretas são evidências\nmelhores de utilidade que número de medidas ou tamanho do ficheiro.\nSe não foram medidos, limitar a conclusão a implementação funcional.",
+    "line": 30
+  },
+  {
+    "file": "2-MainMatter/chapter-5-plataforma.tex",
+    "id": "C5-02",
+    "p": "P1",
+    "kind": "VALIDACAO",
+    "anchor": "\\section{Validação da camada de dados}",
+    "title": "As três leituras podem partilhar o mesmo erro",
+    "body": "Relatório, reconstrução e dashboard podem derivar do mesmo balanço e\ndos mesmos medidores. Descrever independência do processamento e\ndependência das fontes, sem as chamar três medições independentes.\nDivergência pode vir de fronteiras/definições diferentes, não de um valor\nfisicamente errado. Especificar os 400 casos, unidade da tolerância\n(t ou MWh, conforme vetor), denominador, regra para zeros/ausentes e\ntratamento do sinal. Separar confirmação física e concordância contabilística.",
+    "line": 96
+  },
+  {
+    "file": "2-MainMatter/chapter-5-plataforma.tex",
+    "id": "F08",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\paragraph{O ponto de partida.}",
+    "title": "Prova visual da reconciliação antes e depois",
+    "body": "Após descrever a amostra, inserir dois painéis. (a) Barras empilhadas\npor versão com coincidente/divergente/sem consumo/sem dados; manter os\nmesmos 400 casos e distinguir vazios de sucessos. (b) Discrepância por\nunidade-vetor ou gráfico de diferenças, com limites de tolerância e\nidentificação das causas corrigidas. Usar apenas as versões verificadas,\nnão o fecho \"esperado\". Uma tabela de causas/n.º de casos/impacto\ncomplementa; mover os relatos repetidos de bugs para o Apêndice C.",
+    "line": 120
+  },
+  {
+    "file": "2-MainMatter/chapter-5-plataforma.tex",
+    "id": "C5-03",
+    "p": "P1",
+    "kind": "EVIDENCIA",
+    "anchor": "\\paragraph{O fecho.}",
+    "title": "400/400 aparece como facto e como resultado por confirmar",
+    "body": "O comentário existente diz que 400/400 era \"esperado\". Até existir\nevidência da execução final, esta afirmação não pode provar a validação\ncompletamente limpa. Referenciar relatório/data/versão e separar casos\nnuméricos de vazios. Esclarecer mudança de 64 para 65 vazios.\nNão extrapolar janeiro--maio de 2026 para 2020--2025 sem verificação\nhistórica; a análise de baselines usa sobretudo esse intervalo anterior.",
+    "line": 184
+  },
+  {
+    "file": "2-MainMatter/chapter-5-plataforma.tex",
+    "id": "C5-04",
+    "p": "P2",
+    "kind": "DADOS",
+    "anchor": "\\paragraph{A carga.}",
+    "title": "A definição de carga interfere diretamente no diagnóstico",
+    "body": "Explicar a correspondência entre 24 unidades da validação e 16 do\ndashboard, e qual definição de Q entra em cada indicador e regressão.\nMostrar efeito de reprocessamento na seleção pelo limiar e no ajuste,\nalém do consumo específico. Se a escolha permanece pendente, separar\nreplicação da convenção existente da validade física dessa convenção;\nnão a deixar como detalhe administrativo.",
+    "line": 207
+  },
+  {
+    "file": "2-MainMatter/chapter-5-plataforma.tex",
+    "id": "F09",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\section{O \\emph{dashboard}}",
+    "title": "Dois screenshots anotados no corpo, quatro páginas no manual",
+    "body": "Usar (1) vista da refinaria com percurso unidade -> vetor e (2) detalhe\nde baseline com reta, dados, banda e acumulado; colocar cada imagem\napós o respetivo parágrafo. Recortar ao canvas e anotar 3--5 elementos\nreferidos no texto; incluir data, filtros, janela e referência visíveis.\nUsar capturas reais verificadas de prints_dashboard, sem inventar estados.\nMover capturas integrais das quatro páginas e instruções para o Apêndice E.\nUma figura por página só se os rótulos ficarem legíveis à dimensão final.",
+    "line": 245
+  },
+  {
+    "file": "2-MainMatter/chapter-5-plataforma.tex",
+    "id": "C5-05",
+    "p": "P2",
+    "kind": "INTERPRETACAO",
+    "anchor": "\\paragraph{Vista comparativa da refinaria.}",
+    "title": "A ordenação do dashboard herda os limites das baselines",
+    "body": "\"Melhor/pior unidade\", Pareto de excesso e semáforos podem ordenar erro\nde modelo, escala e exposição em vez de desempenho energético. Descrever\ncomo comportamento atual, sem o validar por utilidade presumida.\nNa proposta, preferir \"maior desvio observado\", mostrar domínio/qualidade,\nvolume processado e incerteza; não usar média de R² como certificação de\nqualidade. Acrescentar um exemplo de como uma decisão mudaria ao conhecer\no estado da baseline, sem alegar poupança não medida.",
+    "line": 266
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-01",
+    "p": "P2",
+    "kind": "ESTRUTURA",
+    "anchor": "\\chapter{Resultados II --- Diagnóstico das baselines}",
+    "title": "Resultado principal e pergunta efetivamente respondida",
+    "body": "Alinhar a \"segunda questão\" com identificadores definidos na Introdução.\nNão dizer que todas as perguntas receberam inferência: detetabilidade real\nficou não estimável e eletricidade não recebeu análise diária válida.\nAbrir com um resumo de resultados por uso (previsão, comparabilidade,\nexcursões), indicando quais são demonstrados, sensíveis ou não estimáveis.\nUsar esse vocabulário de evidência também na tabela final.",
+    "line": 23
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-02",
+    "p": "P2",
+    "kind": "PROVENIENCIA",
+    "anchor": "\\section{O modelo sob análise: replicação exata}",
+    "title": "Qual é a fonte independente dos fingerprints?",
+    "body": "Indicar se o conjunto de datas foi exportado do motor original ou\nrecalculado pela implementação de análise. No segundo caso, fingerprints\ncoincidentes demonstram consistência interna, não identidade independente\ndo conjunto de treino. Igualdade de quatro estatísticas não identifica\nunivocamente todas as observações. Preservar a evidência forte disponível:\nparâmetros exportados reproduzidos até à tolerância, com a limitação da\nseleção claramente ligada à origem dos fingerprints.",
+    "line": 61
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "F10",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\section{Perfil dos dados e domínio de validade}",
+    "title": "Amostra e filtros precisam de um fluxo e de um calendário",
+    "body": "Antes dos resultados, inserir figura composta: (a) fluxo com dias/células\ncandidatos -> faltas -> zeros/energia válida -> limiar -> treino/teste;\n(b) calendário de disponibilidade por vetor com exclusões e ano parcial.\nExplicar 11 955 versus 11 467 e 251 dias versus 744 observações removidas,\nsempre com denominador e ordem dos filtros. Dar data final exata de 2026\ne não apenas \"corte oficial\". Não confundir série-dia com dia único.",
+    "line": 96
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "F11",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "%% FIGURA: outputs .../figures/D0_4_threshold_effect.svg",
+    "title": "Distribuição operacional e relação energia-carga",
+    "body": "Aproveitar os gráficos D0 já sugeridos, sem duplicar o calendário:\nquatro painéis energia versus carga, um por vetor diário, pontos por ano,\nlimiar vertical e retas anuais; um painel separado mostra eletricidade\nem patamares mensais. Acrescentar distribuição de Q antes/depois do filtro.\nPreservar pontos excluídos em cinzento para tornar visível a população\nnão coberta. Eixos com t GNE/d e kt/d; cores consistentes entre capítulos.",
+    "line": 107
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-03",
+    "p": "P2",
+    "kind": "INTERPRETACAO",
+    "anchor": "\\paragraph{O limiar de carga define um domínio de validade não declarado.}",
+    "title": "Diferenças de distribuição não identificam o regime físico",
+    "body": "SMD elevados documentam separação nas variáveis observadas, mas não\nidentificam arranque, operação degradada ou outro regime sem eventos\nexternos. Valores muito altos em temperatura/pressão justificam verificar\nunidades, defaults, zeros e dispersão do denominador. Preferir\n\"população operacional distinta nas variáveis observadas\" e marcar\narranques/reduções como hipóteses. Não confundir limiar inferior de\ntreino com todo o suporte de validade do modelo.",
+    "line": 128
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-04",
+    "p": "P2",
+    "kind": "INTERPRETACAO",
+    "anchor": "\\paragraph{A energia elétrica não é uma medição diária.}",
+    "title": "Alocação mensal não torna todo o evento curto indetetável",
+    "body": "A série alocada não permite localizar nem estimar a duração de um desvio\nintramensal; contudo, um evento curto suficientemente intenso pode alterar\no total mensal. Reformular a impossibilidade como falta de resolução\ntemporal. A constância intramensal também não implica necessariamente R²\nglobal próximo de zero: médias mensais de energia e carga podem covariar.\nO R² observado é um resultado deste conjunto, não identidade da alocação.",
+    "line": 156
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-05",
+    "p": "P1",
+    "kind": "ESTATISTICA",
+    "anchor": "\\paragraph{Os resíduos são fortemente dependentes.}",
+    "title": "Autocorrelação e cobertura marginal são propriedades distintas",
+    "body": "Não concluir que a banda perde cobertura marginal apenas por haver\nautocorrelação. Um processo gaussiano estacionário pode manter\nP(|e_t| <= 2 sigma) próximo de 95,45% com dependência forte; mudam as\nsequências e a incerteza da cobertura estimada. Cobertura condicional,\nincerteza dos parâmetros, heterocedasticidade e mudança de distribuição\nsão questões separadas. A perda de cobertura deve assentar nos resultados\nda Sec. 6.5, não nesta implicação. Ver também C2-03 e C7-13.",
+    "line": 178
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-06",
+    "p": "P1",
+    "kind": "INFERENCIA",
+    "anchor": "\\section{Poder preditivo contra referências triviais}",
+    "title": "Ganho não demonstrado não equivale a modelo vazio",
+    "body": "Trocar \"modelos vazios\", \"sem significado prático\" e \"mata o uso\" por\nconclusões quantitativas delimitadas aos comparadores e transições.\nIC que contém zero não demonstra equivalência; ausência de margem\nmaterial elicitada impede concluir irrelevância prática. Uma média fixa\npode ser referência adequada para um consumo pouco dependente de Q:\nhá que avaliar finalidade, precisão e deteção, não exigir relação com\ncarga por definição. Fonte metodológica já citável: Lakens2017.",
+    "line": 202
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "F12",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "%% FIGURAS: E2_2_delta_mae_forest.svg",
+    "title": "Forest plot do ganho preditivo com a sensibilidade visível",
+    "body": "Usar E2_2 como figura principal desta secção: ΔMAE e IC95 por transição,\nem quatro painéis por vetor, linha zero e direção do ganho explícita.\nMostrar IC do bloco base e, com traço distinto, do bloco longo relevante;\nanotar n comum e comparador. Evitar apenas heatmap de significância.\nA série temporal E2_4 pode ser exemplo secundário; tabelas de todos os\ncomparadores ficam no Apêndice D. Gerar do mesmo lote citado pela prosa.",
+    "line": 214
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-07",
+    "p": "P2",
+    "kind": "INFERENCIA",
+    "anchor": "\\section{Estabilidade dos parâmetros}",
+    "title": "Instabilidade depende do teste, suporte e precisão",
+    "body": "O texto reporta perda das rejeições no bootstrap com blocos de 60 dias:\nnão fechar a secção com uma invariância rejeitada incondicionalmente.\nDistinguir variação pontual, evidência Wald/BH e sensibilidade BY/MBB.\nNão-rejeição no 24 bar também não demonstra \"ausência\" de relação.\nDeclive negativo não é efeito causal; comparar previsões em cargas\ncomuns, com IC, em vez de interpretar interceptos em Q=0 fora do suporte.\nHAC requer condições assintóticas; evitar \"permanece válido\" sem qualificação.",
+    "line": 293
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "F13",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "%% FIGURAS: E3_1_<vector>_reference_predictions.svg",
+    "title": "Predições a carga comum em vez de quatro figuras repetidas",
+    "body": "Compor os quatro vetores numa figura com anos no eixo x e previsão\nnuma carga q_ref dentro do suporte comum no eixo y, acompanhada de IC HAC.\nSe houver espaço, mostrar duas cargas comuns, explicitadas na legenda.\nNão interpretar o intercepto a Q=0 como consumo base físico extrapolado.\nConservar os gráficos completos por vetor no Apêndice D e reportar na\nlegenda que a rejeição estatística é sensível ao método de dependência.",
+    "line": 305
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-08",
+    "p": "P1",
+    "kind": "INTERPRETACAO",
+    "anchor": "\\section{Calibração das bandas de alarme}",
+    "title": "Excursões observadas não identificam falsos alarmes",
+    "body": "Sem janelas operacionalmente estáveis rotuladas, exclusão de 0,954\ndemonstra incompatibilidade com essa referência marginal no período,\nmas não separa banda mal estimada de alterações reais de processo.\nEvitar \"alarme adormecido\", \"desligado na prática\" ou causalidade direta\natribuída à autocorrelação sem evidência operacional. Uniformizar alvo\n0,9545 e explicar a aproximação +/-2 sigma e a incerteza dos parâmetros.\nReportar separadamente excursões superiores e inferiores.",
+    "line": 384
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "F14",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "%% FIGURAS: bundle E4",
+    "title": "Cobertura, excursões e persistência numa leitura única",
+    "body": "Depois da definição de cobertura, incluir pontos e IC MBB por\nvetor/transição, referência 0,9545 e n/N, com indicação dos casos sensíveis\na blocos longos. Acrescentar uma faixa temporal dos dois casos extremos,\ncom resíduos e banda, para distinguir alarmes isolados de episódios.\nSem semáforo \"válido\" só porque o IC inclui a nominal. O Apêndice D\nguarda cobertura condicional, distribuição de rajadas e todos os blocos.",
+    "line": 396
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-09",
+    "p": "P1",
+    "kind": "CONSISTENCIA",
+    "anchor": "A descalibração é generalizada e heterogénea.",
+    "title": "Contagens de excursões contraditórias",
+    "body": "Rever as contagens no lote canónico: o texto diz \"um e um alarme em 364\ndias\" para 10/3 bar, mas abaixo atribui 2/364 ao 10 bar. Uma excursão\nem 364 dá cobertura 363/364 = 0,99725; duas dão 0,99451.\nAlém disso, 2023->2024 é o par anterior a 2024->2025, não \"seguinte\".\nUsar numerador/denominador e precisão uniforme; não escolher o número\npela prosa. A presente revisão identificou a contradição, não reexecutou E4.",
+    "line": 420
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-10",
+    "p": "P2",
+    "kind": "METODO",
+    "anchor": "\\section{Suficiência da variável explicativa}",
+    "title": "Valor incremental não testa toda a suficiência física",
+    "body": "O teste compara este conjunto Z, esta classe e estes pares; não prova\nsuficiência/insuficiência de toda a informação operacional. Definir se\ntemperatura e pressão de flash são condições de produção, decisões\noperacionais ou potenciais mediadores do consumo. Para normalização de\neficiência, ajustar uma variável que reage à degradação pode absorver\no sinal de interesse. Comparar Q e Q+Z nos mesmos dias completos, com\ntransformações estimadas no treino, e declarar disponibilidade ex ante/ex post.",
+    "line": 519
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-11",
+    "p": "P2",
+    "kind": "DIAGNOSTICO",
+    "anchor": "\\paragraph{Nenhuma segmentação em regimes é validável a partir dos dados.}",
+    "title": "Dois algoritmos sem separação clara não excluem regimes",
+    "body": "A cautela já presente é correta, mas o título e a conclusão voltam a\ngeneralizar. Limitar a \"não se obteve segmentação operacional validada\ncom as variáveis e parametrizações avaliadas\". Clusters geométricos não\nequivalem a regimes físicos; podem existir mudanças temporais sem\nseparação no espaço escolhido. Reportar padronização, tratamento de\ndados em falta e estabilidade das partições; pedir eventos externos\ncomo validação, sem apresentar impossibilidade matemática.",
+    "line": 652
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-12",
+    "p": "P1",
+    "kind": "SUPORTE",
+    "anchor": "\\paragraph{Em carga, a avaliação decorre dentro do domínio amostrado; nas",
+    "title": "Overlap de densidades não prova ausência de extrapolação",
+    "body": "Overlap marginal de 0,79--0,83 não garante que todos os dias de aplicação\nestejam dentro do intervalo de treino nem numa região bem amostrada.\nAcrescentar percentagem fora de [min,max] do treino e em regiões de\nbaixa densidade; repetir contraste no suporte comum. Para Q+Z,\nexaminar suporte conjunto. Até existir essa decomposição, trocar\n\"não podem ser desculpadas como extrapolação\" por \"há sobreposição\nmarginal substancial; o papel da extrapolação não ficou isolado\".",
+    "line": 675
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-13",
+    "p": "P2",
+    "kind": "RELATO",
+    "anchor": "\\section{Diagnósticos complementares}",
+    "title": "Substituir p-values inválidos por evidência descritiva legível",
+    "body": "Chamar \"índice descritivo\" a um p-value calculado sob pressupostos\nviolados não lhe dá interpretação válida. No corpo, usar ACF com\ndesfasamentos civis, dispersão móvel, caudas e efeitos de influência;\nse os testes clássicos ficarem, identificá-los como contraste técnico\nno Apêndice D. Não tratar estatuto descritivo como inferior por si:\no problema é a inferência injustificada, não descrever os dados.",
+    "line": 609
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "F15",
+    "p": "P3",
+    "kind": "FIGURA",
+    "anchor": "\\paragraph{Os vetores não falham de forma independente.}",
+    "title": "Acoplamento de vapor com hipótese física explícita",
+    "body": "Figura opcional após este parágrafo: resíduos padronizados 24/10 bar\nno mesmo calendário, diagrama de dispersão por ano e pequeno esquema\ndos fluxos partilhados, apenas se o circuito for conhecido. A legenda\ndiz \"associação compatível com...\" e enumera reconciliação comum como\nalternativa. Não desenhar setas causais a partir da correlação. Se a\nfronteira de F03 já explicar a rede, bastam os dois painéis de dados.",
+    "line": 703
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-14",
+    "p": "P1",
+    "kind": "SINTESE",
+    "anchor": "\\section{Síntese: os modos de falha}",
+    "title": "A síntese está mais categórica que os resultados",
+    "body": "Substituir \"rejeitada\", \"modelo genuíno\", \"vacuidade\" e \"condena\" por\ndescrições proporcionais. Na tabela, separar evidência robusta,\ndependente de BH/bloco/janela, sem ganho demonstrado e não estimável.\nAcrescentar eletricidade como linha \"resolução mensal\" e detetabilidade\nreal como NE; não afirmar cinco testes de falha quando uma limitação\nvem da medição. A síntese tem de preservar BY, blocos longos e ausência\nde margens materiais já declarados, sem relegá-los para ressalvas.",
+    "line": 757
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "C6-15",
+    "p": "P2",
+    "kind": "MECANISMO",
+    "anchor": "\\paragraph{O mecanismo comum: a recalibração anual mascara aquilo que devia",
+    "title": "Separar projeção algébrica, simulação e evento observado",
+    "body": "Um refit com intercepto centra os resíduos de treino e absorve a\ncomponente projetada no espaço dos regressores; não apaga qualquer\nderiva em aplicação futura. Documentar a política temporal real\n(C4-07), que referência é substituída e o que permanece nos dados.\nA simulação pode demonstrar atenuação sob um desenho, mas os coeficientes\nanuais não identificam quanto fouling/ineficiência foi ocultado.\nTambém não há base para classificar desvios rápidos como menos importantes.",
+    "line": 825
+  },
+  {
+    "file": "2-MainMatter/chapter-6-diagnostico.tex",
+    "id": "F16",
+    "p": "P3",
+    "kind": "FIGURA",
+    "anchor": "\\paragraph{Sensibilidade: o que sobrevive a mexer nas convenções.}",
+    "title": "Sensibilidade dos efeitos, não apenas dos rótulos",
+    "body": "Aproveitar SENS_survival_matrix, mas distinguir não estimável, troca de\nsinal e perda de exclusão de zero. Acompanhar rótulos por estimativas/IC\ndos contrastes principais. Para atribuir efeito à âncora anual, comparar\nmesma cobertura temporal; se não for possível, legendar partição +\nmudança de período. Nunca escolher a janela que torna o resultado mais\nfavorável. Para intervalos que mudam com a seed, reportar instabilidade\nMonte Carlo e aumentar réplicas apenas como diagnóstico documentado.",
+    "line": 854
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-01",
+    "p": "P2",
+    "kind": "ESTRUTURA",
+    "anchor": "\\chapter{Discussão e proposta metodológica}",
+    "title": "O capítulo mistura discussão, métodos e novos resultados",
+    "body": "É o capítulo mais longo e introduz candidatos, bandas, critério,\npopulações, simulador e resultados antes de os discutir. Levar definições\nde estimandos, candidatos e simulação para o Cap. 4/Apêndice G; manter\naqui proposta, resultados essenciais da demonstração e interpretação.\nAlternativa, se a simulação for contribuição central: capítulo autónomo\nde resultados III e discussão mais curta. Recomenda-se primeiro a\nredistribuição sem criar outro capítulo, preservando o arco da tese.",
+    "line": 28
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-02",
+    "p": "P1",
+    "kind": "ARGUMENTO",
+    "anchor": "\\paragraph{Reproduzir não é validar.}",
+    "title": "A discussão amplia indevidamente o veredicto do diagnóstico",
+    "body": "\"Não cumprir nenhuma das três funções\" é mais forte que \"não adequado\nde forma uniforme\". O Cap. 6 reconhece conteúdo preditivo no fuel gás,\nnão decide normalização só pelo MAE e não mede deteção real. Responder\npor vetor/uso com evidência e limites, sem converter inadequação parcial\nem falha universal. O problema de resolução elétrica também não deriva\nda classe linear nem do refit: separar falha de medição, especificação,\ntransportabilidade e política de referência.",
+    "line": 62
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-03",
+    "p": "P2",
+    "kind": "ARGUMENTO",
+    "anchor": "\\paragraph{Previsão e deteção são perguntas diferentes.}",
+    "title": "Evitar a dicotomia fixa = deteta / adaptativa = esconde",
+    "body": "Uma referência fixa pode prever bem em regime estável; modelos\nadaptativos podem detetar mudanças através de estados, parâmetros ou\ninovações acumuladas, conforme o desenho. Não é a \"única coisa\" que\nmede desvio. Reformular como tensão entre adaptação e preservação de\numa referência de comparação, sob as políticas avaliadas. Identificar\nqual canal carrega o sinal (resíduo, estado, inovação, CUSUM) e que\nmudanças foram demonstradas em simulação.",
+    "line": 101
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "F17",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\paragraph{Três formas de avaliar, três estimandos.}",
+    "title": "Esquema central: referência, estado e monitor",
+    "body": "Após a tabela dos estimandos, inserir diagrama em três ramos:\nE_t,Q_t,Z_t -> referência fixa f_ref -> resíduo;\nresíduo -> modelo temporal -> estado estimado + inovação;\nresíduo/estado/inovação -> monitor explicitamente definido -> investigação.\nDistinguir o que fica fixo e o que se atualiza e indicar quando os\ndados entram. Mostrar que o alerta não nasce apenas da escolha do\nnormalizador. Complementa F07: aqui componentes, lá cronologia.",
+    "line": 129
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-04",
+    "p": "P2",
+    "kind": "NORMAS",
+    "anchor": "\\section{Implicações para a conformidade normativa}",
+    "title": "Reformular a consequência normativa e discutir literatura",
+    "body": "Aplicar C2-02/C2-04: não afirmar que a norma certifica só existência,\nnem que o pressuposto foi refutado nos cinco vetores (eletricidade foi\nexcluída e o 24 bar tem resultados não conclusivos para estabilidade).\nApresentar a proposta como operacionalização de adequação/monitorização\ncom critérios explícitos. Confrontar a contribuição com 3--5 estudos\npróximos identificados no Cap. 3; a discussão atual dialoga sobretudo\ncom os próprios resultados, sem estabelecer novidade relativa.",
+    "line": 181
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-05",
+    "p": "P2",
+    "kind": "CRITERIOS",
+    "anchor": "\\paragraph{Domínio definido nas variáveis explicativas, nunca no consumo.}",
+    "title": "Não converter escolhas prudentes em regras universais",
+    "body": "Justificar 48--72 h por dinâmica da unidade/eventos; não é um limiar\nvalidado pelos dados disponíveis. Regime quase estacionário e domínio\nda regressão são condições diferentes. A exclusão de resposta por erro\ninstrumental comprovado pode ser legítima: a regra deve distinguir\ncontrolo de qualidade de seleção por desempenho. Conciliar com o filtro\nde zeros herdado. Suspender o alarme deste modelo fora do domínio deve\ngerar estado \"não avaliado\", sem sugerir operação normal.",
+    "line": 246
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-06",
+    "p": "P1",
+    "kind": "ACEITACAO",
+    "anchor": "\\paragraph{Critério de aceitação com validação temporal encadeada.}",
+    "title": "Compatibilidade por não-rejeição não valida uma banda",
+    "body": "O critério aceita cobertura quando o IC contém a nominal: um IC muito\nlargo facilita passar, premiando falta de precisão. Não chamar a isso\nvalidação/calibração demonstrada. Preservar a adjudicação pré-especificada\ncomo resultado histórico e designar \"compatível pelo critério adotado\".\nPara uma versão futura, fixar margens de cobertura/materialidade com\na operação, precisão mínima e desfecho inconclusivo; avaliar equivalência\nou não-inferioridade apropriada, largura e desempenho de deteção.\nNão escolher margens depois de ver quais fazem passar candidatos.\nFonte: https://doi.org/10.1177/1948550617697177",
+    "line": 318
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-07",
+    "p": "P1",
+    "kind": "ACEITACAO",
+    "anchor": "O limiar de quatro em cinco foi fixado",
+    "title": "A regra 4/5 precisa de justificação e avaliação conjunta",
+    "body": "Pré-especificação evita ajustar a regra ao resultado, mas não a torna\nadequada. Explicar porquê 4/5, custo de aceitar/rejeitar e dependência entre\npares. Os dois membros podem cumprir 4/5 em anos diferentes, deixando\nsó 3/5 com ambos: declarar se esse é o critério pretendido.\nExigir ganho face à média exclui por construção referências constantes\npotencialmente úteis à monitorização. Separar aceitação de normalizador\ndependente de carga, preditor e detetor. Simular erros de decisão do\nprocedimento antes de o recomendar para entrada em produção.",
+    "line": 331
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-08",
+    "p": "P2",
+    "kind": "MODELOS",
+    "anchor": "\\subsection{Bandas honestas}",
+    "title": "Nomear a construção e tratar a quantílica anual como sensibilidade",
+    "body": "Preferir \"bandas condicionais e quantílicas\" a \"honestas\", que sugere\ngarantia ainda não demonstrada. A linha orientadora prescreve janela\nplurianual, mas a demonstração executa quantílica anual: identificar a\ndiferença de protocolo e não contar esse resultado como teste da\nrecomendação plurianual. Explicar fallback para banda marginal e fração\nde dias afetados; comparar larguras/coberturas na mesma população e\ncom o mesmo nível nominal.",
+    "line": 458
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-09",
+    "p": "P1",
+    "kind": "ESTIMANDO",
+    "anchor": "\\subsection{O critério de aceitação e o que decidiu}",
+    "title": "O candidato com AR muda a previsão; o ganho tem de corresponder",
+    "body": "O texto adjudica conteúdo preditivo com E2 (reta anual), mas reconhece\nque a construção AR muda o centro usando resíduos passados. Se o\ncandidato é a previsão completa reta+AR, medir também o seu MAE contra\ncomparadores nos mesmos dias e com a mesma informação disponível.\nSe se pretende validar separadamente normalizador e monitor, explicitar\ndois objetos e dois critérios. Até clarificar, zero candidatos aceites\nrefere-se à regra de adjudicação adotada, não à inutilidade da previsão\ncompleta AR. Conferir implementação e não apenas renomear a tabela.",
+    "line": 525
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "F18",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\subsection{O critério de aceitação e o que decidiu}",
+    "title": "Matriz de decisão por candidato e por par anual",
+    "body": "Depois da definição do candidato, apresentar matriz com linhas\nestimador+banda+vetor, colunas cinco transições e duas marcas por célula\n(ganho/cobertura). Distinguir rejeitado, compatível, inconclusivo e NE.\nÀ direita, decisão 4/5; em painel secundário, sensibilidade 3/5.\nDar nomes às oito combinações efetivamente avaliadas por vetor:\n3 estimadores x 6 bandas x 4 vetores não é um fatorial de 32 células.\nA tabela atual resume bem; a matriz completa pode ir ao Apêndice D.",
+    "line": 537
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-10",
+    "p": "P2",
+    "kind": "POPULACAO",
+    "anchor": "\\paragraph{A referência congelada mede o desvio.}",
+    "title": "A interseção de 876 dias altera a população de interesse",
+    "body": "Quantificar 876 como fração dos dias candidatos e primários, por ano\ne vetor; identificar que modelo/requisito elimina cada grupo.\nComparação na interseção é justa entre modelos, mas pode privilegiar\nperíodos fáceis e limitar a aplicação operacional. Mostrar resultados\nna população de cada modelo como sensibilidade separada, sem misturar\ndenominadores. Justificar 2020 como referência disponível, não regime\nlimpo/eficiente comprovado; avaliar outra referência como sensibilidade\ndepois de corrigir os lotes, nunca escolhendo a de menor consumo.",
+    "line": 656
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "F19",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\paragraph{Um desvio inserido sobrevive à referência fixa e não sobrevive ao",
+    "title": "Visualizar quanto sinal cada componente preserva",
+    "body": "Inserir junto da experiência de injeção uma figura com três painéis\nno mesmo eixo de dias: sinal conhecido (degrau/rampa); resíduos da\nreferência fixa e do refit; estado, inovação e estatística do monitor.\nMarcar treino, início do desvio, reajuste, lacunas e limiar de deteção.\nCurvas do lote validado e mesma população; legenda distingue identidade\nalgébrica, atenuação medida e deteção. Não usar uma imagem conceptual\npara provar os valores 0,136/0,002 ou 3%.",
+    "line": 701
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-11",
+    "p": "P1",
+    "kind": "ALGEBRA",
+    "anchor": "O que fica estabelecido aqui é o mecanismo do",
+    "title": "Reajustar não apaga universalmente o sinal de mudança",
+    "body": "A frase \"reajustar é apagar\" excede a experiência. Para OLS com\nintercepto, um degrau constante em todo o conjunto usado no refit é\nabsorvido pelo intercepto; uma mudança que afeta só parte da janela\nnão desaparece necessariamente, nem há garantia sobre dados futuros.\nEspecificar fração de preservação: contraste injetado menos controlo,\ncanal, período e normalização; médias de resíduos podem cancelar sinal.\nReportar atenuação sob este desenho, não impossibilidade geral de deteção.",
+    "line": 712
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-12",
+    "p": "P1",
+    "kind": "EVIDENCIA",
+    "anchor": "\\paragraph{Reajustar com janelas curtas segue melhor onde há o que seguir.}",
+    "title": "Um lote inválido também não sustenta uma conclusão qualitativa",
+    "body": "O próprio capítulo diz que estes lotes comparam populações diferentes\nou comprimem calendário. Omitir números não resolve o problema:\na ordenação \"janela curta melhor\" também depende do estimando.\nRetirar a conclusão do corpo até republicação/verificação; ou descrevê-la\napenas como hipótese e trabalho pendente, sem a usar para justificar\nrecomendações. Manter a mesma regra para todas as partes em revisão.",
+    "line": 742
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-13",
+    "p": "P1",
+    "kind": "INTERPRETACAO",
+    "anchor": "\\paragraph{Calibração monitorizada, não assumida.}",
+    "title": "Cobertura e taxa de excursões são complementares",
+    "body": "Para a mesma banda, população e regra, cobertura = 1 - taxa de dias\nfora da banda. Trocar uma pela outra não elimina confusão entre\ndescalibração e desvio; ambas observam o mesmo evento. A incerteza e o\ncontexto operacional é que acrescentam informação. Especificar taxa\npor dia versus taxa por episódio, superior/inferior, e usar investigação\nexterna para discriminar causas. Janelas móveis sobrepostas também\nnão constituem testes independentes repetidos.",
+    "line": 972
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-14",
+    "p": "P1",
+    "kind": "SIMULACAO",
+    "anchor": "\\subsection{Monitor e \\emph{baseline} com verdade conhecida}",
+    "title": "Tornar o gerador e a calibração de falsos sinais comparáveis",
+    "body": "Especificar equação do gerador, escala marginal versus escala da\ninovação AR(1), covariáveis, onset, sinal, lateralidade e tratamento de\nlacunas. \"5%\" é por dia, canal ou probabilidade de algum sinal em 90 dias?\nUsar o mesmo orçamento por horizonte na comparação e réplicas\nindependentes para afinar limiares e os verificar. Se combinar canais,\ncalibrar também o sistema. Dar incerteza Monte Carlo; um canal acima\ndo nominal não se declara \"acaso\" sem o critério global pré-definido.",
+    "line": 769
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "F20",
+    "p": "P2",
+    "kind": "FIGURA",
+    "anchor": "\\paragraph{A dependência decide quanto se deteta.}",
+    "title": "Curvas de deteção e atraso sob o mesmo falso sinal",
+    "body": "Usar painéis para rho=0,6/0,9/0,95, amplitude do desvio no eixo x e\nP(deteção até 90 dias) no y, com IC Monte Carlo e um traço por monitor.\nMarcar censura e limiar de 50%; separar degrau de rampa.\nAcrescentar distribuição do atraso com não deteções censuradas, se\ncalculada; reportar só atraso entre detetados favorece métodos pouco\nsensíveis. Identificar gerador simulado, não previsão para a refinaria.",
+    "line": 849
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-15",
+    "p": "P2",
+    "kind": "SIMULACAO",
+    "anchor": "\\paragraph{O monitor pesa; a \\emph{baseline} não --- nas oito células",
+    "title": "O gerador linear favorece a comparação pontual adotada",
+    "body": "Como o gerador primário usa relação linear, pequeno ganho do GAM não\ndemonstra que a escolha da baseline importe pouco em geral.\nDar diferenças absolutas (32--49 pontos percentuais), IC e estatuto\npor contraste; oito testes co-primários sem correção não são evidência\nsimultânea de todos os efeitos. Reportar gerador não linear como\nsensibilidade, sem o promover após observar resultados. A secção já\nlimita a interpretação: aplicar a mesma cautela ao título e às conclusões.",
+    "line": 822
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-16",
+    "p": "P2",
+    "kind": "SIMULACAO",
+    "anchor": "\\paragraph{Três sinais falsos, demonstrados.}",
+    "title": "Exemplos simulados não são teoremas universais",
+    "body": "Dar médias/tendências das séries independentes e distribuição de R²\nem várias réplicas; R² acumulado alto nesta realização não torna toda\nrelação acumulada espúria. Branquear pode atenuar um degrau, mas não o\nremove necessariamente (em AR(1) fixo, a resposta sustentada depende\nde 1-rho); monitorizar inovações não é o mesmo que threshold diário.\nExplicar 0,095 como taxa nula face ao alvo 0,05 referido acima e confirmar\nque canais conjuntos/marginais usam lateralidade e falso sinal comparáveis.",
+    "line": 888
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "F21",
+    "p": "P3",
+    "kind": "FIGURA",
+    "anchor": "\\section{Implicações para a plataforma}",
+    "title": "Protótipo da ficha e diagrama de estados",
+    "body": "Após os requisitos, mostrar um wireframe identificado como \"proposta\",\ncom referência/data, domínio, desvio, cobertura/IC, estado e ação.\nUma segunda faixa representa operação -> investigar -> suspender/\nrecalibrar -> verificar, com gatilhos e responsável; separar eventos\n(alarme) de estados persistentes. A versão anterior da referência\npermanece consultável. Usar poucos campos legíveis na ficha principal;\nos 76 campos e o registo detalhado ficam no Apêndice E.",
+    "line": 936
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-17",
+    "p": "P2",
+    "kind": "LIMITACOES",
+    "anchor": "\\section{Limitações}",
+    "title": "Corrigir contradições internas e preservar o alcance real",
+    "body": "Distinguir previsão temporal fora do treino de validação independente\nde seleção: os pares são forward, mas o estudo já usou esses anos para\nformular decisões. Evitar \"não há afirmação fora de amostra que\nsobreviva\". Conferir 3/16 na sensibilidade da Sec. 7.4 contra 3/32 aqui.\nO ensaio de cobertura do Cap. 4 usa bloco 60; não o atribuir ao bloco\nbase sete. Trocar \"resposta completa\" e \"máximo defensável\" por opções\nde investigação: os resultados não demonstram necessidade nem suficiência\nde modelos com estado de degradação.",
+    "line": 1014
+  },
+  {
+    "file": "2-MainMatter/chapter-7-discussao.tex",
+    "id": "C7-18",
+    "p": "P1",
+    "kind": "ESTIMANDO",
+    "anchor": "\\section{Demonstração na unidade}",
+    "title": "O critério de aceitação tem de corresponder ao uso da baseline",
+    "body": "O gate penaliza cobertura baixa no ano seguinte, mas a referência\ncongelada interpreta essa mesma queda como sinal a preservar. A tensão\né substantiva: sem eventos, não se distingue mudança real de falha\npreditiva. Definir se se aceita um preditor sob transportabilidade, um\nnormalizador ou um detetor sob hipótese de ausência de mudança.\nA aceitação do primeiro não certifica o terceiro, nem a rejeição do\nprimeiro invalida a utilidade da referência. Explicitar isto antes da\ntabela dos 32 candidatos e no desenho das duas pistas da plataforma.",
+    "line": 389
+  },
+  {
+    "file": "2-MainMatter/chapter-8-conclusoes.tex",
+    "id": "C8-01",
+    "p": "P2",
+    "kind": "CONTEUDO",
+    "anchor": "\\section{Conclusões}",
+    "title": "Fechar perguntas com resultados e limites, sem novo manifesto",
+    "body": "Escrever uma resposta curta por pergunta/objetivo alinhado no Cap. 1:\nplataforma e validação efetivamente verificadas; diferenças entre\nvetores e sensibilidade; decisão dos candidatos sob o critério adotado;\ncontributo/estado da revisão; deteção real não estimada.\nUsar 3--5 resultados com denominadores já auditados. Não repetir que\nas normas só exigem a primeira camada, que zero candidatos prova\nimpossibilidade da classe ou que foram demonstradas poupanças.",
+    "line": 14
+  },
+  {
+    "file": "2-MainMatter/chapter-8-conclusoes.tex",
+    "id": "C8-02",
+    "p": "P2",
+    "kind": "ESTRUTURA",
+    "anchor": "\\section{Roteiro de modelos sucessores}",
+    "title": "Trocar escada de complexidade por decisões guiadas pelo diagnóstico",
+    "body": "ARMA, estado, GAM, pooling e grey-box não formam uma sequência em que\nmais complexo é melhor. Recomenda-se fundir esta secção com Trabalho\nfuturo numa tabela: falha observada -> opção -> dados adicionais ->\ncomparador -> critério de sucesso. Primeiro calendário/eventos,\nfronteiras e referência verificáveis; depois piloto prospetivo.\nUma referência constante bem avaliada deve continuar como comparador\ndos vapores, e o fuel gás como candidato a piloto, sem prometer ganho.",
+    "line": 31
+  },
+  {
+    "file": "1-FrontMatter/abstract-pt.tex",
+    "id": "PT-01",
+    "p": "P2",
+    "kind": "RESUMO",
+    "anchor": "%% >> TODO: escrever o resumo",
+    "title": "Resumo quantitativo apenas depois de fechar o argumento",
+    "body": "Estrutura sugerida em até 200 palavras: problema industrial delimitado;\nobjetivo; dados/unidade e desenho temporal; dois resultados quantitativos\ncom alcance claro; proposta e limitação principal. Distinguir plataforma\nentregue, diagnóstico retrospetivo e simulação. Não prometer revisão\ncompleta, poupanças nem alarmes validados se não demonstrados.\nEscolher 5--6 palavras-chave e corrigir acentos. O limite do formulário\nnão prova que seja também o limite regulamentar do resumo da tese.",
+    "line": 11
+  },
+  {
+    "file": "1-FrontMatter/abstract-en.tex",
+    "id": "EN-01",
+    "p": "P3",
+    "kind": "RESUMO",
+    "anchor": "%% >> TODO: write the abstract",
+    "title": "Alinhar a versão inglesa com os estimandos finais",
+    "body": "Traduzir só depois de fechar PT, preservando números, denominadores e\nqualificações. Usar consistentemente energy baseline, load/throughput,\nout-of-training temporal evaluation e detection; evitar chamar\nindependent holdout à demonstração encadeada. As palavras-chave e o\nâmbito da revisão devem corresponder à versão portuguesa.",
+    "line": 7
+  },
+  {
+    "file": "1-FrontMatter/acronyms.tex",
+    "id": "FR-01",
+    "p": "P3",
+    "kind": "APRESENTACAO",
+    "anchor": "\\newacronym{abbrev}",
+    "title": "Substituir as siglas de exemplo pelas usadas na tese",
+    "body": "Este ficheiro ainda contém abbrev, aaa, xpto e outras entradas do\ntemplate. Criar apenas as necessárias: CDU, SGE, USE, EnPI, EnB, GNE,\nEII, OLS, HAC, MBB, MAE, CUSUM, PRISMA-ScR, entre outras realmente usadas.\nDefinir equivalências EnPI/IDE e EnB/CER uma vez e escolher a notação\nprincipal. Uniformizar kt/d, t GNE/d e grafia fuel gás/fuel gas.",
+    "line": 12
+  },
+  {
+    "file": "1-FrontMatter/symbols.tex",
+    "id": "FR-02",
+    "p": "P3",
+    "kind": "NOTACAO",
+    "anchor": "\\glsxtrnewsymbol[sort=mu",
+    "title": "Definir a notação física e estatística com unidades",
+    "body": "Trocar símbolos de exemplo por E_t, Q_t, Z_t, a, b, e_t, sigma residual,\nsigma da inovação, rho, delta_MAE, cobertura, k e h do CUSUM.\nDar unidades e separar índice temporal de ano. A unidade do declive\ncom E em t GNE/d e Q em kt/d é t GNE/kt: o dia cancela.\nDistinguir IC de parâmetro/média, intervalo preditivo e banda de alarme\nno Apêndice G e nas legendas.",
+    "line": 10
+  },
+  {
+    "file": "1-FrontMatter/glossary.tex",
+    "id": "FR-03",
+    "p": "P3",
+    "kind": "APRESENTACAO",
+    "anchor": "\\newglossaryentry{computer}",
+    "title": "Remover conteúdo demonstrativo e fixar termos operacionais",
+    "body": "O glossário contém ainda a entrada computer e uma citação de exemplo\nArtho04 sem relação com a tese. Substituir por definições curtas de\nbaseline, normalização, referência congelada, fator estático, desvio,\nexcursão, episódio de alarme, calibração e reconciliação de fontes,\nse o glossário for mantido. As distinções resolvem ambiguidades\nrecorrentes no texto, não são apenas limpeza do template.",
+    "line": 11
+  },
+  {
+    "file": "3-BackMatter/appendix-A-protocolo-sr.tex",
+    "id": "AP-A",
+    "p": "P2",
+    "kind": "APENDICE",
+    "anchor": "\\label{app:protocolo-sr}",
+    "title": "Protocolo público e cronologia das emendas",
+    "body": "Inserir protocolo/ID permanente, datas de registo e pesquisas, versões,\ncritérios, strings por base, alterações e sua justificação. Separar\nplaneado, executado e pendente. Um link isolado não substitui o mínimo\nmetodológico necessário no Cap. 3; anexar versão congelada ou quadro\nde metadados que permita localizar exatamente a que foi usada.",
+    "line": 11
+  },
+  {
+    "file": "3-BackMatter/appendix-B-validacao.tex",
+    "id": "AP-B",
+    "p": "P2",
+    "kind": "APENDICE",
+    "anchor": "\\label{app:validacao}",
+    "title": "Validação da extração assistida e adjudicação humana",
+    "body": "Descrever modelos/versões, prompts, acesso aos textos, campos extraídos,\namostra de validação, referência humana, discordâncias e adjudicação.\nDois modelos não constituem automaticamente dois revisores independentes:\npodem partilhar erros. Reportar acerto por campo, erros críticos, omissões\ne denominadores; concordância entre modelos não basta. Distinguir piloto\nde extração completa. O PRISMA principal deve ficar também no Cap. 3.",
+    "line": 11
+  },
+  {
+    "file": "3-BackMatter/appendix-C-dicionario.tex",
+    "id": "AP-C",
+    "p": "P2",
+    "kind": "APENDICE",
+    "anchor": "\\label{app:dicionario}",
+    "title": "Dicionário que permita reproduzir as fronteiras e conversões",
+    "body": "Por campo: significado, unidade, granularidade, fonte, agregação,\nprecedência, transformação, flags, vigência e regra de falta/zero.\nIncluir equações de GNE, fronteiras de bruto/líquido, componentes de carga\ne alocações de vapor. Mapear divergências corrigidas a versões e impacto.\nConservar identificadores sanitizados quando necessário, sem perder\na ligação metodológica. Aqui cabe o detalhe deslocado dos Caps. 4/5.",
+    "line": 11
+  },
+  {
+    "file": "3-BackMatter/appendix-D-tabelas.tex",
+    "id": "AP-D",
+    "p": "P2",
+    "kind": "APENDICE",
+    "anchor": "\\label{app:tabelas}",
+    "title": "Publicar as tabelas que sustentam os qualificadores",
+    "body": "O corpo remete repetidamente para tabelas ainda ausentes. Incluir\nn por vetor/ano e população comum, MAE de ambos os comparadores,\ndelta/skill com IC e blocos, HAC/BH/BY, cobertura n/N superior/inferior,\nsensibilidades, candidatos/NE e resultados de simulação. Cada tabela\ndeclara unidade, estimando, lote e convenção temporal. Os resumos não\nsubstituem as linhas necessárias para verificar uma afirmação.",
+    "line": 11
+  },
+  {
+    "file": "3-BackMatter/appendix-E-manual.tex",
+    "id": "AP-E",
+    "p": "P2",
+    "kind": "APENDICE",
+    "anchor": "\\label{app:manual}",
+    "title": "Manual operacional e proposta futura devem ser distinguíveis",
+    "body": "Inserir referência/versão do manual e o mínimo necessário para ler\nas quatro páginas: filtros, referência, unidades, atualização e estados\nsem dados/sem baseline/fora de domínio. Capturas integrais ficam aqui.\nSeparar funções disponíveis em julho de 2026 do wireframe proposto\ndo bloco de saúde; ficha detalhada e transições podem acompanhar a\nproposta, claramente identificadas como não implantadas.",
+    "line": 11
+  },
+  {
+    "file": "3-BackMatter/appendix-F-adversarial.tex",
+    "id": "AP-F",
+    "p": "P2",
+    "kind": "APENDICE",
+    "anchor": "\\label{app:adversarial}",
+    "title": "Revisão adversarial como registo verificável, não selo de validade",
+    "body": "Tabela com revisor (humano/modelo e versão), data, material fornecido,\nâmbito, achado, decisão do autor, alteração/teste e estado final.\nExplicar independência entre revisões e conhecimento prévio dos dados.\nDistinguir integridade informática de adequação científica, e localizar\nresultados ainda pendentes. Transferir para aqui o histórico de bugs/\nerratas que interrompe a discussão, conservando no corpo os limites.",
+    "line": 11
+  },
+  {
+    "file": "3-BackMatter/appendix-G-matematica.tex",
+    "id": "AP-G",
+    "p": "P2",
+    "kind": "APENDICE",
+    "anchor": "\\label{app:matematica}",
+    "title": "A matemática essencial não pode permanecer num apêndice vazio",
+    "body": "Priorizar: modelo anual e sigma com graus de liberdade; seleção e\ndesfasamentos civis; estimandos de perdas/cobertura; algoritmo MBB e\ncondicionamento/reestimação; Wald HAC e famílias; Huber/Theil-Sen;\ncentro e largura de cada banda; regra 4/5; referência/estado/inovação;\nrecorrência CUSUM com k,h/reset; gerador, calibração por horizonte e\ncensura de deteção. Manter no corpo as equações necessárias à leitura.\nUm pseudocódigo de um ano de treino/teste e outro do simulador ajudam\nmais que reproduzir funções completas do código.",
+    "line": 13
+  }
+]

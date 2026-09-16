@@ -1,0 +1,40 @@
+%!TEX root = ../template.tex
+% Comentarios da revisao critica de 2026-09-13, visiveis no PDF.
+% Para a versao sem comentarios, trocar a linha seguinte por
+% \mostrarrevisaofalse e recompilar template.tex.
+\newif\ifmostrarrevisao
+\mostrarrevisaotrue
+
+\tcbuselibrary{breakable}
+\newcommand{\revisaotese}[5]{%
+  \ifmostrarrevisao
+    \par\begingroup
+    \colorlet{revisaocor}{blue!55!black}%
+    \ifstrequal{#2}{P1}{\colorlet{revisaocor}{red!65!black}}{}%
+    \ifstrequal{#2}{P3}{\colorlet{revisaocor}{black!60}}{}%
+    \ifstrequal{#3}{FIGURA}{\colorlet{revisaocor}{teal!65!black}}{}%
+    \begin{tcolorbox}[
+      breakable,
+      colback=revisaocor!4!white,
+      colframe=revisaocor,
+      colbacktitle=revisaocor,
+      coltitle=white,
+      boxrule=0.5pt,arc=1mm,
+      left=2.5mm,right=2.5mm,top=2mm,bottom=2mm,
+      before skip=8pt,after skip=8pt,
+      fonttitle=\sffamily\bfseries\small,
+      fontupper=\normalfont\small,
+      title={REVISÃO #1 | #2 | #3}]
+      \setlength{\emergencystretch}{3em}%
+      \textbf{#4}\par\smallskip
+      #5
+    \end{tcolorbox}%
+    \endgroup
+  \fi
+}
+
+% As definicoes de glossarios sao lidas no preambulo. As tres notas
+% sobre esses ficheiros aparecem neste apendice apenas em modo de revisao.
+\ifmostrarrevisao
+  \ntaddfile{appendix}{appendix-H-revisao}
+\fi

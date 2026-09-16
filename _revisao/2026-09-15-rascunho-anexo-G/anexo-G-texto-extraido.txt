@@ -1,0 +1,2025 @@
+=== PÁGINA PDF 1 ===
+G
+Fundamentos e formulações matemáticas da
+dissertação
+Este apêndice reúne as formulações necessárias para acompanhar os cálculos da dissertação.
+A organização segue os objetos analisados: primeiro as grandezas e as populações, depois
+a revisão da literatura e a modelação, e, por fim, a monitorização e a simulação. Cada
+secção pode ser consultada a partir de uma remissão no corpo do texto. As definições
+operacionais e os resultados permanecem nos capítulos a que dizem respeito.
+Uma mesma quantidade pode servir perguntas diferentes. O erro de uma previsão
+mede a distância ao valor observado; o desvio a uma referência energética mede a distância
+a uma relação mantida fixa; um alarme resulta da comparação de uma estatística com
+um limiar. A passagem entre estas quantidades exige explicitar a referência, a escala e a
+população sobre a qual se calcula o resultado.
+REVISÃO MA T-00 | P1 | APENDICE
+Âmbito e estado deste rascunho
+O texto desenvolve os 107 conceitos do mapa de 15 de setembro de 2026. As caixas de revisão
+identificam decisões pendentes, verificações de fontes e propostas visuais. A consulta dirigida
+ao código esclarece convenções; não certifica a correspondência de todos os resultados com
+o respetivo lote. As extensões ainda propostas estão identificadas no texto. Conservar o
+identificadorapp:matematica e harmonizar o título nos capítulos.
+G.1 Notação, populações e operações sobre dados
+G.1.1 Índices, unidades e objetos estatísticos
+O índiceC designa um dia civil,H um ano,D uma unidade industrial eE um vetor ener-
+gético. O índice8 enumera observações disponíveis; a diferença entre dois índices8 não
+determina a distância entre as respetivas datas. Nas simulações,A identifica uma realização
+independente e1 uma réplica de reamostragem. Quando a unidade e o vetor são fixos,
+omitem-se os índices D,E .
+104
+
+=== PÁGINA PDF 2 ===
+G.1. NOTAÇÃO, POPULAÇÕES E OPERAÇÕES SOBRE DADOS
+Tabela G.1: Guia de consulta das formulações matemáticas.
+Secção Pergunta de consulta
+G.1 Que observações e unidades entram no cálculo?
+G.2 Como se obtêm as grandezas e os indicadores energéticos?
+G.3 O que representam as contagens e as redes da revisão?
+G.4 Que erro da extração foi auditado e com que incerteza?
+G.5 Que relação é ajustada e como são estimados os parâmetros?
+G.6 Como se compara o desempenho em períodos posteriores?
+G.7 Como se quantifica a incerteza com dependência temporal?
+G.8 O que medem os diagnósticos dos dados e dos resíduos?
+G.9 Que banda se constrói e o que significa a sua cobertura?
+G.10 Como se transforma a evidência numa decisão sobre um candidato?
+G.11 Que sinal preserva cada canal de monitorização?
+G.12 Como se medem falsos sinais e capacidade de deteção?
+Tabela G.2: Notação principal. As escalas de erro têm a unidade da resposta.
+Símbolo Significado e unidade
+C Consumo ou saldo energético diário, em t GNE/dia; a soma dos valores diários
+representa t GNE.
+&C Carga processada, em kt/dia. Uma kt corresponde a1000 t.
+`C, xC Covariáveis operacionais e linha da matriz de desenho, respetivamente.
+*C, : Massa volúmica e autocorrelação ao desfasamento:; símbolos distintos.
+ˆ5, ˆC Relação ajustada e valor calculado por essa relação.
+4C,AC, C Erro de previsão, desvio à referência fixa e inovação do modelo de estado.
+B,B ', , DGP Escala residual, escala da referência, escala da inovação e escala do gerador.
+ℛ,/u∞D△9C,/u∞D△AEConjuntos de treino/referência, aplicação e observações pontuáveis.
+=,?,ℓ,,' Número de observações, parâmetros, dias por bloco, réplicas de bootstrap e
+realizações de simulação.
+O estimandoé a quantidade que se pretende conhecer numa população definida, por
+exemplo a diferença esperada de erro absoluto entre dois preditores. Oestimadoré a regra
+aplicada à amostra para a calcular. A estimativa é o valor obtido. A identificação destes
+três objetos evita atribuir a uma estatística descritiva uma interpretação populacional que
+o desenho não suporta.
+G.1.2 Seleção e denominadores
+Seja/u∞D△9ℱo calendário candidato. Uma máscara<C ∈ {0, 1} assinala a elegibilidade de
+cada dia. No cálculo diário da baseline, a seleção inclui a disponibilidade de carga e
+energia, a exclusão do dia corrente e o limiar de carga adotado. O valor de18 600 t/dia
+corresponde a18,6 kt/dia. A máscara deve reproduzir a desigualdade estrita ou inclusiva
+da implementação.
+/u∞D△AE< ={ C∈/u∞D△9ℱ:<C = 1, x( <)
+C completa, Cno domínio de<} , = < =|/u∞D△AE<|. (G.1)
+Dois candidatos podem ter conjuntos/u∞D△AE< diferentes. Um contraste emparelhado utiliza a
+interseção dos conjuntos pertinentes. Deve apresentar-se também a fração de dias excluídos,
+105
+
+=== PÁGINA PDF 3 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+pois a melhoria do resultado pode decorrer de uma população mais restrita.
+Um zero físico, um valor ausente e um valor substituído são estados diferentes. A
+exclusão deC = 0 faz parte da seleção consultada e condiciona a população à resposta. A
+propagação do último valor disponível usa informação passada; o preenchimento a partir
+de um valor futuro altera a informação disponível no instante de previsão. Cada variável
+transformada deve conservar um indicador de origem e de imputação. A série observada,
+por si só, não identifica o mecanismo que gerou as faltas.
+REVISÃO MA T-01 | P1 | METODO
+Fixar uma sequência única de seleção
+Confrontar os filtros DAX, Python e os lotes citados: fronteira da unidade, corte de carga, zeros,
+data corrente, valores completos e suporte. Publicar os números após cada filtro. Distinguir
+dias únicos de células vetor–dia. A precedência dos filtros é especialmente relevante quando
+se contabilizam motivos de exclusão.
+G.1.3 Agregação no calendário civil
+Para um caudal mássico/⌈otacc<ℎ representativo de um intervalo válido de duraçãoΔℎ, a massa
+diária é aproximada por
+<C =
+Õ
+ℎ∈ℋC
+/⌈otacc<ℎΔℎ, G( )
+C =
+Í
+ℎ∈ℋCGℎΔℎ
+Í
+ℎ∈ℋC Δℎ
+. (G.2)
+Somar leituras de caudal equivale à primeira expressão apenas se cada leitura representar
+um intervalo unitário na unidade de tempo do caudal. A integração exige conhecer a
+semântica da tag, o fuso horário, as horas em falta e as transições de hora legal. Um dia
+civil pode ter 23 ou 25 horas; uma soma de incrementos de um contador exige ainda tratar
+reinícios e duplicados.
+Quando só existe um total mensal", a alocação uniforme em3" dias escreve-se
+˜C ="/ 3" ( C∈") ,
+Õ
+C∈"
+˜C =". (G.3)
+Esta operação conserva o total mensal. A distribuição diária criada não contém medição
+adicional. Consequentemente, os dias alocados de eletricidade não constituem observações
+independentes para validar um instrumento diário. Se a apresentação retiver apenas parte
+dos dias, a soma filtrada deixa de coincidir com o total mensal.
+Uma janela deF dias que inclui o dia atual é/u∞D△ℬ∈C( F) ={ B : C−F+ 1≤B≤C} . Uma
+janela usada para prever antes de observarC termina em C−1. Em ambos os casos,
+=C =|/u∞D△ℬ∈C∩/u∞D△AE|é o número efetivo de observações. A média, a soma e a condição de cálculo
+devem indicar esse conjunto e um mínimo de disponibilidade. A expressão “30 dias”
+refere-se ao calendário, independentemente do número de linhas retidas.
+106
+
+=== PÁGINA PDF 4 ===
+G.1. NOTAÇÃO, POPULAÇÕES E OPERAÇÕES SOBRE DADOS
+G.1.4 Fontes, conservação e concordância numérica
+Se2∗( D,E,C ) identifica a primeira fonte disponível na ordem estabelecida, a série harmoni-
+zada é
+D,E,C =[2∗( D,E,C)]
+D,E,C ,  [2]
+D,E,C =
+Õ
+9
+FD,E,9,C [2]
+9,C. (G.4)
+Os pesos representam inclusão, exclusão, crédito ou repartição e podem assumir, entre
+outros, os valores1, 0 e−1. Numa repartição integral de uma corrente, os pesos das
+unidades destinatárias somam um. A precedência entre balanço energético, fonte elétrica
+e tags deve aplicar-se à chave declarada; somar canais alternativos da mesma energia
+produziria dupla contagem. Esta harmonização não é uma reconciliação estatística sujeita
+a balanços e incertezas de medição.
+Duas verificações distintas usam tolerâncias distintas. Na comparação com uma fonte
+de referência, a regra pode ser
+|G−G0|≤max( abs, rel|G0|) . (G.5)
+Na replicação numérica, a regra consultada soma as tolerâncias:
+|G−G0|≤atol+ rtol|G0|. (G.6)
+O módulo deG0 permite comparar saldos com sinal. ParaG0 = 0, prevalece a tolerância
+absoluta. A comparação exige ainda as mesmas datas, unidades e filtros. Um hash
+identifica os bytes de um ficheiro e permite detetar alterações; não demonstra a exatidão
+física dos valores.
+G.1.5 Estatística descritiva e completude
+Num conjunto de= valores válidos,¯G ==−1 Í
+8G8 eB2
+G =( =−1)−1 Í
+8( G8−¯G) 2. A mediana
+é o quantil de ordem 0,5 e a amplitude interquartil éIQR = @0,75−@0,25. Para quantis
+empíricos usados em limites, deve fixar-se o algoritmo de interpolação; neste rascunho, a
+interpolação linear entre estatísticas de ordem corresponde à convenção computacional
+habitual consultada. A completude é=disponível/ =esperado, com o denominador definido
+por campo, vetor e período. Um mês parcial deve ser identificado como tal.
+REVISÃO MA T-F01 | P1 | FIGURA
+Mostrar como se forma a população analítica
+Acrescentar um fluxograma com contagens desde o calendário candidato até à interseção
+pontuável. Ao lado, representar um mês de eletricidade como um total repartido pelos dias.
+As contagens devem provir do manifesto do lote; a figura deve identificar a resolução de
+medição e a resolução de apresentação. Colocação preferencial: capítulo de métodos, com
+remissão para esta secção.
+107
+
+=== PÁGINA PDF 5 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+G.2 Grandezas físicas e indicadores energéticos
+G.2.1 Fronteiras e balanços
+A carga só pode ser interpretada depois de fixada a fronteira do processo. Para uma
+unidade, o balanço material integrado num período é
+"ﬁnal −"inicial =
+Õ
+9
+<9,entrada−
+Õ
+:
+<:, saída. (G.7)
+As correntes internas à fronteira cancelam-se. Recirculações que atravessam a fronteira
+permanecem no balanço, mas a sua inclusão na variável “carga processada” depende da
+definição operacional adotada. Esta definição tem de ser comum à série de carga, aos
+indicadores por unidade de produção e à referência energética.
+Desprezando variações de energia cinética e potencial, uma forma do balanço energético
+é
+Δ* =/u∞D△ACext−/u∞D△ℬ∈ext+
+Õ
+9
+<9,entradaℎ9−
+Õ
+:
+<:, saídaℎ:. (G.8)
+/u∞D△ACext designa calor transferido para o sistema e/u∞D△ℬ∈ext trabalho realizado pelo sistema.
+A energia química pode ser incluída nas entalpias ou representada por um termo de
+combustível numa formulação compatível; deve evitar-se a dupla contabilização. Uma
+eficiência térmica =/u∞D△ACútil/ fornecida exige definir o efeito útil e a fronteira. GNE, consumo
+específico e desvio à baseline são indicadores com outras definições; a sua variação não
+quantifica, por si só, uma eficiência termodinâmica.
+REVISÃO MA T-F02 | P1 | FIGURA
+Desenhar a fronteira da unidade de destilação
+Usar um esquema de correntes com carga fresca, retornos, produtos, combustível, vapor e
+eletricidade. Identificar o que entra em&C e em cadaE,C . Um Sankey só deve ser acrescentado
+quando existir um balanço reconciliado e um período comum; até lá, setas sem larguras
+quantitativas. Completar a ligação à descrição física do caso de estudo.
+G.2.2 Conversão em gás natural equivalente
+Para uma massa<9 de combustível com poder calorífico inferiorPCI9, a massa equivalente
+de gás natural é
+GNE,9 =<9
+PCI9
+PCIref
+,  GNE =
+Õ
+9
+GNE,9. (G.9)
+Com <9 em toneladas e ambos os poderes caloríficos em kcal/kg, o resultado é expresso
+em t GNE. Uma base volúmica requer a conversão de volume em massa nas condições de
+referência. PCI e poder calorífico superior não são intercambiáveis.
+Para vapor do nível de pressãoE, a convenção contabilística toma a forma
+GNE,E =<E
+ΔℎE, eq
+PCIref
+. (G.10)
+108
+
+=== PÁGINA PDF 6 ===
+G.2. GRANDEZAS FÍSICAS E INDICADORES ENERGÉTICOS
+ΔℎE,eq é o equivalente entálpico adotado, cuja referência deve incluir o tratamento do
+condensado e da água de alimentação. O saldo líquido resulta de débitos e créditos com
+os sinais declarados. Um saldo negativo, como pode ocorrer no vapor de 10 bar, não
+representa uma massa consumida negativa: exprime a convenção de crédito líquido.
+Na eletricidade, os parâmetros usados no texto conduzem a
+GNE,el[t] =el[MWh] 860,4
+11 820×0,57. (G.11)
+O fator860,4 exprime Mcal/MWh. A conversão Mcal–kcal e a conversão kg–t cancelam os
+respetivos fatores de mil. A divisão pelo rendimento0,57 expressa combustível equivalente
+segundo essa convenção; o valor em MWh continua a ser a energia elétrica final.
+REVISÃO MA T-02 | P1 | FONTES
+Fechar a tabela de fatores físicos
+Confirmar a fonte, a vigência e a base dePCIref = 11 820 kcal/kg, do rendimento elétrico e
+dos equivalentes entálpicos de cada nível de vapor. Atribuir os valores 698, 738 e 758 kcal/kg
+aos níveis corretos a partir da tabela de parâmetros, sem inferir a associação pela ordem em
+que aparecem. Esta verificação deve preceder a versão final do dicionário de dados.
+G.2.3 Energia integrada e produto de agregados
+Considere-se um dia com  intervalos de igual duração, massas<ℎ e valores2ℎ = PCIℎ.
+A energia proporcional à soma dos produtos éÍ
+ℎ<ℎ2ℎ. O produto da massa total pelo
+PCI médio simples difere dessa soma em
+Õ
+ℎ=1
+<ℎ2ℎ−
+( Õ
+ℎ=1
+<ℎ
+)
+¯2 = Cov( <,2) , (G.12)
+onde Cov usa divisor. Os dois cálculos coincidem se essa covariância for nula. A
+média de PCI ponderada pela massa reproduz a soma dos produtos quando as massas
+e os poderes caloríficos estão alinhados. A consulta à transformação de tags mostrou
+uma combinação de caudal agregado e PCI médio diário; o nome da regra não basta para
+concluir que há integração do produto intradiário. A dimensão do desvio nos dados da
+refinaria permanece por quantificar.
+G.2.4 Massa, volume e transformações operacionais
+A conversão entre massa e volume exige a massa volúmica nas mesmas condições:+ =</ *.
+Com< em t e * em t/m 3, obtém-se+ em m 3; a conversão para barris usa aproximadamente
+6,28981 bbl/m 3. A densidade relativa ( é adimensional e refere-se a temperaturas
+especificadas para a amostra e para a água. A transformação API é
+◦% = 141,5/ (−131,5, )  = 9
+5)+ 32. (G.13)
+109
+
+=== PÁGINA PDF 7 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+Uma massa volúmica numérica em t/m3 não deve ser substituída por( sem explicitar a
+aproximação e a temperatura. Uma tag já expressa em graus Fahrenheit não volta a ser
+convertida.
+A pressão absoluta é%abs =%man+%atm. O ramo contabilístico consultado usa nume-
+ricamente%mmHg = 760( 0,9869%barg+ 1) , o que incorpora uma atmosfera de referência.
+Numa expressão logarítmica escreve-seln( %abs/ %0) , sendo%0 a unidade de pressão conven-
+cionada na correlação. Um rendimento volúmico obtido de um rendimento mássico satisfaz
+. + =. <*carga/ *produto, desde que ambas as densidades usem condições compatíveis.
+G.2.5 Consumo específico, normalização e EII
+O consumo específico de um período/u∞D△Aℬé a razão de totais calculados nos mesmos dias:
+/u∞D△Aℬ=
+Í
+C∈/u∞D△AℬCÍ
+C∈/u∞D△Aℬ&C
+=
+Õ
+C∈/u∞D△Aℬ
+&CÍ
+B&B
+C
+&C
+. (G.14)
+A segunda igualdade requer cargas positivas. Com as unidades adotadas, exprime t
+GNE/kt. A média simples dos rácios diários atribui o mesmo peso a cargas diferentes. Se
+C =0+1&C+ C, então
+C
+&C
+=1+ 0
+&C
++ C
+&C
+. (G.15)
+Um consumo específico decrescente com a carga pode, assim, resultar da repartição de
+uma parcela fixa por mais produção.
+Uma referência normaliza a comparação pelas condições observadas:AC =C−ˆ5'( xC) . A
+conversão para uma condição comumx0 pode escrever-senorm
+C =C−ˆ5'( xC)+ ˆ5'( x0) . Esta
+operação depende do modelo e do domínio em que se aplica; não elimina automaticamente
+fatores omitidos.
+Na formulação contabilística do índice de intensidade energética, sejam9 e(9 a energia
+consumida e a energia padrão do mesmo objeto9, numa unidade comum:
+ = 100
+Í
+99
+Í
+9(9
+, ( 9 =+ bbl
+9 9,  =
+Õ
+9
+(9
+Í
+:(:
+9. (G.16)
+A última igualdade pressupõe(9 > 0 e9 = 1009/ (9. A agregação é ponderada pela
+energia padrão. Para a unidade de destilação,9 depende da correlação e das características
+operacionais adotadas. Quartis de uma população de comparação são estatísticas dessa
+população e período; não são limiares universais de eficiência. Uma decomposição por
+vetor exige que os numeradores parciais somem o numerador global e que a afetação do
+padrão esteja definida.
+REVISÃO MA T-03 | P1 | FONTES
+Conferir a correlação da unidade antes de transcrever os coeficientes
+O ramo CC extraído contém uma função por partes de API, rendimento, temperatura de flash
+e logaritmo da pressão, com recusas por valores em falta e por limites numéricos. Confrontar
+110
+
+=== PÁGINA PDF 8 ===
+G.3. CONTAGENS, BIBLIOMETRIA E REDES
+essa transcrição com a versão oficial da metodologia Solomon, as unidades e a tabela de
+parâmetros. Até essa conferência, a equaçãoG.16 define a estrutura do índice e9 permanece
+uma função documentada no dicionário; não se apresenta uma correlação proprietária como
+fórmula já validada.
+G.2.6 Emissões calculadas
+Com fatores5E em t CO 2/t GNE, a conversão contabilística é
+"CO2[kt] = 1
+1000
+Õ
+E
+GNE,E[t] 5E. (G.17)
+A interpretação depende da origem e do âmbito de cada fator: combustão direta, energia
+adquirida ou outro critério contabilístico. Para um vetor com crédito, é necessário declarar
+se o fator se aplica ao consumo bruto, à produção creditada ou ao saldo. O resultado não
+substitui um inventário de emissões com fronteiras próprias.
+REVISÃO MA T-F03 | P2 | FIGURA
+Mostrar as conversões sem esconder as unidades
+Criar uma tabela visual de quatro percursos: combustível, vapor, eletricidade e emissões.
+Cada seta deve indicar fator, unidade e fonte. Acrescentar um pequeno gráfico ilustrativo de
+0+1& e de 1+0/ &, identificado como exemplo algébrico, para explicar a dependência do
+consumo específico com a carga.
+G.3 Contagens, bibliometria e redes
+G.3.1 Conjuntos, denominadores e disponibilidade
+O fluxo da revisão é uma sucessão de conjuntos de registos. Depois de identificados os
+duplicados, cada etapa separa registos que avançam, registos excluídos e, quando aplicável,
+registos pendentes. Para uma partição completa,#entrada =#avança+#excluído+#pendente.
+As razões de exclusão só podem ser somadas se forem mutuamente exclusivas ou se a
+contagem admitir explicitamente mais de uma razão por registo.
+Num grupo 6, a taxa de recuperação do texto integral é06 ==recuperados,6/ =procurados,6 .
+Os artigos sem texto acessível podem diferir dos restantes; a taxa descreve disponibilidade
+e não mede a qualidade metodológica do grupo.
+Para um campo multirrótulo, defina-se89 = 1 se o artigo8 tiver o rótulo9. A frequência
+é=9 = Í
+889 e a proporção por artigo é=9/ #elegíveis. Como um artigo pode contribuir
+para vários rótulos, a soma das proporções pode ultrapassar um. Num cruzamento,
+=9: = Í
+8898: conta artigos com ambos os rótulos. O denominador é o número de artigos
+elegíveis para os dois campos, e não a soma das células da tabela.
+Uma interseção exata de rótulos( contaÍ
+8 1{ !8 =(} , enquanto uma interseção inclu-
+siva contaÍ
+8 1{ (⊆!8} . Na contagem fracionada, um artigo com|!8| rótulos atribui1/| !8|
+111
+
+=== PÁGINA PDF 9 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+a cada rótulo, conservando contribuição total unitária. A escolha deve constar da legenda
+das figuras de interseções e de fluxos.
+As séries por ano usam o ano de publicação e o estado de cobertura da pesquisa. Ci-
+tações recebidas têm uma data de consulta e uma janela de exposição: artigos recentes
+tiveram menos tempo para acumular citações. A quota?9 ==9/ # e o índice Í
+9?2
+9 podem
+descrever concentração numa partição de categorias, mas requerem normalização compatí-
+vel se as categorias forem multirrótulo. Uma contagem bibliográfica elevada não equivale
+a evidência de melhor desempenho industrial.
+G.3.2 Matrizes de incidência e redes de citação
+A matriz de incidência artigo–termo origina a projeção, = T. Fora da diagonal,
+, 9: é o número de artigos que contêm ambos os termos; a diagonal regista a ocorrência
+de cada termo e é retirada quando se desenham apenas ligações entre termos distintos.
+Limiares de ocorrência e limites ao número de nós alteram a rede representada e devem
+ser declarados.
+Se89 = 1 quando o artigo8 cita o artigo9, descreve citação direta. Para uma matriz
+artigo–referência, T conta referências partilhadas entre artigos eT conta cocitações
+entre referências. O acoplamento normalizado usado na análise exploratória é
+Facoplamento
+89 =
+|'8∩'9|
+√
+|'8|| '9|
+, (G.18)
+para listas não vazias'8,' 9. Uma lista de referências incompleta altera estes pesos. A
+ausência de uma ligação pode, por isso, resultar de metadados em falta.
+G.3.3 Comunidades e posição dos nós
+Numa rede não dirigida e ponderada, a modularidade de uma partição é
+/u∞D△AC= 1
+2<,
+Õ
+8,9
+(
+, 89−
+:8:9
+2<,
+)
+1{ 28 =29} , (G.19)
+onde:8 = Í
+9, 89 , 2<, = Í
+8:8,28 identifica a comunidade e controla a resolução. A
+implementação exploratória usa uma procura gulosa de modularidade na versão não
+dirigida da rede1. A posição gráfica resulta de um algoritmo de disposição com semente
+fixa; a distância desenhada não é uma distância temática calibrada. A centralidade de
+intermediação consultada usa caminhos sem ponderação, enquanto a força de um nó soma
+pesos. Estas medidas descrevem propriedades diferentes.
+1Convenção documentada emhttps://networkx.org/documentation/stable/reference/algorith
+ms/generated/networkx.algorithms.community.quality.modularity.html.
+112
+
+=== PÁGINA PDF 10 ===
+G.4. AUDITORIA DA REVISÃO E CONTROLO DA EXTRAÇÃO
+G.3.4 TF–IDF e tópicos exploratórios
+O peso TF–IDF reduz o contributo de termos que aparecem em muitos documentos. Na
+convenção com suavização e normalização euclidiana,
+E89 ==89
+[
+1+ ln #+ 1
+359+ 1
+]
+, - 89 =
+E89
+√Í
+:E2
+8:
+, (G.20)
+onde=89 é a frequência do termo9 no documento8 e359 o número de documentos que o
+contêm. Linhas sem termos utilizáveis devem ser identificadas. A tokenização, as palavras
+excluídas e os limiares de frequência fazem parte da definição da matriz2.
+A fatorização não negativa procura*,+ ≥0 tais que-≈*+ , minimizando, na forma
+quadrática sem penalização,1
+2∥-−*+∥2
+. A atribuição dominante éˆ28 = 2 max:*8: . O
+peso máximo não é uma probabilidade. A configuração consultada limita o número de
+tópicos a seis, usa palavras e pares de palavras e fixa a semente em 44. Os rótulos dos tópicos
+resultam de interpretação dos termos e exigem inspeção dos artigos correspondentes.
+REVISÃO MA T-F04 | P2 | FIGURA
+Ligar a tabela à rede
+Usar um exemplo mínimo, explicitamente fictício, com três artigos e quatro termos: ma-
+triz de incidência, produto matricial e rede resultante. Na bibliometria real, acrescentar à
+legenda o denominador, os limiares, a cobertura dos metadados e o significado dos pesos.
+Para multirrótulos, preferir barras ou interseções exatas quando uma rede não acrescentar
+informação.
+G.4 Auditoria da revisão e controlo da extração
+G.4.1 Divergência, alteração e cobertura humana
+Para um campoE, sejam 0( 1)
+8E ,0( 2)
+8E duas extrações normalizadas eℎ8E a decisão humana
+fundamentada no texto integral. A taxa de divergência éÍ
+8 1{ 0( 1)
+8E ≠0( 2)
+8E}/ =E. Uma taxa
+de alteração após revelar a extração compara a decisão humana anterior e posterior à
+revelação, usando apenas decisões efetivamente obtidas sem acesso prévio à extração. A
+fundamentação por passagem verificável tem um denominador próprio: o número de
+decisões para as quais se exige essa evidência.
+O protocolo usa a divergência para encaminhar a revisão. As decisões verificadas
+por censo, as auditadas por amostragem e as provisoriamente aceites por concordância
+devem permanecer distinguíveis. Para detetores com conjuntos de candidatos1, 2, 3,
+a união =1∪2∪3 é revista integralmente. Num fecho iterativo, repete-se a revisão
+enquanto existirem candidatos por resolver segundo a regra fixada. Esvaziar a união prova
+2Convenções de TF–IDF e de fatorização:https://scikit-learn.org/stable/modules/generated/sk
+learn.feature_extraction.text.TfidfTransformer.html e https://scikit-learn.org/stable/modu
+les/generated/sklearn.decomposition.NMF.html.
+113
+
+=== PÁGINA PDF 11 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+que os candidatos nela enumerados foram tratados. Não mede os falsos negativos que
+nenhum detetor assinalou.
+A instabilidade de repetição pode ser expressa pela fração de decisões alteradas numa
+segunda leitura. A interpretação mantém-se restrita às decisões repetidas. O recall exigiria
+conhecer todos os artigos verdadeiramente elegíveis, incluindo os não detetados; sem essa
+enumeração, a sua estimativa não está identificada.
+G.4.2 Unidade de amostragem e definição de erro
+A auditoria aleatória do nível bibliométrico seleciona artigos. A unidade de erro é a célula
+artigo–campo. Para cada campoE, apenas entram no denominador as células amostradas
+concordantes, aplicáveis, avaliáveis e não cobertas individualmente por um censo. Assim,
+=E =
+Õ
+8∈/u∞D△9Caudit
+8E, 4 E =
+Õ
+8∈/u∞D△9Caudit
+8E8E, ˆ?E =4E/ =E. (G.21)
+8E assinala a elegibilidade da célula e8E o erro. Num campo categórico, o erro corresponde
+à diferença entre valores normalizados. Num campo multisseleção,8E = 1{ 8E△8E ≠/⌉m√tys⌉t.alt∈}:
+qualquer elemento em falta ou acrescentado conta como um erro do campo. A decisão
+para texto livre exige discrepância substantiva documentada. “Não aplicável” e “ausente”
+são estados distintos.
+A seleção de 40 artigos não implica=E = 40 para todos os campos. As taxas são
+apresentadas por campo. Agregar as células numa única taxa confundiria denominadores
+e a dependência entre campos do mesmo artigo.
+G.4.3 Intervalos exatos e ausência de erros observados
+Sob o modelo binomial-∼Bin( =,?) , o intervalo bilateral de Clopper–Pearson de nível
+1− é [11]
+! =
+ 
+
+0, 4 = 0,
+@/ 2{ Beta( 4,= −4+ 1)} , 4 > 0,
+* =
+ 
+
+1, 4 ==,
+@1−/ 2{ Beta( 4+ 1,=−4)} , 4 <=.
+(G.22)
+Numa população finita com# células elegíveis e erros, a amostragem sem reposição
+tem distribuição hipergeométrica:
+Pr( - =4|  ) =
+(  
+4
+) ( #− 
+=−4
+)
+( #
+=
+) . (G.23)
+O protocolo conserva o intervalo binomial como descrição conservadora da incerteza para
+a população finita. A exatidão refere-se ao modelo e ao procedimento de cobertura; o
+limite não é uma garantia determinística sobre as células não observadas. Os intervalos
+por campo têm cobertura marginal, sem garantia simultânea para o conjunto dos campos.
+Se não se observar qualquer erro, o limite superior unilateral é
+*1− = 1−1/ =, = ≥ ln 
+ln( 1−?0) (G.24)
+114
+
+=== PÁGINA PDF 12 ===
+G.5. REGRESSÃO, ESTIMAÇÃO E MODELOS COMP ARADORES
+para que esse limite não exceda?0, arredondando= por excesso. Com = = 40 e  = 0,05, o
+limite unilateral é aproximadamente7,2%; o limite bilateral superior é aproximadamente
+8,8%, pois usa / 2. A aproximação3/ = é útil para leitura rápida do primeiro limite, mas a
+expressão exata deve sustentar a tabela.
+G.4.4 Gatilhos de revisão
+Uma regra que aciona revisão quando-≥2 tem probabilidade de acionamento
+Pr
+?
+( -≥2) = 1−
+2−1Õ
+9=0
+(
+=
+9
+)
+?9( 1−?) =−9. (G.25)
+Esta curva permite perceber que taxas de erro o instrumento tem capacidade de assinalar.
+Não acionar o gatilho é compatível com taxas positivas de erro. Para populações peque-
+nas, a expressão hipergeométrica permite calcular a probabilidade correspondente sem
+reposição.
+REVISÃO MA T-F05 | P2 | FIGURA
+Tornar visível a incerteza da auditoria
+Representar4E/ =E e o intervalo exato de cada campo, com=E junto ao ponto. Numa figura
+explicativa separada, desenhar o limite superior unilateral para zero erros em função de=.
+Identificar o ponto= = 40 e evitar juntar as decisões censitadas ao denominador amostral.
+G.5 Regressão, estimação e modelos comparadores
+G.5.1 Modelo linear e mínimos quadrados
+Para um vetor energético e um período de treino, a baseline linear simples é
+C =0+1&C+ C, K =-#+ 9, # =( 0,1) T. (G.26)
+As linhas de- são( 1,&C) . O intercepto tem unidade t GNE/dia e o declive t GNE/kt. A
+interpretação de0 como consumo sem carga exige que essa condição pertença ao domí-
+nio físico do modelo; num ajuste restrito à operação a carga elevada,0 é sobretudo um
+parâmetro da reta extrapolada.
+O estimador de mínimos quadrados ordinários minimiza a soma dos quadrados dos
+resíduos:
+ˆ# = 2 min
+#
+∥K−-#∥2
+2 =( -T-)−1-TK. (G.27)
+A forma inversa pressupõe posto completo e serve a exposição; a implementação deve
+resolver o problema por uma decomposição numérica estável. No caso simples,ˆ1 = Í
+C( &C−
+¯&)( C−¯)/ Í
+C( &C−¯&) 2 e ˆ0 =¯−ˆ1¯&. Carga constante impede identificar separadamente
+os dois parâmetros.
+115
+
+=== PÁGINA PDF 13 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+Definindoˆ4C =C−ˆC, obtêm-se
+'(( =
+Õ
+C
+ˆ42
+C, )(( =
+Õ
+C
+( C−¯) 2, ' 2 = 1−'((
+)((, B =
+√
+'((
+=−?. (G.28)
+No ajuste simples com intercepto,? = 2. O divisor=−? corresponde aos graus de liberdade
+residuais e requer= > ?. A interpretação clássica como estimativa não enviesada da
+variância pressupõe erros homocedásticos não correlacionados e uma média corretamente
+especificada. O cálculo da escala pode manter-se como convenção descritiva quando essas
+hipóteses falham, mas as garantias clássicas deixam de se seguir da fórmula.
+No treino,'2 descreve a redução de soma de quadrados perante a média da própria
+amostra. Fora do treino pode ser negativo. Se )(( = 0, a razão fica indefinida; um
+valor substituto produzido por uma biblioteca é uma convenção numérica que deve ser
+documentada. Para uma referência operacional treinada no passado, é preferível calcular
+diretamente o ganho face a essa referência, conforme a SecçãoG.6.2.
+REVISÃO MA T-04 | P1 | METODO
+Separar ajuste calculável de ajuste admissível
+O cálculo consultado pode devolver uma reta com três observações; o protocolo menciona
+mínimos de disponibilidade mais exigentes. Fixar a regra de admissibilidade por etapa e a
+condição de posto completo. Três pontos permitem calcularB com um grau de liberdade, mas
+não fundamentam automaticamente o uso operacional do modelo.
+G.5.2 Modelos constantes, pela origem e com covariáveis
+O preditor constante usaˆC =¯ℛ. Uma reta forçada a passar pela origem tem
+ˆC = ˆ10&C, ˆ10 =
+Í
+C∈ℛ&CC
+Í
+C∈ℛ&2
+C
+. (G.29)
+Para&C ≠ 0, ˆ10 é uma média de C/ &C ponderada por&2
+C . A referência B09 consultada
+usa este ajuste. Não coincide, em geral, com a razão de totais da equaçãoG.14 nem com a
+mediana dos rácios diários.
+O modelo alargado escreve-seC =0+1&C+ $T`C+ C. Comparar modelos encaixados
+permite medir o contributo incremental das covariáveis, desde que se usem os mesmos dias.
+O'(( de treino não aumenta ao acrescentar colunas a um modelo de mínimos quadrados;
+essa propriedade não assegura ganho em aplicação. As referências B01, B02, B03, B08 e B09
+correspondem, respetivamente, à constante, à reta com carga e intercepto, aos conjuntos
+de covariáveis nucleares e de referência e à reta pela origem. Na configuração consultada,
+o conjunto nuclear contém carga, massa volúmica da carga, temperatura e pressão de flash;
+o conjunto de referência contém carga e massa volúmica da carga. Cada conjunto deve ser
+enumerado no dicionário do lote, incluindo transformações e disponibilidade temporal.
+116
+
+=== PÁGINA PDF 14 ===
+G.5. REGRESSÃO, ESTIMAÇÃO E MODELOS COMP ARADORES
+G.5.3 Huber e Theil–Sen
+O ajuste de Huber reduz a influência de resíduos grandes através de uma perda quadrática
+no centro e linear nas caudas [25, 24]:
+2( D) =
+ 
+
+1
+2D2, |D|≤2,
+2|D|−1
+222, |D| >2,
+min
+0,1
+Õ
+C
+2
+(
+C−0−1&C
+Bajuste
+)
+. (G.30)
+A implementação consultada usa2 = 1,345, mínimos quadrados iterativamente pondera-
+dos e atualização da escala por MAD. Depois do ajuste, a escala usada nas bandas robustas
+é calculada a partir dos resíduos finais:
+BMAD = 1,4826 medianaC| ˆ4C−medianaB ˆ4B| . (G.31)
+O fator aproxima a escala do desvio-padrão sob normalidade. Uma MAD nula não deve
+produzir divisões por zero nem uma banda automaticamente admissível. A robustez a
+resíduos extremos não protege, por si só, contra todos os padrões de alavancagem.
+O estimador de Theil–Sen usa a mediana dos declives entre pares com cargas distin-
+tas [55]:
+ˆ1)( = mediana8<9,& 8 ≠&9
+9−8
+&9−&8
+, ˆ0)( = mediana( )−ˆ1)( mediana( &) . (G.32)
+A segunda expressão é a convençãoseparate usada pela função consultada3. As bandas de
+Huber e Theil–Sen partilham a escala da equaçãoG.31, calculada separadamente para cada
+ajuste. A comparação temporal de estimadores robustos usa os mesmos erros observados
+e datas de aplicação.
+G.5.4 Modelos aditivos e penalização
+Um modelo aditivo generalizado com resposta contínua e ligação identidade representa a
+média por
+ˆC = 0+
+Õ
+9
+59( /9C) , 5 9( I) =
+Õ
+:
+9:9:( I) , (G.33)
+com funções de base9: . A estimação equilibra o ajuste e a irregularidade das funções [22,
+62]:
+min
+)
+∥K−)∥2+
+Õ
+9
+9)T(9). (G.34)
+(9 define a penalização e9 a sua intensidade. Para parâmetros de suavização fixos, a
+matriz de alisamento permite definir graus de liberdade efetivos portr( ) . Estes não
+devem ser substituídos automaticamente pelo número de colunas da base. Interações
+por produtos tensoriais permitem que o efeito de uma variável dependa de outra. A
+especificação deve indicar quais os termos marginais já incluídos, evitando duplicá-los
+inadvertidamente. A seleção de bases e penalizações pertence ao treino.
+3Documentação da convenção do intercepto:https://docs.scipy.org/doc/scipy/reference/gener
+ated/scipy.stats.theilslopes.html. A opção joint usa outra regra.
+117
+
+=== PÁGINA PDF 15 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+G.5.5 Limites da interpretação dos coeficientes
+A leitura causal de1 requer mais do que um ajuste preciso. V ariáveis omitidas correlaciona-
+das com a carga, erros de medição e decisões operacionais em resposta ao consumo podem
+tornarE( C| xC) ≠ 0. Mesmo a atenuação de um declive por erro na carga depende de
+hipóteses específicas sobre esse erro. Nesta dissertação, os coeficientes caracterizam rela-
+ções ajustadas nas populações selecionadas. A atribuição de poupanças a uma intervenção
+exige um desenho e um contrafactual adicionais.
+G.5.6 Famílias referidas no trabalho futuro
+O roteiro de trabalho futuro refere também erros ARMA, partilha parcial de informação
+entre unidades e modelos com estrutura física. Estas famílias respondem a problemas
+distintos. Um erro ARMA(?,@ ) satisfaz4C = Í?
+9=1 )94C−9+ C+ Í@
+:=1 : C−:, acrescentando
+efeitos de inovações passadas à componente autorregressiva [8]. A estimação requer
+condições de estabilidade e uma convenção de inicialização.
+Na partilha parcial, cada unidade conserva parâmetros próprios que são estimados com
+informação de um conjunto de unidades. Uma representação possível é#D∼/u∞D△A9(-, Σ) e
+D,C = xT
+D,C #D+ D,C . A intensidade da partilha depende da variabilidade entre unidades e
+da informação em cada uma. Esta formulação é uma proposta, sem ajuste apresentado
+nesta dissertação.
+Num modelo com estrutura física, ougrey-box, relações de balanço restringem uma
+função5ﬁs( xC, )) cujos parâmetros são estimados nos dados. A sua utilidade depende
+da fronteira, das medições disponíveis e da identificabilidade: parâmetros diferentes
+não devem produzir respostas indistinguíveis no domínio observado. A escolha destas
+extensões deve partir de uma falha documentada e de um comparador definido.
+G.6 Avaliação temporal, perdas e comparação
+G.6.1 Treino e informação disponível
+Em cada par anual, o modelo é ajustado emℛH e aplicado em/u∞D△9CH+1. Os cinco pares
+encadeados abrangem 2020–2021 a 2024–2025. Os dados de 2026, ainda parciais no desenho
+descrito, têm um papel diagnóstico separado. A avaliação temporal mantém a ordem
+treino–aplicação [57]; a consulta exploratória prévia aos anos de aplicação impede descrevê-
+los como um conjunto de teste intocado.
+A informação admissível para uma previsão emitida emC éℱC−1, acrescida de covariá-
+veis deC efetivamente conhecidas no momento de emissão. Conhecer a carga observada no
+final do dia permite normalização retrospetiva desse dia, mas não garante uma previsão
+anterior à operação. Uma referência congelada mantém os parâmetros deˆ5'; uma janela
+móvel usa os últimosF dias admissíveis; uma janela expansiva conserva todos os dias
+admissíveis desde uma origem fixa. Estas regras produzem objetos diferentes [47].
+118
+
+=== PÁGINA PDF 16 ===
+G.6. A V ALIAÇÃO TEMPORAL, PERDAS E COMP ARAÇÃO
+2020 2021 2022 2023 2024 2025
+Treino −→Aplicação
+Figura G.1: Esquema dos cinco pares anuais. Cada linha representa um ajuste distinto; a
+figura não apresenta resultados.
+O comparador primário é a média da energia no treino. Os comparadores secundários
+usam a observação da mesma data civil do ano anterior ou a média dos 30 dias civis
+anteriores, conforme as condições de completude do protocolo. Uma data sem equivalente,
+incluindo o caso de 29 de fevereiro quando não existe correspondência, fica indisponível.
+A janela anterior excluiC e não é substituída silenciosamente pelas últimas 30 observações
+retidas.
+G.6.2 Perdas e estimandos emparelhados
+Nos= dias comuns de aplicação, com4C =C−ˆC, calculam-se
+" = 1
+=
+Õ
+C
+|4C|, '"( =
+√
+1
+=
+Õ
+C
+42
+C, viés = 1
+=
+Õ
+C
+4C. (G.35)
+O MAE e o RMSE conservam a unidade da resposta. O RMSE atribui mais peso a erros de
+maior magnitude. Com esta convenção de sinal, viés positivo significa subestimação média.
+As formas percentuais devem declarar o denominador: em aplicação, uma convenção
+possível é#" = 100 viés/ ¯/u∞D△9Ce+( '"() = 100'"(/ ¯/u∞D△9C. Em ajustes de calibração,
+algumas convenções usam=−? em vez de =. A fórmula e o âmbito devem acompanhar o
+nome da métrica; médias próximas de zero ou saldos com sinal tornam a leitura percentual
+inadequada [27].
+Defina-se a diferença diária de perdas entre o comparador0 e o modelo<:
+3C =|40,C|−|4<,C|, ˆΔ" = 1
+=
+Õ
+C
+3C, skill = 1−"<
+" 0
+. (G.36)
+Um ganho positivo favorece<. A skill só está definida quando " 0 > 0. O alvo
+inferencial é a média da diferença de perdas na população de aplicação e sob o condiciona-
+mento declarado. Reamostrar as duas séries separadamente perderia o emparelhamento.
+Para confrontar mais de dois modelos, deve usar-se uma interseção comum ou indicar
+claramente que os contrastes têm populações diferentes.
+119
+
+=== PÁGINA PDF 17 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+G.6.3 Escala por exclusão de blocos
+A escala da referência pode ser estimada com erros produzidos fora do subconjunto usado
+em cada ajuste. Dividindoℛem  blocos civis contíguos, ajusta-seˆ5−: nos restantes blocos
+e calcula-se4
+C =C−ˆ5−:( xC) paraC no bloco omitido. A escala agregada é
+B' =
+√ Í
+C( 4
+C −¯4) 2
+=−1 . (G.37)
+O desenho consultado usa seis blocos de 2020 para os normalizadores declarados. Como
+o ajuste dos restantes blocos pode incluir datas posteriores ao bloco omitido, este procedi-
+mento estima uma escala por exclusão de blocos; não reproduz uma previsão cronológica
+dentro de 2020. A avaliação anual para o ano seguinte tem esse segundo papel. Devem
+declarar-se os dias sem previsão, as condições de suporte e o número de erros reunidos.
+G.6.4 Sensibilidade e comparabilidade
+Uma análise de sensibilidade altera uma escolha de cada vez: janela, conjunto de covariá-
+veis, máscara, comprimento de bloco ou família de banda. Se a alteração muda os dias
+elegíveis, muda também a população do estimando. A comparação deve apresentar o
+resultado na população própria e, quando calculável, na interseção comum. A eletricidade
+mensal conserva a sua unidade de observação mensal, mesmo quando é apresentada numa
+tabela diária.
+REVISÃO MA T-F06 | P1 | FIGURA
+Representar os ganhos e a população correspondente
+Usar um gráfico de pontos e intervalos paraΔ" por vetor e par anual, com zero como
+referência e= junto de cada contraste. Um painel adjacente pode apresentar os dias excluídos
+por comparador. Nos gráficos de modelos móveis, identificar a origem e o fim da janela de
+treino.
+G.7 Inferência sob dependência e multiplicidade
+G.7.1 Hipóteses, intervalos e valores p
+Um intervalo de confiança de nível1− é produzido por um procedimento cuja cobertura
+se avalia em repetições do desenho. A interpretação não atribui probabilidade1−
+ao parâmetro fixo dentro do intervalo já observado. Um valor? compara a estatística
+observada com a sua distribuição sob a hipótese nula e as hipóteses auxiliares. Não é a
+probabilidade de a hipótese nula ser verdadeira. Para séries dependentes, a distribuição
+de referência e a reamostragem devem refletir a dependência pertinente ao estimando.
+120
+
+=== PÁGINA PDF 18 ===
+G.7. INFERÊNCIA SOB DEPENDÊNCIA E MULTIPLICIDADE
+G.7.2 Covariância HAC e largura de banda
+Na regressão linear, defina-se o vetor de contribuiçõesgC = xCˆ4C. A covariância robusta à
+heterocedasticidade e à autocorrelação usada na implementação tem a forma [41, 2]
+ˆ+ = =
+=−?( -T-)−1
+[ Õ
+C,B
+ 
+(|C−B|
+1
+)
+gC g T
+B
+]
+( -T-)−1. (G.38)
+A diferença|C−B| é medida em dias civis. O fator=/( =−?) é a correção de dimensão finita
+presente no código consultado. O kernel quadrático-espectral é
+ ( G) = 25
+122G2
+[ sin( 6G/ 5)
+6G/ 5 −cos( 6G/ 5)
+]
+,  ( 0) = 1. (G.39)
+Se1 = 0, apenas o termo contemporâneo é usado. A aproximação AR(1) auxiliar de cada
+componente de gC usa pares separados por um dia civil. Com coeficientesˆ9, variâncias
+de inovaçãoˆ$2
+9 e pesos F9 declarados, a regra automática consultada é
+ˆ2 =
+Í
+9F9 4ˆ2
+9 ˆ$4
+9/( 1−ˆ9) 8
+Í
+9F9 ˆ$4
+9/( 1−ˆ9) 4 , 1  = 1,3221( =ˆ2) 1/ 5. (G.40)
+O denominador deve ser positivo e as aproximações ativas estacionárias. A estimação
+auxiliar da largura de banda não corresponde a branquear previamente os resíduos da
+regressão. Falhas de cálculo ou valores degenerados devem originar um estado explícito,
+e não a troca silenciosa por uma hipótese de independência.
+G.7.3 Contrastes entre anos e teste de Wald
+Empilhando os interceptos e os declives anuais emˆ#, a hipótese linear é0 :# = c. A
+estatística é
+, =( ˆ#−c) T(  ˆ+ T)−1( ˆ#−c) . (G.41)
+A referência assintótica é"2
+@, com @ restrições independentes, quando se verificam as
+condições do estimador de covariância. A igualdade de todos os declives pode ser expressa
+por diferenças em relação a um ano de referência. Para comparar níveis, o contraste
+0H+1H&0 a uma carga comum&0 é mais diretamente interpretável do que o intercepto a
+carga nula. A carga comum deve pertencer ao suporte dos anos comparados. A covariância
+empilhada deve conservar as dependências relevantes, incluindo as que atravessam a
+fronteira do ano.
+G.7.4 Famílias de testes e FDR
+Uma família de< testes deve ser definida antes da leitura dos valores?. Ordenando-os
+como?( 1) ≤···≤?( <) , os valores ajustados são
+˜?
+( 8) = min
+{
+1, min
+9≥8
+<
+9 ?( 9)
+}
+, ˜?.
+( 8) = min
+{
+1, min
+9≥8
+<2<
+9 ?( 9)
+}
+, 2 < =
+<Õ
+:=1
+1
+:. (G.42)
+121
+
+=== PÁGINA PDF 19 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+Benjamini–Hochberg controla a proporção esperada de falsas rejeições sob as condições
+de dependência do procedimento; Benjamini–Yekutieli alarga esse controlo a dependência
+arbitrária, com maior conservadorismo [5, 6]. A proporção é definida como zero quando
+não há rejeições. No desenho descrito, os testes primários dos quatro vetores diários
+constituem uma família própria. Contrastes secundários não devem ser acrescentados ou
+retirados da família em função do resultado.
+G.7.5 Bootstrap de blocos em calendário irregular
+O bootstrap de blocos móveis reamostra segmentos para conservar parte da dependência
+local [34, 35]. Para datas disponíveis/u∞D△AℱentreC0 eC1, um bloco candidato de comprimento
+ℓ é
+ℬB ={ C∈/u∞D△Aℱ:B≤C <B+ℓ} , B =C0,...,C 1−ℓ+ 1, |ℬB| > 0. (G.43)
+Esta é a convenção de calendário consultada: um bloco pode conter menos deℓ observações
+por causa de lacunas. Os inícios candidatos são amostrados uniformemente; concatenam-
+se os índices dos blocos selecionados até atingir= observações e trunca-se o excesso final. A
+junção entre blocos é artificial. A construção conserva a sequência interna observada, mas
+não transforma a série reamostrada numa realização contínua com todas as adjacências
+originais.
+Algoritmo G.1 — Intervalo para um contraste emparelhado
+1. Fixar as datas comuns, os dois modelos treinados e a diferença de perdas3C.
+2. Construir os blocos civis não vazios da equaçãoG.43.
+3. Para cada réplica1, sortear blocos, concatenar os índices e calcularˆΔ∗(1) nos= valores
+selecionados.
+4. Obter os quantis/ 2 e 1−/ 2 das estimativas, com interpolação declarada.
+5. Repetir para os comprimentos de bloco de sensibilidade e publicar a estimativa, o inter-
+valo,=,ℓ , e a identificação da semente.
+A regra de base éℓ0 =⌈=1/ 3⌉e o protocolo usa = 2000 réplicas nas etapas correspon-
+dentes. Os comprimentos adicionais dependem da etapa; a grelha deve acompanhar cada
+resultado. Reamostrar3C mantém os parâmetros treinados fixos. O intervalo resultante é
+condicional a esses ajustes e não incorpora a variabilidade de voltar a selecionar e treinar os
+modelos. O mesmo princípio se aplica ao indicador de cobertura de uma banda já fixada.
+G.7.6 Bootstrap sob a hipótese nula
+Para aproximar a distribuição de uma estatística sob0, ajusta-se primeiro o modelo
+restrito. Uma representação do bootstrap residual é
+∗
+C = ˆ50( xC)+ 4∗
+C, (G.44)
+122
+
+=== PÁGINA PDF 20 ===
+G.8. DIAGNÓSTICOS DOS DADOS E DOS RESÍDUOS
+com resíduos centrados e reamostrados segundo a regra declarada. Cada réplica volta a
+ajustar os modelos necessários e a calcular a estatística. Os tratamentos de heterocedastici-
+dade, fronteiras anuais e suporte fazem parte da especificação. Uma estatística baseada
+no máximo de contrastes absolutos não é intercambiável com o Wald da equaçãoG.41. O
+relatório deve identificar qual foi efetivamente calibrada.
+REVISÃO MA T-05 | P1 | METODO
+Conferir o contrato inferencial de cada tabela
+Associar cada intervalo e valor? ao objeto reamostrado, ao condicionamento, à reestimação
+ou não dos modelos, ao comprimento civil dos blocos e à família de testes. Confirmar os pesos
+da largura de banda HAC no chamador e a estatística usada no bootstrap sob0. Evitar a
+designação genérica “bootstrap” como única descrição.
+G.7.7 Cobertura simulada e erro Monte Carlo
+Com verdade 0 conhecida em' realizações independentes, a cobertura estimada de um
+procedimento éˆ2 ='−1 Í
+A 1{ !A≤0≤*A} . O seu erro-padrão Monte Carlo aproximado
+é
+√
+ˆ2( 1−ˆ2)/ '. Pode acompanhar-se a estimativa por um intervalo binomial, por exemplo
+o intervalo de Wilson [61]:
+ˆ2+I2/( 2')±I
+√
+ˆ2( 1−ˆ2)/ '+I2/( 4'2)
+1+I2/ ' , (G.45)
+ondeI é o quantil normal correspondente ao nível do intervalo. A cobertura de um
+intervalo nominal de90% avalia esse procedimento; não valida automaticamente um
+intervalo nominal de95%. A validade observada num cenário de simulação mantém-se
+condicionada ao gerador, à máscara e à dimensão estudados.
+REVISÃO MA T-F07 | P1 | FIGURA
+Desenhar a reamostragem no calendário
+Representar uma sequência com uma lacuna, dois blocos de sete dias e a concatenação de uma
+réplica. Usar marcas distintas para dias observados e dias sem registo. Acrescentar um gráfico
+da largura do intervalo em função deℓ , com a estimativa pontual fixa, para tornar visível a
+sensibilidade à dependência.
+G.8 Diagnósticos dos dados e dos resíduos
+G.8.1 Separação de populações e suporte
+Na comparação consultada entre dias retidos e removidos, a diferença padronizada entre
+grupos e é
+(" = ¯G−¯G√
+( E+E)/ 2
+, E 6 = 1
+=6
+Õ
+8∈6
+( G8−¯G6) 2. (G.46)
+O grupo corresponde aos dias retidos, pelo que o sinal positivo indica uma média supe-
+rior nesses dias. As variâncias usam divisor=6 nesta implementação; outras convenções
+123
+
+=== PÁGINA PDF 21 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+usam =6−1 ou pesos dependentes das dimensões dos grupos. Dispersão nula ou muito
+pequena impede uma leitura estável. A separação dos grupos por este critério descreve a
+seleção; não identifica, por si só, um regime físico.
+Uma estimativa por kernel gaussiano da densidade marginal éˆ5( G) =( =ℎ)−1 Í
+8 )(( G−
+G8)/ ℎ) . A regra de Scott em uma dimensão usa um fator proporcional a=−1/ 5 aplicado à
+escala dos dados. A sobreposição entre duas densidades é
+$+! =
+¹
+min{ ˆ5( G) , ˆ5( G)} 3G, 0≤$+!≤1. (G.47)
+Uma aproximação em grelha deve declarar a extensão de integração e o número de pontos;
+uma grelha truncada omite massa de cauda. Sobreposição marginal, intervalo central
+entre quantis e pertença à caixa multivariada de treino são critérios diferentes. A caixaÎ
+9[minℛ/9, maxℛ/9] pode conter combinações nunca observadas. Estar dentro dessa
+caixa não garante proximidade a observações de referência.
+G.8.2 Dependência temporal
+Para uma série estacionária,: = Cov( 4C,4 C−:)/ Var( 4C) . A estimativa no calendário usa ape-
+nas pares/u∞D△Aℬ: ={ C :C,C −:∈/u∞D△AE}. Na implementação consultada, a média e o denominador
+são globais:
+ˆcivil
+: =
+Í
+C∈/u∞D△Aℬ:( 4C−¯4)( 4C−:−¯4)
+Í
+C∈/u∞D△AE( 4C−¯4) 2 . (G.48)
+A ACF mostra associações por desfasamento; a P ACF remove os contributos lineares dos
+desfasamentos intermédios, podendo ser obtida pela recursão de Durbin–Levinson quando
+a sequência de autocovariâncias é admissível. Lacunas e estimativas por pares podem
+comprometer essa admissibilidade.
+Num exemplo AR(1) estacionário, sem lacunas e para uma média em série longa,
+=efetivo≈=( 1−)/( 1+ ) . Esta aproximação ilustra a perda de precisão da média com
+persistência positiva. Outros estimandos e calendários requerem outra avaliação da infor-
+mação efetiva.
+As expressões clássicas de Durbin–Watson e Ljung–Box são
+, =
+Í=
+C=2( 4C−4C−1) 2
+Í=
+C=142
+C
+, & ! ==( =+ 2)
+ℎÕ
+:=1
+ˆ2
+:
+=−:. (G.49)
+Estas fórmulas supõem uma sequência regularmente indexada. Na adaptação consultada,
+o numerador de Durbin–Watson inclui apenas pares separados por um dia civil, mantendo
+a soma global de quadrados no denominador. Ljung–Box usa a ACF civil, conserva=−:
+e compara a estatística com"2
+ℎ, sem correção pelo número de parâmetros do modelo.
+Esta combinação é reproduzível, mas a referência clássica não fica calibrada por essa
+definição quando há lacunas. Atribuir ao valor? a designação “descritivo” não valida a
+sua interpretação probabilística [8].
+124
+
+=== PÁGINA PDF 22 ===
+G.8. DIAGNÓSTICOS DOS DADOS E DOS RESÍDUOS
+G.8.3 Variância condicional e forma da distribuição
+A heterocedasticidade significa queVar( 4C| xC) varia com as condições. Na versão stu-
+dentizada de Breusch–Pagan/Koenker, a regressão auxiliar dos resíduos quadrados nas
+variáveis declaradas conduz a uma estatística=' 2
+aux. No diagnóstico ARCH de ordemℎ, a
+regressão auxiliar inclui42
+C−1,...,4 2
+C−ℎ e a estatística é=aux'2
+aux. A primeira procura varia-
+ção associada às covariáveis; a segunda procura persistência na escala. As distribuições
+assintóticas exigem hipóteses próprias e uma amostra auxiliar admissível.
+Definindo<: ==−1 Í
+8( 48−¯4) :, a assimetria e o excesso de curtose por momentos são
+61 =<3/ <3/ 2
+2 e62 =<4/ <2
+2−3. As versões com correção amostral, para= > 3, são
+1 =
+√
+=( =−1)
+=−2 61,  2 = =−1
+( =−2)( =−3){( =+ 1) 62+ 6} . (G.50)
+Estas medidas descrevem forma marginal; não avaliam a estrutura temporal. O RESET
+acrescenta potências dos valores ajustados, comoˆ2
+C , à regressão e testa o seu contributo.
+Uma indicação de forma funcional incompleta não especifica qual a transformação física
+em falta.
+A fração de variação entre meses é
+2
+mês =
+Í
+<=<(¯4<−¯4) 2
+Í
+C( 4C−¯4) 2 . (G.51)
+O cálculo usa os meses e dias disponíveis e é indefinido quando a variação total é nula.
+Um valor elevado descreve diferenças entre médias mensais; mudanças operacionais que
+coincidam com os meses podem contribuir para o mesmo padrão.
+G.8.4 PCA e agrupamento operacional
+Antes de comparar distâncias, as covariáveis são padronizadas:/std
+89 =( /89−9)/ B9,
+com parâmetros estimados na população de ajuste declarada. A análise de componentes
+principais diagonaliza a matriz de covariância dessa representação. Se:, v: forem os
+seus pares próprios, o componente: é `std
+8 v: e a fração de variância explicada é:/ Í
+9 9.
+O algoritmo:-means minimiza a soma das distâncias quadráticas aos centroides:
+min
+28,-1,..., - 
+Õ
+8
+∥z8−-28
+∥2. (G.52)
+No DBSCAN, um ponto central tem um número mínimo de vizinhos dentro de um raio&;
+grupos formam-se por ligações de densidade e os restantes pontos podem ser marcados
+como ruído. O coeficiente silhouette de uma observação éB8 =( 18−08)/ max( 08,1 8) , onde
+08 é a distância média ao próprio grupo e18 a menor distância média a outro grupo. Casos
+degenerados e grupos unitários exigem uma convenção.
+A configuração exploratória consultada usa quatro componentes para descrever as
+covariáveis, os primeiros três para o agrupamento, = 2,..., 10 e seleção pelo silhouette,
+além de DBSCAN com & = 0,8 e mínimo de 15 pontos. A escala e a população de ajuste
+condicionam estas escolhas. Grupos geométricos só podem receber nomes de regimes
+operacionais depois de confrontados com informação de processo.
+125
+
+=== PÁGINA PDF 23 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+G.8.5 Influência e dependência entre vetores
+A alavancagem é a diagonalℎ88 da matriz de projeção =-( -T-)−1-T. A distância de
+Cook combina alavancagem e resíduo:
+8 =
+ˆ42
+8
+?B 2
+ℎ88
+( 1−ℎ88) 2. (G.53)
+Limiarizações como 4/ = são regras de inspeção, não testes universais. A omissão de
+uma semana ISO permite avaliar influência de um segmento: ajusta-seˆ5−F e calcula-se
+ˆ5−F( &0)−ˆ5( &0) em cargas comuns, por exemplo quantis do treino. Uma grande variação
+relativa num declive próximo de zero pode corresponder a uma pequena mudança de
+previsão no domínio observado.
+Para dois vetores, a correlação de Pearson é a covariância amostral dividida pelo pro-
+duto dos desvios-padrão; Spearman aplica Pearson às ordens, com tratamento declarado
+de empates. Ambas usam as mesmas datas. A simultaneidade de excursões pode ser
+descrita porC = Í
+E 1{| IE,C| > 2} e pela fração de dias comC≥2. O módulo corresponde a
+uma leitura bilateral. A dependência entre vetores impede contar alarmes correlacionados
+como evidências independentes de mudança.
+REVISÃO MA T-06 | P1 | METODO
+Vincular os diagnósticos às tabelas publicadas
+As convenções de SMD, ACF civil, Durbin–Watson e Ljung–Box foram conferidas no código
+consultado. Confirmar que são as dos lotes citados e verificar os graus de liberdade dos
+testes auxiliares. Na versão final, decidir quais os valores? cuja calibração está sustentada e
+completar as fontes primárias específicas dos diagnósticos mantidos.
+REVISÃO MA T-F08 | P2 | FIGURA
+Organizar o diagnóstico por pergunta
+Propor quatro painéis: resíduo versus carga com escala local; ACF com número de pares por
+lag; distribuição por mês; suporte treino–aplicação nas covariáveis. Representar a influência
+por variação de previsão a carga comum. Usar os gráficos de PCA e agrupamento apenas
+quando acrescentarem uma interpretação confrontável com o processo.
+G.9 Bandas, cobertura e regras de alarme
+G.9.1 Centro, largura e objeto da banda
+Uma banda é definida pelo centro2C e pelos limites!C,*C. Num modelo linear com erros
+normais independentes e homocedásticos, o intervalo de confiança da média e o intervalo
+de predição de uma observação futura emx0 são, respetivamente,
+ˆ0±C=−?, 1−/ 2B
+√
+xT
+0( -T-)−1x0, (G.54)
+ˆ0±C=−?, 1−/ 2B
+√
+1+ xT
+0( -T-)−1x0. (G.55)
+126
+
+=== PÁGINA PDF 24 ===
+G.9. BANDAS, COBERTURA E REGRAS DE ALARME
+O termo adicional1 representa a variabilidade de uma nova observação. O termo de
+alavancagem representa a incerteza de estimação da média e cresce quando a condição
+se afasta do centro do treino. Dependência, heterocedasticidade e extrapolação exigem
+tratamento próprio; substituir a covariância dos coeficientes por HAC não resolve, por si
+só, a distribuição do novo erro.
+A banda de largura constante usada na plataforma tem2C = ˆ0+ ˆ1&C e limites2C±:B .
+Para: = 2, a massa de uma normal padrão entre os limites é
+20 = Pr(| /|≤2) = 2Φ( 2)−1≃0,9544997. (G.56)
+Este é o nominal de referência de uma banda gaussiana de dois desvios-padrão. Uma
+banda central de95% usa outro quantil. Quando o centro e a escala são estimados, ou
+quando a distribuição se afasta da normal, a cobertura real deve ser medida. Uma banda de
+alarme pode ainda ser escolhida por um orçamento de falsos sinais durante um horizonte;
+esse critério é definido na SecçãoG.12.3.
+G.9.2 Cobertura marginal e condicional
+Nos dias pontuáveis/u∞D△AE, a cobertura e a largura média são
+ˆ2 = 1
+=
+Õ
+C∈/u∞D△AE
+1{ !C≤C≤*C} , F = 1
+=
+Õ
+C∈/u∞D△AE
+(*C−!C) . (G.57)
+A fração fora da banda é1−ˆ2 na mesma população. A decomposição em excursões
+superiores e inferiores usa1{ C >*C} e 1{ C <!C} . A regra de igualdade ao limite deve
+manter-se em todas as implementações.
+Para um estrato, por exemplo um tercil de carga definido no treino ou um semestre,
+a cobertura condicional é a mesma razão restrita a/u∞D△AE∩. Apresentar= é necessário para
+interpretar estratos pouco representados. Uma cobertura marginal próxima do nominal
+pode combinar défice num estrato com excesso noutro. A largura deve ser apreciada em
+conjunto com a cobertura e o uso pretendido [18]. Limites muito largos podem cobrir
+quase todos os valores e ter pouca utilidade para assinalar desvios.
+O intervalo MBB da cobertura reamostra o indicador da equaçãoG.57, com a banda fixa.
+Sem um calendário externo de eventos ou verdade conhecida, uma excursão observada não
+pode ser classificada automaticamente como falso alarme: tanto pode refletir inadequação
+da banda como uma mudança do processo.
+G.9.3 Sequências, janelas e episódios
+Defina-seIC =( C−2C)/ B para uma escala positiva. As regras descritas na plataforma podem
+ser formalizadas numa janela ordenadaI1,...,I F como na TabelaG.3. As condições
+contam pontos na mesma janela, incluindo o último dia avaliado.
+Janelas sobrepostas podem assinalar repetidamente a mesma sequência. O número de
+dias sinalizados, o número de violações de regras e o número de episódios são contagens
+127
+
+=== PÁGINA PDF 25 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+Tabela G.3: Formulação das oito regras de sequência descritas. As convenções de calendário
+e de empate requerem harmonização com a implementação.
+Regra Janela Condição
+1 1 |I1| > 3.
+2 3 Pelo menos dois I8 > 2 ou pelo menos dois I8 <−2.
+3 5 Pelo menos quatro I8 > 1 ou pelo menos quatroI8 <−1.
+4 8 T odos os I8 > 0 ou todos osI8 < 0.
+5 6 I8+1−I8 > 0 em todos os passos, ou < 0 em todos.
+6 14 Incrementos sucessivos de sinal alternado, sem incrementos nulos.
+7 15 T odos os |I8| < 1.
+8 8 T odos os |I8| > 1, segundo a definição de lateralidade adotada.
+diferentes. Uma definição possível de episódio é um conjunto maximal de dias civis
+consecutivos sinalizados; deve fixar-se se uma lacuna interrompe o episódio ou suspende
+a avaliação. Nenhuma destas contagens equivale diretamente a uma probabilidade diária
+independente [40, 60].
+REVISÃO MA T-07 | P1 | METODO
+Fechar as regras de sequência da plataforma
+Confirmar oito versus nove pontos na regra de mesmo lado, a exigência ou não de ambos os
+lados na regra 8, o tratamento dos empates e o comportamento nas lacunas. Usar o nome
+das regras efetivamente implementadas; a citação de Nelson não substitui estas convenções.
+Acrescentar a definição de episódio às tabelas de alarmes.
+G.9.4 Centro condicionado por resíduos autorregressivos
+Após ajustar a relação com a carga, uma aproximação AR(?) aos seus resíduos é
+4C =
+?Õ
+9=1
+)94C−9+ C, 2 '
+C = ˆ5( xC)+
+?Õ
+9=1
+ˆ)94C−9. (G.58)
+Os desfasamentos são civis e os resíduos anteriores só podem usar informação já disponível.
+A seleção de?∈{1,..., 7} por =−2ˆℓ+: ln=' pertence ao treino, com: parâmetros
+e log-verosimilhançaˆℓ [54]. A comparação entre ordens deve usar uma amostra e uma
+convenção de verosimilhança coerentes.
+Os limites podem ser2'
+C ±2B ou2'
+C +[@!( ) ,@ *( )] , com ! = Φ(−2) e * = Φ( 2) para
+o nominal de dois sigmas. Se faltarem os resíduos desfasados necessários, a rota descrita
+regressa à banda marginal. Essa substituição deve ser marcada por dia e quantificada. Uma
+banda AR altera o centro; o seu erro de previsão deve ser calculado com2'
+C , incluindo os
+dias de substituição, se for esse o preditor que se pretende avaliar.
+128
+
+=== PÁGINA PDF 26 ===
+G.10. CRITÉRIOS DE ACEITAÇÃO E MATERIALIDADE
+G.9.5 Quantis condicionais e envelopes móveis
+A regressão quantílica estima o quantil condicional de ordem pela perda assimétrica [33]
+( D) =D{ −1( D < 0)} , ˆ# = 2 min
+#
+Õ
+C
+( C−xT
+C #) . (G.59)
+Dois ajustes produzem!C = xT
+C ˆ#! e*C = xT
+C ˆ#* . A condição!C≤*C deve ser verificada
+no domínio de aplicação. Recusar um candidato com cruzamentos é uma regra de admis-
+sibilidade; impor o não cruzamento durante a estimação é outro procedimento [9]. A não
+convergência deve ser registada como tal. Quantis muito extremos estimados em janelas
+anuais podem apoiar-se em poucos dias de cauda.
+Um envelope fixo usa quantis dos erros da referência, calculados uma vez. Um envelope
+móvel recalcula-os numa janela estritamente anterior, por exemplo 90 dias civis com
+mínimo de 60 erros disponíveis no desenho correspondente. Os dois envelopes reagem
+de forma diferente a uma mudança persistente: os quantis móveis podem incorporar a
+mudança na largura ou no centro implícito. A avaliação deve conservar os dias comuns e
+indicar o número de janelas indisponíveis.
+REVISÃO MA T-F09 | P1 | FIGURA
+Comparar bandas no mesmo eixo e nas mesmas datas
+Representar, num exemplo ilustrativo, intervalo da média, intervalo preditivo e banda de
+largura constante. Numa figura empírica separada, mostrar a banda marginal, o centro AR e
+os dias de substituição marginal, com resíduos no painel inferior. Incluir cobertura por tercil e
+largura numa tabela adjacente. Evitar sobrepor todas as bandas se isso impedir ler os limites.
+G.10 Critérios de aceitação e materialidade
+G.10.1 Candidato e estado de decisão
+Um candidato é uma combinação de estimador, covariáveis, população admissível, centro,
+escala, banda e finalidade. Alterar um destes elementos altera o objeto avaliado. No quadro
+histórico, há oito combinações por vetor: quatro rotas de banda com OLS e duas com cada
+um dos estimadores Huber e Theil–Sen, num total de 32 decisões para quatro vetores. Esta
+contagem corresponde às combinações efetivamente estudadas.
+Uma decisão não estimável indica que faltam condições para calcular o critério, por
+exemplo por insuficiência de dias, degenerescência ou falha de convergência. Uma decisão
+inconclusiva indica evidência insuficiente perante um critério calculável. A rejeição exige
+que o critério de rejeição tenha sido definido. Estes estados não devem ser reduzidos a
+uma variável binária sem registar o motivo.
+129
+
+=== PÁGINA PDF 27 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+G.10.2 Regra histórica de quatro pares em cinco
+Para cada par anual9, sejam !Δ,9 o limite inferior do intervalo de ganho e[!2,9,*2,9] o
+intervalo de cobertura. Definem-se
+9 = 1{ !Δ,9 > 0} ,  9 = 1{ !2,9≤20≤*2,9} . (G.60)
+A regra descrita exige separadamente
+5Õ
+9=1
+9≥4 e
+5Õ
+9=1
+9≥4. (G.61)
+Esta conjunção permite apenas três pares com ambos os critérios satisfeitos. Por exemplo,
+ =( 1, 1, 1, 1, 0) e  =( 0, 1, 1, 1, 1) cumprem a regra, mas Í
+999 = 3. Exigir quatro
+sucessos conjuntos seria a regra distintaÍ
+999 ≥4. A reprodução dos resultados
+históricos deve conservar a primeira definição e identificá-la.
+REVISÃO MA T-08 | P1 | METODO
+Alinhar o ganho preditivo com o centro de cada candidato
+Na avaliação histórica, verificar os casos em que o critério de ganho usa a previsão anual E2
+e o critério de cobertura usa um centro AR. Essa decisão combina dois objetos. Descrever o
+alcance do resultado histórico e, numa nova avaliação, calcular a perda do preditor completo
+se a finalidade for prever. Preservar os resultados anteriores com a respetiva definição.
+G.10.3 Compatibilidade, equivalência e não inferioridade
+O intervalo de cobertura conter20 indica compatibilidade com esse valor no procedimento
+usado. Um intervalo muito largo também o pode conter. Para avaliar equivalência com
+tolerância material2 > 0, uma proposta de critério é
+[!2,*2]⊆[20−2,2 0+ 2] . (G.62)
+O nível do intervalo deve corresponder ao procedimento de equivalência escolhido [37].
+Para não inferioridade preditiva, com ganho definido como na equaçãoG.36 e margem
+! > 0, o requisito pode ser!Δ >−!. Estas margens permanecem por definir a partir da
+finalidade operacional; as expressões constituem uma proposta para avaliação futura.
+A potência de uma regra é a probabilidade de produzir a decisão pretendida sob uma
+alternativa especificada. Cinco transições anuais encadeadas partilham dados entre treino
+e aplicação de pares sucessivos e podem ter dependência operacional. Não devem ser
+tratadas automaticamente como cinco ensaios Bernoulli independentes. Para calibrar a
+regra completa, a simulação deve reproduzir essa dependência, a seleção dos candidatos e
+os estados não estimáveis.
+130
+
+=== PÁGINA PDF 28 ===
+G.11. REFERÊNCIA, ESTADO E MONITORIZAÇÃO SEQUENCIAL
+REVISÃO MA T-F10 | P1 | FIGURA
+Explicar a decisão em duas camadas
+Criar uma matriz candidato–par com colunas separadas para ganho, cobertura e estimabilidade.
+Junto da matriz, usar os dois vetores binários do exemplo para mostrar a diferença entre
+contagens separadas e sucesso conjunto. Apresentar margens materiais apenas depois de
+definidas e identificá-las como critério de uma nova avaliação.
+G.11 Referência, estado e monitorização sequencial
+G.11.1 Desvio, excesso positivo e acumulado
+Para uma referência energética fixa,AC =C−ˆ5'( xC) . O desvio líquido e o excesso positivo
+de um período são
+'/u∞D△Aℬ=
+Õ
+C∈/u∞D△Aℬ∩/u∞D△AE
+AC, ' +
+/u∞D△Aℬ=
+Õ
+C∈/u∞D△Aℬ∩/u∞D△AE
+max( AC, 0) . (G.63)
+O primeiro permite compensação entre sinais; o segundo soma apenas o lado positivo. A
+comparação de totais deve indicar o número de dias e a exposição operacional. Dividir
+pelo número de dias produz um ritmo médio de desvio, com outra unidade.
+Num exemplo com resíduo marginal normal centrado,A∼/u∞D△A9(0, 2) ,
+E[max( A, 0)] =
+¹ ∞
+0
+A4−A2/( 22)
+
+√
+2
+3A = √
+2
+. (G.64)
+Há, portanto, excesso positivo esperado mesmo sem deslocação da média. A soma positiva
+depende da dispersão e do número de dias. A sua leitura como desperdício ou poupança
+exigiria identificar um contrafactual e separar mudança real de ruído e erro de modelo.
+G.11.2 Referência, estado e inovação
+A referênciaˆ5' fixa a relação energética com as condições. Um modelo de estado pode
+acompanhar a evolução do desvio relativamente a essa referência. A inovação mede a
+parte do desvio que esse estado ainda não previa. Para um modelo de nível local,
+AC =ℓC+ &C, ℓ C =ℓC−1+ C, Var( &C) =E&, Var( C) =E. (G.65)
+Os ruídos são centrados, independentes entre si e no tempo na formulação clássica. A
+hipótese de normalidade permite interpretar integralmente o filtro como inferência gaussi-
+ana [14]. Com ˆℓC|C−1 e%C|C−1 a previsão e a sua variância, o passo de atualização é
+C =AC−ˆℓC|C−1,  C =%C|C−1+E&, (G.66)
+ C =%C|C−1/ C, ˆℓC|C = ˆℓC|C−1+ C C, (G.67)
+%C|C =( 1− C) %C|C−1, % C+1|C =%C|C+E. (G.68)
+A inovação padronizada éC/
+√
+C; a escala
+√
+C não deve ser substituída porB'. Numa
+lacuna de3 dias, o nível local mantém a previsão pontual e a variância aumenta em3E
+131
+
+=== PÁGINA PDF 29 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+antes de nova observação. A implementação deve efetuar as transições civis sem atualizar
+com valores em falta.
+Para tendência local, introduz-se1estado
+C :ℓC =ℓC−1+1estado
+C−1 + C e1estado
+C =1estado
+C−1 + C. A
+transição matricial de(ℓC,1 estado
+C ) T usa) =
+( 1 1
+0 1
+)
+e a previsão da covariância usa)%) T++.
+O estado inicial e as variâncias são estimados na referência e mantidos fixos na aplicação
+descrita. O estado filtrado usa dados atéC; o estado alisado usa também o futuro e só pode
+ser apresentado como reconstrução retrospetiva.
+Energia observada
+C
+Desvio à referência
+AC = C−ˆ5'
+Inovação
+C = AC−ˆℓC|C−1
+Relação fixa
+ˆ5'( xC)
+Estado previsto
+ˆℓC|C−1
+AB<C
+Figura G.2: Decomposição conceptual dos canais. O estado previsto é calculado a partir
+dos desvios anteriores; a atualização comAC só afeta previsões posteriores.
+G.11.3 Estatística de resíduo e CUSUM
+O resíduo padronizado da referência éIC = AC/ B', com B' > 0 estimado no período de
+referência. Um monitor unilateral superior usa)C =IC; um monitor bilateral usa)C =|IC| .
+A lateralidade deve corresponder ao sinal com significado operacional, sobretudo para
+saldos líquidos.
+O CUSUM tabular acumula excedentes em relação a uma folga: [44]:
+(+
+C = max( 0,(+
+C−1+IC−:) , ( −
+C = max( 0,(−
+C−1−IC−:) , (G.69)
+com(+
+0 =(−
+0 = 0. Usa-se(+
+C no monitor unilateral superior emax( (+
+C ,(−
+C) no bilateral; há
+sinal quando a estatística excedeℎ. Na Parte C consultada, o estado é conservado em dias
+não pontuáveis e não há reinício anual nem após cruzar o limiar. Esta definição serve a
+análise do primeiro cruzamento. Uma política operacional de reinício produziria outra
+sequência de alarmes e deve ser especificada à parte.
+Algoritmo G.2 — Atualização de um monitor
+1. Ler a data e verificar elegibilidade, covariáveis, suporte e escala.
+2. Calcular a previsão do estado usando apenas informação anterior e o número de dias
+decorridos, quando existir modelo de estado.
+3. Se a medição for admissível, calcularAC, IC e, quando aplicável,C; atualizar o canal
+escolhido segundo a sua regra.
+4. Se a medição não for admissível, registar o motivo e aplicar a regra de transição sem
+observação de cada canal.
+5. Comparar a estatística com o limiar calibrado, conservar a data do primeiro cruzamento
+e aplicar apenas os reinícios explicitamente previstos.
+132
+
+=== PÁGINA PDF 30 ===
+G.11. REFERÊNCIA, ESTADO E MONITORIZAÇÃO SEQUENCIAL
+O CUSUM sobreIC e o CUSUM sobre inovações padronizadas têm entradas diferentes.
+O segundo figura nas propostas de deteção e exige calibração própria. A justificação de
+um limiar para um deles não se transfere automaticamente para o outro [1, 36].
+G.11.4 Canais de carga, estratos e escala
+O monitor de carga procura mudança na relação entre o desvio padronizado e a carga.
+Padroniza-seI&,C =( &C−¯&')/ B&,' e ajusta-se, numa janela de 60 dias civis que incluiC,
+IB = C+ CI&,B+DB. A estatística bilateral consultada é
+)carga
+C =
+
+ˆC
+ˆ($!(( ˆC)
+. (G.70)
+Exigem-se pelo menos 30 observações e IQR da carga padronizada não inferior a0,25. A
+forma studentizada permite ajustar a escala da estatística à informação da janela. O limiar
+provém de simulação com a dependência declarada; o quociente não é interpretado como
+um testeC clássico sob independência.
+O diagnóstico por estratos usa cortes de carga fixados no treino e calcula o desvio médio
+em cada estrato. A implementação consultada divide essa média porB',6/√=ef,6 , ondeB',6
+é a escala de referência do estrato. A dimensão efetiva usa a aproximação=( 1−ˆ)/( 1+ ˆ) ,
+limitada ao intervalo[1,=] , com ˆ calculado sobre valores consecutivos dentro do estrato
+e limitado a[−0,99; 0,99] . Esses valores podem estar separados por vários dias civis. A
+expressão é uma regra de padronização do diagnóstico, cuja calibração deve ser avaliada
+no desenho de simulação. As versões por estratos e por declive não são intercambiáveis: a
+disponibilidade de cada estrato muda com a operação.
+O canal de escala calcula o desvio-padrão local deAC em 30 dias civis, com mínimo de
+15 observações, e compara-o comB':
+@escala
+C =B30,C/ B', ) escala
+C =| ln@escala
+C |. (G.71)
+O quociente deve ser positivo e finito. A estatística reage a aumento ou redução de escala.
+Uma mudança de nível dentro da janela também pode aumentar temporariamente o
+desvio-padrão local; o canal deve ser lido em conjunto com o de nível.
+G.11.5 Preservação de sinal e efeito do reajuste
+Considere-se uma série de controloK e a mesma série com sinal acrescentadoK = K+ %,
+mantendo as covariáveis. Para uma referência fixa,r −r = %. Se ambas as séries forem
+reajustadas por OLS no mesmo desenho-,
+e −e =( −) %. (G.72)
+A componente de % contida no espaço das colunas de- é absorvida pelo ajuste. Um
+deslocamento constante em toda a janela é absorvido pelo intercepto. Um degrau que
+133
+
+=== PÁGINA PDF 31 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+afete apenas parte da janela não é, em geral, inteiramente absorvido. A relação permite
+estudar o mecanismo sem atribuir a todo o reajuste a mesma perda de sinal.
+Para um canal2C, uma medida de preservação acumulada numa janela/u∞D△A5é %2 =Í
+C∈/u∞D△A5( 2
+C−20
+C)/ Í
+C∈/u∞D△A5C, desde que o denominador não seja nulo. A janela, as máscaras e a
+unidade do canal devem coincidir. Sinais de sentidos opostos podem cancelar-se; nesses
+casos é necessário outro estimando, previamente definido.
+Num filtro AR(1) fixo, a contribuição do sinal na inovação é
+
+C−0
+C = C−C−1. (G.73)
+No início de um degrau, aparece a amplitude total; durante um patamar, resta( 1−) .
+A persistência positiva atenua o patamar neste canal. Essa atenuação não determina,
+isoladamente, a probabilidade de deteção de um monitor sequencial calibrado: a escala da
+inovação e a regra de acumulação também intervêm.
+G.11.6 Estados operacionais da referência
+Uma proposta de governação distingue referência ativa, observação fora do domínio,
+investigação, suspensão e referência substituída. Um alarme é um evento produzido pela
+regra estatística; uma mudança de estado operacional depende da evidência e da decisão
+registadas. A transição pode representar-se porBC+1 =/u∞D△Aℱ(BC,0 C,3C) , onde0C é a informação
+de alarme e3C a decisão autorizada. A versão da referência e a data de entrada em vigor
+devem permanecer associadas a cada valor calculado. O manual de utilização deve definir
+responsabilidades e critérios para estas transições antes da adoção operacional.
+REVISÃO MA T-F11 | P1 | FIGURA
+Mostrar onde fica um degrau em cada canal
+Gerar um exemplo com a mesma realização de ruído, com e sem um degrau conhecido. Usar
+quatro painéis alinhados: energia e referência, desvio fixo, estado estimado e inovação. Num
+segundo painel de comparação, representar a equaçãoG.72 para reajuste com e sem sobrepo-
+sição da janela com o degrau. As legendas devem identificar o exemplo como simulação, a
+amplitude, a escala e o início da mudança.
+G.12 Simulação, falsos sinais e detetabilidade
+G.12.1 Gerador e escala conhecida
+Uma simulação permite avaliar um instrumento quando a relação de referência, o ruído e
+a mudança são conhecidos. Uma representação do gerador é
+( A)
+C = 5DGP( xC)+ C+ C &( A)
+C , (G.74)
+com &( A)
+C de escala marginal unitária. A função geradora, as covariáveis, a máscara, o
+período de treino e o período de aplicação têm de ser fixados. As covariáveis podem ser
+134
+
+=== PÁGINA PDF 32 ===
+G.12. SIMULAÇÃO, FALSOS SINAIS E DETETABILIDADE
+conservadas como desenho observado ou geradas por outro mecanismo; estas escolhas
+correspondem a âmbitos de generalização diferentes. Injetar um sinal numa série real
+preserva os erros e as mudanças já presentes nessa série, enquanto um gerador sintético
+permite declarar a verdade de todo o processo simulado.
+Para manter a variância marginal do ruído quando se altera a persistência, a construção
+AR(1) usa
+D0 = DGP0, D C = DC−1+ DGP
+√
+1−2 C, C
+iid∼/u∞D△A9(0, 1) , | | < 1. (G.75)
+A inicialização é estacionária. SeVar( DC−1) = 2
+DGP, a variância seguinte é22
+DGP+( 1−
+2) 2
+DGP = 2
+DGP. Aumentar  altera a memória sem aumentar esta variância marginal. O
+ruído é gerado em todos os dias civis antes de aplicar a máscara, incluindo os dias que
+ficarão ocultos.
+O desenho descrito inclui uma referência anual de 2020, horizontes de aplicação de-
+clarados e cenários com = 0,6, além de stress com persistência superior. Os valores
+de DGP,B' eB têm origens diferentes. A amplitude física de uma mudança deve ser
+convertida pela escala do gerador que a define, para que a unidade da mudança não varie
+com o modelo em avaliação.
+G.12.2 Famílias de mudança
+Para início, amplitude0DGP e duração de crescimento3, duas alternativas são
+degrau
+C =0DGP1{ C≥} , (G.76)
+rampa
+C =0DGP min
+(
+1, max
+(
+0,C−+ 1
+3
+) )
+. (G.77)
+Uma mudança temporária multiplica a expressão por uma condição de fim, ou usa uma
+função de recuperação explicitada. Uma mudança dependente da carga pode serC =
+0DGP6( I&,C) 1{ C≥} , com 6 declarada. Uma mudança de escala usaC = DGP@C, com
+@C > 0, mantendo a média geradora. Estas expressões definem famílias; o lote deve registar
+a função, a amplitude, a duração e o sinal realmente usados.
+G.12.3 Calibração de limiar por horizonte
+Sob ausência de mudança, o máximo da trajetória de uma estatística)C num horizonte é
+" = maxC∈/u∞D△AE)C. A calibração por horizonte escolheℎ para controlar
+ = Pr
+0
+( " > ℎ) = Pr
+0
+( pelo menos um sinal durante) . (G.78)
+O limiar pode ser estimado por um quantil dos máximos de realizações de calibração. A
+regra de quantil e o operador> ou≥afetam a probabilidade em distribuições discretas.
+As realizações usadas para verificar a taxa devem ser distintas das usadas para escolherℎ.
+Um orçamento de5% por horizonte não significa5% por dia.
+135
+
+=== PÁGINA PDF 33 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+Se  for o instante do primeiro sinal sob0, o comprimento médio até ao sinal é
+'! 0 = E0( ) . Apenas em condições como ensaios diários independentes com probabi-
+lidade constante? se obtém '! 0 = 1/ ?. A meta proposta de'! 0 = 370 exige declarar
+a unidade temporal, os reinícios e o regime de observação; não equivale automaticamente
+a um falso alarme por ano civil.
+0: sem mudança
+realizações
+de calibração
+Máximos em 
+fixar o limiarℎ
+0: novas
+realizações
+verificarˆ
+1: mudanças
+conhecidas
+manter o limiarℎ
+Deteção,
+atraso e MDD
+incerteza
+Monte Carlo
+Figura G.3: Separação entre calibração do limiar, verificação de falsos sinais e avaliação de
+mudanças. As populações e o horizonte devem acompanhar cada etapa.
+G.12.4 Deteção, atraso e censura
+Para uma mudança que começa em, o primeiro cruzamento posterior é) = inf{ C≥ :
+)C > ℎ} . O atraso civil é =)−; uma deteção no próprio dia tem atraso zero. Se o
+estudo contar oportunidades pontuáveis, deve usar outro índice e identificar a unidade.
+Para uma janela que termina em+−1, a probabilidade de deteção é
+( 0) = Pr
+0
+()≤+−1) , ˆ( 0) = 1
+'
+'Õ
+A=1
+A( 0) . (G.79)
+Uma trajetória sem cruzamento até ao fim está censurada à direita; o seu atraso não é
+zero nem um atraso observado igual a. A média dos atrasos apenas entre trajetórias
+detetadas é uma média condicional e pode favorecer métodos que detetem poucos casos
+fáceis. Deve ser acompanhada pela probabilidade de deteção e pela fração censurada. O
+tratamento de sinais anteriores a também deve constar do desenho.
+G.12.5 Desvio mínimo detetável
+Para probabilidade-alvo0, define-se o desvio mínimo detetável por
+" 0 = inf{ 0≥0 : ( 0)≥0} . (G.80)
+O relato usa0 = 0,5. As probabilidades são estimadas numa grelha finita de amplitudes.
+A implementação consultada ajusta uma curva isotónica crescente e interpola linearmente
+entre os dois pontos que enquadram o alvo. Se˜9 <  0≤˜9+1,
+" 0 =09+
+0−˜9
+˜9+1−˜9
+( 09+1−09) . (G.81)
+136
+
+=== PÁGINA PDF 34 ===
+G.12. SIMULAÇÃO, FALSOS SINAIS E DETETABILIDADE
+O ajuste isotónico reduz inversões devidas ao erro Monte Carlo, sob a hipótese de monoto-
+nia. Não cria informação fora da grelha. Se o alvo já for atingido na menor amplitude, o
+resultado fica censurado à esquerda; se não for atingido na maior, fica censurado à direita.
+Publica-se o limite correspondente, sem extrapolar um valor numérico.
+A conversão física éfísica =0DGP. Uma percentagem do consumo médio pode ser
+calculada por100física/ ¯ apenas quando¯ > 0 e a razão tem significado de consumo.
+Para o saldo líquido de vapor de 10 bar, conserva-se a unidade física e a amplitude em
+unidades do gerador.
+G.12.6 Comparações emparelhadas e incerteza Monte Carlo
+Dois instrumentos devem receber a mesma realização de covariáveis, ruído, máscara e
+mudança. Se,A,,A assinalarem deteção, a diferença por realização é3A =,A−,A e
+ˆΔ = 1
+'
+Õ
+A
+3A, "( ( ˆΔ) = B3√
+'
+. (G.82)
+O emparelhamento conserva a covariância entre os resultados dos instrumentos. As
+realizações independentes podem ser reamostradas como unidades para intervalos de
+contrastes ou de MDD. Este bootstrap por realização não é o bootstrap de blocos da série
+temporal. Se a estimação do limiar tiver sido mantida fixa nessa reamostragem, a incerteza
+resultante é condicional ao limiar; incorporar a sua incerteza exige reamostrar também a
+calibração segundo um desenho próprio.
+Algoritmo G.3 — Avaliação com verdade conhecida
+1. Fixar gerador, covariáveis, calendário, máscara, escalas, treino, horizonte, canais e latera-
+lidade.
+2. Gerar realizações sem mudança para calibrar os limiares e outras para verificar os falsos
+sinais.
+3. Para cada amplitude, gerar realizações com mudança e aplicar todos os instrumentos à
+mesma realização.
+4. Guardar estimabilidade, primeiro cruzamento, deteção, atraso e censura, além da identi-
+dade da realização.
+5. Calcular curvas de deteção, diferenças emparelhadas e MDD com os respetivos limites
+de grelha.
+6. Repetir nos cenários de stress declarados e publicar o âmbito de validade de cada com-
+paração.
+G.12.7 Dependência entre vetores e deteção conjunta
+Para+ vetores, sejaΣ =   a covariância marginal, com matriz de correlação e
+ = diag( 1,..., +) . Com persistência comum , uma construção estacionária é
+uC = uC−1+ (C, Cov( (C) =( 1−2) Σ, Cov( u0) = Σ. (G.83)
+137
+
+=== PÁGINA PDF 35 ===
+APÊNDICE G. FUNDAMENTOS E FORMULAÇÕES MATEMÁTICAS DA DISSERTAÇÃO
+A matriz usada deve ser semidefinida positiva; qualquer regularização deve ficar registada.
+Com uma matriz de transição geral, a covariância estacionária obedece aΣ = ΣT++
+e exige verificar estabilidade e admissibilidade de+.
+Uma regra conjunta pode usar)joint
+C = maxE)E,C ou outra função declarada. O seu
+limiar deve ser calibrado para o sistema completo. Orçamentos separados por vetor não
+garantem o mesmo orçamento para “qualquer vetor sinaliza”. Correlação negativa entre
+resíduos também pode produzir coocorrência de excursões bilaterais, porque o módulo
+ignora o sentido.
+G.12.8 Agregação temporal e stress
+Para uma soma de erros de uma série estacionária regularmente observada,
+Var
+( Õ
+C=1
+4C
+)
+=0+ 2
+−1Õ
+:=1
+( −:) :, (G.84)
+onde : é a autocovariância. Com lacunas, a soma dupla sobre os pares efetivamente
+incluídos substitui os pesos−:. A variância de acumulados depende da memória da
+série. Acumulados de duas séries podem apresentar associações fortes numa realização
+por partilharem tendências ou efeitos de integração; a inspeção dessas associações exige
+comparar incrementos e a distribuição de resultados entre realizações [63, 19]. Um '2
+elevado num gráfico de acumulados não prova uma relação física estável.
+O stress deve alterar persistência, dimensão, máscara, forma da média, heterocedastici-
+dade e tipo de mudança segundo cenários identificados. Na agregação semanal ou mensal,
+conservam-se as fronteiras de calendário e a exposição de cada período. A comparação
+entre métodos requer populações e orçamentos de falsos sinais compatíveis. Lotes com
+erro de calendário ou de população devem ser corrigidos antes de sustentar ordenações
+de desempenho.
+REVISÃO MA T-09 | P1 | METODO
+Separar formulação, execução e resultado consolidado
+Associar cada cenário referido no capítulo de diagnóstico a um lote válido e ao respetivo
+manifesto. Confirmar treino, horizonte, máscara, número de realizações, independência
+entre calibração e verificação, convenção de censura e famílias de contrastes. O anexo explica
+os instrumentos; a sua presença aqui não transforma um cenário previsto num resultado
+executado nem um lote provisório em evidência consolidada.
+138
+
+=== PÁGINA PDF 36 ===
+G.12. SIMULAÇÃO, FALSOS SINAIS E DETETABILIDADE
+REVISÃO MA T-F12 | P1 | FIGURA
+Apresentar a detetabilidade com a censura visível
+Usar curvas de probabilidade de deteção por amplitude, com incerteza Monte Carlo e linha
+horizontal em50%. Marcar o MDD por intervalo de grelha ou seta de censura. Apresentar, ao
+lado, falsos sinais verificados e atrasos acompanhados da fração não detetada. Para o stress,
+preferir pequenos múltiplos com os mesmos eixos. Reservar as curvas empíricas para lotes
+consolidados.
+REVISÃO MA T-10 | P2 | REMISSŒS
+Como ligar este apêndice ao corpo da tese
+No texto principal, conservar a definição e a equação que sustentam a interpretação do re-
+sultado; remeter para o detalhe por secção ou equação. Exemplos: “O consumo específico
+é calculado como razão de totais (equaçãoG.14).”; “ A incerteza do ganho é estimada por
+blocos civis, conforme a SecçãoG.7.5.” Uma nota de rodapé pode remeter para uma derivação
+secundária, como a equaçãoG.64. Evitar escrever números de secção manualmente. Atualizar
+a lista de símbolos com a TabelaG.2 e manter a ligação do dicionário às unidades e aos fatores.
+139
+
+=== PÁGINA PDF 37 ===
+Bibliografia
+[1] L. C. Alwan e H. V . Roberts. «Time-Series Modeling for Statistical Process Control».
+Em: Journal of Business & Economic Statistics6.1 (1988), pp. 87–95. doi: 10.1080/0735
+0015.1988.10509640 (ver pp. 87, 133).
+[2] D. W. K. Andrews. «Heteroskedasticity and Autocorrelation Consistent Covariance
+Matrix Estimation». Em:Econometrica59.3 (1991), pp. 817–858. doi: 10.2307/2938229
+(ver pp. 42, 121).
+[3] M. Aria e C. Cuccurullo. «bibliometrix: An R-tool for comprehensive science mapping
+analysis». Em:Journal of Informetrics11.4 (2017), pp. 959–975. doi: 10.1016/j.joi.2
+017.08.007 (ver p. 26).
+[4] ASHRAE Guideline 14-2014: Measurement of Energy, Demand, and Water Savings. Ame-
+rican Society of Heating, Refrigerating e Air-Conditioning Engineers. Atlanta, GA,
+2014 (ver pp. 12, 18, 19).
+[5] Y . Benjamini e Y . Hochberg. «Controlling the False Discovery Rate: A Practical and
+Powerful Approach to Multiple Testing». Em:Journal of the Royal Statistical Society
+Series B: Statistical Methodology57.1 (1995), pp. 289–300. doi: 10.1111/j.2517-6161
+.1995.tb02031.x (ver pp. 43, 122).
+[6] Y . Benjamini e D. Yekutieli. «The control of the false discovery rate in multiple testing
+under dependency». Em: The Annals of Statistics29.4 (2001), pp. 1165–1188. doi:
+10.1214/aos/1013699998 (ver pp. 43, 122).
+[7] C. Bergmeir, R. J. Hyndman e B. Koo. «A note on the validity of cross-validation
+for evaluating autoregressive time series prediction». Em:Computational Statistics &
+Data Analysis120 (2018), pp. 70–83. doi: 10.1016/j.csda.2017.11.003 (ver p. 43).
+[8] G. E. P . Box, G. M. Jenkins, G. C. Reinsel e G. M. Ljung.Time Series Analysis: Forecasting
+and Control. 5ª ed. Hoboken, NJ: Wiley , 2015.isbn: 978-1-118-67502-1 (ver pp. 76, 118,
+124).
+[9] V . Chernozhukov , I. Fernández-V al e A. Galichon. «Quantile and Probability Curves
+Without Crossing». Em:Econometrica78.3 (2010), pp. 1093–1125. doi: 10.3982/ECTA7
+880 (ver pp. 76, 129).
+92
+
+=== PÁGINA PDF 38 ===
+BIBLIOGRAFIA
+[10] G. C. Chow. «T ests of Equality Between Sets of Coefficients in T wo Linear Regressi-
+ons». Em: Econometrica28.3 (1960), pp. 591–605. doi: 10.2307/1910133 (ver p. 42).
+[11] C. J. Clopper e E. S. Pearson. «The Use of Confidence or Fiducial Limits Illustrated
+in the Case of the Binomial». Em:Biometrika26.4 (1934), pp. 404–413. doi: 10.1093
+/biomet/26.4.404 (ver pp. 43, 114).
+[12] Crossref.REST API: Access and authentication. url: https://www.crossref.org/
+documentation/retrieve-metadata/rest-api/access-and-authentication/
+(acedido em 2026-09-14) (ver p. 27).
+[13] F. X. Diebold e R. S. Mariano. «Comparing Predictive Accuracy». Em: Journal of
+Business & Economic Statistics13.3 (1995), pp. 253–263. doi: 10.1080/07350015.1995
+.10524599 (ver p. 42).
+[14] J. Durbin e S. J. Koopman. Time Series Analysis by State Space Methods. 2ª ed. Oxford:
+Oxford University Press, 2012.doi: 10.1093/acprof:oso/9780199641178.001.000
+1 (ver pp. 84, 131).
+[15] N. J. van Eck e L. Waltman. «Software survey: VOSviewer, a computer program for
+bibliometric mapping». Em: Scientometrics84.2 (2010), pp. 523–538. doi: 10.1007/s1
+1192-009-0146-3 (ver pp. 26, 32).
+[16] B. Efron. «Bootstrap Methods: Another Look at the Jackknife». Em:The Annals of
+Statistics7.1 (1979), pp. 1–26. doi: 10.1214/aos/1176344552 (ver p. 42).
+[17] B. Efron e R. J. Tibshirani.An Introduction to the Bootstrap. Boca Raton: Chapman &
+Hall/CRC, 1993.doi: 10.1007/978-1-4899-4541-9 (ver p. 42).
+[18] T. Gneiting, F. Balabdaoui e A. E. Raftery. «Probabilistic Forecasts, Calibration and
+Sharpness». Em: Journal of the Royal Statistical Society Series B: Statistical Methodology
+69.2 (2007), pp. 243–268. doi: 10.1111/j.1467-9868.2007.00587.x (ver pp. 79,
+127).
+[19] C. Granger e P . Newbold. «Spurious regressions in econometrics». Em:Journal of
+Econometrics2.2 (1974), pp. 111–120. doi: 10.1016/0304-4076(74)90034-7 (ver
+pp. 87, 138).
+[20] P . Hall, J. L. Horowitz e B.-Y . Jing. «On blocking rules for the bootstrap with depen-
+dent data». Em:Biometrika82.3 (1995), pp. 561–574. doi: 10.1093/biomet/82.3.561
+(ver p. 42).
+[21] D. Harvey , S. Leybourne e P . Newbold. «Testing the equality of prediction mean
+squared errors». Em:International Journal of Forecasting13.2 (1997), pp. 281–291. doi:
+10.1016/S0169-2070(96)00719-4 (ver p. 42).
+[22] T. Hastie e R. Tibshirani. «Generalized Additive Models». Em:Statistical Science1.3
+(1986), pp. 297–310. doi: 10.1214/ss/1177013604 (ver pp. 85, 117).
+[23] J. J. Heckman. «Sample Selection Bias as a Specification Error». Em:Econometrica
+47.1 (1979), pp. 153–161. doi: 10.2307/1912352 (ver p. 75).
+93
+
+=== PÁGINA PDF 39 ===
+BIBLIOGRAFIA
+[24] P . W. Holland e R. E. Welsch. «Robust regression using iteratively reweighted least-
+squares». Em: Communications in Statistics - Theory and Methods6.9 (1977), pp. 813–827.
+doi: 10.1080/03610927708827533 (ver pp. 76, 117).
+[25] P . J. Huber. «Robust Estimation of a Location Parameter». Em:The Annals of Mathe-
+matical Statistics35.1 (1964), pp. 73–101. doi: 10.1214/aoms/1177703732 (ver pp. 76,
+117).
+[26] P . J. Huber e E. M. Ronchetti.Robust Statistics. 2ª ed. Hoboken, NJ: Wiley , 2009.doi:
+10.1002/9780470434697 (ver p. 76).
+[27] R. J. Hyndman e A. B. Koehler. «Another look at measures of forecast accuracy».
+Em: International Journal of Forecasting22.4 (2006), pp. 679–688. doi: 10 . 1016 / j .
+ijforecast.2006.03.001 (ver pp. 42, 119).
+[28] International Performance Measurement and V erification Protocol: Core Concepts (EVO
+10000-1:2022). Edição a confirmar na versão final. Efficiency V aluation Organization.
+2022 (ver pp. 12, 74, 76).
+[29] ISO 50006:2014 — Energy management systems — Measuring energy performance using
+energy baselines (EnB) and energy performance indicators (EnPI) — General principles and
+guidance. International Organization for Standardization. Geneva, Switzerland, 2014
+(ver pp. 2, 3, 10–14, 16, 39, 74, 76).
+[30] ISO 50006:2023 — Energy management systems — Evaluating energy performance using
+energy performance indicators and energy baselines. 2. a edição; não consultada (ver
+Secção 7.6). International Organization for Standardization. Geneva, Switzerland,
+2023 (ver p. 19).
+[31] ISO 50015:2014 — Energy management systems — Measurement and verification of energy
+performance of organizations — General principles and guidance. International Organiza-
+tion for Standardization. Geneva, Switzerland, 2014 (ver pp.3, 10, 11, 13, 74).
+[32] R. Kimball e M. Ross. The Data Warehouse T oolkit: The Definitive Guide to Dimensional
+Modeling. 3ª ed. Indianapolis, IN: Wiley , 2013.isbn: 978-1-118-53080-1 (ver p. 37).
+[33] R. Koenker e G. Bassett. «Regression Quantiles». Em:Econometrica46.1 (1978), pp. 33–
+50. doi: 10.2307/1913643 (ver pp. 76, 129).
+[34] H. R. Künsch. «The Jackknife and the Bootstrap for General Stationary Observations».
+Em: The Annals of Statistics17.3 (1989), pp. 1217–1241. doi: 10.1214/aos/1176347265
+(ver pp. 42, 122).
+[35] S. N. Lahiri.Resampling Methods for Dependent Data. New Y ork: Springer, 2003.doi:
+10.1007/978-1-4757-3803-2 (ver pp. 42, 122).
+[36] T. L. Lai. «Sequential Changepoint Detection in Quality Control and Dynamical
+Systems». Em: Journal of the Royal Statistical Society Series B: Statistical Methodology
+57.4 (1995), pp. 613–644. doi: 10.1111/j.2517-6161.1995.tb02052.x (ver pp. 77,
+133).
+94
+
+=== PÁGINA PDF 40 ===
+BIBLIOGRAFIA
+[37] D. Lakens. «Equivalence Tests». Em:Social Psychological and Personality Science8.4
+(2017), pp. 355–362. doi: 10.1177/1948550617697177 (ver pp. 90, 130).
+[38] J. M. Lourenço.Theaidisclose package: Generative AI disclosure checklist and statements.
+Version 1.11.0. 2025.url: https://ctan.org/pkg/aidisclose (ver p. iv).
+[39] M&V Guidelines: Measurement and V erification for Performance-Based Contracts, V ersion
+4.0. U.S. Department of Energy , Federal Energy Management Program. 2015 (ver
+pp. 18, 19).
+[40] L. S. Nelson. «The Shewhart Control Chart—T ests for Special Causes». Em:Journal of
+Quality T echnology16.4 (1984), pp. 237–239. doi: 10.1080/00224065.1984.11978921
+(ver pp. 40, 128).
+[41] W. K. Newey e K. D. West. «A Simple, Positive Semi-Definite, Heteroskedasticity
+and Autocorrelation Consistent Covariance Matrix». Em:Econometrica55.3 (1987),
+pp. 703–708. doi: 10.2307/1913610 (ver pp. 42, 121).
+[42] B. A. Nosek, C. R. Ebersole, A. C. DeHaven e D. T. Mellor. «The preregistration
+revolution». Em:Proceedings of the National Academy of Sciences115.11 (2018), pp. 2600–
+2606. doi: 10.1073/pnas.1708274114 (ver pp. 6, 41).
+[43] NP EN ISO 50001:2019 — Sistemas de gestão de energia. Requisitos e linhas de orientação
+para a sua utilização (ISO 50001:2018). Instituto Português da Qualidade. Caparica,
+Portugal, 2019 (ver pp.2, 10, 11, 13, 74).
+[44] E. S. Page. «Continuous Inspection Schemes». Em:Biometrika41.1-2 (1954), pp. 100–
+115. doi: 10.1093/biomet/41.1-2.100 (ver pp. 40, 77, 132).
+[45] M. J. Page, J. E. McKenzie, P . M. Bossuyt, I. Boutron, T. C. Hoffmann, C. D. Mulrow , L.
+Shamseer, J. M. T etzlaff, E. A. Akl, S. E. Brennan, R. Chou, J. Glanville, J. M. Grimshaw ,
+A. Hróbjartsson, M. M. Lalu, T. Li, E. W. Loder, E. Mayo-Wilson, S. McDonald, L. A.
+McGuinness, L. A. Stewart, J. Thomas, A. C. Tricco, V . A. Welch, P . Whiting e D.
+Moher. «The PRISMA 2020 statement: an updated guideline for reporting systematic
+reviews». Em: BMJ 372 (2021), n71. doi: 10.1136/bmj.n71 (ver p. 25).
+[46] R. D. Peng. «Reproducible Research in Computational Science». Em:Science334.6060
+(2011), pp. 1226–1227. doi: 10.1126/science.1213847 (ver p. 44).
+[47] M. H. Pesaran e A. Timmermann. «Selection of estimation window in the presence
+of breaks». Em: Journal of Econometrics137.1 (2007), pp. 134–161. doi: 10.1016/j.
+jeconom.2006.03.010 (ver pp. 84, 118).
+[48] J. Priem, H. Piwowar e R. Orr.OpenAlex: A fully-open index of scholarly works, authors,
+venues, institutions, and concepts. 2022-05-04. arXiv: 2205.01833 (ver p. 27).
+[49] M. L. Rethlefsen, S. Kirtley , S. Waffenschmidt, A. P . Ayala, D. Moher, M. J. Page, J. B.
+Koffel e PRISMA-S Group. «PRISMA-S: an extension to the PRISMA Statement for
+Reporting Literature Searches in Systematic Reviews». Em:Systematic Reviews10.1,
+39 (2021). doi: 10.1186/s13643-020-01542-z (ver p. 24).
+95
+
+=== PÁGINA PDF 41 ===
+BIBLIOGRAFIA
+[50] B. Ribeiro. Energy performance measurement models in continuous process industries under
+ISO 50001/50006. Open Science Framework. Protocolo de revisão de âmbito. 2026.
+doi: 10.17605/OSF.IO/TDW6C (ver p. 22).
+[51] P . J. Rousseeuw e A. M. Leroy. Robust Regression and Outlier Detection. New York:
+Wiley , 1987.doi: 10.1002/0471725382 (ver p. 76).
+[52] G. R. Ruiz e C. F. Bandera. «Validation of Calibrated Energy Models: Common
+Errors». Em:Energies10.10 (2017), p. 1587. doi: 10.3390/en10101587 (ver pp. 18, 19).
+[53] G. K. Sandve, A. Nekrutenko, J. Taylor e E. Hovig. «T en Simple Rules for Reproducible
+Computational Research». Em:PLoS Computational Biology9.10 (2013), e1003285. doi:
+10.1371/journal.pcbi.1003285 (ver p. 44).
+[54] G. Schwarz. «Estimating the Dimension of a Model». Em:The Annals of Statistics6.2
+(1978), pp. 461–464. doi: 10.1214/aos/1176344136 (ver pp. 79, 128).
+[55] P . K. Sen. «Estimates of the Regression Coefficient Based on Kendall’s Tau». Em:
+Journal of the American Statistical Association63.324 (1968). Estimador proposto origi-
+nalmente por Theil (1950),Proc. Kon. Ned. Akad. Wetensch.A 53, pp. 1379–1389. doi:
+10.1080/01621459.1968.10480934 (ver pp. 76, 117).
+[56] Y . Suchikova, N. Tsybuliak, J. A. T. da Silva e S. Nazarovets. «GAIDeT (Generative
+AI Delegation Taxonomy): A Taxonomy for Humans to Delegate Tasks to Generative
+Artificial Intelligence in Scientific Research and Publishing». Em:Accountability in
+Research(2025), pp. 1–27. doi: 10.1080/08989621.2025.2544331 (ver p. iv).
+[57] L. J. Tashman. «Out-of-sample tests of forecasting accuracy: an analysis and review».
+Em: International Journal of Forecasting16.4 (2000), pp. 437–450. doi: 10.1016/S0169-
+2070(00)00065-0 (ver pp. 43, 118).
+[58] The LATEX Project team. LATEX – A document preparation system. 1985. url: https :
+//www.latex-project.org (ver p. iv).
+[59] A. C. Tricco, E. Lillie, W. Zarin, K. K. O’Brien, H. Colquhoun, D. Levac, D. Moher,
+M. D. J. Peters, T. Horsley , L. Weeks, S. Hempel, E. A. Akl, C. Chang, J. McGowan, L.
+Stewart, L. Hartling, A. Aldcroft, M. G. Wilson, C. Garritty , S. Lewin, C. M. Godfrey ,
+M. T. Macdonald, E. V . Langlois, K. Soares-Weiser, J. Moriarty , T. Clifford, Ö. T unçalp
+e S. E. Straus. «PRISMA Extension for Scoping Reviews (PRISMA-ScR): Checklist
+and Explanation». Em:Annals of Internal Medicine169.7 (2018), pp. 467–473. doi:
+10.7326/M18-0850 (ver pp. 5, 22).
+[60] D. G. Wardell, H. Moskowitz e R. D. Plante. «Run-Length Distributions of Special-
+Cause Control Charts for Correlated Processes». Em:T echnometrics36.1 (1994), pp. 3–
+17. doi: 10.1080/00401706.1994.10485393 (ver pp. 87, 128).
+[61] E. B. Wilson. «Probable Inference, the Law of Succession, and Statistical Inference».
+Em: Journal of the American Statistical Association22.158 (1927), pp. 209–212. doi:
+10.1080/01621459.1927.10502953 (ver pp. 85, 123).
+96
+
+=== PÁGINA PDF 42 ===
+BIBLIOGRAFIA
+[62] S. N. Wood. Generalized Additive Models: An Introduction with R. 2ª ed. Boca Raton:
+Chapman & Hall/CRC, 2017.doi: 10.1201/9781315370279 (ver pp. 85, 117).
+[63] G. U. Yule. «Why do we Sometimes get Nonsense-Correlations between Time-Series?
+A Study in Sampling and the Nature of Time-Series». Em:Journal of the Royal Statistical
+Society89.1 (1926), pp. 1–63. doi: 10.2307/2341482 (ver pp. 87, 138).
+The NOVAthesis template (v7.10.3) [1] @ 2026-09-15. (12cc90221730b8ba41bb3b1f8b517acd)
+Bibliografia
+[1] J. M. Lourenço. The NOVAthesis LATEX T emplate User’s Manual. NOVA University Lisbon. 2021. URL: https://github.com/joaomlourenco/novathesis/raw/main/template.pdf (ver p. 97).
+97

@@ -1,0 +1,620 @@
+%!TEX root = ../template.tex
+%% ====================================================================
+%% Capitulo 4 -- Materiais e metodos
+%% Primeira versao completa 2026-09-08. Linguagem descritiva, sem rotulos
+%% internos de organizacao do trabalho.
+%% Fontes da vistoria (2026-09-08): ~/tese-extraccao (extraccao integral do
+%% modelo Power BI v22 de 2026-07-31: modelo.bim, 159 medidas DAX, 21 queries M,
+%% 32 particoes, metadados de reflexao, 25 TSV exportados, inventario e
+%% manifesto MD5 das fontes, 33 prints), notas do Mind Palace (mapeamento e
+%% validacao de jul-2026, memoria do projeto), PROTOCOL.md / CLAUDE.md e
+%% docs/ do repositorio baselines-cc.
+%% Marcas %% CONFIRMAR assinalam factos a confirmar pelo autor.
+%% ====================================================================
+
+\chapter{Materiais e métodos}
+\label{cha:metodos}
+% [REV-2026-09-13][C4-01][P2][ESTRUTURA]
+\revisaotese{C4-01}{P2}{ESTRUTURA}
+{Separar método reproduzível da história do desenvolvimento}
+{Acrescentar uma secção inicial com desenho do estudo, unidade de análise,
+janelas, perguntas e métricas primárias. Trazer para aqui as definições
+dos candidatos, critérios e simulador atualmente introduzidos no Cap. 7.
+Mover inventários extensos, erros de implementação, contagens de testes
+e pormenores de publicação de corridas para apêndices. No corpo,
+conservar decisões que alteram o estimando ou a validade dos resultados.}%
+% [/REV-2026-09-13]
+
+Este capítulo descreve o que foi construído e como foi avaliado. As três
+primeiras secções tratam da plataforma: de onde vêm os dados, como foram
+reconciliados num modelo dimensional único e que métricas se calculam sobre
+ele. As duas últimas tratam do método de avaliação das \emph{baselines} que
+os Capítulos~\ref{cha:diagnostico} e~\ref{cha:discussao} aplicam --- o
+protocolo estatístico e a infraestrutura de reprodutibilidade que garante
+que cada número citado nesta dissertação pode ser refeito. A matemática de
+cada instrumento consta do Anexo~\ref{app:matematica}; aqui descreve-se o
+desenho e as decisões que o justificam.
+
+\section{Fontes de dados e ingestão}
+\label{sec:fontes}
+
+O consumo energético de uma unidade processual não existe numa fonte
+única. Na refinaria de Sines, a informação necessária para o calcular está
+repartida por três famílias de origens, com resoluções, unidades e
+responsáveis diferentes, e a primeira decisão de desenho da plataforma foi
+não escolher uma delas: lê-las todas e reconciliá-las por regras
+declaradas.
+
+% [REV-2026-09-13][C4-02][P1][DADOS]
+\revisaotese{C4-02}{P1}{DADOS}
+{Agregação diária e conversão energética precisam de equações}
+{Distinguir caudal instantâneo/médio (t/h), totalizador (t) e energia.
+Explicar fuso horário, dias incompletos, mínimo de horas válidas e regra
+nos dias de 23/25 horas. Média x 24 só é justificável sob a convenção
+temporal adotada. Para combustível com PCI variável, verificar se
+energia = soma(massa\_h x PCI\_h) ou massa\_diária x PCI\_médio:
+o segundo omite a covariância entre caudal e PCI. Quantificar o erro
+ou documentar por que a aproximação é aceitável.}%
+% [/REV-2026-09-13]
+\paragraph{O historiador de processo.} O historiador IP21 regista as
+medições de campo --- caudais de combustível e de vapor, carga das
+unidades, densidades, temperaturas e pressões de \emph{flash}, poderes
+caloríficos --- com resolução horária. O acesso faz-se através da
+plataforma de dados da refinaria (Dremio), numa vista de negócio horária
+por \emph{tag} (\texttt{ip21\_hourly}). A plataforma não consulta o
+historiador \emph{tag} a \emph{tag}: gera, a partir da tabela de mapeamento
+(Secção~\ref{sec:modelo-dimensional}), a instrução SQL que agrega cada
+\emph{tag} ao dia com a regra que lhe cabe --- soma diária para caudais,
+média diária para poderes caloríficos e propriedades, média multiplicada
+por 24 para caudais horários, máximo para indicadores --- e devolve o
+resultado em formato longo (\emph{tag}, ano, mês, dia, valor). A primeira
+versão gerava uma coluna por \emph{tag} numa única consulta larga e
+esgotava o tempo limite da plataforma; o formato longo, com uma consulta
+por regra de agregação, resolveu-o sem perder nenhuma \emph{tag}.
+
+\paragraph{Os balanços mensais.} O Processamento de Dados da refinaria
+mantém dois livros de balanço mensal, com valores diários por referência
+de medidor: o balanço de produção (BAL\_PROD; folhas de medidores e de
+caudais, em toneladas por mês na coluna mensal e por dia nas colunas
+diárias) e o balanço de utilidades (BAL\_UTIL; medidores em toneladas por
+hora, vapor por nível de pressão). São a fonte oficial do fecho mensal e a
+referência contra a qual os relatórios de consumo são emitidos. A leitura
+é feita por funções de ingestão que percorrem as pastas de rede por ano e
+mês e extraem, por referência, a série diária. Os dois livros não têm a
+mesma estrutura: no de produção o primeiro dia do mês está seis colunas à
+direita do identificador, no de utilidades quatro --- e a primeira versão
+da ingestão, que assumia o desvio do primeiro em ambos, perdia dois dias
+por mês no vapor e somava zeros nos dois últimos, sub-reportando os três
+níveis de vapor em 5 a 7\%. O erro foi encontrado na validação da
+Secção~\ref{sec:validacao-dados} e é o exemplo do que essa validação existe
+para apanhar. O balanço de produção fornece ainda a folha de poderes
+caloríficos diários dos combustíveis sem \emph{tag} própria (\emph{off-gas},
+\emph{tail gas}, gás natural, coque), lida com uma guarda de gama física
+(30 a 30\,000~kcal/kg, porque uma etiqueta repetida na folha produzia, sem
+guarda, um poder calorífico médio de dois milhões) e com propagação do
+último valor conhecido quando um mês não o traz --- registando a origem de
+cada valor (\emph{bal}, \emph{locf}, \emph{backfill}) para que medido e
+propagado nunca fiquem indistinguíveis.
+
+\paragraph{A energia elétrica.} A eletricidade não tem série diária: existe
+nos relatórios mensais de envio de cada fábrica, em MWh por unidade, com
+blocos de consumo e de produção. A ingestão lê esses relatórios com um
+filtro de nomes canónicos (padrão da fábrica seguido de espaço, sufixo de
+envio, e uma guarda anti-duplicado por ano, mês e padrão que fica com o
+ficheiro mais recente), porque um ficheiro de segurança deixado na pasta
+de leitura --- uma versão anterior à revisão de janeiro de 2026 --- foi
+somado ao definitivo durante várias atualizações, duplicando o consumo de
+quatro unidades. Desde julho de 2026 a ingestão expõe o consumo bruto ao
+lado do líquido (consumo menos produção): o líquido serve o reporte, o
+bruto serve a \emph{baseline} e o índice de intensidade, porque uma unidade
+que produz o que consome não deve aparecer com consumo nulo numa relação
+com a carga.
+
+\paragraph{Planos de fabrico, densidades e crudes.} Os planos de fabrico
+semanais (folhas Excel no arquivo de planeamento, 2020 em diante)
+fornecem o \emph{slate} de crudes previsto por período e por unidade; as
+densidades de rede e as propriedades da carga (densidade, temperatura e
+pressão de \emph{flash}, rendimento em resíduo) vêm do historiador e das
+folhas de densidades, com um valor por omissão declarado no mapeamento
+quando a \emph{tag} não existe --- e uma coluna de origem que diz, dia a
+dia, se o valor foi medido ou assumido.
+
+% [REV-2026-09-13][C4-03][P2][CONSISTENCIA]
+\revisaotese{C4-03}{P2}{CONSISTENCIA}
+{O inventário não fecha aritmeticamente}
+{São anunciadas sete classes e 3 862 ficheiros, mas enumeram-se seis
+classes que somam 3 809 (81+84+708+434+426+2 076): faltam identificar
+53 ficheiros. Confirmar no manifesto sem corrigir por inferência.
+Explicar se as seis divergências de hash afetam dados usados e qual
+versão ficou congelada. Relacionar 32 tabelas do modelo, 25 exportadas
+e 13 usadas na análise numa tabela compacta de âmbito/proveniência.}%
+% [/REV-2026-09-13]
+\paragraph{Inventário e extração.} Para congelar o estado das fontes e
+tornar a plataforma reconstruível fora da rede da refinaria, fez-se em
+julho de 2026 um inventário completo das origens (cerca de 67 mil ficheiros
+percorridos, 14~GB) e uma extração das que o modelo consome: 3\,862
+ficheiros e 988~MB em sete classes --- balanço de produção (81 ficheiros
+mensais, cobertura completa de novembro de 2019 a julho de 2026), balanço
+de utilidades (84), eletricidade (708), crudes (434), densidades (426),
+planos de fabrico (2\,076) --- com o MD5 de cada ficheiro num manifesto e
+uma verificação posterior (3\,856 iguais, 6 divergências, todas em
+ficheiros de planos de fabrico de julho de 2024 alterados na origem entre a
+cópia e a verificação).
+O modelo do \emph{dashboard} foi serializado por inteiro na mesma data
+(definição tabular, 159 medidas, 21 consultas de transformação, 32
+partições, metadados de reflexão) e as 25 tabelas do modelo foram
+exportadas em texto. É sobre essa exportação --- e não sobre uma ligação
+viva --- que o Capítulo~\ref{cha:diagnostico} trabalha.
+
+\section{Modelo dimensional e reconciliação}
+\label{sec:modelo-dimensional}
+% [REV-2026-09-13][F06][P2][FIGURA]
+\revisaotese{F06}{P2}{FIGURA}
+{Arquitetura de dados com granularidade e proveniência}
+{Depois de apresentar as tabelas de factos, inserir um esquema com dois
+painéis: (a) historiador/balanços/relatórios -\textgreater{} agregação e conversão -\textgreater{}
+precedência por linha -\textgreater{} factos; (b) estrela simplificada energia/carga/
+propriedades com calendário, unidade e vetor. Escrever a granularidade
+de cada facto e marcar eletricidade mensal alocada. Não mostrar as 32
+tabelas nem um screenshot ilegível do modelo inteiro. Referenciar o
+dicionário e mostrar onde se retêm origem, flags e versões.}%
+% [/REV-2026-09-13]
+
+A plataforma é um modelo tabular em esquema em estrela~\cite{KimballRoss2013}, em modo de
+importação, com 32 tabelas, 243 colunas, 13 relações e 159 medidas.
+Três tabelas de factos concentram a informação: energia
+(\texttt{FactEnergia\_Unified}: 200\,924 linhas dia$\times$unidade$\times$vetor,
+de 2020-01-01 a 2026-07-31, 16 unidades, 7 vetores), carga
+(\texttt{FactCarga\_Unified}: 45\,408 linhas desde novembro de 2019, com a
+carga total e os seus componentes por nível de agregação) e propriedades
+da carga (19\,105 linhas, 8 unidades), a que se juntam densidades, planos
+de fabrico e crudes. As dimensões são o calendário (gerado, até ao dia
+anterior à atualização), as unidades (16, em três fábricas mais os
+extras, com o limiar de carga mínima de cada uma e a sua composição em
+secções), os vetores (fuel gás, vapor a 24, 10 e 3~bar, energia
+elétrica, coque e outros combustíveis, mais o agregado global), os crudes
+(56) e duas dimensões de apresentação --- janela temporal e métrica ---
+que alimentam os seletores do \emph{dashboard}. Os parâmetros físicos que
+qualquer cálculo usa vivem em duas tabelas de parâmetros e nunca no
+código: o poder calorífico de referência do gás natural
+(11\,820~kcal/kg), as entalpias equivalentes dos três níveis de vapor
+(698, 738 e 758~kcal/kg), a conversão da eletricidade (860,4~Mcal por MWh e um
+factor de eficiência de conversão de 0,57), o número mínimo de
+observações para estimar uma \emph{baseline} (30) e, por unidade, o limiar
+de carga abaixo do qual um dia não é operacional --- 18\,600~t/d na
+destilação atmosférica.
+
+\paragraph{A tabela de mapeamento é o contrato.} O objeto central do
+modelo não é um facto, é o mapeamento mestre: 286 linhas, cada uma a
+ligar uma unidade física, um vetor e um papel (consumo ou produção) a
+uma origem --- uma \emph{tag} do historiador, uma referência de balanço
+ou as duas --- com o factor de unidade do canal de \emph{tags}, um factor
+de inclusão do canal de balanço (1, 0, $-1$ ou uma fração de alocação),
+a \emph{tag} de poder calorífico quando aplicável, datas de vigência e um
+comentário de qualidade. Das 286 linhas, 235 apontam para o balanço de
+utilidades e 51 para o de produção; 137 têm também \emph{tag} do
+historiador; 213 são consumos e 73 produções. Cinco mapeamentos auxiliares
+(poderes caloríficos, eletricidade, carga por \emph{tags} e por balanço,
+densidades, propriedades) seguem o mesmo princípio: nenhuma constante de
+conversão, nenhuma referência de medidor e nenhuma regra de alocação
+existe fora de uma tabela versionada. Foi esta separação que permitiu
+corrigir, em julho de 2026, a alocação da produção de vapor entre as duas
+unidades de vácuo (24\% e 76\% a 24~bar; 69\% e 31\% a 3~bar, fórmulas
+oficiais do controlo processual) alterando uma coluna e nenhuma linha de
+código.
+
+% [REV-2026-09-13][C4-04][P1][METROLOGIA]
+\revisaotese{C4-04}{P1}{METROLOGIA}
+{Consistência documental, reconciliação e exatidão física}
+{Definir "reconciliação": aqui parece significar harmonização de fontes,
+precedência e confronto, não reconciliação estatística sujeita a balanços
+de massa/energia. Não inferir exatidão metrológica da concordância.
+Documentar medidores a montante, calibração/qualidade disponíveis e
+dependências entre canais. Acrescentar cobertura e discrepância por
+ano/vetor para excluir mudanças de fonte/conversão como explicação da
+deriva; cinco meses de validação não validam automaticamente seis anos.}%
+% [/REV-2026-09-13]
+\paragraph{Três canais, uma regra de precedência.} A energia de cada
+dia, unidade e vetor chega por até três canais --- \emph{tags} do
+historiador, balanço de produção ou utilidades, e relatórios de
+eletricidade --- e a tabela unificada guarda os três lado a lado antes de
+escolher. A regra é declarada e por linha: balanço, depois eletricidade,
+depois \emph{tags}; nunca se mistura um canal com outro na mesma linha, e
+uma coluna de origem regista qual venceu. Na carga a regra é a mesma
+(balanço antes de historiador) e os componentes da carga seguem a fonte
+vencedora. Nos 200\,924 registos de energia, 121\,828 têm balanço e
+\emph{tags} em simultâneo --- é a redundância que a validação da
+Secção~\ref{sec:validacao-dados} explora ---, 42\,132 só balanço e 36\,964
+vêm dos relatórios de eletricidade. Uma quarta coluna, o consumo ``sem
+produção'', é igual ao unificado em todos os vetores exceto na
+eletricidade, onde usa o bruto: é a coluna que a \emph{baseline} e o índice
+de intensidade consomem. Os relatórios operacionais e o reporte de
+emissões continuam no líquido.
+
+% [REV-2026-09-13][C4-05][P1][DADOS]
+\revisaotese{C4-05}{P1}{DADOS}
+{Imputação, zeros e seleção na variável resposta}
+{"Não imputa" contradiz a propagação/backfill de PCI e os valores por
+omissão de propriedades; restringir a afirmação ao consumo/carga sem
+canal disponível. Quantificar imputações por variável/ano e a sua presença
+no conjunto avaliado. Distinguir zero físico, dado ausente e zero fabricado,
+sobretudo no vapor líquido. Excluir todos os zeros por resposta pode
+alterar a população; mostrar sensibilidade e códigos de razão.
+Backfill usa informação futura: declarar efeitos numa avaliação temporal.}%
+% [/REV-2026-09-13]
+\paragraph{O que o modelo não faz.} Não imputa: um dia sem valor em nenhum
+canal fica sem valor, e um valor nulo ou zero do canal de balanço é
+excluído da estimação de \emph{baselines} enquanto a origem dos zeros
+fabricados não for resolvida na fonte. Não inclui o gás natural nem o
+\emph{tail gas} no perímetro de nenhuma unidade, por decisão de âmbito.
+E trata a eletricidade como o que ela é: uma alocação mensal distribuída
+uniformemente pelos dias, que o Capítulo~\ref{cha:diagnostico} mostra não
+ser uma medição diária.
+
+\section{Cálculo de métricas energéticas}
+\label{sec:metricas}
+
+% [REV-2026-09-13][C4-06][P2][ENERGIA]
+\revisaotese{C4-06}{P2}{ENERGIA}
+{Escrever o balanço de conversão e justificar constantes}
+{Incluir equações e tabela unidades de entrada -\textgreater{} fator -\textgreater{} t GNE/d.
+Associar explicitamente 698/738/758 kcal/kg a cada pressão e indicar
+origem, condições, referência entálpica, retorno de condensado e se são
+equivalentes contabilísticos. Declarar PCI ou PCS de 11 820 kcal/kg.
+Explicar eletricidade: E\_eq = MWh x 860,4/(11 820 x 0,57), com unidades
+coerentes, e o significado do rendimento. Examinar sensibilidade dos
+indicadores a constantes fixas. Evitar chamar eficiência termodinâmica
+ao que depende de fronteiras e convenções de alocação.}%
+% [/REV-2026-09-13]
+\paragraph{Uma unidade comum.} Todos os vetores são convertidos a
+toneladas de gás natural equivalente por dia (t~GNE/d), a unidade em que
+a refinaria orçamenta e reporta. Os combustíveis (fuel gás, coque, outros)
+convertem-se pelo caudal diário multiplicado pelo poder calorífico do dia
+--- lido de uma \emph{tag} horária no fuel gás e no coque, da folha de
+poderes caloríficos nos restantes --- dividido pelo poder calorífico de
+referência do gás natural. O vapor converte-se pelo caudal multiplicado
+pela entalpia equivalente do seu nível de pressão; o de 10~bar é um fluxo
+líquido (consumo menos produção) e pode ser negativo. A eletricidade
+converte-se de MWh para energia térmica e desta para combustível
+equivalente pelo factor de eficiência de conversão. Cada regra está
+declarada na tabela de parâmetros por vetor, e o cálculo é feito uma vez,
+na ingestão, para que todas as medidas leiam a mesma coluna.
+
+\paragraph{Dia operacional e consumo específico.} Um dia é operacional
+para uma unidade quando a sua carga é igual ou superior ao limiar declarado
+para essa unidade. O consumo específico é o total de GNE nos dias
+operacionais dividido pela carga nesses mesmos dias, em t~GNE por
+quilotonelada; as janelas móveis de 7 e 30 dias e o acumulado do período
+são calculados sobre a mesma seleção. O limiar não é um parâmetro de
+apresentação: é a fronteira do domínio em que a \emph{baseline} é estimada,
+e a Secção~\ref{sec:perfil-dados} mostra o que ele exclui.
+
+% [REV-2026-09-13][C4-07][P1][CRONOLOGIA]
+\revisaotese{C4-07}{P1}{CRONOLOGIA}
+{Precisar o que acontece efetivamente em janeiro}
+{O método descrito estima cada ano com todos os dias disponíveis e
+permite selecionar o ano de referência. Isso não demonstra que os alarmes
+operacionais troquem automaticamente em janeiro para a reta do ano
+anterior. Distinguir ajuste retrospetivo, ano corrente parcial e regra
+real de aplicação. Afirmar mascaramento anual observado exige documentar
+o histórico das referências usadas; sem ele, apresentar o mecanismo
+como consequência possível do desenho/experiência de simulação.}%
+% [/REV-2026-09-13]
+\paragraph{A \emph{baseline} em produção.} Para cada unidade, vetor e ano
+civil, o modelo estima por mínimos quadrados a relação
+$E = a\,Q + b$ (o modelo estatístico de \emph{baseline} que a ISO~50006
+tipifica~\cite{ISO50006_2014}) entre o consumo diário (em t~GNE/d, na coluna sem
+produção) e a carga diária (em kton/d), sobre os dias operacionais do ano
+com energia não nula e anteriores ao dia corrente. A estimação é feita
+dentro do próprio modelo, numa tabela calculada que materializa, por
+célula unidade$\times$vetor$\times$ano, o declive, a ordenada na origem,
+o desvio-padrão residual, o coeficiente de determinação e o número de
+observações --- 583 células no estado de julho de 2026, incluindo o ano
+corrente marcado como parcial. O vetor global de cada unidade é a soma
+dos vetores orçamentáveis (o coque, subproduto queimado no regenerador,
+mantém reta própria mas fica fora da reta global). Foi esta tabela ---
+exportada tal como o modelo a calcula --- que serviu de referência ao gate
+de replicação da Secção~\ref{sec:replicacao}: o que o
+Capítulo~\ref{cha:diagnostico} critica é, com igualdade numérica
+verificada, o que este parágrafo descreve.
+
+% [REV-2026-09-13][C4-08][P2][INDICADORES]
+\revisaotese{C4-08}{P2}{INDICADORES}
+{Excesso positivo não estima desperdício ou poupança}
+{Definir e\_t = E\_t - previsão e distinguir soma(e\_t) de soma(max(e\_t,0)).
+A segunda é positiva mesmo com erros centrados e cresce com ruído e
+número de dias; não é desperdício, oportunidade de poupança nem critério
+de eficiência entre vetores. Mostrar também desvio líquido, exposição
+e escala. A soma simples de resíduos é um acumulado descritivo; reservar
+CUSUM de deteção para a recorrência com referência k, limiar h e
+calibração de sinais. Especificar lateralidade e contagem de episódios.}%
+% [/REV-2026-09-13]
+\paragraph{Resíduos, bandas e acumulados.} O resíduo diário é a diferença
+entre o consumo observado e o previsto pela \emph{baseline} do ano de
+referência selecionado, aplicada à carga do próprio dia; o resíduo
+padronizado divide-o pelo desvio-padrão residual dessa \emph{baseline}. As
+bandas a $\pm1$, $\pm2$ e $\pm3\sigma$ são as do desenho de produção, e a
+regra de alarme é a saída da banda de $\pm2\sigma$. Sobre a série de
+resíduos calculam-se o excesso diário (a parte positiva do resíduo), o
+excesso acumulado por vetor, unidade e refinaria, a fração de dias acima
+e abaixo da banda, o desvio médio fora da banda, a soma acumulada dos
+resíduos desde o início do período selecionado (o gráfico de CUSUM~\cite{Page1954} do
+\emph{dashboard}) e o ritmo de excesso nas janelas de 7 e 30 dias. Um
+painel de regras de carta de controlo verifica oito regras clássicas de
+causas especiais, na linha das de Nelson~\cite{Nelson1984}, sobre os resíduos padronizados --- um ponto fora de $\pm3\sigma$, dois em
+três fora de $\pm2\sigma$, quatro em cinco fora de $\pm1\sigma$, oito
+consecutivos do mesmo lado, seis monotónicos, catorze alternados, quinze
+consecutivos dentro de $\pm1\sigma$, oito consecutivos fora de
+$\pm1\sigma$ --- e conta as ocorrências de cada uma. Estas estatísticas
+descrevem o método em produção; a sua validade estatística é a pergunta
+do Capítulo~\ref{cha:diagnostico}.
+
+% [REV-2026-09-13][C4-09][P2][INDICADORES]
+\revisaotese{C4-09}{P2}{INDICADORES}
+{Delimitar o EII e as emissões derivados da plataforma}
+{Indicar versão/fonte autorizada do método Solomon, convenções de bruto/
+líquido e se a aplicação diária é índice adaptado ou equivalente ao
+benchmark oficial. Validar separadamente se alegar equivalência. Para
+CO2, indicar fonte/unidade dos fatores e separar emissões diretas de
+combustíveis e emissões atribuídas a vapor/eletricidade; um fator único
+por GNE não demonstra emissões físicas por vetor. Se for proxy de
+reporte interno, dizê-lo, sem ampliar o âmbito da tese.}%
+% [/REV-2026-09-13]
+\paragraph{O índice de intensidade energética.} Além da \emph{baseline}
+interna, o modelo calcula por unidade o índice de intensidade energética
+da metodologia de \emph{benchmarking} da indústria (Solomon): a razão,
+em percentagem, entre o consumo real em kBTU e uma energia padrão que
+depende da carga em barris e de um factor por unidade --- para a
+destilação atmosférica, uma função da densidade da carga, do rendimento em
+resíduo e das condições de \emph{flash}, com um teto para cargas leves ---
+calculada só nos dias operacionais e com todas as propriedades disponíveis.
+O índice é publicado no dia, em janelas móveis de 7 e 30 dias e no
+período, contra as bandas de quartil da unidade, e decomposto por vetor
+numa cascata. Serve de contexto externo; não é uma \emph{baseline} e não
+entra na avaliação do Capítulo~\ref{cha:diagnostico}.
+
+\paragraph{Emissões.} O equivalente em CO$_2$ é calculado do consumo
+líquido por vetor com o factor de emissão declarado na dimensão dos
+vetores, no dia e acumulado, e apresentado ao lado do GNE em todas as
+vistas de síntese.
+%% CONFIRMAR: unidade e origem do fator_co2 (DimVector, 2,5) — t CO2 por t GNE?
+
+\section{Protocolo de avaliação estatística das \emph{baselines}}
+\label{sec:protocolo-baselines}
+
+\paragraph{A lição que definiu o protocolo.} Uma primeira análise das
+\emph{baselines}, feita em abril de 2026 fora da plataforma, foi
+invalidada em agosto: usava um limiar de carga escrito à mão (15~kton/d)
+em vez do limiar oficial lido da configuração (18\,600~t/d), e por isso
+analisava uma regressão que não era a que está em produção --- e concluía
+coisas que não existem nos dados oficiais. Duas regras saíram daí e não
+se negociaram depois: nenhum parâmetro de seleção é escrito à mão, todos
+são lidos das tabelas de configuração do modelo de produção; e replica-se
+antes de criticar --- se os coeficientes recalculados não reproduzem os de
+produção em todas as células, o protocolo para. Uma terceira regra veio da
+revisão externa do protocolo: não se criticam violações de independência
+usando testes que assumem independência e apresentando os seus
+$p$-values como prova.
+
+\paragraph{Pré-registo e revisão adversarial.} O protocolo foi escrito
+antes de qualquer execução, no sentido do pré-registo~\cite{Nosek2018} --- perguntas, estimadores, comparadores,
+famílias de hipóteses, correção de multiplicidade, limiares e a grelha de
+sensibilidade --- e submetido a quatro revisões adversariais independentes
+(Anexo~\ref{app:adversarial}), que apontaram vinte defeitos na primeira
+versão; a versão 1.2, que se descreve aqui, é a que resultou da
+adjudicação desses defeitos. Todos os parâmetros vivem num ficheiro de
+configuração versionado (\texttt{params.yaml}); nenhum é duplicado em
+código. As poucas decisões tomadas depois de ver resultados --- sobre desenho,
+nunca sobre critérios --- estão datadas no plano de execução e assinaladas
+no texto onde entram.
+
+\paragraph{Uma pergunta de dados antes de qualquer análise.} O primeiro
+passo não é estatístico: é um perfil dos dados --- cobertura, mecanismo de
+falta, distribuições brutas, efeito do filtro de seleção, séries temporais,
+relação bivariada, consistência entre fontes --- que uma pessoa lê e
+aceita, com declaração assinada e ligada por \emph{hash} à corrida que o
+produziu, antes de qualquer instrumento arrancar. O erro de abril foi um
+erro de seleção de dados que um perfil decente teria exposto; o gate
+existe para que isso não volte a acontecer, e o código não tem caminho de
+escrita para a declaração --- só uma pessoa a pode criar.
+
+\paragraph{Replicação exata como gate bloqueante.} Sobre a exportação
+congelada do modelo, o protocolo reestima a regressão anual de cada
+unidade--vetor com o limiar lido da configuração e compara declive,
+ordenada na origem, desvio-padrão residual e coeficiente de determinação
+com os da tabela de \emph{baselines} exportada, célula a célula, com
+tolerância pré-registada de $10^{-6}$; a identidade dos dias selecionados
+é comparada por \emph{fingerprint} do conjunto. Trinta células têm de
+reproduzir-se; se uma falha, nada a jusante corre. Cada instrumento
+posterior repete uma guarda de replicação sobre as células que usa.
+
+% [REV-2026-09-13][C4-10][P2][INFERENCIA]
+\revisaotese{C4-10}{P2}{INFERENCIA}
+{Definir população, alvo inferencial e limites de HAC/MBB}
+{Dar tabela por teste com H0/estimando, unidade, pares/dias, comparador,
+IC, família de multiplicidade e estatuto. HAC/MBB não tornam qualquer
+série não-estacionária automaticamente tratável: discutir condições da
+série de perdas/indicadores reamostrada, quebras e dependência persistente.
+Precisar se os IC condicionam nos modelos já ajustados ou incorporam
+reestimação do treino. Explicar blocos civis com lacunas (elegibilidade,
+concatenação e reinício), não apenas citar o comprimento.}%
+% [/REV-2026-09-13]
+% [REV-2026-09-13][C4-11][P1][VALIDACAO]
+\revisaotese{C4-11}{P1}{VALIDACAO}
+{O alvo nominal de 95\% não foi validado pelo teste a 90\%}
+{357/400 = 89,25\% de cobertura simulada. Não rejeitar cobertura inferior
+a 90\% não valida um IC nominal de 95\%; o alvo foi ainda escolhido após
+conhecer o resultado. Manter este ensaio como diagnóstico e declarar
+prévia ou posteriormente os critérios com precisão. Mostrar cobertura
+por rho, n e bloco com IC Monte Carlo; não transferir validação do bloco
+de 60 dias para o bloco base de sete. Resultados fronteiriços precisam
+da qualificação no local, além da secção final de limitações.}%
+% [/REV-2026-09-13]
+\paragraph{As perguntas e a inferência.} As conclusões do diagnóstico
+assentam em cinco perguntas, cada uma com estimador, comparador e
+critério declarados: se o modelo de um ano prevê o seguinte melhor do que
+referências triviais (média do ano de treino como nulo primário; mesmo dia
+do ano anterior e média móvel de trinta dias como secundários~\cite{HyndmanKoehler2006}), medido
+pela diferença emparelhada de perda absoluta diária~\cite{DieboldMariano1995,HarveyLeybourneNewbold1997}; se os declives anuais
+são iguais, por um teste de Wald sobre uma regressão empilhada com
+interações ano$\times$carga, na linha do teste de Chow~\cite{Chow1960}; se a banda de $\pm2\sigma$ do ano de treino
+cobre a fração nominal dos dias do ano seguinte; que desvio mínimo o
+sistema de alarmes deteta e em quanto tempo; e se covariáveis
+pré-especificadas (densidade da carga, temperatura e pressão de
+\emph{flash}) acrescentam valor preditivo fora da amostra. A inferência
+respeita a dependência serial que os próprios resíduos exibem: erros-padrão
+robustos à heterocedasticidade e à autocorrelação~\cite{NeweyWest1987}
+(\emph{kernel} quadrático-espectral com largura de banda de
+Andrews~\cite{Andrews1991}) para os testes de igualdade, e intervalos percentil~\cite{Efron1979,EfronTibshirani1993} por
+\emph{bootstrap} de blocos móveis~\cite{Kunsch1989,Lahiri2003} --- bloco
+base de $\lceil n^{1/3}\rceil$ dias~\cite{HallHorowitzJing1995} com
+desfasamentos civis exatos, 2\,000 réplicas, semente fixa, sensibilidade a blocos de 7, 14,
+30 e 60 dias --- para todos os contrastes de perdas e coberturas. Uma
+conclusão existe apenas quando o intervalo exclui o valor de referência;
+nunca por comparação de pontos. A multiplicidade é corrigida dentro da
+família dos testes de igualdade de declives (Benjamini--Hochberg~\cite{BenjaminiHochberg1995}, com
+Benjamini--Yekutieli~\cite{BenjaminiYekutieli2001} como verificação); os restantes resultados são por
+contraste e são apresentados como tal. A validação do \emph{bootstrap} por
+simulação, a $\rho = 0{,}90$ e bloco de 60 dias, deu uma cobertura de
+357/400; o resultado foi adjudicado por teste binomial exato~\cite{ClopperPearson1934}
+depois de conhecido e fica declarado como o que é --- ausência de evidência de
+cobertura inferior a 0,90, não prova de cobertura nominal.
+
+\paragraph{Diagnósticos descritivos.} Um segundo conjunto de instrumentos
+--- dependência e variância dos resíduos, distribuição e caudas,
+segmentação do espaço operacional, sobreposição de suporte entre anos,
+influência de semanas, plausibilidade física dos coeficientes, correlação
+entre vetores --- documenta mecanismos. O seu estatuto é declarado
+inferior: os $p$-values são índices descritivos calculados sob
+independência, nenhum rótulo é conclusão, e nenhuma afirmação da
+dissertação assenta neles.
+
+\paragraph{Sensibilidade às convenções.} Todas as conclusões são
+reavaliadas numa grelha pré-registada que cruza o limiar de carga a 0,8,
+1,0 e 1,2 vezes o oficial com duas partições temporais --- anos civis e
+janelas de doze meses ancoradas a 1 de julho --- num total de 624
+reavaliações, com a célula de referência a reproduzir exatamente os testes
+deterministas. A grelha qualifica; nunca cria conclusões.
+
+% [REV-2026-09-13][F07][P2][FIGURA]
+\revisaotese{F07}{P2}{FIGURA}
+{Linha temporal dos três desenhos de avaliação}
+{Inserir aqui, antes da demonstração: três faixas alinhadas em 2020--2026.
+(a) treino y -\textgreater{} teste y+1 nos cinco pares; (b) mesmos pares para comparar
+candidatos, com afinação interna; (c) referência 2020 -\textgreater{} aplicação
+2021--2025. Marcar 2026 parcial e indicar que os dados já foram explorados.
+Uma faixa auxiliar distingue observação real de simulação. Legenda
+declara disponibilidade de Q\_t/covariáveis e dos resíduos passados,
+para separar normalização ex post de previsão genuína a um passo.}%
+% [/REV-2026-09-13]
+\paragraph{Demonstração das linhas orientadoras.} A avaliação de
+candidatos alternativos (estimadores robustos, bandas com dependência
+modelada, critério de aceitação) usa os mesmos cinco pares anuais, com
+constantes fixadas a priori ou afinadas apenas no ano de treino, e
+conclusões só por intervalo. A formulação original previa uma partição
+selada com 2025 intocado; foi substituída, por decisão datada, por
+validação temporal encadeada~\cite{Tashman2000,BergmeirHyndmanKoo2018},
+porque 2025 já tinha informado o diagnóstico --- e nenhum resultado dessa parte se chama \emph{holdout}. O
+critério de aceitação (conteúdo preditivo e banda suportada, cada um em
+pelo menos quatro dos cinco pares) foi fixado antes de qualquer resultado.
+
+\paragraph{Referência congelada e simulação.} A exploração da
+Secção~\ref{sec:referencia-congelada} congela a relação de 2020, a sua
+escala (por validação cruzada em seis blocos contíguos~\cite{BergmeirHyndmanKoo2018})
+e o seu estado
+inicial, aplica-os a 2021--2025 numa população primária declarada (dias
+retidos, dentro do suporte de carga de 2020, com observação e predição
+finitas), compara modelos apenas na interseção dessas populações, e mede o
+comportamento de \emph{baselines} e monitores com verdade conhecida num
+gerador declarado (relação de 2020 com as covariáveis de referência, ruído
+autorregressivo, máscara real de dias admissíveis, limiares calibrados sob
+a hipótese nula a 5\%, quatrocentas réplicas por célula, oito contrastes
+co-primários declarados antes da execução). Todos os artefactos
+distinguem, linha a linha, o que foi observado no \emph{snapshot} do que
+foi imposto em simulação.
+
+\section{Reprodutibilidade e proveniência}
+\label{sec:reprodutibilidade}
+% [REV-2026-09-13][C4-12][P2][REPRODUTIBILIDADE]
+\revisaotese{C4-12}{P2}{REPRODUTIBILIDADE}
+{Integridade não certifica correção científica}
+{Hashes e corridas imutáveis são pontos fortes, mas não provam que
+filtros, estimandos ou interpretação estejam certos. Substituir "provar
+que não foi editado" por "detetar divergências face a um manifesto
+identificado", com a âncora de confiança. No corpo, apresentar um exemplo
+número -\textgreater{} tabela -\textgreater{} corrida -\textgreater{} dados/versão; transferir detalhes de
+infraestrutura para apêndice. Prever pacote público sanitizado com código,
+ambiente e dados sintéticos, se os dados industriais não forem divulgáveis.}%
+% [/REV-2026-09-13]
+
+A exigência que estrutura toda a infraestrutura é simples de enunciar:
+qualquer número citado nesta dissertação tem de poder ser refeito, e tem
+de ser possível provar que não foi editado depois de
+produzido~\cite{Peng2011,Sandve2013}.
+
+\paragraph{Dados congelados e identificados.} As 13 tabelas do modelo
+dimensional que a avaliação consome foram exportadas em 2026-07-31 e
+copiadas para o repositório de análise como ficheiros de texto só de
+leitura; o \emph{hash} SHA-256 de cada um está registado num ficheiro de
+fontes, e uma corrida cujo \emph{hash} de entrada não coincida falha em vez
+de produzir números diferentes em silêncio. A identidade das observações
+selecionadas pela \emph{baseline} de produção é guardada como
+\emph{fingerprints} de referência.
+
+\paragraph{Corridas write-once com manifesto.} Cada execução de um
+instrumento é uma corrida: prepara-se numa área de \emph{staging},
+verifica-se antes de começar (dados, ambiente, árvore de código limpa) e
+publica-se por renomeação atómica para uma pasta identificada por data e
+\emph{hash}, ou para uma pasta de falhas se a verificação final não
+passar. Nunca se edita uma corrida publicada; uma corrida substituída
+fica publicada e é apenas deixada de citar. O manifesto de cada corrida
+regista os \emph{hashes} dos dados de entrada, o \emph{commit} do código, a
+exigência de que a árvore esteja limpa, as versões exatas do ambiente
+(dois ambientes fixados por ficheiro de bloqueio, um para a avaliação do
+método de produção e outro para a exploração com referência congelada, que
+não podem ser trocados), as sementes, e o inventário de todos os ficheiros
+produzidos com o seu SHA-256 e um \emph{hash} do próprio inventário. As
+interfaces de execução não aceitam parâmetros científicos: só a raiz do
+repositório e a pasta de saída; tudo o resto é lido da configuração.
+
+\paragraph{Pins e verificação independente.} Os resultados que a
+dissertação cita são corridas canónicas identificadas (``pinadas'') na
+configuração; qualquer instrumento que consuma resultados de outro lê-os
+da corrida pinada, verifica o \emph{hash} do manifesto de origem antes de
+ler e recusa o lote errado. Um verificador que não importa nada do
+repositório --- só as bibliotecas de \emph{hash} e de leitura de texto ---
+recomputa, para cada corrida citada, os \emph{hashes} e tamanhos de todos
+os ficheiros e o \emph{hash} do inventário. À data desta versão, 110
+manifestos e 1\,481 ficheiros foram verificados sem divergência por uma
+auditoria independente.
+
+\paragraph{Números nos documentos.} Os relatórios de resultados não
+contêm números escritos à mão: cada valor da exploração com referência
+congelada é derivado das tabelas pinadas por um gerador de documentos e
+registado num bloco de proveniência no fim de cada documento, que um teste
+automático recalcula e confronta com a prosa. As tabelas dos capítulos de
+resultados desta dissertação seguem a mesma origem; a Secção~\ref{sec:limitacoes}
+diz onde a garantia é mais fraca do que o mecanismo sugere.
+
+\paragraph{Testes e ambiente.} O código de avaliação tem 1\,061 testes na
+suite do método de produção e 683 na da exploração com referência
+congelada, cada um no seu ambiente; sem teste, um instrumento não está
+feito, e um teste que verifica a presença de um campo não verifica o
+significado do filtro que o produziu --- lição registada depois de uma
+revisão ter apanhado cinco afirmações que a tabela por trás delas refutava.
+O determinismo é declarado com precisão: as corridas são reprodutíveis no
+ambiente fixado com igualdade numérica até cerca de $10^{-15}$; a igualdade
+byte a byte de ficheiros com valores em vírgula flutuante depende da
+biblioteca de álgebra linear da máquina, e não é prometida.
+
+\paragraph{Trilha adversarial.} As revisões externas do protocolo, as
+auditorias científicas de cada parte (a integridade da cadeia de
+resultados foi aprovada e a conformidade científica reprovada em setembro
+de 2026, com correções feitas no código e testes que reproduzem cada
+achado, e uma segunda reinspeção ainda em curso à data desta versão) e as
+decisões do autor que delas resultaram estão versionadas no repositório e
+resumidas no Anexo~\ref{app:adversarial}. É a parte da metodologia que
+mais custou e a que mais vale: cinco afirmações da primeira versão dos
+resultados eram falsas, todas do mesmo tipo --- narrativa à frente da
+verificação ---, e nenhuma sobreviveu a abrir a linha da tabela que a
+devia sustentar.
