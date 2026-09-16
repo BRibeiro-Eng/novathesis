@@ -1,33 +1,1162 @@
 %!TEX root = ../template.tex
-%% ====================================================================
-%% Anexo G -- Definicoes matematicas dos instrumentos de avaliacao
-%% Esqueleto criado 2026-09-08. Recebe a matematica que os Caps. 6 e 7
-%% referem (Anexo~\ref{app:matematica}): estimadores, estatisticas de teste,
-%% construcao das bandas, bootstrap de blocos, criterio de aceitacao,
-%% referencia congelada, monitores e gerador da simulacao.
-%% Por escrever.
-%% ====================================================================
-
-\chapter{Definições matemáticas dos instrumentos de avaliação}
+% Rascunho transversal, 2026-09-15. Activado no build a 2026-09-16; o esqueleto anterior está em
+% 3-BackMatter/_arquivo/appendix-G-matematica-esqueleto-20260813.tex. MAP liga cada passagem ao inventário editorial.
+\chapter{Fundamentos e formulações matemáticas da dissertação}
 \label{app:matematica}
-% [REV-2026-09-13][AP-G][P2][APENDICE]
-\revisaotese{AP-G}{P2}{APENDICE}
-{A matemática essencial não pode permanecer num apêndice vazio}
-{Priorizar: modelo anual e sigma com graus de liberdade; seleção e
-desfasamentos civis; estimandos de perdas/cobertura; algoritmo MBB e
-condicionamento/reestimação; Wald HAC e famílias; Huber/Theil-Sen;
-centro e largura de cada banda; regra 4/5; referência/estado/inovação;
-recorrência CUSUM com k,h/reset; gerador, calibração por horizonte e
-censura de deteção. Manter no corpo as equações necessárias à leitura.
-Um pseudocódigo de um ano de treino/teste e outro do simulador ajudam
-mais que reproduzir funções completas do código.}%
-% [/REV-2026-09-13]
 
-%% >> Por secao do Cap. 6 e 7: notacao; regressao anual e replicacao;
-%% >> skill e contraste emparelhado de perdas com IC MBB; Wald HAC empilhado
-%% >> e familias BH/BY; cobertura e IC MBB; modelos encaixados e valor
-%% >> incremental; estimadores de Huber e Theil--Sen; bandas AR e quantilica;
-%% >> criterio de aceitacao; referencia congelada, escala e populacao
-%% >> primaria; monitores (residuo bruto, filtro de nivel, soma acumulada,
-%% >> canais de carga e escala); gerador Monte Carlo, calibracao de limiares
-%% >> e desvio minimo detetavel.
+Este apêndice reúne as formulações necessárias para acompanhar os cálculos da dissertação. A organização segue os objetos analisados: primeiro as grandezas e as populações, depois a revisão da literatura e a modelação, e, por fim, a monitorização e a simulação. Cada secção pode ser consultada a partir de uma remissão no corpo do texto. As definições operacionais e os resultados permanecem nos capítulos a que dizem respeito.
+
+Uma mesma quantidade pode servir perguntas diferentes. O erro de uma previsão mede a distância ao valor observado; o desvio a uma referência energética mede a distância a uma relação mantida fixa; um alarme resulta da comparação de uma estatística com um limiar. A passagem entre estas quantidades exige explicitar a referência, a escala e a população sobre a qual se calcula o resultado.
+
+\revisaotese{MAT-00}{P1}{APENDICE}{Âmbito e estado deste rascunho}{O texto desenvolve os 107 conceitos do mapa de 15 de setembro de 2026. As caixas de revisão identificam decisões pendentes, verificações de fontes e propostas visuais. A consulta dirigida ao código esclarece convenções; não certifica a correspondência de todos os resultados com o respetivo lote. As extensões ainda propostas estão identificadas no texto. Conservar o identificador \texttt{app:matematica} e harmonizar o título nos capítulos.}
+
+\begin{table}[htbp]
+\centering\small
+\caption{Guia de consulta das formulações matemáticas.}
+\label{tab:mat-acesso}
+\begin{tabularx}{\linewidth}{@{}lX@{}}\toprule
+Secção & Pergunta de consulta\\\midrule
+\ref{sec:mat-notacao-dados} & Que observações e unidades entram no cálculo?\\
+\ref{sec:mat-energia} & Como se obtêm as grandezas e os indicadores energéticos?\\
+\ref{sec:mat-bibliometria} & O que representam as contagens e as redes da revisão?\\
+\ref{sec:mat-auditoria-revisao} & Que erro da extração foi auditado e com que incerteza?\\
+\ref{sec:mat-regressao} & Que relação é ajustada e como são estimados os parâmetros?\\
+\ref{sec:mat-avaliacao-temporal} & Como se compara o desempenho em períodos posteriores?\\
+\ref{sec:mat-inferencia} & Como se quantifica a incerteza com dependência temporal?\\
+\ref{sec:mat-diagnosticos} & O que medem os diagnósticos dos dados e dos resíduos?\\
+\ref{sec:mat-bandas} & Que banda se constrói e o que significa a sua cobertura?\\
+\ref{sec:mat-aceitacao} & Como se transforma a evidência numa decisão sobre um candidato?\\
+\ref{sec:mat-monitorizacao} & Que sinal preserva cada canal de monitorização?\\
+\ref{sec:mat-simulacao} & Como se medem falsos sinais e capacidade de deteção?\\\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Notação, populações e operações sobre dados}
+\label{sec:mat-notacao-dados}
+
+\subsection{Índices, unidades e objetos estatísticos}
+\label{sec:mat-notacao}
+% MAP: M01.01 M01.03
+O índice $t$ designa um dia civil, $y$ um ano, $u$ uma unidade industrial e $v$ um vetor energético. O índice $i$ enumera observações disponíveis; a diferença entre dois índices $i$ não determina a distância entre as respetivas datas. Nas simulações, $r$ identifica uma realização independente e $b$ uma réplica de reamostragem. Quando a unidade e o vetor são fixos, omitem-se os índices $u,v$.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Notação principal. As escalas de erro têm a unidade da resposta.}
+\label{tab:mat-notacao}
+\begin{tabularx}{\linewidth}{@{}lX@{}}\toprule
+Símbolo & Significado e unidade\\\midrule
+$E_t$ & Consumo ou saldo energético diário, em t GNE/dia; a soma dos valores diários representa t GNE.\\
+$Q_t$ & Carga processada, em kt/dia. Uma kt corresponde a $1000$ t.\\
+$\boldsymbol Z_t,\boldsymbol x_t$ & Covariáveis operacionais e linha da matriz de desenho, respetivamente.\\
+$\varrho_t,\rho_k$ & Massa volúmica e autocorrelação ao desfasamento $k$; símbolos distintos.\\
+$\widehat f,\widehat E_t$ & Relação ajustada e valor calculado por essa relação.\\
+$e_t,r_t,\nu_t$ & Erro de previsão, desvio à referência fixa e inovação do modelo de estado.\\
+$s, s_R,\sigma_\nu,\sigma_{\mathrm{DGP}}$ & Escala residual, escala da referência, escala da inovação e escala do gerador.\\
+$\mathcal R,\mathcal A,\mathcal S$ & Conjuntos de treino/referência, aplicação e observações pontuáveis.\\
+$n,p,\ell,B,R$ & Número de observações, parâmetros, dias por bloco, réplicas de bootstrap e realizações de simulação.\\\bottomrule
+\end{tabularx}
+\end{table}
+
+O \emph{estimando} é a quantidade que se pretende conhecer numa população definida, por exemplo a diferença esperada de erro absoluto entre dois preditores. O \emph{estimador} é a regra aplicada à amostra para a calcular. A estimativa é o valor obtido. A identificação destes três objetos evita atribuir a uma estatística descritiva uma interpretação populacional que o desenho não suporta.
+
+\subsection{Seleção e denominadores}
+\label{sec:mat-populacoes}
+% MAP: M01.02 M01.07
+Seja $\mathcal D$ o calendário candidato. Uma máscara $m_t\in\{0,1\}$ assinala a elegibilidade de cada dia. No cálculo diário da baseline, a seleção inclui a disponibilidade de carga e energia, a exclusão do dia corrente e o limiar de carga adotado. O valor de $18\,600$ t/dia corresponde a $18{,}6$ kt/dia. A máscara deve reproduzir a desigualdade estrita ou inclusiva da implementação.
+\begin{equation}
+\mathcal S_m=\{t\in\mathcal D:m_t=1,\ \boldsymbol x_t^{(m)}\text{ completa},\ t\text{ no domínio de }m\},
+\qquad n_m=|\mathcal S_m|.
+\label{eq:mat-selecao}
+\end{equation}
+Dois candidatos podem ter conjuntos $\mathcal S_m$ diferentes. Um contraste emparelhado utiliza a interseção dos conjuntos pertinentes. Deve apresentar-se também a fração de dias excluídos, pois a melhoria do resultado pode decorrer de uma população mais restrita.
+
+Um zero físico, um valor ausente e um valor substituído são estados diferentes. A exclusão de $E_t=0$ faz parte da seleção consultada e condiciona a população à resposta. A propagação do último valor disponível usa informação passada; o preenchimento a partir de um valor futuro altera a informação disponível no instante de previsão. Cada variável transformada deve conservar um indicador de origem e de imputação. A série observada, por si só, não identifica o mecanismo que gerou as faltas.
+
+\revisaotese{MAT-01}{P1}{METODO}{Fixar uma sequência única de seleção}{Confrontar os filtros DAX, Python e os lotes citados: fronteira da unidade, corte de carga, zeros, data corrente, valores completos e suporte. Publicar os números após cada filtro. Distinguir dias únicos de células vetor--dia. A precedência dos filtros é especialmente relevante quando se contabilizam motivos de exclusão.}
+
+\subsection{Agregação no calendário civil}
+\label{sec:mat-agregacao}
+% MAP: M01.04 M01.05 M01.06
+Para um caudal mássico $\dot m_h$ representativo de um intervalo válido de duração $\Delta\tau_h$, a massa diária é aproximada por
+\begin{equation}
+m_t=\sum_{h\in\mathcal H_t}\dot m_h\Delta\tau_h,
+\qquad \overline x_t^{\,(\tau)}=
+\frac{\sum_{h\in\mathcal H_t}x_h\Delta\tau_h}{\sum_{h\in\mathcal H_t}\Delta\tau_h}.
+\label{eq:mat-integracao}
+\end{equation}
+Somar leituras de caudal equivale à primeira expressão apenas se cada leitura representar um intervalo unitário na unidade de tempo do caudal. A integração exige conhecer a semântica da tag, o fuso horário, as horas em falta e as transições de hora legal. Um dia civil pode ter 23 ou 25 horas; uma soma de incrementos de um contador exige ainda tratar reinícios e duplicados.
+
+Quando só existe um total mensal $E_M$, a alocação uniforme em $d_M$ dias escreve-se
+\begin{equation}
+\widetilde E_t=E_M/d_M\quad(t\in M),
+\qquad \sum_{t\in M}\widetilde E_t=E_M.
+\label{eq:mat-alocacao-mensal}
+\end{equation}
+Esta operação conserva o total mensal. A distribuição diária criada não contém medição adicional. Consequentemente, os dias alocados de eletricidade não constituem observações independentes para validar um instrumento diário. Se a apresentação retiver apenas parte dos dias, a soma filtrada deixa de coincidir com o total mensal.
+
+Uma janela de $w$ dias que inclui o dia atual é $\mathcal W_t(w)=\{s:t-w+1\leq s\leq t\}$. Uma janela usada para prever antes de observar $E_t$ termina em $t-1$. Em ambos os casos, $n_t=|\mathcal W_t\cap\mathcal S|$ é o número efetivo de observações. A média, a soma e a condição de cálculo devem indicar esse conjunto e um mínimo de disponibilidade. A expressão ``30 dias'' refere-se ao calendário, independentemente do número de linhas retidas.
+
+\subsection{Fontes, conservação e concordância numérica}
+\label{sec:mat-concordancia}
+% MAP: M01.08 M01.09
+Se $c^*(u,v,t)$ identifica a primeira fonte disponível na ordem estabelecida, a série harmonizada é
+\begin{equation}
+E_{u,v,t}=E^{[c^*(u,v,t)]}_{u,v,t},
+\qquad E^{[c]}_{u,v,t}=\sum_j w_{u,v,j,t}E^{[c]}_{j,t}.
+\label{eq:mat-fontes}
+\end{equation}
+Os pesos representam inclusão, exclusão, crédito ou repartição e podem assumir, entre outros, os valores $1$, $0$ e $-1$. Numa repartição integral de uma corrente, os pesos das unidades destinatárias somam um. A precedência entre balanço energético, fonte elétrica e tags deve aplicar-se à chave declarada; somar canais alternativos da mesma energia produziria dupla contagem. Esta harmonização não é uma reconciliação estatística sujeita a balanços e incertezas de medição.
+
+Duas verificações distintas usam tolerâncias distintas. Na comparação com uma fonte de referência, a regra pode ser
+\begin{equation}
+|x-x_0|\leq\max(\tau_{\mathrm{abs}},\tau_{\mathrm{rel}}|x_0|).
+\label{eq:mat-tolerancia-dados}
+\end{equation}
+Na replicação numérica, a regra consultada soma as tolerâncias:
+\begin{equation}
+|x-x_0|\leq\mathrm{atol}+\mathrm{rtol}|x_0|.
+\label{eq:mat-tolerancia-replica}
+\end{equation}
+O módulo de $x_0$ permite comparar saldos com sinal. Para $x_0=0$, prevalece a tolerância absoluta. A comparação exige ainda as mesmas datas, unidades e filtros. Um hash identifica os bytes de um ficheiro e permite detetar alterações; não demonstra a exatidão física dos valores.
+
+\subsection{Estatística descritiva e completude}
+\label{sec:mat-descritiva}
+% MAP: M01.10
+Num conjunto de $n$ valores válidos, $\bar x=n^{-1}\sum_i x_i$ e $s_x^2=(n-1)^{-1}\sum_i(x_i-\bar x)^2$. A mediana é o quantil de ordem $0{,}5$ e a amplitude interquartil é $\operatorname{IQR}=q_{0,75}-q_{0,25}$. Para quantis empíricos usados em limites, deve fixar-se o algoritmo de interpolação; neste rascunho, a interpolação linear entre estatísticas de ordem corresponde à convenção computacional habitual consultada. A completude é $n_{\mathrm{disponível}}/n_{\mathrm{esperado}}$, com o denominador definido por campo, vetor e período. Um mês parcial deve ser identificado como tal.
+
+\revisaotese{MAT-F01}{P1}{FIGURA}{Mostrar como se forma a população analítica}{Acrescentar um fluxograma com contagens desde o calendário candidato até à interseção pontuável. Ao lado, representar um mês de eletricidade como um total repartido pelos dias. As contagens devem provir do manifesto do lote; a figura deve identificar a resolução de medição e a resolução de apresentação. Colocação preferencial: capítulo de métodos, com remissão para esta secção.}
+
+\section{Grandezas físicas e indicadores energéticos}
+\label{sec:mat-energia}
+
+\subsection{Fronteiras e balanços}
+\label{sec:mat-balancos}
+% MAP: M02.01 M02.02
+A carga só pode ser interpretada depois de fixada a fronteira do processo. Para uma unidade, o balanço material integrado num período é
+\begin{equation}
+M_{\mathrm{final}}-M_{\mathrm{inicial}}
+=\sum_j m_{j,\mathrm{entrada}}-\sum_k m_{k,\mathrm{saída}}.
+\label{eq:mat-balanco-material}
+\end{equation}
+As correntes internas à fronteira cancelam-se. Recirculações que atravessam a fronteira permanecem no balanço, mas a sua inclusão na variável ``carga processada'' depende da definição operacional adotada. Esta definição tem de ser comum à série de carga, aos indicadores por unidade de produção e à referência energética.
+
+Desprezando variações de energia cinética e potencial, uma forma do balanço energético é
+\begin{equation}
+\Delta U=\mathcal Q_{\mathrm{ext}}-\mathcal W_{\mathrm{ext}}
++\sum_j m_{j,\mathrm{entrada}}h_j-\sum_k m_{k,\mathrm{saída}}h_k.
+\label{eq:mat-balanco-energia}
+\end{equation}
+$\mathcal Q_{\mathrm{ext}}$ designa calor transferido para o sistema e $\mathcal W_{\mathrm{ext}}$ trabalho realizado pelo sistema. A energia química pode ser incluída nas entalpias ou representada por um termo de combustível numa formulação compatível; deve evitar-se a dupla contabilização. Uma eficiência térmica $\eta=\mathcal Q_{\mathrm{útil}}/E_{\mathrm{fornecida}}$ exige definir o efeito útil e a fronteira. GNE, consumo específico e desvio à baseline são indicadores com outras definições; a sua variação não quantifica, por si só, uma eficiência termodinâmica.
+
+\revisaotese{MAT-F02}{P1}{FIGURA}{Desenhar a fronteira da unidade de destilação}{Usar um esquema de correntes com carga fresca, retornos, produtos, combustível, vapor e eletricidade. Identificar o que entra em $Q_t$ e em cada $E_{v,t}$. Um Sankey só deve ser acrescentado quando existir um balanço reconciliado e um período comum; até lá, setas sem larguras quantitativas. Completar a ligação à descrição física do caso de estudo.}
+
+\subsection{Conversão em gás natural equivalente}
+\label{sec:mat-gne}
+% MAP: M02.03 M02.05 M02.06
+Para uma massa $m_j$ de combustível com poder calorífico inferior $\mathrm{PCI}_j$, a massa equivalente de gás natural é
+\begin{equation}
+E_{\mathrm{GNE},j}=m_j\frac{\mathrm{PCI}_j}{\mathrm{PCI}_{\mathrm{ref}}},
+\qquad E_{\mathrm{GNE}}=\sum_j E_{\mathrm{GNE},j}.
+\label{eq:mat-gne-combustivel}
+\end{equation}
+Com $m_j$ em toneladas e ambos os poderes caloríficos em kcal/kg, o resultado é expresso em t GNE. Uma base volúmica requer a conversão de volume em massa nas condições de referência. PCI e poder calorífico superior não são intercambiáveis.
+
+Para vapor do nível de pressão $v$, a convenção contabilística toma a forma
+\begin{equation}
+E_{\mathrm{GNE},v}=m_v\frac{\Delta h_{v,\mathrm{eq}}}{\mathrm{PCI}_{\mathrm{ref}}}.
+\label{eq:mat-gne-vapor}
+\end{equation}
+$\Delta h_{v,\mathrm{eq}}$ é o equivalente entálpico adotado, cuja referência deve incluir o tratamento do condensado e da água de alimentação. O saldo líquido resulta de débitos e créditos com os sinais declarados. Um saldo negativo, como pode ocorrer no vapor de 10 bar, não representa uma massa consumida negativa: exprime a convenção de crédito líquido.
+
+Na eletricidade, os parâmetros usados no texto conduzem a
+\begin{equation}
+E_{\mathrm{GNE,el}}\,[\mathrm{t}]
+=E_{\mathrm{el}}\,[\mathrm{MWh}]
+\frac{860{,}4}{11\,820\times0{,}57}.
+\label{eq:mat-gne-eletricidade}
+\end{equation}
+O fator $860{,}4$ exprime Mcal/MWh. A conversão Mcal--kcal e a conversão kg--t cancelam os respetivos fatores de mil. A divisão pelo rendimento $0{,}57$ expressa combustível equivalente segundo essa convenção; o valor em MWh continua a ser a energia elétrica final.
+
+\revisaotese{MAT-02}{P1}{FONTES}{Fechar a tabela de fatores físicos}{Confirmar a fonte, a vigência e a base de $\mathrm{PCI}_{\mathrm{ref}}=11\,820$ kcal/kg, do rendimento elétrico e dos equivalentes entálpicos de cada nível de vapor. Atribuir os valores 698, 738 e 758 kcal/kg aos níveis corretos a partir da tabela de parâmetros, sem inferir a associação pela ordem em que aparecem. Esta verificação deve preceder a versão final do dicionário de dados.}
+
+\subsection{Energia integrada e produto de agregados}
+\label{sec:mat-produto-medias}
+% MAP: M02.04
+Considere-se um dia com $H$ intervalos de igual duração, massas $m_h$ e valores $c_h=\mathrm{PCI}_h$. A energia proporcional à soma dos produtos é $\sum_hm_hc_h$. O produto da massa total pelo PCI médio simples difere dessa soma em
+\begin{equation}
+\sum_{h=1}^H m_hc_h-\left(\sum_{h=1}^Hm_h\right)\bar c
+=H\operatorname{Cov}_H(m,c),
+\label{eq:mat-covariancia-agregacao}
+\end{equation}
+onde $\operatorname{Cov}_H$ usa divisor $H$. Os dois cálculos coincidem se essa covariância for nula. A média de PCI ponderada pela massa reproduz a soma dos produtos quando as massas e os poderes caloríficos estão alinhados. A consulta à transformação de tags mostrou uma combinação de caudal agregado e PCI médio diário; o nome da regra não basta para concluir que há integração do produto intradiário. A dimensão do desvio nos dados da refinaria permanece por quantificar.
+
+\subsection{Massa, volume e transformações operacionais}
+\label{sec:mat-transformacoes}
+% MAP: M02.07 M02.08
+A conversão entre massa e volume exige a massa volúmica nas mesmas condições: $V=m/\varrho$. Com $m$ em t e $\varrho$ em t/m$^3$, obtém-se $V$ em m$^3$; a conversão para barris usa aproximadamente $6{,}28981$ bbl/m$^3$. A densidade relativa $SG$ é adimensional e refere-se a temperaturas especificadas para a amostra e para a água. A transformação API é
+\begin{equation}
+{}^{\circ}\!API=141{,}5/SG-131{,}5,
+\qquad T_F=\tfrac95T_C+32.
+\label{eq:mat-api-temperatura}
+\end{equation}
+Uma massa volúmica numérica em t/m$^3$ não deve ser substituída por $SG$ sem explicitar a aproximação e a temperatura. Uma tag já expressa em graus Fahrenheit não volta a ser convertida.
+
+A pressão absoluta é $P_{\mathrm{abs}}=P_{\mathrm{man}}+P_{\mathrm{atm}}$. O ramo contabilístico consultado usa numericamente $P_{\mathrm{mmHg}}=760(0{,}9869P_{\mathrm{barg}}+1)$, o que incorpora uma atmosfera de referência. Numa expressão logarítmica escreve-se $\ln(P_{\mathrm{abs}}/P_0)$, sendo $P_0$ a unidade de pressão convencionada na correlação. Um rendimento volúmico obtido de um rendimento mássico satisfaz $Y_V=Y_m\varrho_{\mathrm{carga}}/\varrho_{\mathrm{produto}}$, desde que ambas as densidades usem condições compatíveis.
+
+\subsection{Consumo específico, normalização e EII}
+\label{sec:mat-indicadores}
+% MAP: M02.09 M02.10 M02.11 M02.12
+O consumo específico de um período $\mathcal P$ é a razão de totais calculados nos mesmos dias:
+\begin{equation}
+CE_{\mathcal P}=\frac{\sum_{t\in\mathcal P}E_t}{\sum_{t\in\mathcal P}Q_t}
+=\sum_{t\in\mathcal P}\frac{Q_t}{\sum_sQ_s}\frac{E_t}{Q_t}.
+\label{eq:mat-consumo-especifico}
+\end{equation}
+A segunda igualdade requer cargas positivas. Com as unidades adotadas, $CE$ exprime t GNE/kt. A média simples dos rácios diários atribui o mesmo peso a cargas diferentes. Se $E_t=a+bQ_t+\varepsilon_t$, então
+\begin{equation}
+\frac{E_t}{Q_t}=b+\frac{a}{Q_t}+\frac{\varepsilon_t}{Q_t}.
+\label{eq:mat-racio-carga}
+\end{equation}
+Um consumo específico decrescente com a carga pode, assim, resultar da repartição de uma parcela fixa por mais produção.
+
+Uma referência normaliza a comparação pelas condições observadas: $r_t=E_t-\widehat f_R(\boldsymbol x_t)$. A conversão para uma condição comum $\boldsymbol x_0$ pode escrever-se $E_t^{\mathrm{norm}}=E_t-\widehat f_R(\boldsymbol x_t)+\widehat f_R(\boldsymbol x_0)$. Esta operação depende do modelo e do domínio em que se aplica; não elimina automaticamente fatores omitidos.
+
+Na formulação contabilística do índice de intensidade energética, sejam $C_j$ e $S_j$ a energia consumida e a energia padrão do mesmo objeto $j$, numa unidade comum:
+\begin{equation}
+EII=100\frac{\sum_jC_j}{\sum_jS_j},
+\qquad S_j=V_j^{\mathrm{bbl}}F_j,
+\qquad EII=\sum_j\frac{S_j}{\sum_kS_k}EII_j.
+\label{eq:mat-eii}
+\end{equation}
+A última igualdade pressupõe $S_j>0$ e $EII_j=100C_j/S_j$. A agregação é ponderada pela energia padrão. Para a unidade de destilação, $F_j$ depende da correlação e das características operacionais adotadas. Quartis de uma população de comparação são estatísticas dessa população e período; não são limiares universais de eficiência. Uma decomposição por vetor exige que os numeradores parciais somem o numerador global e que a afetação do padrão esteja definida.
+
+\revisaotese{MAT-03}{P1}{FONTES}{Conferir a correlação da unidade antes de transcrever os coeficientes}{O ramo CC extraído contém uma função por partes de API, rendimento, temperatura de flash e logaritmo da pressão, com recusas por valores em falta e por limites numéricos. Confrontar essa transcrição com a versão oficial da metodologia Solomon, as unidades e a tabela de parâmetros. Até essa conferência, a equação~\ref{eq:mat-eii} define a estrutura do índice e $F_j$ permanece uma função documentada no dicionário; não se apresenta uma correlação proprietária como fórmula já validada.}
+
+\subsection{Emissões calculadas}
+\label{sec:mat-emissoes}
+% MAP: M02.13
+Com fatores $f_v$ em t CO$_2$/t GNE, a conversão contabilística é
+\begin{equation}
+M_{\mathrm{CO_2}}\,[\mathrm{kt}]=\frac1{1000}\sum_v E_{\mathrm{GNE},v}\,[\mathrm{t}]\,f_v.
+\label{eq:mat-emissoes}
+\end{equation}
+A interpretação depende da origem e do âmbito de cada fator: combustão direta, energia adquirida ou outro critério contabilístico. Para um vetor com crédito, é necessário declarar se o fator se aplica ao consumo bruto, à produção creditada ou ao saldo. O resultado não substitui um inventário de emissões com fronteiras próprias.
+
+\revisaotese{MAT-F03}{P2}{FIGURA}{Mostrar as conversões sem esconder as unidades}{Criar uma tabela visual de quatro percursos: combustível, vapor, eletricidade e emissões. Cada seta deve indicar fator, unidade e fonte. Acrescentar um pequeno gráfico ilustrativo de $a+bQ$ e de $b+a/Q$, identificado como exemplo algébrico, para explicar a dependência do consumo específico com a carga.}
+
+\section{Contagens, bibliometria e redes}
+\label{sec:mat-bibliometria}
+
+\subsection{Conjuntos, denominadores e disponibilidade}
+\label{sec:mat-contagens}
+% MAP: M03.01 M03.02 M03.03 M03.04 M03.09
+O fluxo da revisão é uma sucessão de conjuntos de registos. Depois de identificados os duplicados, cada etapa separa registos que avançam, registos excluídos e, quando aplicável, registos pendentes. Para uma partição completa, $N_{\mathrm{entrada}}=N_{\mathrm{avança}}+N_{\mathrm{excluído}}+N_{\mathrm{pendente}}$. As razões de exclusão só podem ser somadas se forem mutuamente exclusivas ou se a contagem admitir explicitamente mais de uma razão por registo.
+
+Num grupo $g$, a taxa de recuperação do texto integral é $a_g=n_{\mathrm{recuperados},g}/n_{\mathrm{procurados},g}$. Os artigos sem texto acessível podem diferir dos restantes; a taxa descreve disponibilidade e não mede a qualidade metodológica do grupo.
+
+Para um campo multirrótulo, defina-se $B_{ij}=1$ se o artigo $i$ tiver o rótulo $j$. A frequência é $n_j=\sum_iB_{ij}$ e a proporção por artigo é $n_j/N_{\mathrm{elegíveis}}$. Como um artigo pode contribuir para vários rótulos, a soma das proporções pode ultrapassar um. Num cruzamento, $n_{jk}=\sum_iB_{ij}C_{ik}$ conta artigos com ambos os rótulos. O denominador é o número de artigos elegíveis para os dois campos, e não a soma das células da tabela.
+
+Uma interseção exata de rótulos $S$ conta $\sum_i\mathbf1\{L_i=S\}$, enquanto uma interseção inclusiva conta $\sum_i\mathbf1\{S\subseteq L_i\}$. Na contagem fracionada, um artigo com $|L_i|$ rótulos atribui $1/|L_i|$ a cada rótulo, conservando contribuição total unitária. A escolha deve constar da legenda das figuras de interseções e de fluxos.
+
+As séries por ano usam o ano de publicação e o estado de cobertura da pesquisa. Citações recebidas têm uma data de consulta e uma janela de exposição: artigos recentes tiveram menos tempo para acumular citações. A quota $p_j=n_j/N$ e o índice $\sum_jp_j^2$ podem descrever concentração numa partição de categorias, mas requerem normalização compatível se as categorias forem multirrótulo. Uma contagem bibliográfica elevada não equivale a evidência de melhor desempenho industrial.
+
+\subsection{Matrizes de incidência e redes de citação}
+\label{sec:mat-redes}
+% MAP: M03.05 M03.06
+A matriz $B$ de incidência artigo--termo origina a projeção $W=B^{\mathrm T}B$. Fora da diagonal, $W_{jk}$ é o número de artigos que contêm ambos os termos; a diagonal regista a ocorrência de cada termo e é retirada quando se desenham apenas ligações entre termos distintos. Limiares de ocorrência e limites ao número de nós alteram a rede representada e devem ser declarados.
+
+Se $A_{ij}=1$ quando o artigo $i$ cita o artigo $j$, $A$ descreve citação direta. Para uma matriz $C$ artigo--referência, $CC^{\mathrm T}$ conta referências partilhadas entre artigos e $C^{\mathrm T}C$ conta cocitações entre referências. O acoplamento normalizado usado na análise exploratória é
+\begin{equation}
+w_{ij}^{\mathrm{acoplamento}}=
+\frac{|R_i\cap R_j|}{\sqrt{|R_i|\,|R_j|}},
+\label{eq:mat-acoplamento}
+\end{equation}
+para listas não vazias $R_i,R_j$. Uma lista de referências incompleta altera estes pesos. A ausência de uma ligação pode, por isso, resultar de metadados em falta.
+
+\subsection{Comunidades e posição dos nós}
+\label{sec:mat-modularidade}
+% MAP: M03.07
+Numa rede não dirigida e ponderada, a modularidade de uma partição é
+\begin{equation}
+\mathcal Q=\frac1{2m_W}\sum_{i,j}
+\left(W_{ij}-\gamma\frac{k_i k_j}{2m_W}\right)\mathbf1\{c_i=c_j\},
+\label{eq:mat-modularidade}
+\end{equation}
+onde $k_i=\sum_jW_{ij}$, $2m_W=\sum_ik_i$, $c_i$ identifica a comunidade e $\gamma$ controla a resolução. A implementação exploratória usa uma procura gulosa de modularidade na versão não dirigida da rede\footnote{Convenção documentada em \url{https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.quality.modularity.html}.}. A posição gráfica resulta de um algoritmo de disposição com semente fixa; a distância desenhada não é uma distância temática calibrada. A centralidade de intermediação consultada usa caminhos sem ponderação, enquanto a força de um nó soma pesos. Estas medidas descrevem propriedades diferentes.
+
+\subsection{TF--IDF e tópicos exploratórios}
+\label{sec:mat-topicos}
+% MAP: M03.08
+O peso TF--IDF reduz o contributo de termos que aparecem em muitos documentos. Na convenção com suavização e normalização euclidiana,
+\begin{equation}
+v_{ij}=n_{ij}\left[1+\ln\frac{N+1}{df_j+1}\right],
+\qquad X_{ij}=\frac{v_{ij}}{\sqrt{\sum_kv_{ik}^2}},
+\label{eq:mat-tfidf}
+\end{equation}
+onde $n_{ij}$ é a frequência do termo $j$ no documento $i$ e $df_j$ o número de documentos que o contêm. Linhas sem termos utilizáveis devem ser identificadas. A tokenização, as palavras excluídas e os limiares de frequência fazem parte da definição da matriz\footnote{Convenções de TF--IDF e de fatorização: \url{https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html} e \url{https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html}.}.
+
+A fatorização não negativa procura $U,V\geq0$ tais que $X\approx UV$, minimizando, na forma quadrática sem penalização, $\tfrac12\|X-UV\|_F^2$. A atribuição dominante é $\widehat c_i=\arg\max_kU_{ik}$. O peso máximo não é uma probabilidade. A configuração consultada limita o número de tópicos a seis, usa palavras e pares de palavras e fixa a semente em 44. Os rótulos dos tópicos resultam de interpretação dos termos e exigem inspeção dos artigos correspondentes.
+
+\revisaotese{MAT-F04}{P2}{FIGURA}{Ligar a tabela à rede}{Usar um exemplo mínimo, explicitamente fictício, com três artigos e quatro termos: matriz de incidência, produto matricial e rede resultante. Na bibliometria real, acrescentar à legenda o denominador, os limiares, a cobertura dos metadados e o significado dos pesos. Para multirrótulos, preferir barras ou interseções exatas quando uma rede não acrescentar informação.}
+
+\section{Auditoria da revisão e controlo da extração}
+\label{sec:mat-auditoria-revisao}
+
+\subsection{Divergência, alteração e cobertura humana}
+\label{sec:mat-auditoria-taxas}
+% MAP: M04.01 M04.02 M04.08
+Para um campo $v$, sejam $a_{iv}^{(1)},a_{iv}^{(2)}$ duas extrações normalizadas e $h_{iv}$ a decisão humana fundamentada no texto integral. A taxa de divergência é $\sum_i\mathbf1\{a_{iv}^{(1)}\neq a_{iv}^{(2)}\}/n_v$. Uma taxa de alteração após revelar a extração compara a decisão humana anterior e posterior à revelação, usando apenas decisões efetivamente obtidas sem acesso prévio à extração. A fundamentação por passagem verificável tem um denominador próprio: o número de decisões para as quais se exige essa evidência.
+
+O protocolo usa a divergência para encaminhar a revisão. As decisões verificadas por censo, as auditadas por amostragem e as provisoriamente aceites por concordância devem permanecer distinguíveis. Para detetores com conjuntos de candidatos $D_1,D_2,D_3$, a união $D=D_1\cup D_2\cup D_3$ é revista integralmente. Num fecho iterativo, repete-se a revisão enquanto existirem candidatos por resolver segundo a regra fixada. Esvaziar a união prova que os candidatos nela enumerados foram tratados. Não mede os falsos negativos que nenhum detetor assinalou.
+
+A instabilidade de repetição pode ser expressa pela fração de decisões alteradas numa segunda leitura. A interpretação mantém-se restrita às decisões repetidas. O recall exigiria conhecer todos os artigos verdadeiramente elegíveis, incluindo os não detetados; sem essa enumeração, a sua estimativa não está identificada.
+
+\subsection{Unidade de amostragem e definição de erro}
+\label{sec:mat-auditoria-amostra}
+% MAP: M04.03 M04.04
+A auditoria aleatória do nível bibliométrico seleciona artigos. A unidade de erro é a célula artigo--campo. Para cada campo $v$, apenas entram no denominador as células amostradas concordantes, aplicáveis, avaliáveis e não cobertas individualmente por um censo. Assim,
+\begin{equation}
+n_v=\sum_{i\in\mathcal A_{\mathrm{audit}}}I_{iv},
+\qquad e_v=\sum_{i\in\mathcal A_{\mathrm{audit}}}I_{iv}D_{iv},
+\qquad \widehat p_v=e_v/n_v.
+\label{eq:mat-erro-auditoria}
+\end{equation}
+$I_{iv}$ assinala a elegibilidade da célula e $D_{iv}$ o erro. Num campo categórico, o erro corresponde à diferença entre valores normalizados. Num campo multisseleção, $D_{iv}=\mathbf1\{A_{iv}\mathbin\triangle H_{iv}\neq\varnothing\}$: qualquer elemento em falta ou acrescentado conta como um erro do campo. A decisão para texto livre exige discrepância substantiva documentada. ``Não aplicável'' e ``ausente'' são estados distintos.
+
+A seleção de 40 artigos não implica $n_v=40$ para todos os campos. As taxas são apresentadas por campo. Agregar as células numa única taxa confundiria denominadores e a dependência entre campos do mesmo artigo.
+
+\subsection{Intervalos exatos e ausência de erros observados}
+\label{sec:mat-clopper-pearson}
+% MAP: M04.05 M04.06
+Sob o modelo binomial $X\sim\operatorname{Bin}(n,p)$, o intervalo bilateral de Clopper--Pearson de nível $1-\alpha$ é~\parencite{ClopperPearson1934}
+\begin{equation}
+L=\begin{cases}0,&e=0,\\q_{\alpha/2}\{\operatorname{Beta}(e,n-e+1)\},&e>0,\end{cases}
+\quad
+U=\begin{cases}1,&e=n,\\q_{1-\alpha/2}\{\operatorname{Beta}(e+1,n-e)\},&e<n.\end{cases}
+\label{eq:mat-cp}
+\end{equation}
+Numa população finita com $N$ células elegíveis e $K$ erros, a amostragem sem reposição tem distribuição hipergeométrica:
+\begin{equation}
+\Pr(X=e\mid K)=\frac{\binom Ke\binom{N-K}{n-e}}{\binom Nn}.
+\label{eq:mat-hipergeometrica}
+\end{equation}
+O protocolo conserva o intervalo binomial como descrição conservadora da incerteza para a população finita. A exatidão refere-se ao modelo e ao procedimento de cobertura; o limite não é uma garantia determinística sobre as células não observadas. Os intervalos por campo têm cobertura marginal, sem garantia simultânea para o conjunto dos campos.
+
+Se não se observar qualquer erro, o limite superior unilateral é
+\begin{equation}
+U_{1-\alpha}=1-\alpha^{1/n},
+\qquad n\geq\frac{\ln\alpha}{\ln(1-p_0)}
+\label{eq:mat-zero-erros}
+\end{equation}
+para que esse limite não exceda $p_0$, arredondando $n$ por excesso. Com $n=40$ e $\alpha=0{,}05$, o limite unilateral é aproximadamente $7{,}2\%$; o limite bilateral superior é aproximadamente $8{,}8\%$, pois usa $\alpha/2$. A aproximação $3/n$ é útil para leitura rápida do primeiro limite, mas a expressão exata deve sustentar a tabela.
+
+\subsection{Gatilhos de revisão}
+\label{sec:mat-gatilhos}
+% MAP: M04.07
+Uma regra que aciona revisão quando $X\geq c$ tem probabilidade de acionamento
+\begin{equation}
+\Pr_p(X\geq c)=1-\sum_{j=0}^{c-1}\binom njp^j(1-p)^{n-j}.
+\label{eq:mat-gatilho}
+\end{equation}
+Esta curva permite perceber que taxas de erro o instrumento tem capacidade de assinalar. Não acionar o gatilho é compatível com taxas positivas de erro. Para populações pequenas, a expressão hipergeométrica permite calcular a probabilidade correspondente sem reposição.
+
+\revisaotese{MAT-F05}{P2}{FIGURA}{Tornar visível a incerteza da auditoria}{Representar $e_v/n_v$ e o intervalo exato de cada campo, com $n_v$ junto ao ponto. Numa figura explicativa separada, desenhar o limite superior unilateral para zero erros em função de $n$. Identificar o ponto $n=40$ e evitar juntar as decisões censitadas ao denominador amostral.}
+
+\section{Regressão, estimação e modelos comparadores}
+\label{sec:mat-regressao}
+
+\subsection{Modelo linear e mínimos quadrados}
+\label{sec:mat-ols}
+% MAP: M05.01 M05.02 M05.03
+Para um vetor energético e um período de treino, a baseline linear simples é
+\begin{equation}
+E_t=a+bQ_t+\varepsilon_t,
+\qquad \boldsymbol E=X\boldsymbol\beta+\boldsymbol\varepsilon,
+\quad \boldsymbol\beta=(a,b)^{\mathrm T}.
+\label{eq:mat-modelo-linear}
+\end{equation}
+As linhas de $X$ são $(1,Q_t)$. O intercepto tem unidade t GNE/dia e o declive t GNE/kt. A interpretação de $a$ como consumo sem carga exige que essa condição pertença ao domínio físico do modelo; num ajuste restrito à operação a carga elevada, $a$ é sobretudo um parâmetro da reta extrapolada.
+
+O estimador de mínimos quadrados ordinários minimiza a soma dos quadrados dos resíduos:
+\begin{equation}
+\widehat{\boldsymbol\beta}
+=\arg\min_{\boldsymbol\beta}\|\boldsymbol E-X\boldsymbol\beta\|_2^2
+=(X^{\mathrm T}X)^{-1}X^{\mathrm T}\boldsymbol E.
+\label{eq:mat-ols}
+\end{equation}
+A forma inversa pressupõe posto completo e serve a exposição; a implementação deve resolver o problema por uma decomposição numérica estável. No caso simples, $\widehat b=\sum_t(Q_t-\bar Q)(E_t-\bar E)/\sum_t(Q_t-\bar Q)^2$ e $\widehat a=\bar E-\widehat b\bar Q$. Carga constante impede identificar separadamente os dois parâmetros.
+
+Definindo $\widehat e_t=E_t-\widehat E_t$, obtêm-se
+\begin{equation}
+RSS=\sum_t\widehat e_t^2,
+\quad TSS=\sum_t(E_t-\bar E)^2,
+\quad R^2=1-\frac{RSS}{TSS},
+\quad s=\sqrt{\frac{RSS}{n-p}}.
+\label{eq:mat-rss-escala}
+\end{equation}
+No ajuste simples com intercepto, $p=2$. O divisor $n-p$ corresponde aos graus de liberdade residuais e requer $n>p$. A interpretação clássica como estimativa não enviesada da variância pressupõe erros homocedásticos não correlacionados e uma média corretamente especificada. O cálculo da escala pode manter-se como convenção descritiva quando essas hipóteses falham, mas as garantias clássicas deixam de se seguir da fórmula.
+
+No treino, $R^2$ descreve a redução de soma de quadrados perante a média da própria amostra. Fora do treino pode ser negativo. Se $TSS=0$, a razão fica indefinida; um valor substituto produzido por uma biblioteca é uma convenção numérica que deve ser documentada. Para uma referência operacional treinada no passado, é preferível calcular diretamente o ganho face a essa referência, conforme a Secção~\ref{sec:mat-perdas}.
+
+\revisaotese{MAT-04}{P1}{METODO}{Separar ajuste calculável de ajuste admissível}{O cálculo consultado pode devolver uma reta com três observações; o protocolo menciona mínimos de disponibilidade mais exigentes. Fixar a regra de admissibilidade por etapa e a condição de posto completo. Três pontos permitem calcular $s$ com um grau de liberdade, mas não fundamentam automaticamente o uso operacional do modelo.}
+
+\subsection{Modelos constantes, pela origem e com covariáveis}
+\label{sec:mat-modelos-comparadores}
+% MAP: M05.04 M05.05
+O preditor constante usa $\widehat E_t=\bar E_{\mathcal R}$. Uma reta forçada a passar pela origem tem
+\begin{equation}
+\widehat E_t=\widehat b_0Q_t,
+\qquad \widehat b_0=\frac{\sum_{t\in\mathcal R}Q_tE_t}{\sum_{t\in\mathcal R}Q_t^2}.
+\label{eq:mat-origem}
+\end{equation}
+Para $Q_t\neq0$, $\widehat b_0$ é uma média de $E_t/Q_t$ ponderada por $Q_t^2$. A referência B09 consultada usa este ajuste. Não coincide, em geral, com a razão de totais da equação~\ref{eq:mat-consumo-especifico} nem com a mediana dos rácios diários.
+
+O modelo alargado escreve-se $E_t=a+bQ_t+\boldsymbol\gamma^{\mathrm T}\boldsymbol Z_t+\varepsilon_t$. Comparar modelos encaixados permite medir o contributo incremental das covariáveis, desde que se usem os mesmos dias. O $RSS$ de treino não aumenta ao acrescentar colunas a um modelo de mínimos quadrados; essa propriedade não assegura ganho em aplicação. As referências B01, B02, B03, B08 e B09 correspondem, respetivamente, à constante, à reta com carga e intercepto, aos conjuntos de covariáveis nucleares e de referência e à reta pela origem. Na configuração consultada, o conjunto nuclear contém carga, massa volúmica da carga, temperatura e pressão de flash; o conjunto de referência contém carga e massa volúmica da carga. Cada conjunto deve ser enumerado no dicionário do lote, incluindo transformações e disponibilidade temporal.
+
+\subsection{Huber e Theil--Sen}
+\label{sec:mat-robustos}
+% MAP: M05.06 M05.07
+O ajuste de Huber reduz a influência de resíduos grandes através de uma perda quadrática no centro e linear nas caudas~\parencite{Huber1964,HollandWelsch1977}:
+\begin{equation}
+\rho_c(u)=\begin{cases}\tfrac12u^2,&|u|\leq c,\\c|u|-\tfrac12c^2,&|u|>c,\end{cases}
+\qquad \min_{a,b}\sum_t\rho_c\!\left(\frac{E_t-a-bQ_t}{s_{\mathrm{ajuste}}}\right).
+\label{eq:mat-huber}
+\end{equation}
+A implementação consultada usa $c=1{,}345$, mínimos quadrados iterativamente ponderados e atualização da escala por MAD. Depois do ajuste, a escala usada nas bandas robustas é calculada a partir dos resíduos finais:
+\begin{equation}
+s_{\mathrm{MAD}}=1{,}4826\operatorname{mediana}_t
+\left|\widehat e_t-\operatorname{mediana}_s\widehat e_s\right|.
+\label{eq:mat-mad}
+\end{equation}
+O fator aproxima a escala do desvio-padrão sob normalidade. Uma MAD nula não deve produzir divisões por zero nem uma banda automaticamente admissível. A robustez a resíduos extremos não protege, por si só, contra todos os padrões de alavancagem.
+
+O estimador de Theil--Sen usa a mediana dos declives entre pares com cargas distintas~\parencite{Sen1968}:
+\begin{equation}
+\widehat b_{TS}=\operatorname{mediana}_{i<j,\,Q_i\neq Q_j}
+\frac{E_j-E_i}{Q_j-Q_i},
+\qquad
+\widehat a_{TS}=\operatorname{mediana}(E)-\widehat b_{TS}\operatorname{mediana}(Q).
+\label{eq:mat-theil-sen}
+\end{equation}
+A segunda expressão é a convenção \texttt{separate} usada pela função consultada\footnote{Documentação da convenção do intercepto: \url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.theilslopes.html}. A opção \texttt{joint} usa outra regra.}. As bandas de Huber e Theil--Sen partilham a escala da equação~\ref{eq:mat-mad}, calculada separadamente para cada ajuste. A comparação temporal de estimadores robustos usa os mesmos erros observados e datas de aplicação.
+
+\subsection{Modelos aditivos e penalização}
+\label{sec:mat-gam}
+% MAP: M05.08
+Um modelo aditivo generalizado com resposta contínua e ligação identidade representa a média por
+\begin{equation}
+\widehat E_t=\beta_0+\sum_j f_j(Z_{jt}),
+\qquad f_j(z)=\sum_k\theta_{jk}B_{jk}(z),
+\label{eq:mat-gam}
+\end{equation}
+com funções de base $B_{jk}$. A estimação equilibra o ajuste e a irregularidade das funções~\parencite{HastieTibshirani1986,Wood2017}:
+\begin{equation}
+\min_{\boldsymbol\theta}\|\boldsymbol E-B\boldsymbol\theta\|^2
++\sum_j\lambda_j\boldsymbol\theta^{\mathrm T}S_j\boldsymbol\theta.
+\label{eq:mat-penalizacao}
+\end{equation}
+$S_j$ define a penalização e $\lambda_j$ a sua intensidade. Para parâmetros de suavização fixos, a matriz de alisamento $H_\lambda$ permite definir graus de liberdade efetivos por $\operatorname{tr}(H_\lambda)$. Estes não devem ser substituídos automaticamente pelo número de colunas da base. Interações por produtos tensoriais permitem que o efeito de uma variável dependa de outra. A especificação deve indicar quais os termos marginais já incluídos, evitando duplicá-los inadvertidamente. A seleção de bases e penalizações pertence ao treino.
+
+\subsection{Limites da interpretação dos coeficientes}
+\label{sec:mat-causalidade}
+% MAP: M05.09
+A leitura causal de $b$ requer mais do que um ajuste preciso. Variáveis omitidas correlacionadas com a carga, erros de medição e decisões operacionais em resposta ao consumo podem tornar $\operatorname{E}(\varepsilon_t\mid\boldsymbol x_t)\neq0$. Mesmo a atenuação de um declive por erro na carga depende de hipóteses específicas sobre esse erro. Nesta dissertação, os coeficientes caracterizam relações ajustadas nas populações selecionadas. A atribuição de poupanças a uma intervenção exige um desenho e um contrafactual adicionais.
+
+\subsection{Famílias referidas no trabalho futuro}
+\label{sec:mat-modelos-futuros}
+% Extensão do mapa: famílias mencionadas no esqueleto ativo do capítulo 8.
+O roteiro de trabalho futuro refere também erros ARMA, partilha parcial de informação entre unidades e modelos com estrutura física. Estas famílias respondem a problemas distintos. Um erro ARMA($p,q$) satisfaz $e_t=\sum_{j=1}^p\phi_je_{t-j}+\nu_t+\sum_{k=1}^q\theta_k\nu_{t-k}$, acrescentando efeitos de inovações passadas à componente autorregressiva~\parencite{BoxJenkins2015}. A estimação requer condições de estabilidade e uma convenção de inicialização.
+
+Na partilha parcial, cada unidade conserva parâmetros próprios que são estimados com informação de um conjunto de unidades. Uma representação possível é $\boldsymbol\beta_u\sim\mathcal N(\boldsymbol\mu_\beta,\Sigma_\beta)$ e $E_{u,t}=\boldsymbol x_{u,t}^{\mathrm T}\boldsymbol\beta_u+\varepsilon_{u,t}$. A intensidade da partilha depende da variabilidade entre unidades e da informação em cada uma. Esta formulação é uma proposta, sem ajuste apresentado nesta dissertação.
+
+Num modelo com estrutura física, ou \emph{grey-box}, relações de balanço restringem uma função $f_{\mathrm{fis}}(\boldsymbol x_t,\boldsymbol\theta)$ cujos parâmetros são estimados nos dados. A sua utilidade depende da fronteira, das medições disponíveis e da identificabilidade: parâmetros diferentes não devem produzir respostas indistinguíveis no domínio observado. A escolha destas extensões deve partir de uma falha documentada e de um comparador definido.
+
+\section{Avaliação temporal, perdas e comparação}
+\label{sec:mat-avaliacao-temporal}
+
+\subsection{Treino e informação disponível}
+\label{sec:mat-tempo}
+% MAP: M06.01 M06.02 M06.06
+Em cada par anual, o modelo é ajustado em $\mathcal R_y$ e aplicado em $\mathcal A_{y+1}$. Os cinco pares encadeados abrangem 2020--2021 a 2024--2025. Os dados de 2026, ainda parciais no desenho descrito, têm um papel diagnóstico separado. A avaliação temporal mantém a ordem treino--aplicação~\parencite{Tashman2000}; a consulta exploratória prévia aos anos de aplicação impede descrevê-los como um conjunto de teste intocado.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1.7cm,y=.6cm,font=\small]
+\foreach \i/\a in {0/2020,1/2021,2/2022,3/2023,4/2024,5/2025}{\node at (\i,1){\a};}
+\foreach \i in {0,...,4}{
+\draw[fill=blue!18,draw=blue!65!black] (\i-.4,-\i-.3) rectangle (\i+.4,-\i+.3);
+\draw[fill=teal!18,draw=teal!65!black] (\i+.6,-\i-.3) rectangle (\i+1.4,-\i+.3);
+\draw[-{Stealth}] (\i+.42,-\i)--(\i+.58,-\i);
+}
+\node[anchor=west] at (-.4,-5.2){\textcolor{blue!65!black}{Treino}\quad $\longrightarrow$\quad\textcolor{teal!65!black}{Aplicação}};
+\end{tikzpicture}
+\caption{Esquema dos cinco pares anuais. Cada linha representa um ajuste distinto; a figura não apresenta resultados.}
+\label{fig:mat-pares}
+\end{figure}
+
+A informação admissível para uma previsão emitida em $t$ é $\mathcal F_{t-1}$, acrescida de covariáveis de $t$ efetivamente conhecidas no momento de emissão. Conhecer a carga observada no final do dia permite normalização retrospetiva desse dia, mas não garante uma previsão anterior à operação. Uma referência congelada mantém os parâmetros de $\widehat f_R$; uma janela móvel usa os últimos $w$ dias admissíveis; uma janela expansiva conserva todos os dias admissíveis desde uma origem fixa. Estas regras produzem objetos diferentes~\parencite{PesaranTimmermann2007}.
+
+O comparador primário é a média da energia no treino. Os comparadores secundários usam a observação da mesma data civil do ano anterior ou a média dos 30 dias civis anteriores, conforme as condições de completude do protocolo. Uma data sem equivalente, incluindo o caso de 29 de fevereiro quando não existe correspondência, fica indisponível. A janela anterior exclui $E_t$ e não é substituída silenciosamente pelas últimas 30 observações retidas.
+
+\subsection{Perdas e estimandos emparelhados}
+\label{sec:mat-perdas}
+% MAP: M06.03 M06.04
+Nos $n$ dias comuns de aplicação, com $e_t=E_t-\widehat E_t$, calculam-se
+\begin{equation}
+MAE=\frac1n\sum_t|e_t|,
+\quad RMSE=\sqrt{\frac1n\sum_te_t^2},
+\quad \mathrm{viés}=\frac1n\sum_te_t.
+\label{eq:mat-perdas}
+\end{equation}
+O MAE e o RMSE conservam a unidade da resposta. O RMSE atribui mais peso a erros de maior magnitude. Com esta convenção de sinal, viés positivo significa subestimação média. As formas percentuais devem declarar o denominador: em aplicação, uma convenção possível é $NMBE=100\,\mathrm{viés}/\bar E_{\mathcal A}$ e $CV(RMSE)=100\,RMSE/\bar E_{\mathcal A}$. Em ajustes de calibração, algumas convenções usam $n-p$ em vez de $n$. A fórmula e o âmbito devem acompanhar o nome da métrica; médias próximas de zero ou saldos com sinal tornam a leitura percentual inadequada~\parencite{HyndmanKoehler2006}.
+
+Defina-se a diferença diária de perdas entre o comparador $0$ e o modelo $m$:
+\begin{equation}
+d_t=|e_{0,t}|-|e_{m,t}|,
+\qquad \widehat\Delta_{MAE}=\frac1n\sum_td_t,
+\qquad \mathrm{skill}=1-\frac{MAE_m}{MAE_0}.
+\label{eq:mat-ganho}
+\end{equation}
+Um ganho positivo favorece $m$. A skill só está definida quando $MAE_0>0$. O alvo inferencial é a média da diferença de perdas na população de aplicação e sob o condicionamento declarado. Reamostrar as duas séries separadamente perderia o emparelhamento. Para confrontar mais de dois modelos, deve usar-se uma interseção comum ou indicar claramente que os contrastes têm populações diferentes.
+
+\subsection{Escala por exclusão de blocos}
+\label{sec:mat-crossfit}
+% MAP: M06.05
+A escala da referência pode ser estimada com erros produzidos fora do subconjunto usado em cada ajuste. Dividindo $\mathcal R$ em $K$ blocos civis contíguos, ajusta-se $\widehat f_{-k}$ nos restantes blocos e calcula-se $e_t^{CF}=E_t-\widehat f_{-k}(\boldsymbol x_t)$ para $t$ no bloco omitido. A escala agregada é
+\begin{equation}
+s_R=\sqrt{\frac{\sum_t(e_t^{CF}-\bar e^{CF})^2}{n_{CF}-1}}.
+\label{eq:mat-crossfit}
+\end{equation}
+O desenho consultado usa seis blocos de 2020 para os normalizadores declarados. Como o ajuste dos restantes blocos pode incluir datas posteriores ao bloco omitido, este procedimento estima uma escala por exclusão de blocos; não reproduz uma previsão cronológica dentro de 2020. A avaliação anual para o ano seguinte tem esse segundo papel. Devem declarar-se os dias sem previsão, as condições de suporte e o número de erros reunidos.
+
+\subsection{Sensibilidade e comparabilidade}
+\label{sec:mat-sensibilidade}
+% MAP: M06.07
+Uma análise de sensibilidade altera uma escolha de cada vez: janela, conjunto de covariáveis, máscara, comprimento de bloco ou família de banda. Se a alteração muda os dias elegíveis, muda também a população do estimando. A comparação deve apresentar o resultado na população própria e, quando calculável, na interseção comum. A eletricidade mensal conserva a sua unidade de observação mensal, mesmo quando é apresentada numa tabela diária.
+
+\revisaotese{MAT-F06}{P1}{FIGURA}{Representar os ganhos e a população correspondente}{Usar um gráfico de pontos e intervalos para $\Delta_{MAE}$ por vetor e par anual, com zero como referência e $n$ junto de cada contraste. Um painel adjacente pode apresentar os dias excluídos por comparador. Nos gráficos de modelos móveis, identificar a origem e o fim da janela de treino.}
+
+\section{Inferência sob dependência e multiplicidade}
+\label{sec:mat-inferencia}
+
+\subsection{Hipóteses, intervalos e valores p}
+\label{sec:mat-interpretacao-inferencia}
+% MAP: M07.01
+Um intervalo de confiança de nível $1-\alpha$ é produzido por um procedimento cuja cobertura se avalia em repetições do desenho. A interpretação não atribui probabilidade $1-\alpha$ ao parâmetro fixo dentro do intervalo já observado. Um valor $p$ compara a estatística observada com a sua distribuição sob a hipótese nula e as hipóteses auxiliares. Não é a probabilidade de a hipótese nula ser verdadeira. Para séries dependentes, a distribuição de referência e a reamostragem devem refletir a dependência pertinente ao estimando.
+
+\subsection{Covariância HAC e largura de banda}
+\label{sec:mat-hac}
+% MAP: M07.02
+Na regressão linear, defina-se o vetor de contribuições $\boldsymbol g_t=\boldsymbol x_t\widehat e_t$. A covariância robusta à heterocedasticidade e à autocorrelação usada na implementação tem a forma~\parencite{NeweyWest1987,Andrews1991}
+\begin{equation}
+\widehat V_{HAC}=\frac{n}{n-p}(X^{\mathrm T}X)^{-1}
+\left[\sum_{t,s}K\!\left(\frac{|t-s|}{b_H}\right)
+\boldsymbol g_t\boldsymbol g_s^{\mathrm T}\right](X^{\mathrm T}X)^{-1}.
+\label{eq:mat-hac}
+\end{equation}
+A diferença $|t-s|$ é medida em dias civis. O fator $n/(n-p)$ é a correção de dimensão finita presente no código consultado. O kernel quadrático-espectral é
+\begin{equation}
+K(x)=\frac{25}{12\pi^2x^2}
+\left[\frac{\sin(6\pi x/5)}{6\pi x/5}-\cos(6\pi x/5)\right],
+\qquad K(0)=1.
+\label{eq:mat-qs}
+\end{equation}
+Se $b_H=0$, apenas o termo contemporâneo é usado. A aproximação AR(1) auxiliar de cada componente de $\boldsymbol g_t$ usa pares separados por um dia civil. Com coeficientes $\widehat\rho_j$, variâncias de inovação $\widehat\omega_j^2$ e pesos $w_j$ declarados, a regra automática consultada é
+\begin{equation}
+\widehat\alpha_2=
+\frac{\sum_jw_j\,4\widehat\rho_j^2\widehat\omega_j^4/(1-\widehat\rho_j)^8}
+{\sum_jw_j\widehat\omega_j^4/(1-\widehat\rho_j)^4},
+\qquad b_H=1{,}3221(n\widehat\alpha_2)^{1/5}.
+\label{eq:mat-andrews}
+\end{equation}
+O denominador deve ser positivo e as aproximações ativas estacionárias. A estimação auxiliar da largura de banda não corresponde a branquear previamente os resíduos da regressão. Falhas de cálculo ou valores degenerados devem originar um estado explícito, e não a troca silenciosa por uma hipótese de independência.
+
+\subsection{Contrastes entre anos e teste de Wald}
+\label{sec:mat-wald}
+% MAP: M07.03
+Empilhando os interceptos e os declives anuais em $\widehat{\boldsymbol\beta}$, a hipótese linear é $H_0:C\boldsymbol\beta=\boldsymbol c$. A estatística é
+\begin{equation}
+W=(C\widehat{\boldsymbol\beta}-\boldsymbol c)^{\mathrm T}
+(C\widehat V C^{\mathrm T})^{-1}
+(C\widehat{\boldsymbol\beta}-\boldsymbol c).
+\label{eq:mat-wald}
+\end{equation}
+A referência assintótica é $\chi^2_q$, com $q$ restrições independentes, quando se verificam as condições do estimador de covariância. A igualdade de todos os declives pode ser expressa por diferenças em relação a um ano de referência. Para comparar níveis, o contraste $a_y+b_yQ_0$ a uma carga comum $Q_0$ é mais diretamente interpretável do que o intercepto a carga nula. A carga comum deve pertencer ao suporte dos anos comparados. A covariância empilhada deve conservar as dependências relevantes, incluindo as que atravessam a fronteira do ano.
+
+\subsection{Famílias de testes e FDR}
+\label{sec:mat-fdr}
+% MAP: M07.04
+Uma família de $m$ testes deve ser definida antes da leitura dos valores $p$. Ordenando-os como $p_{(1)}\leq\cdots\leq p_{(m)}$, os valores ajustados são
+\begin{equation}
+\widetilde p_{(i)}^{BH}=\min\left\{1,\min_{j\geq i}\frac{m}{j}p_{(j)}\right\},
+\qquad
+\widetilde p_{(i)}^{BY}=\min\left\{1,\min_{j\geq i}\frac{mc_m}{j}p_{(j)}\right\},
+\quad c_m=\sum_{k=1}^m\frac1k.
+\label{eq:mat-fdr}
+\end{equation}
+Benjamini--Hochberg controla a proporção esperada de falsas rejeições sob as condições de dependência do procedimento; Benjamini--Yekutieli alarga esse controlo a dependência arbitrária, com maior conservadorismo~\parencite{BenjaminiHochberg1995,BenjaminiYekutieli2001}. A proporção é definida como zero quando não há rejeições. No desenho descrito, os testes primários dos quatro vetores diários constituem uma família própria. Contrastes secundários não devem ser acrescentados ou retirados da família em função do resultado.
+
+\subsection{Bootstrap de blocos em calendário irregular}
+\label{sec:mat-mbb}
+% MAP: M07.05 M07.06
+O bootstrap de blocos móveis reamostra segmentos para conservar parte da dependência local~\parencite{Kunsch1989,Lahiri2003}. Para datas disponíveis $\mathcal T$ entre $t_0$ e $t_1$, um bloco candidato de comprimento $\ell$ é
+\begin{equation}
+\mathcal B_s=\{t\in\mathcal T:s\leq t<s+\ell\},
+\quad s=t_0,\ldots,t_1-\ell+1,
+\quad |\mathcal B_s|>0.
+\label{eq:mat-blocos}
+\end{equation}
+Esta é a convenção de calendário consultada: um bloco pode conter menos de $\ell$ observações por causa de lacunas. Os inícios candidatos são amostrados uniformemente; concatenam-se os índices dos blocos selecionados até atingir $n$ observações e trunca-se o excesso final. A junção entre blocos é artificial. A construção conserva a sequência interna observada, mas não transforma a série reamostrada numa realização contínua com todas as adjacências originais.
+
+\begin{tcolorbox}[colback=black!2,colframe=black!45,fontupper=\small,title={Algoritmo G.1 --- Intervalo para um contraste emparelhado}]
+\begin{enumerate}[leftmargin=*,nosep]
+\item Fixar as datas comuns, os dois modelos treinados e a diferença de perdas $d_t$.
+\item Construir os blocos civis não vazios da equação~\ref{eq:mat-blocos}.
+\item Para cada réplica $b$, sortear blocos, concatenar os índices e calcular $\widehat\Delta^{*(b)}$ nos $n$ valores selecionados.
+\item Obter os quantis $\alpha/2$ e $1-\alpha/2$ das $B$ estimativas, com interpolação declarada.
+\item Repetir para os comprimentos de bloco de sensibilidade e publicar a estimativa, o intervalo, $n$, $\ell$, $B$ e a identificação da semente.
+\end{enumerate}
+\end{tcolorbox}
+
+A regra de base é $\ell_0=\lceil n^{1/3}\rceil$ e o protocolo usa $B=2000$ réplicas nas etapas correspondentes. Os comprimentos adicionais dependem da etapa; a grelha deve acompanhar cada resultado. Reamostrar $d_t$ mantém os parâmetros treinados fixos. O intervalo resultante é condicional a esses ajustes e não incorpora a variabilidade de voltar a selecionar e treinar os modelos. O mesmo princípio se aplica ao indicador de cobertura de uma banda já fixada.
+
+\subsection{Bootstrap sob a hipótese nula}
+\label{sec:mat-bootstrap-nulo}
+% MAP: M07.07
+Para aproximar a distribuição de uma estatística sob $H_0$, ajusta-se primeiro o modelo restrito. Uma representação do bootstrap residual é
+\begin{equation}
+E_t^*=\widehat f_{H_0}(\boldsymbol x_t)+e_t^*,
+\label{eq:mat-bootstrap-nulo}
+\end{equation}
+com resíduos centrados e reamostrados segundo a regra declarada. Cada réplica volta a ajustar os modelos necessários e a calcular a estatística. Os tratamentos de heterocedasticidade, fronteiras anuais e suporte fazem parte da especificação. Uma estatística baseada no máximo de contrastes absolutos não é intercambiável com o Wald da equação~\ref{eq:mat-wald}. O relatório deve identificar qual foi efetivamente calibrada.
+
+\revisaotese{MAT-05}{P1}{METODO}{Conferir o contrato inferencial de cada tabela}{Associar cada intervalo e valor $p$ ao objeto reamostrado, ao condicionamento, à reestimação ou não dos modelos, ao comprimento civil dos blocos e à família de testes. Confirmar os pesos da largura de banda HAC no chamador e a estatística usada no bootstrap sob $H_0$. Evitar a designação genérica ``bootstrap'' como única descrição.}
+
+\subsection{Cobertura simulada e erro Monte Carlo}
+\label{sec:mat-cobertura-mc}
+% MAP: M07.08
+Com verdade $\theta_0$ conhecida em $R$ realizações independentes, a cobertura estimada de um procedimento é $\widehat c=R^{-1}\sum_r\mathbf1\{L_r\leq\theta_0\leq U_r\}$. O seu erro-padrão Monte Carlo aproximado é $\sqrt{\widehat c(1-\widehat c)/R}$. Pode acompanhar-se a estimativa por um intervalo binomial, por exemplo o intervalo de Wilson~\parencite{Wilson1927}:
+\begin{equation}
+\frac{\widehat c+z^2/(2R)\ \pm\ z\sqrt{\widehat c(1-\widehat c)/R+z^2/(4R^2)}}{1+z^2/R},
+\label{eq:mat-wilson}
+\end{equation}
+onde $z$ é o quantil normal correspondente ao nível do intervalo. A cobertura de um intervalo nominal de $90\%$ avalia esse procedimento; não valida automaticamente um intervalo nominal de $95\%$. A validade observada num cenário de simulação mantém-se condicionada ao gerador, à máscara e à dimensão estudados.
+
+\revisaotese{MAT-F07}{P1}{FIGURA}{Desenhar a reamostragem no calendário}{Representar uma sequência com uma lacuna, dois blocos de sete dias e a concatenação de uma réplica. Usar marcas distintas para dias observados e dias sem registo. Acrescentar um gráfico da largura do intervalo em função de $\ell$, com a estimativa pontual fixa, para tornar visível a sensibilidade à dependência.}
+
+\section{Diagnósticos dos dados e dos resíduos}
+\label{sec:mat-diagnosticos}
+
+\subsection{Separação de populações e suporte}
+\label{sec:mat-suporte}
+% MAP: M08.01 M08.09
+Na comparação consultada entre dias retidos e removidos, a diferença padronizada entre grupos $A$ e $B$ é
+\begin{equation}
+SMD=\frac{\bar x_A-\bar x_B}{\sqrt{(v_A+v_B)/2}},
+\qquad v_g=\frac1{n_g}\sum_{i\in g}(x_i-\bar x_g)^2.
+\label{eq:mat-smd}
+\end{equation}
+O grupo $A$ corresponde aos dias retidos, pelo que o sinal positivo indica uma média superior nesses dias. As variâncias usam divisor $n_g$ nesta implementação; outras convenções usam $n_g-1$ ou pesos dependentes das dimensões dos grupos. Dispersão nula ou muito pequena impede uma leitura estável. A separação dos grupos por este critério descreve a seleção; não identifica, por si só, um regime físico.
+
+Uma estimativa por kernel gaussiano da densidade marginal é $\widehat f(x)=(nh)^{-1}\sum_i\phi((x-x_i)/h)$. A regra de Scott em uma dimensão usa um fator proporcional a $n^{-1/5}$ aplicado à escala dos dados. A sobreposição entre duas densidades é
+\begin{equation}
+OVL=\int\min\{\widehat f_A(x),\widehat f_B(x)\}\,dx,
+\qquad 0\leq OVL\leq1.
+\label{eq:mat-overlap}
+\end{equation}
+Uma aproximação em grelha deve declarar a extensão de integração e o número de pontos; uma grelha truncada omite massa de cauda. Sobreposição marginal, intervalo central entre quantis e pertença à caixa multivariada de treino são critérios diferentes. A caixa $\prod_j[\min_{\mathcal R}Z_j,\max_{\mathcal R}Z_j]$ pode conter combinações nunca observadas. Estar dentro dessa caixa não garante proximidade a observações de referência.
+
+\subsection{Dependência temporal}
+\label{sec:mat-acf}
+% MAP: M08.02 M08.03
+Para uma série estacionária, $\rho_k=\operatorname{Cov}(e_t,e_{t-k})/\operatorname{Var}(e_t)$. A estimativa no calendário usa apenas pares $\mathcal P_k=\{t:t,t-k\in\mathcal S\}$. Na implementação consultada, a média e o denominador são globais:
+\begin{equation}
+\widehat\rho_k^{\mathrm{civil}}=
+\frac{\sum_{t\in\mathcal P_k}(e_t-\bar e)(e_{t-k}-\bar e)}
+{\sum_{t\in\mathcal S}(e_t-\bar e)^2}.
+\label{eq:mat-acf-civil}
+\end{equation}
+A ACF mostra associações por desfasamento; a PACF remove os contributos lineares dos desfasamentos intermédios, podendo ser obtida pela recursão de Durbin--Levinson quando a sequência de autocovariâncias é admissível. Lacunas e estimativas por pares podem comprometer essa admissibilidade.
+
+Num exemplo AR(1) estacionário, sem lacunas e para uma média em série longa, $n_{\mathrm{efetivo}}\approx n(1-\rho)/(1+\rho)$. Esta aproximação ilustra a perda de precisão da média com persistência positiva. Outros estimandos e calendários requerem outra avaliação da informação efetiva.
+
+As expressões clássicas de Durbin--Watson e Ljung--Box são
+\begin{equation}
+DW=\frac{\sum_{t=2}^{n}(e_t-e_{t-1})^2}{\sum_{t=1}^{n}e_t^2},
+\qquad Q_{LB}=n(n+2)\sum_{k=1}^{h}\frac{\widehat\rho_k^2}{n-k}.
+\label{eq:mat-dw-lb}
+\end{equation}
+Estas fórmulas supõem uma sequência regularmente indexada. Na adaptação consultada, o numerador de Durbin--Watson inclui apenas pares separados por um dia civil, mantendo a soma global de quadrados no denominador. Ljung--Box usa a ACF civil, conserva $n-k$ e compara a estatística com $\chi^2_h$, sem correção pelo número de parâmetros do modelo. Esta combinação é reproduzível, mas a referência clássica não fica calibrada por essa definição quando há lacunas. Atribuir ao valor $p$ a designação ``descritivo'' não valida a sua interpretação probabilística~\parencite{BoxJenkins2015}.
+
+\subsection{Variância condicional e forma da distribuição}
+\label{sec:mat-variancia-forma}
+% MAP: M08.04 M08.05 M08.06
+A heterocedasticidade significa que $\operatorname{Var}(e_t\mid\boldsymbol x_t)$ varia com as condições. Na versão studentizada de Breusch--Pagan/Koenker, a regressão auxiliar dos resíduos quadrados nas variáveis declaradas conduz a uma estatística $nR_{\mathrm{aux}}^2$. No diagnóstico ARCH de ordem $h$, a regressão auxiliar inclui $e_{t-1}^2,\ldots,e_{t-h}^2$ e a estatística é $n_{\mathrm{aux}}R_{\mathrm{aux}}^2$. A primeira procura variação associada às covariáveis; a segunda procura persistência na escala. As distribuições assintóticas exigem hipóteses próprias e uma amostra auxiliar admissível.
+
+Definindo $m_k=n^{-1}\sum_i(e_i-\bar e)^k$, a assimetria e o excesso de curtose por momentos são $g_1=m_3/m_2^{3/2}$ e $g_2=m_4/m_2^2-3$. As versões com correção amostral, para $n>3$, são
+\begin{equation}
+G_1=\frac{\sqrt{n(n-1)}}{n-2}g_1,
+\qquad
+G_2=\frac{n-1}{(n-2)(n-3)}\{(n+1)g_2+6\}.
+\label{eq:mat-forma}
+\end{equation}
+Estas medidas descrevem forma marginal; não avaliam a estrutura temporal. O RESET acrescenta potências dos valores ajustados, como $\widehat E_t^2$, à regressão e testa o seu contributo. Uma indicação de forma funcional incompleta não especifica qual a transformação física em falta.
+
+A fração de variação entre meses é
+\begin{equation}
+\eta^2_{\mathrm{mês}}=
+\frac{\sum_m n_m(\bar e_m-\bar e)^2}{\sum_t(e_t-\bar e)^2}.
+\label{eq:mat-eta}
+\end{equation}
+O cálculo usa os meses e dias disponíveis e é indefinido quando a variação total é nula. Um valor elevado descreve diferenças entre médias mensais; mudanças operacionais que coincidam com os meses podem contribuir para o mesmo padrão.
+
+\subsection{PCA e agrupamento operacional}
+\label{sec:mat-pca-clusters}
+% MAP: M08.07 M08.08
+Antes de comparar distâncias, as covariáveis são padronizadas: $Z_{ij}^{\mathrm{std}}=(Z_{ij}-\mu_j)/s_j$, com parâmetros estimados na população de ajuste declarada. A análise de componentes principais diagonaliza a matriz de covariância dessa representação. Se $\lambda_k,\boldsymbol v_k$ forem os seus pares próprios, o componente $k$ é $\boldsymbol Z_i^{\mathrm{std}}\boldsymbol v_k$ e a fração de variância explicada é $\lambda_k/\sum_j\lambda_j$.
+
+O algoritmo $k$-means minimiza a soma das distâncias quadráticas aos centroides:
+\begin{equation}
+\min_{c_i,\boldsymbol\mu_1,\ldots,\boldsymbol\mu_K}
+\sum_i\|\boldsymbol z_i-\boldsymbol\mu_{c_i}\|^2.
+\label{eq:mat-kmeans}
+\end{equation}
+No DBSCAN, um ponto central tem um número mínimo de vizinhos dentro de um raio $\epsilon$; grupos formam-se por ligações de densidade e os restantes pontos podem ser marcados como ruído. O coeficiente silhouette de uma observação é $s_i=(b_i-a_i)/\max(a_i,b_i)$, onde $a_i$ é a distância média ao próprio grupo e $b_i$ a menor distância média a outro grupo. Casos degenerados e grupos unitários exigem uma convenção.
+
+A configuração exploratória consultada usa quatro componentes para descrever as covariáveis, os primeiros três para o agrupamento, $K=2,\ldots,10$ e seleção pelo silhouette, além de DBSCAN com $\epsilon=0{,}8$ e mínimo de 15 pontos. A escala e a população de ajuste condicionam estas escolhas. Grupos geométricos só podem receber nomes de regimes operacionais depois de confrontados com informação de processo.
+
+\subsection{Influência e dependência entre vetores}
+\label{sec:mat-influencia}
+% MAP: M08.10 M08.11
+A alavancagem é a diagonal $h_{ii}$ da matriz de projeção $H=X(X^{\mathrm T}X)^{-1}X^{\mathrm T}$. A distância de Cook combina alavancagem e resíduo:
+\begin{equation}
+D_i=\frac{\widehat e_i^2}{p s^2}\frac{h_{ii}}{(1-h_{ii})^2}.
+\label{eq:mat-cook}
+\end{equation}
+Limiarizações como $4/n$ são regras de inspeção, não testes universais. A omissão de uma semana ISO permite avaliar influência de um segmento: ajusta-se $\widehat f_{-w}$ e calcula-se $\widehat f_{-w}(Q_0)-\widehat f(Q_0)$ em cargas comuns, por exemplo quantis do treino. Uma grande variação relativa num declive próximo de zero pode corresponder a uma pequena mudança de previsão no domínio observado.
+
+Para dois vetores, a correlação de Pearson é a covariância amostral dividida pelo produto dos desvios-padrão; Spearman aplica Pearson às ordens, com tratamento declarado de empates. Ambas usam as mesmas datas. A simultaneidade de excursões pode ser descrita por $J_t=\sum_v\mathbf1\{|z_{v,t}|>2\}$ e pela fração de dias com $J_t\geq2$. O módulo corresponde a uma leitura bilateral. A dependência entre vetores impede contar alarmes correlacionados como evidências independentes de mudança.
+
+\revisaotese{MAT-06}{P1}{METODO}{Vincular os diagnósticos às tabelas publicadas}{As convenções de SMD, ACF civil, Durbin--Watson e Ljung--Box foram conferidas no código consultado. Confirmar que são as dos lotes citados e verificar os graus de liberdade dos testes auxiliares. Na versão final, decidir quais os valores $p$ cuja calibração está sustentada e completar as fontes primárias específicas dos diagnósticos mantidos.}
+
+\revisaotese{MAT-F08}{P2}{FIGURA}{Organizar o diagnóstico por pergunta}{Propor quatro painéis: resíduo versus carga com escala local; ACF com número de pares por lag; distribuição por mês; suporte treino--aplicação nas covariáveis. Representar a influência por variação de previsão a carga comum. Usar os gráficos de PCA e agrupamento apenas quando acrescentarem uma interpretação confrontável com o processo.}
+
+\section{Bandas, cobertura e regras de alarme}
+\label{sec:mat-bandas}
+
+\subsection{Centro, largura e objeto da banda}
+\label{sec:mat-tipos-banda}
+% MAP: M09.01 M09.02
+Uma banda é definida pelo centro $c_t$ e pelos limites $L_t,U_t$. Num modelo linear com erros normais independentes e homocedásticos, o intervalo de confiança da média e o intervalo de predição de uma observação futura em $\boldsymbol x_0$ são, respetivamente,
+\begin{align}
+\widehat E_0&\ \pm\ t_{n-p,1-\alpha/2}\,s
+\sqrt{\boldsymbol x_0^{\mathrm T}(X^{\mathrm T}X)^{-1}\boldsymbol x_0},
+\label{eq:mat-ic-media}\\
+\widehat E_0&\ \pm\ t_{n-p,1-\alpha/2}\,s
+\sqrt{1+\boldsymbol x_0^{\mathrm T}(X^{\mathrm T}X)^{-1}\boldsymbol x_0}.
+\label{eq:mat-ip-observacao}
+\end{align}
+O termo adicional $1$ representa a variabilidade de uma nova observação. O termo de alavancagem representa a incerteza de estimação da média e cresce quando a condição se afasta do centro do treino. Dependência, heterocedasticidade e extrapolação exigem tratamento próprio; substituir a covariância dos coeficientes por HAC não resolve, por si só, a distribuição do novo erro.
+
+A banda de largura constante usada na plataforma tem $c_t=\widehat a+\widehat bQ_t$ e limites $c_t\pm ks$. Para $k=2$, a massa de uma normal padrão entre os limites é
+\begin{equation}
+c_0=\Pr(|Z|\leq2)=2\Phi(2)-1\simeq0{,}9544997.
+\label{eq:mat-dois-sigma}
+\end{equation}
+Este é o nominal de referência de uma banda gaussiana de dois desvios-padrão. Uma banda central de $95\%$ usa outro quantil. Quando o centro e a escala são estimados, ou quando a distribuição se afasta da normal, a cobertura real deve ser medida. Uma banda de alarme pode ainda ser escolhida por um orçamento de falsos sinais durante um horizonte; esse critério é definido na Secção~\ref{sec:mat-limiares}.
+
+\subsection{Cobertura marginal e condicional}
+\label{sec:mat-cobertura}
+% MAP: M09.03 M09.04
+Nos dias pontuáveis $\mathcal S$, a cobertura e a largura média são
+\begin{equation}
+\widehat c=\frac1n\sum_{t\in\mathcal S}\mathbf1\{L_t\leq E_t\leq U_t\},
+\qquad \overline w=\frac1n\sum_{t\in\mathcal S}(U_t-L_t).
+\label{eq:mat-cobertura}
+\end{equation}
+A fração fora da banda é $1-\widehat c$ na mesma população. A decomposição em excursões superiores e inferiores usa $\mathbf1\{E_t>U_t\}$ e $\mathbf1\{E_t<L_t\}$. A regra de igualdade ao limite deve manter-se em todas as implementações.
+
+Para um estrato $G$, por exemplo um tercil de carga definido no treino ou um semestre, a cobertura condicional é a mesma razão restrita a $\mathcal S\cap G$. Apresentar $n_G$ é necessário para interpretar estratos pouco representados. Uma cobertura marginal próxima do nominal pode combinar défice num estrato com excesso noutro. A largura deve ser apreciada em conjunto com a cobertura e o uso pretendido~\parencite{Gneiting2007}. Limites muito largos podem cobrir quase todos os valores e ter pouca utilidade para assinalar desvios.
+
+O intervalo MBB da cobertura reamostra o indicador da equação~\ref{eq:mat-cobertura}, com a banda fixa. Sem um calendário externo de eventos ou verdade conhecida, uma excursão observada não pode ser classificada automaticamente como falso alarme: tanto pode refletir inadequação da banda como uma mudança do processo.
+
+\subsection{Sequências, janelas e episódios}
+\label{sec:mat-regras}
+% MAP: M09.05
+Defina-se $z_t=(E_t-c_t)/s$ para uma escala positiva. As regras descritas na plataforma podem ser formalizadas numa janela ordenada $z_1,\ldots,z_w$ como na Tabela~\ref{tab:mat-regras}. As condições contam pontos na mesma janela, incluindo o último dia avaliado.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Formulação das oito regras de sequência descritas. As convenções de calendário e de empate requerem harmonização com a implementação.}
+\label{tab:mat-regras}
+\begin{tabularx}{\linewidth}{@{}clX@{}}\toprule
+Regra & Janela & Condição\\\midrule
+1 & 1 & $|z_1|>3$.\\
+2 & 3 & Pelo menos dois $z_i>2$ ou pelo menos dois $z_i<-2$.\\
+3 & 5 & Pelo menos quatro $z_i>1$ ou pelo menos quatro $z_i<-1$.\\
+4 & 8 & Todos os $z_i>0$ ou todos os $z_i<0$.\\
+5 & 6 & $z_{i+1}-z_i>0$ em todos os passos, ou $<0$ em todos.\\
+6 & 14 & Incrementos sucessivos de sinal alternado, sem incrementos nulos.\\
+7 & 15 & Todos os $|z_i|<1$.\\
+8 & 8 & Todos os $|z_i|>1$, segundo a definição de lateralidade adotada.\\\bottomrule
+\end{tabularx}
+\end{table}
+
+Janelas sobrepostas podem assinalar repetidamente a mesma sequência. O número de dias sinalizados, o número de violações de regras e o número de episódios são contagens diferentes. Uma definição possível de episódio é um conjunto maximal de dias civis consecutivos sinalizados; deve fixar-se se uma lacuna interrompe o episódio ou suspende a avaliação. Nenhuma destas contagens equivale diretamente a uma probabilidade diária independente~\parencite{Nelson1984,Wardell1994}.
+
+\revisaotese{MAT-07}{P1}{METODO}{Fechar as regras de sequência da plataforma}{Confirmar oito versus nove pontos na regra de mesmo lado, a exigência ou não de ambos os lados na regra 8, o tratamento dos empates e o comportamento nas lacunas. Usar o nome das regras efetivamente implementadas; a citação de Nelson não substitui estas convenções. Acrescentar a definição de episódio às tabelas de alarmes.}
+
+\subsection{Centro condicionado por resíduos autorregressivos}
+\label{sec:mat-ar-bandas}
+% MAP: M09.06 M09.07
+Após ajustar a relação com a carga, uma aproximação AR($p$) aos seus resíduos é
+\begin{equation}
+e_t=\sum_{j=1}^p\phi_je_{t-j}+\nu_t,
+\qquad c_t^{AR}=\widehat f(\boldsymbol x_t)+\sum_{j=1}^p\widehat\phi_je_{t-j}.
+\label{eq:mat-centro-ar}
+\end{equation}
+Os desfasamentos são civis e os resíduos anteriores só podem usar informação já disponível. A seleção de $p\in\{1,\ldots,7\}$ por $BIC=-2\widehat\ell+k\ln n_{AR}$ pertence ao treino, com $k$ parâmetros e log-verosimilhança $\widehat\ell$~\parencite{Schwarz1978}. A comparação entre ordens deve usar uma amostra e uma convenção de verosimilhança coerentes.
+
+Os limites podem ser $c_t^{AR}\pm2s_\nu$ ou $c_t^{AR}+[q_{\tau_L}(\nu),q_{\tau_U}(\nu)]$, com $\tau_L=\Phi(-2)$ e $\tau_U=\Phi(2)$ para o nominal de dois sigmas. Se faltarem os resíduos desfasados necessários, a rota descrita regressa à banda marginal. Essa substituição deve ser marcada por dia e quantificada. Uma banda AR altera o centro; o seu erro de previsão deve ser calculado com $c_t^{AR}$, incluindo os dias de substituição, se for esse o preditor que se pretende avaliar.
+
+\subsection{Quantis condicionais e envelopes móveis}
+\label{sec:mat-quantis}
+% MAP: M09.08 M09.09
+A regressão quantílica estima o quantil condicional de ordem $\tau$ pela perda assimétrica~\parencite{KoenkerBassett1978}
+\begin{equation}
+\rho_\tau(u)=u\{\tau-\mathbf1(u<0)\},
+\qquad \widehat{\boldsymbol\beta}_\tau
+=\arg\min_{\boldsymbol\beta}\sum_t\rho_\tau(E_t-\boldsymbol x_t^{\mathrm T}\boldsymbol\beta).
+\label{eq:mat-quantil}
+\end{equation}
+Dois ajustes produzem $L_t=\boldsymbol x_t^{\mathrm T}\widehat{\boldsymbol\beta}_{\tau_L}$ e $U_t=\boldsymbol x_t^{\mathrm T}\widehat{\boldsymbol\beta}_{\tau_U}$. A condição $L_t\leq U_t$ deve ser verificada no domínio de aplicação. Recusar um candidato com cruzamentos é uma regra de admissibilidade; impor o não cruzamento durante a estimação é outro procedimento~\parencite{Chernozhukov2010}. A não convergência deve ser registada como tal. Quantis muito extremos estimados em janelas anuais podem apoiar-se em poucos dias de cauda.
+
+Um envelope fixo usa quantis dos erros da referência, calculados uma vez. Um envelope móvel recalcula-os numa janela estritamente anterior, por exemplo 90 dias civis com mínimo de 60 erros disponíveis no desenho correspondente. Os dois envelopes reagem de forma diferente a uma mudança persistente: os quantis móveis podem incorporar a mudança na largura ou no centro implícito. A avaliação deve conservar os dias comuns e indicar o número de janelas indisponíveis.
+
+\revisaotese{MAT-F09}{P1}{FIGURA}{Comparar bandas no mesmo eixo e nas mesmas datas}{Representar, num exemplo ilustrativo, intervalo da média, intervalo preditivo e banda de largura constante. Numa figura empírica separada, mostrar a banda marginal, o centro AR e os dias de substituição marginal, com resíduos no painel inferior. Incluir cobertura por tercil e largura numa tabela adjacente. Evitar sobrepor todas as bandas se isso impedir ler os limites.}
+
+\section{Critérios de aceitação e materialidade}
+\label{sec:mat-aceitacao}
+
+\subsection{Candidato e estado de decisão}
+\label{sec:mat-candidato}
+% MAP: M10.01
+Um candidato é uma combinação de estimador, covariáveis, população admissível, centro, escala, banda e finalidade. Alterar um destes elementos altera o objeto avaliado. No quadro histórico, há oito combinações por vetor: quatro rotas de banda com OLS e duas com cada um dos estimadores Huber e Theil--Sen, num total de 32 decisões para quatro vetores. Esta contagem corresponde às combinações efetivamente estudadas.
+
+Uma decisão não estimável indica que faltam condições para calcular o critério, por exemplo por insuficiência de dias, degenerescência ou falha de convergência. Uma decisão inconclusiva indica evidência insuficiente perante um critério calculável. A rejeição exige que o critério de rejeição tenha sido definido. Estes estados não devem ser reduzidos a uma variável binária sem registar o motivo.
+
+\subsection{Regra histórica de quatro pares em cinco}
+\label{sec:mat-quatro-cinco}
+% MAP: M10.02
+Para cada par anual $j$, sejam $L_{\Delta,j}$ o limite inferior do intervalo de ganho e $[L_{c,j},U_{c,j}]$ o intervalo de cobertura. Definem-se
+\begin{equation}
+G_j=\mathbf1\{L_{\Delta,j}>0\},
+\qquad C_j=\mathbf1\{L_{c,j}\leq c_0\leq U_{c,j}\}.
+\label{eq:mat-indicadores-gate}
+\end{equation}
+A regra descrita exige separadamente
+\begin{equation}
+\sum_{j=1}^{5}G_j\geq4
+\quad\text{e}\quad
+\sum_{j=1}^{5}C_j\geq4.
+\label{eq:mat-gate-historico}
+\end{equation}
+Esta conjunção permite apenas três pares com ambos os critérios satisfeitos. Por exemplo, $G=(1,1,1,1,0)$ e $C=(0,1,1,1,1)$ cumprem a regra, mas $\sum_jG_jC_j=3$. Exigir quatro sucessos conjuntos seria a regra distinta $\sum_jG_jC_j\geq4$. A reprodução dos resultados históricos deve conservar a primeira definição e identificá-la.
+
+\revisaotese{MAT-08}{P1}{METODO}{Alinhar o ganho preditivo com o centro de cada candidato}{Na avaliação histórica, verificar os casos em que o critério de ganho usa a previsão anual E2 e o critério de cobertura usa um centro AR. Essa decisão combina dois objetos. Descrever o alcance do resultado histórico e, numa nova avaliação, calcular a perda do preditor completo se a finalidade for prever. Preservar os resultados anteriores com a respetiva definição.}
+
+\subsection{Compatibilidade, equivalência e não inferioridade}
+\label{sec:mat-equivalencia}
+% MAP: M10.03 M10.04
+O intervalo de cobertura conter $c_0$ indica compatibilidade com esse valor no procedimento usado. Um intervalo muito largo também o pode conter. Para avaliar equivalência com tolerância material $\delta_c>0$, uma proposta de critério é
+\begin{equation}
+[L_c,U_c]\subseteq[c_0-\delta_c,c_0+\delta_c].
+\label{eq:mat-equivalencia}
+\end{equation}
+O nível do intervalo deve corresponder ao procedimento de equivalência escolhido~\parencite{Lakens2017}. Para não inferioridade preditiva, com ganho definido como na equação~\ref{eq:mat-ganho} e margem $\delta_L>0$, o requisito pode ser $L_\Delta>-\delta_L$. Estas margens permanecem por definir a partir da finalidade operacional; as expressões constituem uma proposta para avaliação futura.
+
+A potência de uma regra é a probabilidade de produzir a decisão pretendida sob uma alternativa especificada. Cinco transições anuais encadeadas partilham dados entre treino e aplicação de pares sucessivos e podem ter dependência operacional. Não devem ser tratadas automaticamente como cinco ensaios Bernoulli independentes. Para calibrar a regra completa, a simulação deve reproduzir essa dependência, a seleção dos candidatos e os estados não estimáveis.
+
+\revisaotese{MAT-F10}{P1}{FIGURA}{Explicar a decisão em duas camadas}{Criar uma matriz candidato--par com colunas separadas para ganho, cobertura e estimabilidade. Junto da matriz, usar os dois vetores binários do exemplo para mostrar a diferença entre contagens separadas e sucesso conjunto. Apresentar margens materiais apenas depois de definidas e identificá-las como critério de uma nova avaliação.}
+
+\section{Referência, estado e monitorização sequencial}
+\label{sec:mat-monitorizacao}
+
+\subsection{Desvio, excesso positivo e acumulado}
+\label{sec:mat-excesso}
+% MAP: M11.01
+Para uma referência energética fixa, $r_t=E_t-\widehat f_R(\boldsymbol x_t)$. O desvio líquido e o excesso positivo de um período são
+\begin{equation}
+R_{\mathcal P}=\sum_{t\in\mathcal P\cap\mathcal S}r_t,
+\qquad R_{\mathcal P}^{+}=\sum_{t\in\mathcal P\cap\mathcal S}\max(r_t,0).
+\label{eq:mat-acumulados}
+\end{equation}
+O primeiro permite compensação entre sinais; o segundo soma apenas o lado positivo. A comparação de totais deve indicar o número de dias e a exposição operacional. Dividir pelo número de dias produz um ritmo médio de desvio, com outra unidade.
+
+Num exemplo com resíduo marginal normal centrado, $r\sim\mathcal N(0,\sigma^2)$,
+\begin{equation}
+\operatorname{E}[\max(r,0)]=\int_0^\infty r\frac{e^{-r^2/(2\sigma^2)}}{\sigma\sqrt{2\pi}}\,dr
+=\frac{\sigma}{\sqrt{2\pi}}.
+\label{eq:mat-excesso-ruido}
+\end{equation}
+Há, portanto, excesso positivo esperado mesmo sem deslocação da média. A soma positiva depende da dispersão e do número de dias. A sua leitura como desperdício ou poupança exigiria identificar um contrafactual e separar mudança real de ruído e erro de modelo.
+
+\subsection{Referência, estado e inovação}
+\label{sec:mat-tres-canais}
+% MAP: M11.02 M11.03
+A referência $\widehat f_R$ fixa a relação energética com as condições. Um modelo de estado pode acompanhar a evolução do desvio relativamente a essa referência. A inovação mede a parte do desvio que esse estado ainda não previa. Para um modelo de nível local,
+\begin{equation}
+r_t=\ell_t+\epsilon_t,
+\qquad \ell_t=\ell_{t-1}+\eta_t,
+\qquad \operatorname{Var}(\epsilon_t)=v_\epsilon,\quad\operatorname{Var}(\eta_t)=v_\eta.
+\label{eq:mat-nivel-local}
+\end{equation}
+Os ruídos são centrados, independentes entre si e no tempo na formulação clássica. A hipótese de normalidade permite interpretar integralmente o filtro como inferência gaussiana~\parencite{DurbinKoopman2012}. Com $\widehat\ell_{t|t-1}$ e $P_{t|t-1}$ a previsão e a sua variância, o passo de atualização é
+\begin{align}
+\nu_t&=r_t-\widehat\ell_{t|t-1}, &F_t&=P_{t|t-1}+v_\epsilon,\label{eq:mat-inovacao}\\
+K_t&=P_{t|t-1}/F_t, &\widehat\ell_{t|t}&=\widehat\ell_{t|t-1}+K_t\nu_t,\label{eq:mat-kalman}\\
+P_{t|t}&=(1-K_t)P_{t|t-1}, &P_{t+1|t}&=P_{t|t}+v_\eta.\label{eq:mat-kalman-variancia}
+\end{align}
+A inovação padronizada é $\nu_t/\sqrt{F_t}$; a escala $\sqrt{F_t}$ não deve ser substituída por $s_R$. Numa lacuna de $d$ dias, o nível local mantém a previsão pontual e a variância aumenta em $d v_\eta$ antes de nova observação. A implementação deve efetuar as transições civis sem atualizar com valores em falta.
+
+Para tendência local, introduz-se $b_t^{\mathrm{estado}}$: $\ell_t=\ell_{t-1}+b_{t-1}^{\mathrm{estado}}+\eta_t$ e $b_t^{\mathrm{estado}}=b_{t-1}^{\mathrm{estado}}+\zeta_t$. A transição matricial de $(\ell_t,b_t^{\mathrm{estado}})^{\mathrm T}$ usa $T=\left(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\right)$ e a previsão da covariância usa $TP T^{\mathrm T}+V$. O estado inicial e as variâncias são estimados na referência e mantidos fixos na aplicação descrita. O estado filtrado usa dados até $t$; o estado alisado usa também o futuro e só pode ser apresentado como reconstrução retrospetiva.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=9mm,font=\small,
+box/.style={draw,rounded corners,align=center,text width=3cm,minimum height=12mm,fill=blue!5},
+arr/.style={-{Stealth},thick}]
+\node[box] (obs) {Energia observada\\$E_t$};
+\node[box,right=of obs] (res) {Desvio à referência\\$r_t=E_t-\widehat f_R$};
+\node[box,right=of res] (inn) {Inovação\\$\nu_t=r_t-\widehat\ell_{t|t-1}$};
+\node[box,below=of res] (ref) {Relação fixa\\$\widehat f_R(\boldsymbol x_t)$};
+\node[box,below=of inn] (state) {Estado previsto\\$\widehat\ell_{t|t-1}$};
+\draw[arr] (obs)--(res);\draw[arr] (res)--(inn);
+\draw[arr] (ref)--(res);\draw[arr] (state)--(inn);
+\draw[arr,dashed] (res.south east)--node[below left,font=\scriptsize]{$r_{s<t}$}(state.north west);
+\end{tikzpicture}
+\caption{Decomposição conceptual dos canais. O estado previsto é calculado a partir dos desvios anteriores; a atualização com $r_t$ só afeta previsões posteriores.}
+\label{fig:mat-canais}
+\end{figure}
+
+\subsection{Estatística de resíduo e CUSUM}
+\label{sec:mat-cusum}
+% MAP: M11.04 M11.05
+O resíduo padronizado da referência é $z_t=r_t/s_R$, com $s_R>0$ estimado no período de referência. Um monitor unilateral superior usa $T_t=z_t$; um monitor bilateral usa $T_t=|z_t|$. A lateralidade deve corresponder ao sinal com significado operacional, sobretudo para saldos líquidos.
+
+O CUSUM tabular acumula excedentes em relação a uma folga $k$~\parencite{Page1954}:
+\begin{equation}
+S_t^+=\max(0,S_{t-1}^++z_t-k),
+\qquad S_t^-=\max(0,S_{t-1}^--z_t-k),
+\label{eq:mat-cusum}
+\end{equation}
+com $S_0^+=S_0^-=0$. Usa-se $S_t^+$ no monitor unilateral superior e $\max(S_t^+,S_t^-)$ no bilateral; há sinal quando a estatística excede $h$. Na Parte C consultada, o estado é conservado em dias não pontuáveis e não há reinício anual nem após cruzar o limiar. Esta definição serve a análise do primeiro cruzamento. Uma política operacional de reinício produziria outra sequência de alarmes e deve ser especificada à parte.
+
+\begin{tcolorbox}[colback=black!2,colframe=black!45,fontupper=\small,title={Algoritmo G.2 --- Atualização de um monitor}]
+\begin{enumerate}[leftmargin=*,nosep]
+\item Ler a data e verificar elegibilidade, covariáveis, suporte e escala.
+\item Calcular a previsão do estado usando apenas informação anterior e o número de dias decorridos, quando existir modelo de estado.
+\item Se a medição for admissível, calcular $r_t$, $z_t$ e, quando aplicável, $\nu_t$; atualizar o canal escolhido segundo a sua regra.
+\item Se a medição não for admissível, registar o motivo e aplicar a regra de transição sem observação de cada canal.
+\item Comparar a estatística com o limiar calibrado, conservar a data do primeiro cruzamento e aplicar apenas os reinícios explicitamente previstos.
+\end{enumerate}
+\end{tcolorbox}
+
+O CUSUM sobre $z_t$ e o CUSUM sobre inovações padronizadas têm entradas diferentes. O segundo figura nas propostas de deteção e exige calibração própria. A justificação de um limiar para um deles não se transfere automaticamente para o outro~\parencite{AlwanRoberts1988,Lai1995}.
+
+\subsection{Canais de carga, estratos e escala}
+\label{sec:mat-monitores-carga-escala}
+% MAP: M11.06
+O monitor de carga procura mudança na relação entre o desvio padronizado e a carga. Padroniza-se $z_{Q,t}=(Q_t-\bar Q_R)/s_{Q,R}$ e ajusta-se, numa janela de 60 dias civis que inclui $t$, $z_s=\alpha_t+\beta_tz_{Q,s}+u_s$. A estatística bilateral consultada é
+\begin{equation}
+T_t^{\mathrm{carga}}=\left|\frac{\widehat\beta_t}{\widehat{SE}_{OLS}(\widehat\beta_t)}\right|.
+\label{eq:mat-monitor-carga}
+\end{equation}
+Exigem-se pelo menos 30 observações e IQR da carga padronizada não inferior a $0{,}25$. A forma studentizada permite ajustar a escala da estatística à informação da janela. O limiar provém de simulação com a dependência declarada; o quociente não é interpretado como um teste $t$ clássico sob independência.
+
+O diagnóstico por estratos usa cortes de carga fixados no treino e calcula o desvio médio em cada estrato. A implementação consultada divide essa média por $s_{R,g}/\sqrt{n_{\mathrm{ef},g}}$, onde $s_{R,g}$ é a escala de referência do estrato. A dimensão efetiva usa a aproximação $n(1-\widehat\rho)/(1+\widehat\rho)$, limitada ao intervalo $[1,n]$, com $\widehat\rho$ calculado sobre valores consecutivos dentro do estrato e limitado a $[-0{,}99;0{,}99]$. Esses valores podem estar separados por vários dias civis. A expressão é uma regra de padronização do diagnóstico, cuja calibração deve ser avaliada no desenho de simulação. As versões por estratos e por declive não são intercambiáveis: a disponibilidade de cada estrato muda com a operação.
+
+O canal de escala calcula o desvio-padrão local de $r_t$ em 30 dias civis, com mínimo de 15 observações, e compara-o com $s_R$:
+\begin{equation}
+q_t^{\mathrm{escala}}=s_{30,t}/s_R,
+\qquad T_t^{\mathrm{escala}}=|\ln q_t^{\mathrm{escala}}|.
+\label{eq:mat-monitor-escala}
+\end{equation}
+O quociente deve ser positivo e finito. A estatística reage a aumento ou redução de escala. Uma mudança de nível dentro da janela também pode aumentar temporariamente o desvio-padrão local; o canal deve ser lido em conjunto com o de nível.
+
+\subsection{Preservação de sinal e efeito do reajuste}
+\label{sec:mat-preservacao}
+% MAP: M11.07 M11.08
+Considere-se uma série de controlo $\boldsymbol E$ e a mesma série com sinal acrescentado $\boldsymbol E^\delta=\boldsymbol E+\boldsymbol\delta$, mantendo as covariáveis. Para uma referência fixa, $\boldsymbol r^\delta-\boldsymbol r=\boldsymbol\delta$. Se ambas as séries forem reajustadas por OLS no mesmo desenho $X$,
+\begin{equation}
+\boldsymbol e^\delta-\boldsymbol e=(I-H)\boldsymbol\delta.
+\label{eq:mat-projecao-sinal}
+\end{equation}
+A componente de $\boldsymbol\delta$ contida no espaço das colunas de $X$ é absorvida pelo ajuste. Um deslocamento constante em toda a janela é absorvido pelo intercepto. Um degrau que afete apenas parte da janela não é, em geral, inteiramente absorvido. A relação permite estudar o mecanismo sem atribuir a todo o reajuste a mesma perda de sinal.
+
+Para um canal $c_t$, uma medida de preservação acumulada numa janela $\mathcal J$ é $P_c=\sum_{t\in\mathcal J}(c_t^\delta-c_t^0)/\sum_{t\in\mathcal J}\delta_t$, desde que o denominador não seja nulo. A janela, as máscaras e a unidade do canal devem coincidir. Sinais de sentidos opostos podem cancelar-se; nesses casos é necessário outro estimando, previamente definido.
+
+Num filtro AR(1) fixo, a contribuição do sinal na inovação é
+\begin{equation}
+\nu_t^\delta-\nu_t^0=\delta_t-\rho\delta_{t-1}.
+\label{eq:mat-atenuacao-ar}
+\end{equation}
+No início de um degrau, aparece a amplitude total; durante um patamar, resta $(1-\rho)\delta$. A persistência positiva atenua o patamar neste canal. Essa atenuação não determina, isoladamente, a probabilidade de deteção de um monitor sequencial calibrado: a escala da inovação e a regra de acumulação também intervêm.
+
+\subsection{Estados operacionais da referência}
+\label{sec:mat-estados-operacionais}
+% MAP: M11.09
+Uma proposta de governação distingue referência ativa, observação fora do domínio, investigação, suspensão e referência substituída. Um alarme é um evento produzido pela regra estatística; uma mudança de estado operacional depende da evidência e da decisão registadas. A transição pode representar-se por $s_{t+1}=\mathcal T(s_t,a_t,d_t)$, onde $a_t$ é a informação de alarme e $d_t$ a decisão autorizada. A versão da referência e a data de entrada em vigor devem permanecer associadas a cada valor calculado. O manual de utilização deve definir responsabilidades e critérios para estas transições antes da adoção operacional.
+
+\revisaotese{MAT-F11}{P1}{FIGURA}{Mostrar onde fica um degrau em cada canal}{Gerar um exemplo com a mesma realização de ruído, com e sem um degrau conhecido. Usar quatro painéis alinhados: energia e referência, desvio fixo, estado estimado e inovação. Num segundo painel de comparação, representar a equação~\ref{eq:mat-projecao-sinal} para reajuste com e sem sobreposição da janela com o degrau. As legendas devem identificar o exemplo como simulação, a amplitude, a escala e o início da mudança.}
+
+\section{Simulação, falsos sinais e detetabilidade}
+\label{sec:mat-simulacao}
+
+\subsection{Gerador e escala conhecida}
+\label{sec:mat-gerador}
+% MAP: M12.01 M12.02
+Uma simulação permite avaliar um instrumento quando a relação de referência, o ruído e a mudança são conhecidos. Uma representação do gerador é
+\begin{equation}
+E_t^{(r)}=f_{\mathrm{DGP}}(\boldsymbol x_t)+\delta_t+\sigma_t\epsilon_t^{(r)},
+\label{eq:mat-dgp}
+\end{equation}
+com $\epsilon_t^{(r)}$ de escala marginal unitária. A função geradora, as covariáveis, a máscara, o período de treino e o período de aplicação têm de ser fixados. As covariáveis podem ser conservadas como desenho observado ou geradas por outro mecanismo; estas escolhas correspondem a âmbitos de generalização diferentes. Injetar um sinal numa série real preserva os erros e as mudanças já presentes nessa série, enquanto um gerador sintético permite declarar a verdade de todo o processo simulado.
+
+Para manter a variância marginal do ruído quando se altera a persistência, a construção AR(1) usa
+\begin{equation}
+u_0=\sigma_{\mathrm{DGP}}\xi_0,
+\qquad u_t=\rho u_{t-1}+\sigma_{\mathrm{DGP}}\sqrt{1-\rho^2}\,\xi_t,
+\quad \xi_t\overset{\mathrm{iid}}{\sim}\mathcal N(0,1),\quad |\rho|<1.
+\label{eq:mat-ar-gerador}
+\end{equation}
+A inicialização é estacionária. Se $\operatorname{Var}(u_{t-1})=\sigma_{\mathrm{DGP}}^2$, a variância seguinte é $\rho^2\sigma_{\mathrm{DGP}}^2+(1-\rho^2)\sigma_{\mathrm{DGP}}^2=\sigma_{\mathrm{DGP}}^2$. Aumentar $\rho$ altera a memória sem aumentar esta variância marginal. O ruído é gerado em todos os dias civis antes de aplicar a máscara, incluindo os dias que ficarão ocultos.
+
+O desenho descrito inclui uma referência anual de 2020, horizontes de aplicação declarados e cenários com $\rho=0{,}6$, além de stress com persistência superior. Os valores de $\sigma_{\mathrm{DGP}}$, $s_R$ e $s_\nu$ têm origens diferentes. A amplitude física de uma mudança deve ser convertida pela escala do gerador que a define, para que a unidade da mudança não varie com o modelo em avaliação.
+
+\subsection{Famílias de mudança}
+\label{sec:mat-injecoes}
+% MAP: M12.03
+Para início $\tau$, amplitude $a\sigma_{\mathrm{DGP}}$ e duração de crescimento $d$, duas alternativas são
+\begin{align}
+\delta_t^{\mathrm{degrau}}&=a\sigma_{\mathrm{DGP}}\mathbf1\{t\geq\tau\},\label{eq:mat-degrau}\\
+\delta_t^{\mathrm{rampa}}&=a\sigma_{\mathrm{DGP}}
+\min\!\left(1,\max\!\left(0,\frac{t-\tau+1}{d}\right)\right).
+\label{eq:mat-rampa}
+\end{align}
+Uma mudança temporária multiplica a expressão por uma condição de fim, ou usa uma função de recuperação explicitada. Uma mudança dependente da carga pode ser $\delta_t=a\sigma_{\mathrm{DGP}}g(z_{Q,t})\mathbf1\{t\geq\tau\}$, com $g$ declarada. Uma mudança de escala usa $\sigma_t=\sigma_{\mathrm{DGP}}q_t$, com $q_t>0$, mantendo a média geradora. Estas expressões definem famílias; o lote deve registar a função, a amplitude, a duração e o sinal realmente usados.
+
+\subsection{Calibração de limiar por horizonte}
+\label{sec:mat-limiares}
+% MAP: M12.04
+Sob ausência de mudança, o máximo da trajetória de uma estatística $T_t$ num horizonte $H$ é $M_H=\max_{t\in\mathcal S_H}T_t$. A calibração por horizonte escolhe $h$ para controlar
+\begin{equation}
+\alpha_H=\Pr_{H_0}(M_H>h)
+=\Pr_{H_0}(\text{pelo menos um sinal durante }H).
+\label{eq:mat-fap-horizonte}
+\end{equation}
+O limiar pode ser estimado por um quantil dos máximos de realizações de calibração. A regra de quantil e o operador $>$ ou $\geq$ afetam a probabilidade em distribuições discretas. As realizações usadas para verificar a taxa devem ser distintas das usadas para escolher $h$. Um orçamento de $5\%$ por horizonte não significa $5\%$ por dia.
+
+Se $\tau_A$ for o instante do primeiro sinal sob $H_0$, o comprimento médio até ao sinal é $ARL_0=\operatorname{E}_{H_0}(\tau_A)$. Apenas em condições como ensaios diários independentes com probabilidade constante $p$ se obtém $ARL_0=1/p$. A meta proposta de $ARL_0=370$ exige declarar a unidade temporal, os reinícios e o regime de observação; não equivale automaticamente a um falso alarme por ano civil.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=8mm,font=\small,
+box/.style={draw,rounded corners,text width=3.1cm,align=center,minimum height=13mm,fill=teal!5},
+arr/.style={-{Stealth},thick}]
+\node[box] (null) {$H_0$: sem mudança\\realizações de calibração};
+\node[box,right=of null] (threshold) {Máximos em $H$\\fixar o limiar $h$};
+\node[box,right=of threshold] (verify) {$H_0$: novas realizações\\verificar $\widehat\alpha_H$};
+\node[box,below=of threshold] (alt) {$H_1$: mudanças conhecidas\\manter o limiar $h$};
+\node[box,right=of alt] (result) {Deteção, atraso e MDD\\incerteza Monte Carlo};
+\draw[arr] (null)--(threshold);\draw[arr] (threshold)--(verify);
+\draw[arr] (threshold)--(alt);\draw[arr] (alt)--(result);
+\end{tikzpicture}
+\caption{Separação entre calibração do limiar, verificação de falsos sinais e avaliação de mudanças. As populações e o horizonte devem acompanhar cada etapa.}
+\label{fig:mat-calibracao-simulacao}
+\end{figure}
+
+\subsection{Deteção, atraso e censura}
+\label{sec:mat-deteccao}
+% MAP: M12.05
+Para uma mudança que começa em $\tau$, o primeiro cruzamento posterior é $T_A=\inf\{t\geq\tau:T_t>h\}$. O atraso civil é $D=T_A-\tau$; uma deteção no próprio dia tem atraso zero. Se o estudo contar oportunidades pontuáveis, deve usar outro índice e identificar a unidade. Para uma janela que termina em $\tau+H-1$, a probabilidade de deteção é
+\begin{equation}
+\pi_H(a)=\Pr_a(T_A\leq\tau+H-1),
+\qquad \widehat\pi_H(a)=\frac1R\sum_{r=1}^{R}I_r(a).
+\label{eq:mat-deteccao}
+\end{equation}
+Uma trajetória sem cruzamento até ao fim está censurada à direita; o seu atraso não é zero nem um atraso observado igual a $H$. A média dos atrasos apenas entre trajetórias detetadas é uma média condicional e pode favorecer métodos que detetem poucos casos fáceis. Deve ser acompanhada pela probabilidade de deteção e pela fração censurada. O tratamento de sinais anteriores a $\tau$ também deve constar do desenho.
+
+\subsection{Desvio mínimo detetável}
+\label{sec:mat-mdd}
+% MAP: M12.06
+Para probabilidade-alvo $\pi_0$, define-se o desvio mínimo detetável por
+\begin{equation}
+MDD_{\pi_0}=\inf\{a\geq0:\pi_H(a)\geq\pi_0\}.
+\label{eq:mat-mdd}
+\end{equation}
+O relato usa $\pi_0=0{,}5$. As probabilidades são estimadas numa grelha finita de amplitudes. A implementação consultada ajusta uma curva isotónica crescente e interpola linearmente entre os dois pontos que enquadram o alvo. Se $\widetilde\pi_j<\pi_0\leq\widetilde\pi_{j+1}$,
+\begin{equation}
+\widehat{MDD}_{\pi_0}=a_j+
+\frac{\pi_0-\widetilde\pi_j}{\widetilde\pi_{j+1}-\widetilde\pi_j}(a_{j+1}-a_j).
+\label{eq:mat-mdd-interpolacao}
+\end{equation}
+O ajuste isotónico reduz inversões devidas ao erro Monte Carlo, sob a hipótese de monotonia. Não cria informação fora da grelha. Se o alvo já for atingido na menor amplitude, o resultado fica censurado à esquerda; se não for atingido na maior, fica censurado à direita. Publica-se o limite correspondente, sem extrapolar um valor numérico.
+
+A conversão física é $\delta_{\mathrm{física}}=a\sigma_{\mathrm{DGP}}$. Uma percentagem do consumo médio pode ser calculada por $100\delta_{\mathrm{física}}/\bar E$ apenas quando $\bar E>0$ e a razão tem significado de consumo. Para o saldo líquido de vapor de 10 bar, conserva-se a unidade física e a amplitude em unidades do gerador.
+
+\subsection{Comparações emparelhadas e incerteza Monte Carlo}
+\label{sec:mat-mc-emparelhado}
+% MAP: M12.07
+Dois instrumentos devem receber a mesma realização de covariáveis, ruído, máscara e mudança. Se $I_{A,r},I_{B,r}$ assinalarem deteção, a diferença por realização é $d_r=I_{A,r}-I_{B,r}$ e
+\begin{equation}
+\widehat\Delta_\pi=\frac1R\sum_rd_r,
+\qquad MCSE(\widehat\Delta_\pi)=\frac{s_d}{\sqrt R}.
+\label{eq:mat-mc-emparelhado}
+\end{equation}
+O emparelhamento conserva a covariância entre os resultados dos instrumentos. As realizações independentes podem ser reamostradas como unidades para intervalos de contrastes ou de MDD. Este bootstrap por realização não é o bootstrap de blocos da série temporal. Se a estimação do limiar tiver sido mantida fixa nessa reamostragem, a incerteza resultante é condicional ao limiar; incorporar a sua incerteza exige reamostrar também a calibração segundo um desenho próprio.
+
+\begin{tcolorbox}[colback=black!2,colframe=black!45,fontupper=\small,title={Algoritmo G.3 --- Avaliação com verdade conhecida}]
+\begin{enumerate}[leftmargin=*,nosep]
+\item Fixar gerador, covariáveis, calendário, máscara, escalas, treino, horizonte, canais e lateralidade.
+\item Gerar realizações sem mudança para calibrar os limiares e outras para verificar os falsos sinais.
+\item Para cada amplitude, gerar realizações com mudança e aplicar todos os instrumentos à mesma realização.
+\item Guardar estimabilidade, primeiro cruzamento, deteção, atraso e censura, além da identidade da realização.
+\item Calcular curvas de deteção, diferenças emparelhadas e MDD com os respetivos limites de grelha.
+\item Repetir nos cenários de stress declarados e publicar o âmbito de validade de cada comparação.
+\end{enumerate}
+\end{tcolorbox}
+
+\subsection{Dependência entre vetores e deteção conjunta}
+\label{sec:mat-simulacao-conjunta}
+% MAP: M12.08
+Para $V$ vetores, seja $\Sigma=D_\sigma C D_\sigma$ a covariância marginal, com matriz de correlação $C$ e $D_\sigma=\operatorname{diag}(\sigma_1,\ldots,\sigma_V)$. Com persistência comum $\rho$, uma construção estacionária é
+\begin{equation}
+\boldsymbol u_t=\rho\boldsymbol u_{t-1}+\boldsymbol\eta_t,
+\qquad \operatorname{Cov}(\boldsymbol\eta_t)=(1-\rho^2)\Sigma,
+\qquad \operatorname{Cov}(\boldsymbol u_0)=\Sigma.
+\label{eq:mat-ar-multivariado}
+\end{equation}
+A matriz usada deve ser semidefinida positiva; qualquer regularização deve ficar registada. Com uma matriz de transição geral $A$, a covariância estacionária obedece a $\Sigma=A\Sigma A^{\mathrm T}+V_\eta$ e exige verificar estabilidade e admissibilidade de $V_\eta$.
+
+Uma regra conjunta pode usar $T_t^{\mathrm{joint}}=\max_vT_{v,t}$ ou outra função declarada. O seu limiar deve ser calibrado para o sistema completo. Orçamentos separados por vetor não garantem o mesmo orçamento para ``qualquer vetor sinaliza''. Correlação negativa entre resíduos também pode produzir coocorrência de excursões bilaterais, porque o módulo ignora o sentido.
+
+\subsection{Agregação temporal e stress}
+\label{sec:mat-agregacao-stress}
+% MAP: M12.09 M12.10
+Para uma soma de $H$ erros de uma série estacionária regularmente observada,
+\begin{equation}
+\operatorname{Var}\!\left(\sum_{t=1}^{H}e_t\right)
+=H\gamma_0+2\sum_{k=1}^{H-1}(H-k)\gamma_k,
+\label{eq:mat-variancia-soma}
+\end{equation}
+onde $\gamma_k$ é a autocovariância. Com lacunas, a soma dupla sobre os pares efetivamente incluídos substitui os pesos $H-k$. A variância de acumulados depende da memória da série. Acumulados de duas séries podem apresentar associações fortes numa realização por partilharem tendências ou efeitos de integração; a inspeção dessas associações exige comparar incrementos e a distribuição de resultados entre realizações~\parencite{Yule1926,GrangerNewbold1974}. Um $R^2$ elevado num gráfico de acumulados não prova uma relação física estável.
+
+O stress deve alterar persistência, dimensão, máscara, forma da média, heterocedasticidade e tipo de mudança segundo cenários identificados. Na agregação semanal ou mensal, conservam-se as fronteiras de calendário e a exposição de cada período. A comparação entre métodos requer populações e orçamentos de falsos sinais compatíveis. Lotes com erro de calendário ou de população devem ser corrigidos antes de sustentar ordenações de desempenho.
+
+\revisaotese{MAT-09}{P1}{METODO}{Separar formulação, execução e resultado consolidado}{Associar cada cenário referido no capítulo de diagnóstico a um lote válido e ao respetivo manifesto. Confirmar treino, horizonte, máscara, número de realizações, independência entre calibração e verificação, convenção de censura e famílias de contrastes. O anexo explica os instrumentos; a sua presença aqui não transforma um cenário previsto num resultado executado nem um lote provisório em evidência consolidada.}
+
+\clearpage
+\revisaotese{MAT-F12}{P1}{FIGURA}{Apresentar a detetabilidade com a censura visível}{Usar curvas de probabilidade de deteção por amplitude, com incerteza Monte Carlo e linha horizontal em $50\%$. Marcar o MDD por intervalo de grelha ou seta de censura. Apresentar, ao lado, falsos sinais verificados e atrasos acompanhados da fração não detetada. Para o stress, preferir pequenos múltiplos com os mesmos eixos. Reservar as curvas empíricas para lotes consolidados.}
+
+\revisaotese{MAT-10}{P2}{REMISSOES}{Como ligar este apêndice ao corpo da tese}{No texto principal, conservar a definição e a equação que sustentam a interpretação do resultado; remeter para o detalhe por secção ou equação. Exemplos: ``O consumo específico é calculado como razão de totais (equação~\ref{eq:mat-consumo-especifico}).''; ``A incerteza do ganho é estimada por blocos civis, conforme a Secção~\ref{sec:mat-mbb}.'' Uma nota de rodapé pode remeter para uma derivação secundária, como a equação~\ref{eq:mat-excesso-ruido}. Evitar escrever números de secção manualmente. Atualizar a lista de símbolos com a Tabela~\ref{tab:mat-notacao} e manter a ligação do dicionário às unidades e aos fatores.}
