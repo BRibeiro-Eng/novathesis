@@ -1,24 +1,35 @@
 %!TEX root = ../template.tex
 %% ====================================================================
 %% Capitulo 6 -- Resultados II --- Diagnostico das baselines
-%% RASCUNHO COMPLETO 2026-08-30 sobre as corridas canonicas:
-%%   E1+D0: outputs/runs/20260826T165010999180Z-ff9a3322b633 (D0 aceite 2026-08-26)
-%%   E2:    outputs/E2/runs/20260828T153423377266Z-7926b7afbe338986221d
-%%   E3:    outputs/E3/runs/20260829T122639790978Z-aa3e341622b4 (commit ad0c9db)
-%%   E4:    outputs/E4/runs/20260829T135121261692Z-2ea18e7390bb (commit a016605)
-%%   E6:    outputs/E6/runs/20260829T153020733605Z-ccd0312d97b3 (commit e67fdc3)
-%%   D1-D9: outputs/D1-D9/runs/20260829T182000032463Z-1dde8c0c7d78 (commit 252cf7d)
-%%   SENS:  outputs/SENS/runs/20260829T195138387361Z-e068552161d2 (commit 74b2247)
-%%   CH6:   outputs/CH6/runs/20260829T195459405603Z-8b10ee694a83 (figuras 6.1-6.8)
-%% E5 escrito como not_estimable (decisao do autor 2026-08-30); a rota E5'
-%% por simulacao fica descartada para o Cap. 6.
-%% Regra transversal ja aplicada: nada de aparato informatico aqui (vive no
-%% Cap. 4.5); a contagem de patologias crava-se na sintese e em mais lado
-%% nenhum. Figuras por incluir a partir do bundle CH6 (SVG -> PDF).
+%% Rascunho de 2026-08-30 sobre as corridas canonicas da avaliacao;
+%% reescrito em 2026-09-08: linguagem descritiva (sem rotulos internos de
+%% organizacao do trabalho), qualificacoes da avaliacao cientifica de
+%% 2026-09-06, referencias renomeadas. Proveniencia dos numeros:
+%%   replicacao + perfil: outputs/runs/20260826T165010999180Z-ff9a3322b633
+%%   poder preditivo:     outputs/E2/runs/20260828T153423377266Z-7926b7afbe338986221d
+%%   estabilidade:        outputs/E3/runs/20260829T122639790978Z-aa3e341622b4
+%%   calibracao:          outputs/E4/runs/20260829T135121261692Z-2ea18e7390bb
+%%   covariaveis:         outputs/E6/runs/20260829T153020733605Z-ccd0312d97b3
+%%   diagnosticos:        outputs/D1-D9/runs/20260829T182000032463Z-1dde8c0c7d78
+%%   sensibilidade:       outputs/SENS/runs/20260829T195138387361Z-e068552161d2
+%%   figuras:             outputs/CH6/runs/20260829T195459405603Z-8b10ee694a83
+%% Detetabilidade escrita como nao estimavel (decisao do autor 2026-08-30).
+%% A matematica de cada instrumento vai para o anexo matematico; aqui so o
+%% necessario para ler o resultado. Figuras por incluir (SVG -> PDF).
 %% ====================================================================
 
 \chapter{Resultados II --- Diagnóstico das baselines}
 \label{cha:diagnostico}
+% [REV-2026-09-13][C6-01][P2][ESTRUTURA]
+\revisaotese{C6-01}{P2}{ESTRUTURA}
+{Resultado principal e pergunta efetivamente respondida}
+{Alinhar a "segunda questão" com identificadores definidos na Introdução.
+Não dizer que todas as perguntas receberam inferência: detetabilidade real
+ficou não estimável e eletricidade não recebeu análise diária válida.
+Abrir com um resumo de resultados por uso (previsão, comparabilidade,
+excursões), indicando quais são demonstrados, sensíveis ou não estimáveis.
+Usar esse vocabulário de evidência também na tabela final.}%
+% [/REV-2026-09-13]
 
 Este capítulo responde à segunda questão de investigação: as baselines
 energéticas em produção na unidade de destilação atmosférica são válidas para
@@ -29,25 +40,43 @@ validado no Capítulo~\ref{cha:plataforma}: cada resultado é uma consulta ao
 mesmo esquema dimensional que alimenta o dashboard, e não a um extrato
 paralelo preparado para o efeito.
 
-A leitura do capítulo obedece à arquitetura de dois níveis definida na
-Secção~\ref{sec:protocolo-baselines}. Os \emph{endpoints} confirmatórios (E1--E6) usam
-inferência robusta à dependência serial --- covariância HAC e \emph{bootstrap}
-de blocos --- e são os únicos de que se extraem conclusões; a bateria
-descritiva (D0--D9) documenta mecanismos e contextos, com a inferência clássica
-explicitamente desqualificada pela autocorrelação residual que a própria
-bateria mede. Nenhuma conclusão deste capítulo assenta num $p$-value de
-nível descritivo.
+O capítulo segue a ordem das perguntas que o protocolo de avaliação
+(Secção~\ref{sec:protocolo-baselines}) fixou antes de qualquer execução:
+o modelo replica-se? Os dados sustentam-no? Prevê melhor do que referências
+triviais? Os seus parâmetros são estáveis de ano para ano? A banda de alarme
+está calibrada? Que desvios consegue detetar? A carga chega como variável
+explicativa? Cada uma destas perguntas foi respondida com inferência que
+respeita a dependência serial dos resíduos --- erros-padrão HAC e
+\emph{bootstrap} de blocos móveis --- e só delas se extraem conclusões. Um
+conjunto de diagnósticos descritivos (Secção~\ref{sec:diagnosticos-desc})
+documenta os mecanismos por trás dos resultados; a sua inferência clássica
+fica explicitamente desqualificada pela autocorrelação residual que os
+próprios diagnósticos medem, e nenhuma conclusão do capítulo assenta num
+$p$-value dessa origem. As definições formais de cada estatística constam do
+Anexo~\ref{app:matematica}; aqui fica apenas o necessário para ler o
+resultado.
 
 \section{O modelo sob análise: replicação exata}
-\label{sec:e1-replicacao}
+\label{sec:replicacao}
+% [REV-2026-09-13][C6-02][P2][PROVENIENCIA]
+\revisaotese{C6-02}{P2}{PROVENIENCIA}
+{Qual é a fonte independente dos fingerprints?}
+{Indicar se o conjunto de datas foi exportado do motor original ou
+recalculado pela implementação de análise. No segundo caso, fingerprints
+coincidentes demonstram consistência interna, não identidade independente
+do conjunto de treino. Igualdade de quatro estatísticas não identifica
+univocamente todas as observações. Preservar a evidência forte disponível:
+parâmetros exportados reproduzidos até à tolerância, com a limitação da
+seleção claramente ligada à origem dos fingerprints.}%
+% [/REV-2026-09-13]
 
 Antes de qualquer crítica, o método de produção foi replicado de forma exata a
-partir das tabelas de configuração oficiais: para cada um dos cinco vectores
+partir das tabelas de configuração oficiais: para cada um dos cinco vetores
 energéticos e cada ano civil de 2020 a 2025, a regressão $E = aQ + b$ foi
 reestimada sobre os dias com carga acima do limiar oficial de
 $18\,600$~t/d --- lido da configuração do modelo dimensional, nunca fixado no
 código --- e comparada com os parâmetros em produção. As 30 células
-vector--ano reproduzem declive, ordenada na origem, $\hat\sigma$ e $R^2$
+vetor--ano reproduzem declive, ordenada na origem, $\hat\sigma$ e $R^2$
 oficiais dentro da tolerância pré-registada de $10^{-6}$, com erro máximo
 observado da ordem de $10^{-10}$; os \emph{fingerprints} dos conjuntos de
 dias selecionados coincidem célula a célula no \emph{snapshot}. Uma
@@ -63,19 +92,50 @@ efetivamente em produção --- os mesmos parâmetros que desenham as bandas de
 alarme do dashboard --- e não a uma reconstrução aproximada dele.
 
 \section{Perfil dos dados e domínio de validade}
-\label{sec:d0-perfil}
+\label{sec:perfil-dados}
+% [REV-2026-09-13][F10][P2][FIGURA]
+\revisaotese{F10}{P2}{FIGURA}
+{Amostra e filtros precisam de um fluxo e de um calendário}
+{Antes dos resultados, inserir figura composta: (a) fluxo com dias/células
+candidatos -\textgreater{} faltas -\textgreater{} zeros/energia válida -\textgreater{} limiar -\textgreater{} treino/teste;
+(b) calendário de disponibilidade por vetor com exclusões e ano parcial.
+Explicar 11 955 versus 11 467 e 251 dias versus 744 observações removidas,
+sempre com denominador e ordem dos filtros. Dar data final exata de 2026
+e não apenas "corte oficial". Não confundir série-dia com dia único.}%
+% [/REV-2026-09-13]
 
+% [REV-2026-09-13][F11][P2][FIGURA]
+\revisaotese{F11}{P2}{FIGURA}
+{Distribuição operacional e relação energia-carga}
+{Aproveitar os gráficos D0 já sugeridos, sem duplicar o calendário:
+quatro painéis energia versus carga, um por vetor diário, pontos por ano,
+limiar vertical e retas anuais; um painel separado mostra eletricidade
+em patamares mensais. Acrescentar distribuição de Q antes/depois do filtro.
+Preservar pontos excluídos em cinzento para tornar visível a população
+não coberta. Eixos com t GNE/d e kt/d; cores consistentes entre capítulos.}%
+% [/REV-2026-09-13]
 %% FIGURA: outputs .../figures/D0_4_threshold_effect.svg (converter p/ PDF)
 %% FIGURA: outputs .../figures/D0_6_scatter_official.svg
 
 O painel analisado cobre $2\,403$ dias candidatos entre 2020-01-01 e o corte
-oficial de 2026, com $11\,955$ observações série--dia nos cinco vectores; a
+oficial de 2026, com $11\,955$ observações série--dia nos cinco vetores; a
 falta de dados é rara e concentrada (60 observações, em dois blocos de 30 dias
 na energia elétrica, 2021-11 e 2026-07). Três características dos dados,
 estabelecidas antes de qualquer inferência, condicionam a leitura de todo o
 diagnóstico.
 
 \paragraph{O limiar de carga define um domínio de validade não declarado.}
+% [REV-2026-09-13][C6-03][P2][INTERPRETACAO]
+\revisaotese{C6-03}{P2}{INTERPRETACAO}
+{Diferenças de distribuição não identificam o regime físico}
+{SMD elevados documentam separação nas variáveis observadas, mas não
+identificam arranque, operação degradada ou outro regime sem eventos
+externos. Valores muito altos em temperatura/pressão justificam verificar
+unidades, defaults, zeros e dispersão do denominador. Preferir
+"população operacional distinta nas variáveis observadas" e marcar
+arranques/reduções como hipóteses. Não confundir limiar inferior de
+treino com todo o suporte de validade do modelo.}%
+% [/REV-2026-09-13]
 O limiar oficial de $18\,600$~t/d remove 251 dos $2\,403$ dias candidatos
 (10{,}4\%) e 744 das $11\,467$ observações com energia medida. Os dias
 removidos não são uma franja aleatória de dias atípicos: comparados com os
@@ -93,36 +153,78 @@ uso que o diagnóstico regista. Nos cenários de sensibilidade com o limiar a
 $\pm 20\%$, a remoção varia entre 187 e 397 dias, com o mesmo padrão de
 diferenças sistemáticas.
 
+% [REV-2026-09-13][C6-04][P2][INTERPRETACAO]
+\revisaotese{C6-04}{P2}{INTERPRETACAO}
+{Alocação mensal não torna todo o evento curto indetetável}
+{A série alocada não permite localizar nem estimar a duração de um desvio
+intramensal; contudo, um evento curto suficientemente intenso pode alterar
+o total mensal. Reformular a impossibilidade como falta de resolução
+temporal. A constância intramensal também não implica necessariamente R\textsuperscript{2}
+global próximo de zero: médias mensais de energia e carga podem covariar.
+O R\textsuperscript{2} observado é um resultado deste conjunto, não identidade da alocação.}%
+% [/REV-2026-09-13]
 \paragraph{A energia elétrica não é uma medição diária.} Nos 77 meses
 completos do período, o valor diário da energia elétrica é constante dentro de
 cada mês em 77 --- um total mensal distribuído uniformemente pelos dias, não
 uma medição com resolução diária. Isto explica mecanicamente o $R^2$
-residual do vector ($\approx 4\times 10^{-4}$ na configuração oficial): a
+residual do vetor ($\approx 4\times 10^{-4}$ na configuração oficial): a
 regressão diária tenta explicar com a carga uma variável que, por construção,
 não varia dentro do mês. Mais importante, torna o alarme diário da energia
 elétrica estruturalmente cego: nenhum desvio com duração inferior a um mês é
 detetável, qualquer que seja a estatística usada. Por esta razão, a energia
-elétrica é excluída dos endpoints de resolução diária (E3--E5) e avaliada no
-E2 apenas por um diagnóstico mensal próprio.
+elétrica é excluída de todas as análises de resolução diária e avaliada
+apenas por um diagnóstico mensal próprio.
 
+% [REV-2026-09-13][C6-05][P1][ESTATISTICA]
+\revisaotese{C6-05}{P1}{ESTATISTICA}
+{Autocorrelação e cobertura marginal são propriedades distintas}
+{Não concluir que a banda perde cobertura marginal apenas por haver
+autocorrelação. Um processo gaussiano estacionário pode manter
+P(|e\_t| \textless{}= 2 sigma) próximo de 95,45\% com dependência forte; mudam as
+sequências e a incerteza da cobertura estimada. Cobertura condicional,
+incerteza dos parâmetros, heterocedasticidade e mudança de distribuição
+são questões separadas. A perda de cobertura deve assentar nos resultados
+da Sec. 6.5, não nesta implicação. Ver também C2-03 e C7-13.}%
+% [/REV-2026-09-13]
 \paragraph{Os resíduos são fortemente dependentes.} A autocorrelação residual
 de primeira ordem das regressões oficiais situa-se entre $0{,}46$ e $0{,}90$
-consoante o vector e o ano completo (medição sistemática na
+consoante o vetor e o ano completo (medição sistemática na
 Secção~\ref{sec:diagnosticos-desc}). Sob esta dependência, os erros-padrão clássicos e
 os $p$-values dos testes de diagnóstico habituais deixam de ser fiáveis, e a
 banda de alarme $\pm 2\hat\sigma$ deixa de ter a cobertura nominal que o seu
 desenho pressupõe. É este facto --- medido nos próprios dados --- que
 justifica a maquinaria inferencial do protocolo
-(Secção~\ref{sec:protocolo-baselines}) e que as Secções~\ref{sec:e3-estabilidade}
-e~\ref{sec:e4-calibracao} traduzem em consequências operacionais.
+(Secção~\ref{sec:protocolo-baselines}) e que as Secções~\ref{sec:estabilidade}
+e~\ref{sec:calibracao} traduzem em consequências operacionais.
 
 \section{Poder preditivo contra referências triviais}
-\label{sec:e2-skill}
+\label{sec:poder-preditivo}
+% [REV-2026-09-13][C6-06][P1][INFERENCIA]
+\revisaotese{C6-06}{P1}{INFERENCIA}
+{Ganho não demonstrado não equivale a modelo vazio}
+{Trocar "modelos vazios", "sem significado prático" e "mata o uso" por
+conclusões quantitativas delimitadas aos comparadores e transições.
+IC que contém zero não demonstra equivalência; ausência de margem
+material elicitada impede concluir irrelevância prática. Uma média fixa
+pode ser referência adequada para um consumo pouco dependente de Q:
+há que avaliar finalidade, precisão e deteção, não exigir relação com
+carga por definição. Fonte metodológica já citável: Lakens2017.}%
+% [/REV-2026-09-13]
 
+% [REV-2026-09-13][F12][P2][FIGURA]
+\revisaotese{F12}{P2}{FIGURA}
+{Forest plot do ganho preditivo com a sensibilidade visível}
+{Usar E2\_2 como figura principal desta secção: \ensuremath{\Delta}MAE e IC95 por transição,
+em quatro painéis por vetor, linha zero e direção do ganho explícita.
+Mostrar IC do bloco base e, com traço distinto, do bloco longo relevante;
+anotar n comum e comparador. Evitar apenas heatmap de significância.
+A série temporal E2\_4 pode ser exemplo secundário; tabelas de todos os
+comparadores ficam no Apêndice D. Gerar do mesmo lote citado pela prosa.}%
+% [/REV-2026-09-13]
 %% FIGURAS: E2_2_delta_mae_forest.svg, E2_1_skill_heatmap.svg,
 %%          E2_4_fuel_gas_forward_series.svg (bundle E2)
 
-A primeira pergunta confirmatória é a mais elementar: os parâmetros oficiais
+A primeira pergunta é a mais elementar: os parâmetros oficiais
 de um ano de treino $y$, aplicados sem reestimação ao ano seguinte $y{+}1$,
 prevêem o consumo melhor do que referências triviais? A referência primária é
 a média do ano de treino --- um ``modelo'' sem carga, que responde sempre o
@@ -133,10 +235,10 @@ por \emph{moving-block bootstrap} (MBB) sobre a série das diferenças de
 perda; o \emph{skill} associado é
 $1 - \mathrm{MAE}_{\mathrm{modelo}}/\mathrm{MAE}_{\mathrm{nulo}}$. Não se
 constrói nenhum teste agregado sobre os cinco pares anuais: cada par
-vector--transição é reportado individualmente, e a conclusão é o padrão dos
+vetor--transição é reportado individualmente, e a conclusão é o padrão dos
 intervalos. O ano incompleto de 2026 é apenas diagnóstico.
 
-O resultado divide os vectores em dois grupos. O fuel gás tem conteúdo
+O resultado divide os vetores em dois grupos. O fuel gás tem conteúdo
 preditivo real: em quatro das cinco transições completas
 (2020${\to}$2021, 2022${\to}$2023, 2023${\to}$2024, 2024${\to}$2025) o
 \emph{skill} situa-se entre $0{,}30$ e $0{,}40$ e o intervalo MBB de
@@ -145,7 +247,7 @@ $\Delta_{\mathrm{MAE}}$ exclui zero do lado positivo; a exceção é
 carga vale, nas transições favoráveis, reduções de 30--40\% do erro absoluto
 médio face a responder sempre a média.
 
-Os três vectores de vapor são, para efeitos de previsão pontual, modelos
+Os três vetores de vapor são, para efeitos de previsão pontual, modelos
 vazios. No vapor de 24~bar o \emph{skill} nunca sai do intervalo
 $[-0{,}05;\,0{,}01]$; no de 10~bar, de $[-0{,}07;\,0{,}004]$; os intervalos
 ora contêm zero ora o excluem por margens sem significado prático
@@ -154,52 +256,84 @@ dezenas de toneladas). O vapor de 3~bar acrescenta instabilidade de sinal: a
 transição 2020${\to}$2021 é confirmadamente \emph{pior} do que a média do
 treino (\emph{skill} $-0{,}20$, intervalo exclui zero do lado negativo),
 2021${\to}$2022 e 2023${\to}$2024 marginalmente melhores, as restantes
-indistinguíveis de zero. Em três dos quatro vectores diários, a componente
+indistinguíveis de zero. Em três dos quatro vetores diários, a componente
 linear em $Q$ não transporta informação utilizável de um ano para o seguinte
---- coerente com os $R^2$ oficiais destes vectores, entre $2\times10^{-5}$ e
+--- coerente com os $R^2$ oficiais destes vetores, entre $2\times10^{-5}$ e
 $0{,}31$.
 
 Duas leituras que o resultado \emph{não} autoriza. Primeiro, previsão pontual
 não é normalização: um \emph{skill} nulo mata o uso da baseline como preditor,
 mas não decide por si só o seu valor como normalizador de consumo pela carga
---- essa avaliação pertence às Secções~\ref{sec:e3-estabilidade}
-e~\ref{sec:e4-calibracao}. Segundo, o diagnóstico de 2026 (parcial) mostra o
+--- essa avaliação pertence às Secções~\ref{sec:estabilidade}
+e~\ref{sec:calibracao}. Segundo, o diagnóstico de 2026 (parcial) mostra o
 fuel gás com \emph{skill} $-0{,}45$ --- o modelo de 2025 é, no ano corrente,
 substancialmente pior do que a média histórica --- mas o ano incompleto não
 suporta conclusões; o padrão é retomado na análise de estabilidade.
 
-A referência sazonal (mesmo dia civil do ano anterior) e a média móvel de 30
-dias, referências secundárias, não alteram este quadro e constam do
+As referências secundárias completam o quadro sem o alterar. Contra o mesmo
+dia civil do ano anterior, a baseline ganha em 17 dos 20 pares --- derrotar
+uma referência sazonal fraca é fácil. Contra uma média móvel civil de 30
+dias, o quadro inverte-se: a média móvel prevê melhor do que a baseline em
+todos os cinco pares do vapor de 24~bar e do de 3~bar e em quatro dos cinco
+do de 10~bar, e só no fuel gás a baseline lhe leva vantagem confirmada, em
+dois pares. A conclusão depende, portanto, do comparador --- e a leitura
+correta é estreita: uma média com informação recente prevê o dia seguinte
+melhor do que uma relação anual com a carga, o que mede a pobreza preditiva
+de $Q$ nos vapores, não a superioridade da média móvel como referência de
+monitorização. Uma média adaptativa incorpora um desvio persistente como
+``normal'' --- exatamente o oposto do que se pede a uma baseline de eficiência
+(Capítulo~\ref{cha:discussao}). As tabelas completas constam do
 Anexo~\ref{app:tabelas}. O diagnóstico mensal da energia elétrica, contra
 nulos apropriados à sua resolução (média mensal do treino, mês homólogo, mês
 anterior), é igualmente remetido para o anexo: com $n{=}12$ meses por ano e
-alocação uniforme, nenhuma comparação atinge estatuto confirmatório.
+alocação uniforme, nenhuma comparação sustenta uma conclusão.
 
 \section{Estabilidade dos parâmetros}
-\label{sec:e3-estabilidade}
+\label{sec:estabilidade}
+% [REV-2026-09-13][C6-07][P2][INFERENCIA]
+\revisaotese{C6-07}{P2}{INFERENCIA}
+{Instabilidade depende do teste, suporte e precisão}
+{O texto reporta perda das rejeições no bootstrap com blocos de 60 dias:
+não fechar a secção com uma invariância rejeitada incondicionalmente.
+Distinguir variação pontual, evidência Wald/BH e sensibilidade BY/MBB.
+Não-rejeição no 24 bar também não demonstra "ausência" de relação.
+Declive negativo não é efeito causal; comparar previsões em cargas
+comuns, com IC, em vez de interpretar interceptos em Q=0 fora do suporte.
+HAC requer condições assintóticas; evitar "permanece válido" sem qualificação.}%
+% [/REV-2026-09-13]
 
+% [REV-2026-09-13][F13][P2][FIGURA]
+\revisaotese{F13}{P2}{FIGURA}
+{Predições a carga comum em vez de quatro figuras repetidas}
+{Compor os quatro vetores numa figura com anos no eixo x e previsão
+numa carga q\_ref dentro do suporte comum no eixo y, acompanhada de IC HAC.
+Se houver espaço, mostrar duas cargas comuns, explicitadas na legenda.
+Não interpretar o intercepto a Q=0 como consumo base físico extrapolado.
+Conservar os gráficos completos por vetor no Apêndice D e reportar na
+legenda que a rejeição estatística é sensível ao método de dependência.}%
+% [/REV-2026-09-13]
 %% FIGURAS: E3_1_<vector>_reference_predictions.svg (bundle E3, 4 figuras)
 
 A recalibração anual do método de produção pressupõe que cada ano de dados
 reestima \emph{a mesma} relação física entre energia e carga, a menos de ruído
-amostral. O endpoint E3 testa esse pressuposto diretamente: uma regressão
+amostral. Este pressuposto foi testado diretamente: uma regressão
 empilhada 2020--2025 com interações ano$\times$carga, e um teste de Wald de
 igualdade dos declives com covariância HAC (\emph{kernel} quadrático-espectral,
 largura de banda de Andrews), que permanece válido sob a dependência residual
-medida na Secção~\ref{sec:d0-perfil}. Os quatro testes de declive formam uma
+medida na Secção~\ref{sec:perfil-dados}. Os quatro testes de declive formam uma
 família com correção de Benjamini--Hochberg (BH), com
 Benjamini--Yekutieli (BY) como verificação conservadora; os testes de nível
 formam família separada e secundária.
 
 \begin{table}[htbp]
   \centering
-  \caption[Igualdade dos declives anuais (E3)]{Teste de Wald HAC de igualdade
+  \caption[Igualdade dos declives anuais]{Teste de Wald HAC de igualdade
   dos declives anuais, 2020--2025. Família de quatro hipóteses; $q$-values BH
   e BY. Declives anuais extremos em ton~GNE/d por kton de carga.}
-  \label{tab:e3-slopes}
+  \label{tab:declives-anuais}
   \begin{tabular}{lccccc}
     \toprule
-    Vector & $\hat a$ mín.--máx. & $W$ & $p$ & $q_{\mathrm{BH}}$ & $q_{\mathrm{BY}}$ \\
+    Vetor & $\hat a$ mín.--máx. & $W$ & $p$ & $q_{\mathrm{BH}}$ & $q_{\mathrm{BY}}$ \\
     \midrule
     Fuel gás        & $8{,}19$ -- $11{,}75$   & $12{,}3$ & $0{,}031$            & $0{,}042$            & $0{,}087$ \\
     Vapor 24 bar    & $-0{,}15$ -- $0{,}31$   & $2{,}8$  & $0{,}731$            & $0{,}731$            & $1$ \\
@@ -209,9 +343,9 @@ formam família separada e secundária.
   \end{tabular}
 \end{table}
 
-A igualdade dos declives é rejeitada a 5\% sob BH em três dos quatro vectores
+A igualdade dos declives é rejeitada a 5\% sob BH em três dos quatro vetores
 --- vapor de 3~bar, vapor de 10~bar e fuel gás
-(Tabela~\ref{tab:e3-slopes}); sob a verificação BY, robusta a qualquer
+(Tabela~\ref{tab:declives-anuais}); sob a verificação BY, robusta a qualquer
 estrutura de dependência entre os testes, sobrevive a rejeição do vapor de
 3~bar. Os números por trás dos testes mostram a dimensão física do problema.
 No vapor de 3~bar o declive oficial percorre $+2{,}35 \to +2{,}81 \to +1{,}78
@@ -224,13 +358,13 @@ A não-rejeição no vapor de 24~bar não é evidência de uma relação estáve
 declives anuais entre $-0{,}15$ e $+0{,}31$ em torno de zero, o que é estável
 é a \emph{ausência} de relação --- o teste não distingue seis estimativas da
 mesma constante de seis estimativas de nada. A família secundária dos níveis
-rejeita a igualdade nos mesmos três vectores, mesmo sob BY.
+rejeita a igualdade nos mesmos três vetores, mesmo sob BY.
 
 A leitura operacional: a recalibração anual não está a reestimar uma constante
 física com precisão crescente; está a ajustar, a cada janeiro, um modelo
 diferente ao regime desse ano --- absorvendo silenciosamente no par $(a, b)$ a
 deriva que um sistema de monitorização deveria expor. As predições em cargas
-de referência com bandas de confiança HAC, por vector e ano, traduzem esta
+de referência com bandas de confiança HAC, por vetor e ano, traduzem esta
 instabilidade em unidades de consumo e constam das figuras deste capítulo;
 a sensibilidade à largura de banda HAC (multiplicadores $0{,}5\times$ e
 $2\times$) não altera nenhuma das conclusões. A rota de sensibilidade por
@@ -238,25 +372,61 @@ $2\times$) não altera nenhuma das conclusões. A rota de sensibilidade por
 blocos de 60 dias, nenhum dos testes de declive mantém $p<0{,}05$ mesmo antes
 de ajustamento --- as rejeições dependem da resolução temporal assumida para
 a dependência, e essa discordância entre rotas é reportada como parte do
-resultado, não escondida escolhendo a rota conveniente.
+resultado, não escondida escolhendo a rota conveniente. O que fica
+estabelecido não é, por isso, uma lista de vetores ``instáveis'' robusta ao
+método: é que a relação anual entre energia e carga não é invariante, e que
+o veredicto sobre cada vetor depende de forma mensurável de como se modela
+a dependência --- e, como a Secção~\ref{sec:sintese-modos-falha} mostra, de
+onde se faz começar o ano.
 
 \section{Calibração das bandas de alarme}
-\label{sec:e4-calibracao}
+\label{sec:calibracao}
+% [REV-2026-09-13][C6-08][P1][INTERPRETACAO]
+\revisaotese{C6-08}{P1}{INTERPRETACAO}
+{Excursões observadas não identificam falsos alarmes}
+{Sem janelas operacionalmente estáveis rotuladas, exclusão de 0,954
+demonstra incompatibilidade com essa referência marginal no período,
+mas não separa banda mal estimada de alterações reais de processo.
+Evitar "alarme adormecido", "desligado na prática" ou causalidade direta
+atribuída à autocorrelação sem evidência operacional. Uniformizar alvo
+0,9545 e explicar a aproximação +/-2 sigma e a incerteza dos parâmetros.
+Reportar separadamente excursões superiores e inferiores.}%
+% [/REV-2026-09-13]
 
+% [REV-2026-09-13][F14][P2][FIGURA]
+\revisaotese{F14}{P2}{FIGURA}
+{Cobertura, excursões e persistência numa leitura única}
+{Depois da definição de cobertura, incluir pontos e IC MBB por
+vetor/transição, referência 0,9545 e n/N, com indicação dos casos sensíveis
+a blocos longos. Acrescentar uma faixa temporal dos dois casos extremos,
+com resíduos e banda, para distinguir alarmes isolados de episódios.
+Sem semáforo "válido" só porque o IC inclui a nominal. O Apêndice D
+guarda cobertura condicional, distribuição de rajadas e todos os blocos.}%
+% [/REV-2026-09-13]
 %% FIGURAS: bundle E4 (cobertura por par, rajadas, forma da banda)
 
 O sistema de alarmes em produção declara um dia anómalo quando o resíduo sai
 da banda $\pm 2\hat\sigma$ do ano de treino. Se os pressupostos do desenho
 valessem --- resíduos independentes, homocedásticos, aproximadamente normais,
 relação estável --- a banda aplicada ao ano seguinte cobriria cerca de
-$95{,}4\%$ dos dias. O endpoint E4 mede a cobertura efetiva nos cinco pares
-treino${\to}$aplicação completos de cada vector diário, com intervalo de
+$95{,}4\%$ dos dias. A cobertura efetiva foi medida nos cinco pares
+treino${\to}$aplicação completos de cada vetor diário, com intervalo de
 confiança MBB a 95\%; a referência de $0{,}954$ é indicativa, e todas as
 conclusões resultam da sua exclusão pelo intervalo, nunca da comparação de
 pontos. O intervalo binomial clássico, que assume independência, é publicado
 apenas como contraste: o intervalo MBB é $1{,}0$ a $2{,}3$ vezes mais largo em
 todos os 20 pares --- a dependência serial a cobrar o seu preço à precisão.
 
+% [REV-2026-09-13][C6-09][P1][CONSISTENCIA]
+\revisaotese{C6-09}{P1}{CONSISTENCIA}
+{Contagens de excursões contraditórias}
+{Rever as contagens no lote canónico: o texto diz "um e um alarme em 364
+dias" para 10/3 bar, mas abaixo atribui 2/364 ao 10 bar. Uma excursão
+em 364 dá cobertura 363/364 = 0,99725; duas dão 0,99451.
+Além disso, 2023-\textgreater{}2024 é o par anterior a 2024-\textgreater{}2025, não "seguinte".
+Usar numerador/denominador e precisão uniforme; não escolher o número
+pela prosa. A presente revisão identificou a contradição, não reexecutou E4.}%
+% [/REV-2026-09-13]
 A descalibração é generalizada e heterogénea. Em sete dos 20 pares a
 referência é excluída por baixo (sub-cobertura, excesso de alarmes): fuel gás
 2020${\to}$2021 (cobertura $0{,}62$), vapor de 10~bar 2020${\to}$2021,
@@ -266,7 +436,7 @@ $0{,}64$). Em três pares é excluída por cima (sobre-cobertura, alarme
 adormecido): fuel gás 2021${\to}$2022 ($0{,}98$), vapor de 10~bar e vapor de
 3~bar 2023${\to}$2024 ($0{,}99$ e $0{,}997$ --- um e um alarme em 364 dias,
 respetivamente). O vapor de 24~bar fica dentro do intervalo nos cinco pares,
-em coerência com a Secção~\ref{sec:e3-estabilidade}: a banda de um modelo sem
+em coerência com a Secção~\ref{sec:estabilidade}: a banda de um modelo sem
 relação a proteger é uma banda em torno de uma média, e essa calibra
 razoavelmente.
 
@@ -274,19 +444,19 @@ Os casos extremos merecem tradução operacional. No vapor de 3~bar
 2021${\to}$2022, cobertura $0{,}38$ significa que $62\%$ dos dias do ano
 estiveram em alarme --- um sistema que grita dois dias em cada três não está a
 monitorizar, está desligado na prática. No vapor de 10~bar 2024${\to}$2025,
-139 dos 295 dias ($47\%$) excederam a banda; no par seguinte do mesmo vector
+139 dos 295 dias ($47\%$) excederam a banda; no par seguinte do mesmo vetor
 (2023${\to}$2024) tinham sido 2 em 364. A mesma regra de alarme, no mesmo
-vector, oscila entre o silêncio quase total e o ruído permanente consoante o
+vetor, oscila entre o silêncio quase total e o ruído permanente consoante o
 par de anos --- consequência direta da instabilidade dos parâmetros e da
 dependência residual que o desenho da banda ignora. O diagnóstico parcial de
-2026 aponta na mesma direção, sem estatuto confirmatório: no vapor de 10~bar,
+2026 aponta na mesma direção, sem sustentar uma conclusão: no vapor de 10~bar,
 a banda de 2025 cobre $6\%$ dos dias decorridos --- 172 alarmes em 183 dias.
 A direção importa: é um colapso por \emph{sobreprevisão} --- a média
 observada na amostra parcial de 2026 ($6{,}5$~t~GNE/d) fica muito abaixo da
 predição média da baseline de 2025 ($14{,}4$). O nível, que tinha subido até
-2025 (Secção~\ref{sec:e3-estabilidade}), inverteu nesta amostra; a data e a
-causa da alteração não estão identificadas, e o E3, que termina em 2025, nada
-afirma sobre 2026.
+2025 (Secção~\ref{sec:estabilidade}), inverteu nesta amostra; a data e a
+causa da alteração não estão identificadas, e a análise de estabilidade,
+que termina em 2025, nada afirma sobre 2026.
 
 Duas qualificações completam o quadro. Primeiro, a sensibilidade aos blocos:
 das sete sub-coberturas confirmadas, três das mais moderadas (vapor de 10~bar
@@ -301,17 +471,17 @@ dias; no fuel gás 2020${\to}$2021, o défice concentra-se no primeiro semestre
 subperíodos francamente descalibrados.
 
 O quadro que emerge das duas últimas secções é consistente: as bandas falham
-nas duas direções, e falham mais nos vectores onde os parâmetros são mais
+nas duas direções, e falham mais nos vetores onde os parâmetros são mais
 instáveis. A análise de cobertura condicional completa (tercis de carga por
 semestre), a distribuição das rajadas de alarme e o erro de forma da banda
 constante face ao intervalo de predição clássico --- um comparador
 homocedástico e iid, não uma banda robusta validada --- constam do
 Anexo~\ref{app:tabelas}.
 
-\section{Detectabilidade}
-\label{sec:e5-detectabilidade}
+\section{Detetabilidade}
+\label{sec:detetabilidade}
 
-O endpoint E5 perguntaria que desvio mínimo de consumo o sistema de alarmes
+A pergunta seguinte do protocolo é que desvio mínimo de consumo o sistema de alarmes
 consegue detetar, e ao fim de quantos dias, comparando a regra
 $\pm 2\hat\sigma$ em produção com alternativas sequenciais (CUSUM sobre
 inovações) para tamanhos de desvio elicitados com o orientador industrial. A
@@ -330,26 +500,40 @@ Inferir as paragens a partir das próprias séries de consumo, como atalho,
 contaminaria circularmente o exercício: os ``eventos'' seriam definidos pela
 mesma estatística cuja capacidade de deteção se pretende medir. Pela mesma
 causa raiz ficam não estimáveis o diagnóstico descritivo de eventos
-operacionais (D4) e a componente pós-arranque da análise de suporte (D6). A
+operacionais e a componente pós-arranque da análise de suporte. A
 indisponibilidade fica declarada como limitação
-(Secção~\ref{sec:limitacoes}); o desenho completo do endpoint permanece
+(Secção~\ref{sec:limitacoes}); o desenho completo da análise permanece
 especificado no protocolo, executável no dia em que o calendário exista.
+O Capítulo~\ref{cha:discussao} retoma a pergunta pela única via que não
+depende do calendário --- simulação com verdade conhecida --- e diz o que
+essa via pode e não pode responder.
 
-O que as secções anteriores já mostram, sem substituir o E5: um sistema cuja
-cobertura efetiva oscila entre $0{,}38$ e $0{,}997$ consoante o vector e o par
-de anos (Secção~\ref{sec:e4-calibracao}) não tem uma curva de deteção única
+O que as secções anteriores já mostram, sem substituir esta análise: um sistema cuja
+cobertura efetiva oscila entre $0{,}38$ e $0{,}997$ consoante o vetor e o par
+de anos (Secção~\ref{sec:calibracao}) não tem uma curva de deteção única
 --- tem uma por regime de descalibração, e nenhuma delas é a nominal.
 
 
 \section{Suficiência da variável explicativa}
-\label{sec:e6-suficiencia}
+\label{sec:suficiencia}
+% [REV-2026-09-13][C6-10][P2][METODO]
+\revisaotese{C6-10}{P2}{METODO}
+{Valor incremental não testa toda a suficiência física}
+{O teste compara este conjunto Z, esta classe e estes pares; não prova
+suficiência/insuficiência de toda a informação operacional. Definir se
+temperatura e pressão de flash são condições de produção, decisões
+operacionais ou potenciais mediadores do consumo. Para normalização de
+eficiência, ajustar uma variável que reage à degradação pode absorver
+o sinal de interesse. Comparar Q e Q+Z nos mesmos dias completos, com
+transformações estimadas no treino, e declarar disponibilidade ex ante/ex post.}%
+% [/REV-2026-09-13]
 
 %% FIGURAS: bundle E6 (E6_1_<vector>_skill.svg, 4 figuras)
 
-Se a carga sozinha explica pouco (Secção~\ref{sec:e2-skill}), acrescentar
-variáveis de processo resolve? O endpoint E6 responde com a única forma de
+Se a carga sozinha explica pouco (Secção~\ref{sec:poder-preditivo}), acrescentar
+variáveis de processo resolve? A resposta usa a única forma de
 resposta que não se auto-engana: valor preditivo \emph{incremental},
-estritamente fora da amostra. Para cada vector diário e ano de treino,
+estritamente fora da amostra. Para cada vetor diário e ano de treino,
 estimam-se dois modelos encaixados --- $E = aQ + b$ e $E = aQ + \gamma'Z + b$,
 com $Z$ pré-especificado antes de qualquer execução (densidade da carga,
 temperatura e pressão de \emph{flash}; o grau API é excluído por ser
@@ -363,17 +547,17 @@ critério.
 
 \begin{table}[htbp]
   \centering
-  \caption[Valor incremental das covariáveis (E6)]{Valor preditivo
+  \caption[Valor incremental das covariáveis]{Valor preditivo
   incremental das covariáveis pré-especificadas:
   $\Delta_{\mathrm{MAE}} = \mathrm{MAE}_{Q} - \mathrm{MAE}_{Q+Z}$ em
   ton~GNE/d, por transição treino${\to}$aplicação. Marcas: $^{+}$ intervalo
   MBB a 95\% exclui zero pelo lado positivo (covariáveis confirmadamente
   úteis); $^{-}$ exclui zero pelo lado negativo (confirmadamente
   prejudiciais); sem marca, o intervalo contém zero.}
-  \label{tab:e6-incremental}
+  \label{tab:covariaveis-incremental}
   \begin{tabular}{lrrrrr}
     \toprule
-    Vector & \multicolumn{1}{c}{20${\to}$21} & \multicolumn{1}{c}{21${\to}$22}
+    Vetor & \multicolumn{1}{c}{20${\to}$21} & \multicolumn{1}{c}{21${\to}$22}
     & \multicolumn{1}{c}{22${\to}$23} & \multicolumn{1}{c}{23${\to}$24}
     & \multicolumn{1}{c}{24${\to}$25} \\
     \midrule
@@ -385,13 +569,13 @@ critério.
   \end{tabular}
 \end{table}
 
-O resultado (Tabela~\ref{tab:e6-incremental}) desautoriza as duas respostas
+O resultado (Tabela~\ref{tab:covariaveis-incremental}) desautoriza as duas respostas
 simples. As covariáveis não são inúteis: no vapor de 10~bar acrescentam valor
 confirmado em quatro das cinco transições, com reduções de erro entre $2\%$ e
 $18\%$ e nenhum par negativo --- o único caso em que o degrau multivariado
 que a ISO 50006 sanciona teria ajudado de forma consistente, ainda que dois
 desses ganhos percam a exclusão de zero em blocos de 30--60 dias. Mas também
-não são um remédio: no fuel gás, o vector com melhor modelo em $Q$, as
+não são um remédio: no fuel gás, o vetor com melhor modelo em $Q$, as
 covariáveis \emph{pioram} a previsão em duas transições com exclusão de zero
 --- na transição 2024${\to}$2025 o erro absoluto médio agrava-se $32\%$ --- e
 no vapor de 24~bar prejudicam em quatro das cinco. O vapor de 3~bar exibe o
@@ -422,24 +606,34 @@ Anexo~\ref{app:tabelas}.
 
 \section{Diagnósticos complementares}
 \label{sec:diagnosticos-desc}
+% [REV-2026-09-13][C6-13][P2][RELATO]
+\revisaotese{C6-13}{P2}{RELATO}
+{Substituir p-values inválidos por evidência descritiva legível}
+{Chamar "índice descritivo" a um p-value calculado sob pressupostos
+violados não lhe dá interpretação válida. No corpo, usar ACF com
+desfasamentos civis, dispersão móvel, caudas e efeitos de influência;
+se os testes clássicos ficarem, identificá-los como contraste técnico
+no Apêndice D. Não tratar estatuto descritivo como inferior por si:
+o problema é a inferência injustificada, não descrever os dados.}%
+% [/REV-2026-09-13]
 
 %% FIGURAS: bundle D1-D9 (8 figuras compostas; seleccionar D1, D5, D6, D9)
 
-A bateria descritiva D1--D9 fecha o diagnóstico documentando os mecanismos
-por trás dos endpoints. O seu estatuto é deliberadamente inferior: todos os
-$p$-values desta secção são índices descritivos calculados sob pressupostos
-de independência que a própria bateria mostra serem falsos, e nenhum rótulo
-aqui é conclusão. As tabelas completas constam do Anexo~\ref{app:tabelas};
+Um conjunto de diagnósticos descritivos fecha o capítulo documentando os
+mecanismos por trás dos resultados anteriores. O seu estatuto é
+deliberadamente inferior: todos os $p$-values desta secção são índices
+descritivos calculados sob pressupostos de independência que os próprios
+diagnósticos mostram serem falsos, e nenhum rótulo aqui é conclusão. As tabelas completas constam do Anexo~\ref{app:tabelas};
 esta secção destaca os quatro resultados que sustentam ou contextualizam as
 secções anteriores.
 
-\paragraph{A dependência residual é universal e forte (D1--D2).} Medida
+\paragraph{A dependência residual é universal e forte.} Medida
 sistematicamente sobre os resíduos das regressões oficiais, a autocorrelação
 de primeira ordem em desfasamento civil situa-se entre $0{,}45$ e $0{,}90$
-nos 24 anos-vector completos (estatística de Durbin--Watson entre $0{,}15$ e
+nos 24 anos-vetor completos (estatística de Durbin--Watson entre $0{,}15$ e
 $1{,}08$), com os valores mais altos e menos variáveis no vapor de 3~bar
-($0{,}76$--$0{,}90$) --- confirmando, vector a vector e ano a ano, o perfil
-preliminar da Secção~\ref{sec:d0-perfil}. A estrutura de variância acompanha,
+($0{,}76$--$0{,}90$) --- confirmando, vetor a vetor e ano a ano, o perfil
+preliminar da Secção~\ref{sec:perfil-dados}. A estrutura de variância acompanha,
 com heterogeneidade: os índices descritivos de heterocedasticidade
 (Breusch--Pagan, ARCH em desfasamentos civis) são elevados em muitas células
 e quase nulos noutras, e o desvio móvel de 30 dias oscila, dentro do mesmo
@@ -447,27 +641,54 @@ ano, por fatores que a banda constante $\pm 2\hat\sigma$ não acomoda. A sazonal
 modesta em quota de variância ($\eta^2$ entre $0{,}03$ e $0{,}09$) ---
 estrutura temporal omitida, não explicação dominante. Este bloco é o
 fundamento empírico de toda a maquinaria HAC/MBB do capítulo: não foi uma
-preferência metodológica, foi uma imposição dos dados.
+preferência metodológica, foi uma imposição dos dados. Regista-se ainda que
+a autocorrelação dos três vapores sobe ao longo do período --- no de
+24~bar, de $0{,}46$ em 2021 para $0{,}89$ no parcial de 2026; no de 10~bar,
+de $0{,}48$ em 2022 para $0{,}86$ ---, enquanto o fuel gás se mantém em
+torno de $0{,}6$: estrutura temporal a migrar progressivamente para o
+resíduo, coerente com a instabilidade de nível das
+Secções~\ref{sec:estabilidade} e~\ref{sec:calibracao}.
 
-\paragraph{Nenhuma segmentação em regimes é validável a partir dos dados
-(D5).} No espaço operacional padronizado (carga e covariáveis), o melhor
+% [REV-2026-09-13][C6-11][P2][DIAGNOSTICO]
+\revisaotese{C6-11}{P2}{DIAGNOSTICO}
+{Dois algoritmos sem separação clara não excluem regimes}
+{A cautela já presente é correta, mas o título e a conclusão voltam a
+generalizar. Limitar a "não se obteve segmentação operacional validada
+com as variáveis e parametrizações avaliadas". Clusters geométricos não
+equivalem a regimes físicos; podem existir mudanças temporais sem
+separação no espaço escolhido. Reportar padronização, tratamento de
+dados em falta e estabilidade das partições; pedir eventos externos
+como validação, sem apresentar impossibilidade matemática.}%
+% [/REV-2026-09-13]
+\paragraph{Nenhuma segmentação em regimes é validável a partir dos dados.} No espaço operacional padronizado (carga e covariáveis), o melhor
 agrupamento $k$-\emph{means} é $k{=}2$ com \emph{silhouette} $0{,}35$ ---
 fraco --- e o DBSCAN pré-parametrizado devolve um único \emph{cluster} com 71
 dias de ruído ($3{,}6\%$). A leitura exige simetria: estes métodos não
 validam uma segmentação operacional, mas também não demonstram a inexistência
 de regimes --- o $k$-\emph{means} força partições e o DBSCAN depende da
 parametrização. O que fica estabelecido é negativo e útil: a instabilidade
-dos parâmetros (Secção~\ref{sec:e3-estabilidade}) não é o artefacto de
+dos parâmetros (Secção~\ref{sec:estabilidade}) não é o artefacto de
 regimes óbvios que uma segmentação simples separaria, e uma família de
 baselines por regime não é identificável a partir destes dados sem o
 calendário operacional.
 
+% [REV-2026-09-13][C6-12][P1][SUPORTE]
+\revisaotese{C6-12}{P1}{SUPORTE}
+{Overlap de densidades não prova ausência de extrapolação}
+{Overlap marginal de 0,79--0,83 não garante que todos os dias de aplicação
+estejam dentro do intervalo de treino nem numa região bem amostrada.
+Acrescentar percentagem fora de [min,max] do treino e em regiões de
+baixa densidade; repetir contraste no suporte comum. Para Q+Z,
+examinar suporte conjunto. Até existir essa decomposição, trocar
+"não podem ser desculpadas como extrapolação" por "há sobreposição
+marginal substancial; o papel da extrapolação não ficou isolado".}%
+% [/REV-2026-09-13]
 \paragraph{Em carga, a avaliação decorre dentro do domínio amostrado; nas
-covariáveis, o espaço desloca-se (D6).} A sobreposição das densidades de
+covariáveis, o espaço desloca-se.} A sobreposição das densidades de
 \emph{carga} entre anos consecutivos (índice de \emph{overlap} de núcleos, 0
 a 1) situa-se entre $0{,}79$ e $0{,}83$ nos cinco pares completos, com
 $0{,}79$ no par diagnóstico 2025${\to}$2026: as falhas de estabilidade e de
-calibração das Secções~\ref{sec:e3-estabilidade} e~\ref{sec:e4-calibracao}
+calibração das Secções~\ref{sec:estabilidade} e~\ref{sec:calibracao}
 ocorrem, no que a $Q$ respeita, no interior do domínio amostrado, e não podem
 ser desculpadas como extrapolação para cargas nunca vistas. O mesmo não vale
 para as covariáveis: o \emph{overlap} da pressão de \emph{flash} cai a
@@ -477,11 +698,21 @@ operacionais mudam sem sair do intervalo observado. Estas medidas são
 marginais e não estabelecem nem excluem extrapolação \emph{conjunta}; a
 deslocação das covariáveis é, porém, uma das explicações concorrentes para a
 má transportabilidade dos modelos aumentados
-(Secção~\ref{sec:e6-suficiencia}).
+(Secção~\ref{sec:suficiencia}).
 
-\paragraph{Os vectores não falham de forma independente (D9).} As correlações
-cruzadas dos resíduos padronizados entre vectores são aproximadamente nulas
-em todos os pares excepto um: vapor de 24~bar contra vapor de 10~bar, com
+% [REV-2026-09-13][F15][P3][FIGURA]
+\revisaotese{F15}{P3}{FIGURA}
+{Acoplamento de vapor com hipótese física explícita}
+{Figura opcional após este parágrafo: resíduos padronizados 24/10 bar
+no mesmo calendário, diagrama de dispersão por ano e pequeno esquema
+dos fluxos partilhados, apenas se o circuito for conhecido. A legenda
+diz "associação compatível com..." e enumera reconciliação comum como
+alternativa. Não desenhar setas causais a partir da correlação. Se a
+fronteira de F03 já explicar a rede, bastam os dois painéis de dados.}%
+% [/REV-2026-09-13]
+\paragraph{Os vetores não falham de forma independente.} As correlações
+cruzadas dos resíduos padronizados entre vetores são aproximadamente nulas
+em todos os pares exceto um: vapor de 24~bar contra vapor de 10~bar, com
 $r = -0{,}58$ agregado nos anos completos, entre $-0{,}36$ e $-0{,}82$
 consoante o ano, e $-0{,}93$ no parcial de 2026 --- uma anti-correlação forte
 e persistente, compatível com o despacho entre níveis de pressão da rede de
@@ -489,16 +720,16 @@ vapor: o que um nível consome a mais, o outro tende a consumir a menos ---
 uma hipótese compatível com os dados, não um mecanismo identificado; medição
 ou reconciliação comum e condições operacionais omitidas são explicações
 alternativas em aberto. Registam-se ainda 67 dias com desvios simultâneos
-$|z| > 2$ em dois ou mais vectores nos anos completos --- quase todos com o
+$|z| > 2$ em dois ou mais vetores nos anos completos --- quase todos com o
 par 24/10~bar em sinais opostos --- e dez no parcial de 2026, estes numa
 única sequência civil (25 de março a 3 de abril). A consequência para o
 desenho de alarmes é directa: alarmes
-simultâneos em vectores acoplados não são evidência independente, e qualquer
+simultâneos em vetores acoplados não são evidência independente, e qualquer
 agregação de alarmes que os some como se o fossem sobrestima a informação
 disponível.
 
 Os restantes blocos completam o quadro sem o alterar. As caudas dos resíduos
-são pesadas em células específicas, não uniformemente: quatro anos-vector têm
+são pesadas em células específicas, não uniformemente: quatro anos-vetor têm
 excesso de curtose acima de 10 (máximo $15{,}7$, no fuel gás de 2024), com
 intervalos MBB largos --- e, em contraponto, o vapor de 3~bar é quase
 simétrico e mesocúrtico em todos os anos, mostrando que uma distribuição
@@ -513,92 +744,130 @@ interpretar efeitos em cargas de referência, nunca sinais de coeficientes. A
 verificação de plausibilidade regista 8 declives anuais negativos em 35
 células e 10 trocas de sinal entre anos completos consecutivos ---
 difíceis de sustentar como resposta física de consumo à carga e coerentes com
-a identificação fraca diagnosticada em E2/E3, embora consumo líquido,
-acoplamento entre vectores ou variáveis omitidas permaneçam explicações
+a identificação fraca diagnosticada nas Secções~\ref{sec:poder-preditivo} e~\ref{sec:estabilidade}, embora consumo líquido,
+acoplamento entre vetores ou variáveis omitidas permaneçam explicações
 possíveis --- com as gamas de engenharia formais, que permitiriam arbitrar,
-declaradas indisponíveis. O diagnóstico de eventos operacionais (D4) e a
+declaradas indisponíveis. O diagnóstico de eventos operacionais e a
 análise pós-arranque ficam não estimáveis pela indisponibilidade do
-calendário (Secção~\ref{sec:e5-detectabilidade}).
+calendário (Secção~\ref{sec:detetabilidade}).
 
 
 \section{Síntese: os modos de falha}
 \label{sec:sintese-modos-falha}
+% [REV-2026-09-13][C6-14][P1][SINTESE]
+\revisaotese{C6-14}{P1}{SINTESE}
+{A síntese está mais categórica que os resultados}
+{Substituir "rejeitada", "modelo genuíno", "vacuidade" e "condena" por
+descrições proporcionais. Na tabela, separar evidência robusta,
+dependente de BH/bloco/janela, sem ganho demonstrado e não estimável.
+Acrescentar eletricidade como linha "resolução mensal" e detetabilidade
+real como NE; não afirmar cinco testes de falha quando uma limitação
+vem da medição. A síntese tem de preservar BY, blocos longos e ausência
+de margens materiais já declarados, sem relegá-los para ressalvas.}%
+% [/REV-2026-09-13]
 
 %% FIGURA: SENS_survival_matrix.svg (bundle SENS, corrida canonica T10)
 
-Nenhum vector passa o diagnóstico completo --- mas nenhum falha da mesma
+Nenhum vetor passa o diagnóstico completo --- mas nenhum falha da mesma
 maneira, e é a diversidade dos modos de falha, mais do que qualquer falha
 individual, que condena a receita única em produção. A
-Tabela~\ref{tab:sintese-vectores} cruza os quatro vectores diários com as
-quatro dimensões confirmatórias; a leitura por linhas identifica cinco
-patologias qualitativamente distintas.
+Tabela~\ref{tab:sintese-vectores} cruza os quatro vetores diários com as
+quatro dimensões avaliadas; a leitura por linhas identifica cinco modos de
+falha qualitativamente distintos --- distintos, não independentes: a
+anticorrelação entre os dois níveis de vapor
+(Secção~\ref{sec:diagnosticos-desc}) liga dois deles.
 
 \begin{table}[htbp]
   \centering
-  \caption[Síntese do diagnóstico por vector]{Síntese do diagnóstico:
-  conclusões confirmatórias por vector e dimensão. E2: \emph{skill} contra a
-  média do treino; E3: igualdade dos declives anuais (BH a 5\%); E4:
-  cobertura da banda $\pm 2\hat\sigma$ nos cinco pares; E6: valor incremental
-  forward das covariáveis.}
+  \caption[Síntese do diagnóstico por vetor]{Síntese do diagnóstico por
+  vetor e dimensão. Poder preditivo: \emph{skill} contra a média do treino
+  (Secção~\ref{sec:poder-preditivo}); estabilidade: igualdade dos declives
+  anuais, BH a 5\% (Secção~\ref{sec:estabilidade}); calibração: cobertura da
+  banda $\pm 2\hat\sigma$ nos cinco pares (Secção~\ref{sec:calibracao});
+  covariáveis: valor incremental forward (Secção~\ref{sec:suficiencia}).}
   \label{tab:sintese-vectores}
   \small
   \begin{tabular}{lp{2.5cm}p{2.6cm}p{2.9cm}p{2.9cm}}
     \toprule
-    Vector & E2 --- skill & E3 --- estabilidade & E4 --- calibração & E6 --- covariáveis \\
+    Vetor & Poder preditivo & Estabilidade & Calibração & Covariáveis \\
     \midrule
     Fuel gás & real (0{,}30--0{,}40 em 4/5) & rejeitada & falha em 2 pares (0{,}62; 0{,}98) & prejudicam (até $-32\%$) \\
-    Vapor 24 bar & quase nulo; MM30 domina & não rejeitada & dentro do IC (5/5) & prejudicam (4/5) \\
+    Vapor 24 bar & quase nulo; uma média móvel prevê melhor & não rejeitada & dentro do IC (5/5) & prejudicam (4/5) \\
     Vapor 10 bar & nulo & rejeitada; nível sobe até 2025 & falha em 4 pares; colapso YTD (0{,}06) & úteis (4/5), mas frágeis \\
     Vapor 3 bar & errático (sinal instável) & rejeitada (sobrevive a BY); declive muda de sinal & a pior (0{,}38--0{,}997, duas direções) & erráticas ($-14\%$ a $+42\%$) \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-\paragraph{As cinco patologias.} O \emph{fuel gás} é o único vector com
-modelo genuíno --- e é precisamente por ter uma relação real que a sua
-patologia é visível: deriva paramétrica (declive $-30\%$ em cinco anos)
+\paragraph{Os cinco modos de falha.} O \emph{fuel gás} é o único vetor com
+modelo genuíno --- e é precisamente por ter uma relação real que o seu
+modo de falha é visível: deriva paramétrica (declive $-30\%$ em cinco anos)
 absorvida pela recalibração anual, com bandas que falham nos pares que
 atravessam a deriva. O \emph{vapor de 24~bar} é o caso insidioso: passa nos
 testes de estabilidade e de calibração porque não há relação nenhuma a
 falhar --- declives anuais em torno de zero, \emph{skill} nulo, uma média
-disfarçada de modelo. É saúde aparente por vacuidade, e é o vector que mais
+disfarçada de modelo. É saúde aparente por vacuidade, e é o vetor que mais
 enganaria uma auditoria superficial. O \emph{vapor de 10~bar} tem o nível em
 movimento: subiu de $2$ para $15$~t~GNE/d à mesma carga entre 2020 e 2025 e
 inverteu na amostra parcial de 2026, com a banda de 2025 a cobrir $6\%$ dos
-dias por sobreprevisão --- o modelo anual persegue um nível que não pára
+dias por sobreprevisão --- o modelo anual persegue um nível que não para
 quieto. O
 \emph{vapor de 3~bar} concentra as falhas mais graves em todas as dimensões
 --- declive a trocar de sinal entre anos, a pior calibração nas duas direções
---- sem falhar em absolutamente tudo: tem ganhos E2 pontuais e o maior ganho
-incremental E6 do estudo ($+42\%$, robusto aos blocos), o retrato de uma
+--- sem falhar em absolutamente tudo: tem ganhos preditivos pontuais e o maior
+ganho incremental das covariáveis do estudo ($+42\%$, robusto aos blocos), o retrato de uma
 identificação fraca sobre uma relação que provavelmente nunca foi
 aproximadamente linear e estática. A
 \emph{energia elétrica} falha antes de qualquer estatística: um alarme
 diário sobre uma alocação mensal uniforme é estruturalmente cego por
-construção (Secção~\ref{sec:d0-perfil}).
+construção (Secção~\ref{sec:perfil-dados}).
 
+% [REV-2026-09-13][C6-15][P2][MECANISMO]
+\revisaotese{C6-15}{P2}{MECANISMO}
+{Separar projeção algébrica, simulação e evento observado}
+{Um refit com intercepto centra os resíduos de treino e absorve a
+componente projetada no espaço dos regressores; não apaga qualquer
+deriva em aplicação futura. Documentar a política temporal real
+(C4-07), que referência é substituída e o que permanece nos dados.
+A simulação pode demonstrar atenuação sob um desenho, mas os coeficientes
+anuais não identificam quanto fouling/ineficiência foi ocultado.
+Também não há base para classificar desvios rápidos como menos importantes.}%
+% [/REV-2026-09-13]
 \paragraph{O mecanismo comum: a recalibração anual mascara aquilo que devia
-expor.} As Secções~\ref{sec:e3-estabilidade} e~\ref{sec:e4-calibracao} são
+expor.} As Secções~\ref{sec:estabilidade} e~\ref{sec:calibracao} são
 duas faces do mesmo fenómeno. Cada janeiro, o refit anual reabsorve no par
 $(a,b)$ a deriva acumulada no ano anterior --- e o sistema de alarmes,
 recalibrado sobre o regime já derivado, volta a tratar como normalidade o
 que um sistema de monitorização deveria assinalar. A consequência é
-perversa: quanto mais lento e estrutural o fenómeno (degradação, incrustação,
-desativação), mais eficazmente a recalibração o esconde; sobram para os
+perversa: quanto mais lento e persistente o desvio --- seja degradação,
+incrustação, desativação de catalisador ou uma alteração operacional que
+estes dados não distinguem ---, mais eficazmente a recalibração o esconde; sobram para os
 alarmes os desvios rápidos, precisamente os que a dependência residual e a
 descalibração das bandas tornam pouco fiáveis. O sistema é assim cego por
 construção aos fenómenos lentos que mais importam e ruidoso nos rápidos que
 menos importam. Sublinhe-se o estatuto da afirmação: é uma propriedade do
 desenho, demonstrada pela deriva paramétrica que o refit comprovadamente
-absorve (Secção~\ref{sec:e3-estabilidade}) --- o que ficou efetivamente
+absorve (Secção~\ref{sec:estabilidade}) --- o que ficou efetivamente
 mascarado em cada ano não é mensurável sem o calendário operacional
-(Secção~\ref{sec:e5-detectabilidade}).
+(Secção~\ref{sec:detetabilidade}).
 
+% [REV-2026-09-13][F16][P3][FIGURA]
+\revisaotese{F16}{P3}{FIGURA}
+{Sensibilidade dos efeitos, não apenas dos rótulos}
+{Aproveitar SENS\_survival\_matrix, mas distinguir não estimável, troca de
+sinal e perda de exclusão de zero. Acompanhar rótulos por estimativas/IC
+dos contrastes principais. Para atribuir efeito à âncora anual, comparar
+mesma cobertura temporal; se não for possível, legendar partição +
+mudança de período. Nunca escolher a janela que torna o resultado mais
+favorável. Para intervalos que mudam com a seed, reportar instabilidade
+Monte Carlo e aumentar réplicas apenas como diagnóstico documentado.}%
+% [/REV-2026-09-13]
 \paragraph{Sensibilidade: o que sobrevive a mexer nas convenções.} Todo o
 diagnóstico assenta em duas convenções herdadas do método de produção: o
 limiar de carga e a janela anual civil. Uma grelha de sensibilidade
-pré-registada reavaliou as 104 conclusões confirmatórias
-(E2$\times$nulos, E3, E4, E6) sob seis combinações --- limiar a $0{,}8\times$,
+pré-registada reavaliou as 104 conclusões do capítulo --- poder preditivo
+contra os três nulos, estabilidade, calibração e valor incremental --- sob
+seis combinações --- limiar a $0{,}8\times$,
 $1{,}0\times$ e $1{,}2\times$, janelas civis e janelas de 12 meses ancoradas
 a 1 de julho --- num total de 624 reavaliações, com a célula de referência a
 reproduzir exatamente os testes deterministas do capítulo. Ao limiar, o
@@ -610,7 +879,7 @@ a rejeição de estabilidade do fuel gás não sobrevive ao limiar reduzido; a
 sobre-cobertura do vapor de 3~bar em 2023${\to}$2024 degenera para cobertura
 total (zero alarmes) em ambas as células de limiar --- a mudança de seleção e
 de ajuste não permite isolar uma causa única; e o valor incremental do vapor
-de 10~bar (Secção~\ref{sec:e6-suficiencia}) assenta em limites inferiores
+de 10~bar (Secção~\ref{sec:suficiencia}) assenta em limites inferiores
 encostados a zero: no par 2024${\to}$2025, o rótulo muda com a seed da
 reavaliação (limite $+0{,}007$ contra $-0{,}003$, com a mesma estimativa) e
 com o limiar reduzido --- é a conclusão mais frágil do capítulo, e fica
@@ -634,13 +903,13 @@ as guidelines do Capítulo~\ref{cha:discussao} tratam-na como tal.
 
 \paragraph{Resposta à questão de investigação.} As baselines em produção na
 unidade não são válidas, de forma uniforme, para os fins que a ISO 50006
-lhes atribui: a adequação depende do vector, do par de anos, do comparador e
-do objetivo --- e nenhum vector passa o diagnóstico completo. Os cinco modos
+lhes atribui: a adequação depende do vetor, do par de anos, do comparador e
+do objetivo --- e nenhum vetor passa o diagnóstico completo. Os cinco modos
 de falha são distintos, mas partilham uma raiz de desenho: um modelo linear
 estático, reestimado anualmente sobre janelas convencionais, aplicado a um
 processo contínuo não-estacionário cujo comportamento os dados --- agora
 replicados e auditáveis, dentro das limitações de proveniência declaradas ---
-documentam em detalhe. O Capítulo~\ref{cha:discussao} converte cada patologia
-numa prescrição; o que este capítulo estabelece é que nenhuma prescrição pode
+documentam em detalhe. O Capítulo~\ref{cha:discussao} converte cada modo de
+falha numa prescrição; o que este capítulo estabelece é que nenhuma prescrição pode
 assumir o que estas baselines assumiram.
 

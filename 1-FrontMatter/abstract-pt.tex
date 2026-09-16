@@ -1,20 +1,25 @@
 %!TEX root = ../template.tex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% abstract-pt.tex
-%% Resumo em Português
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ====================================================================
+%% Resumo (PT) -- ate 200 palavras.
+%% NOTA: este mesmo texto serve o formulario "Aprovacao do Titulo da
+%% Dissertacao" (MEQB), que pede sumario ate 200 palavras.
+%% Escrever uma vez, usar nos dois sitios.
+%% Estrutura: contexto -> problema -> o que se fez -> o que se
+%% encontrou -> o que se propoe -> porque importa.
+%% ====================================================================
 
-\ExplSyntaxOn
-\cs_if_exist:NT \TitleOnHeader
-  { \TitleOnHeader }
-\ExplSyntaxOff
+% [REV-2026-09-13][PT-01][P2][RESUMO]
+\revisaotese{PT-01}{P2}{RESUMO}
+{Resumo quantitativo apenas depois de fechar o argumento}
+{Estrutura sugerida em até 200 palavras: problema industrial delimitado;
+objetivo; dados/unidade e desenho temporal; dois resultados quantitativos
+com alcance claro; proposta e limitação principal. Distinguir plataforma
+entregue, diagnóstico retrospetivo e simulação. Não prometer revisão
+completa, poupanças nem alarmes validados se não demonstrados.
+Escolher 5--6 palavras-chave e corrigir acentos. O limite do formulário
+não prova que seja também o limite regulamentar do resumo da tese.}%
+% [/REV-2026-09-13]
+%% >> TODO: escrever o resumo (<=200 palavras).
 
-\typeout{NT FILE abstract-pt.tex}%
-
-% TODO: Escrever resumo em Português (máx. 1 página)
-
-\keywords{
-  TODO: Palavra-chave 1 \and
-  TODO: Palavra-chave 2 \and
-  TODO: Palavra-chave 3
-}
+\bigskip
+\noindent\textbf{Palavras-chave:} desempenho energetico; baselines energeticas; ISO 50001; ISO 50006; processos continuos; refinacao; monitorizacao; validacao estatistica

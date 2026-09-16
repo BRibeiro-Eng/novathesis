@@ -33,7 +33,8 @@
 %
 % Ignored if 'status=working'
 %-------------------------------------------------------------
-\ntaddfile{dedication}{dedication}
+% 2026-09-16: dedicatória cortada por decisão do autor. Basta descomentar para a repor.
+% \ntaddfile{dedication}{dedication}
 
 
 
@@ -120,64 +121,34 @@
 %-------------------------------------------------------------
 % Main text - document chapters
 %
-%     \ntaddfile{chapter}[<optional-doctype-list>]{<filename>}
-%.............................................................
-%
-% <filename>: -> must be '2-MainMatter/filename.tex'
-%
-% <optional-doctype-list>:  -> A comma-separateed list of doctypes.
-%                              The valid doctypes are listed in file
-%                              '1_novathesis.tex', option 'doctype'.
-%
-% If present, the chapter will only be included in the given doc types.
-% If omitted, the chapter will always be included.
-%-------------------------------------------------------------
-\ntaddfile{chapter}{chapter-introduction}
-\ntaddfile{chapter}{chapter-background}
-\ntaddfile{chapter}{chapter-methodology}
-\ntaddfile{chapter}{chapter-results}
-\ntaddfile{chapter}{chapter-conclusions}
+\ntaddfile{chapter}{chapter-1-introducao}
+\ntaddfile{chapter}{chapter-2-enquadramento}
+\ntaddfile{chapter}{chapter-3-revisao}
+\ntaddfile{chapter}{chapter-4-metodos}
+\ntaddfile{chapter}{chapter-5-plataforma}
+\ntaddfile{chapter}{chapter-6-diagnostico}
+\ntaddfile{chapter}{chapter-7-discussao}
+\ntaddfile{chapter}{chapter-8-conclusoes}
 
 
 
 %-------------------------------------------------------------
 % Apppendices
 %
-%     \ntaddfile{appendix}[<optional-doctype-list>]{<filename>}
-%.............................................................
-%
-% <filename>: -> must be '2-MainMatter/filename.tex'
-%
-% <optional-doctype-list>:  -> A comma-separateed list of doctypes.
-%                              The valid doctypes are listed in file
-%                              '1_novathesis.tex', option 'doctype'.
-%
-% If present, the appendix will only be included in the given doc types.
-% If omitted, the appendix will always be included.
-%-------------------------------------------------------------
-\ntaddfile{appendix}{appendix1}
-% \ntaddfile{appendix}{appendix2}
+\ntaddfile{appendix}{appendix-A-protocolo-sr}
+\ntaddfile{appendix}{appendix-B-validacao}
+\ntaddfile{appendix}{appendix-C-dicionario}
+\ntaddfile{appendix}{appendix-D-tabelas}
+\ntaddfile{appendix}{appendix-E-manual}
+\ntaddfile{appendix}{appendix-F-adversarial}
+\ntaddfile{appendix}{appendix-G-matematica}
 
 
 
 %-------------------------------------------------------------
 % Apppendices
 %
-%     \ntaddfile{annex}[<optional-doctype-list>]{<filename>}
-%.............................................................
-%
-% <filename>: -> must be '2-MainMatter/filename.tex'
-%
-% <optional-doctype-list>:  -> A comma-separateed list of doctypes.
-%                              The valid doctypes are listed in file
-%                              '1_novathesis.tex', option 'doctype'.
-%
-% If present, the annex will only be included in the given doc types.
-% If omitted, the annex will always be included.
-%-------------------------------------------------------------
-\ntaddfile{annex}{annex1}
-% \ntaddfile{annex}{annex2}
-% \ntaddfile{annex}{annex2}
+% (sem annexs)
 
 
 
