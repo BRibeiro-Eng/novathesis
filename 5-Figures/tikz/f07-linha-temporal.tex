@@ -1,0 +1,66 @@
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[x=1.72cm, y=1cm, font=\scriptsize,
+      tr/.style={draw=corCinza, line width=.5pt, fill=corCinzaC!35,
+                 rounded corners=1pt, minimum height=4.2mm, inner sep=1pt},
+      ap/.style={draw=corFG, line width=.6pt, fill=corFG!14,
+                 rounded corners=1pt, minimum height=4.2mm, inner sep=1pt}]
+    % ------------------------------------------------- eixo dos anos --
+    \foreach \a/\i in {2020/0,2021/1,2022/2,2023/3,2024/4,2025/5,2026/6} {
+      \draw[corCinzaC, line width=.4pt] (\i,0.45) -- (\i,-6.45);
+      \node[ntmini, anchor=south] at (\i+0.5,0.50) {\a};
+    }
+    \draw[corCinzaC, line width=.4pt] (7,0.45) -- (7,-6.45);
+    \fill[corCinzaC!45] (6.58,-6.45) rectangle (7,0.45);
+    \node[ntmini, anchor=south, rotate=90] at (6.79,-3.3) {2026 parcial};
+
+    % -------------------------------- (a) treino y -> teste y+1 -------
+    \node[ntrot, anchor=north west, text=corTinta] at (0,-0.05)
+      {\textbf{(a)} conteúdo preditivo e cobertura: cinco pares treino~$\to$~teste};
+    \foreach \i in {0,1,2,3,4} {
+      \pgfmathsetmacro\y{-0.78-0.44*\i}
+      \node[tr, anchor=west, minimum width=1.66cm] at (\i,\y)
+        {\tiny treino \pgfmathparse{int(2020+\i)}\pgfmathresult};
+      \node[ap, anchor=west, minimum width=1.66cm] at (\i+1,\y)
+        {\tiny teste \pgfmathparse{int(2021+\i)}\pgfmathresult};
+    }
+
+    % ----------------------------- (b) comparacao de candidatos -------
+    \node[ntrot, anchor=north west, text=corTinta] at (0,-2.95)
+      {\textbf{(b)} comparação de candidatos: mesmos pares, afinação só no ano de treino};
+    \foreach \i in {0,1,2,3,4} {
+      \pgfmathsetmacro\y{-3.62-0.30*\i}
+      \node[tr, anchor=west, minimum width=1.66cm, minimum height=3.2mm] at (\i,\y)
+        {\tiny afinação};
+      \node[ap, anchor=west, minimum width=1.66cm, minimum height=3.2mm] at (\i+1,\y) {};
+    }
+
+    % ------------------------ (c) referencia 2020 -> aplicacao --------
+    \node[ntrot, anchor=north west, text=corTinta] at (0,-5.10)
+      {\textbf{(c)} referência fixa de 2020 aplicada a 2021--2025};
+    \node[tr, anchor=west, minimum width=1.66cm] at (0,-5.70) {\tiny referência};
+    \node[ap, anchor=west, minimum width=8.3cm] at (1,-5.70) {\tiny aplicação sem reestimação};
+
+    % --------------------------------------- faixa observado/simulado --
+    \draw[corCinza, line width=.5pt] (0,-6.20) -- (5,-6.20);
+    \node[ntmini, anchor=north] at (2.5,-6.24) {observação real (2020--2026)};
+    \draw[corCinza, line width=.5pt, dash pattern=on 2pt off 1.4pt] (5,-6.20) -- (7,-6.20);
+    \node[ntmini, anchor=north] at (6.0,-6.24) {simulação (Cap.~\ref{cha:discussao})};
+
+    % ------------------------------------------------------ legenda ---
+    \node[tr, anchor=west, minimum width=0.5cm] at (0,-7.05) {};
+    \node[ntmini, anchor=west] at (0.32,-7.05) {ano de treino / referência};
+    \node[ap, anchor=west, minimum width=0.5cm] at (2.2,-7.05) {};
+    \node[ntmini, anchor=west] at (2.52,-7.05) {ano de avaliação fora da amostra};
+  \end{tikzpicture}
+  \caption[Os três desenhos de avaliação no tempo]%
+  {Os três desenhos de avaliação usados, alinhados no mesmo eixo temporal.
+   Em todos, o ano de avaliação é posterior ao ano de treino, e a carga
+   $Q_t$ e as covariáveis desse ano estão disponíveis no momento da
+   predição: o exercício é de normalização \emph{ex post}, não de previsão
+   genuína a um passo, porque os resíduos passados do próprio ano de
+   aplicação não são usados para corrigir a predição. O ano de 2026 está
+   truncado na data de corte oficial. Os dados já foram explorados antes
+   destas avaliações, pelo que nenhuma delas equivale a uma partição selada.}
+  \label{fig:desenhos-avaliacao}
+\end{figure}

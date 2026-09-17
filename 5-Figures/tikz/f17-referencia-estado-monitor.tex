@@ -1,0 +1,56 @@
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm, font=\scriptsize]
+    \begin{scope}[on background layer]
+      \fill[corFundo, rounded corners=2pt] (3.55,0.80) rectangle (12.35,2.80);
+      \fill[corFG!5, rounded corners=2pt] (3.55,-4.95) rectangle (12.35,-0.15);
+    \end{scope}
+    \node[ntmini, anchor=north west] at (3.65,2.75)
+      {\emph{fixo entre revisões datadas}};
+    \node[ntmini, anchor=north west] at (3.65,-0.20)
+      {\emph{atualiza-se com cada dia novo}};
+
+    \node[ntcaixa, text width=2.4cm, minimum height=11mm] (dados) at (1.45,1.62)
+      {Dados do dia $t$\\[1pt]{\tiny $E_t$, $Q_t$, $Z_t$}};
+    \node[ntmini, anchor=north, align=center, text width=3.0cm] at (1.45,0.95)
+      {os dados entram uma só vez, pelo resíduo};
+
+    \node[ntdestaque, text width=3.1cm, minimum height=13mm] (ref) at (5.95,1.62)
+      {\textbf{Referência} $f_{\mathrm{ref}}$\\[1pt]
+       {\tiny fixa, estimada uma vez e datada}};
+    \node[ntcaixa, text width=3.2cm, minimum height=13mm] (res) at (10.35,1.62)
+      {Resíduo\\[1pt]{\tiny $r_t = E_t - f_{\mathrm{ref}}(Q_t,Z_t)$}};
+    \draw[ntsetaf] (dados) -- (ref);
+    \draw[ntsetaf] (ref) -- (res);
+
+    \node[ntdestaque, text width=3.1cm, minimum height=13mm] (est) at (5.95,-1.35)
+      {\textbf{Modelo temporal}\\[1pt]
+       {\tiny atualiza-se a cada dia com o resíduo}};
+    \node[ntcaixa, text width=3.2cm, minimum height=13mm] (eio) at (10.35,-1.35)
+      {Estado estimado $\hat{x}_t$\\e inovação $\nu_t$};
+    \draw[ntsetaf] (res.south) -- ++(0,-0.50) -| (est.north);
+    \draw[ntsetaf] (est) -- (eio);
+
+    \node[ntdestaque, text width=3.1cm, minimum height=13mm] (mon) at (5.95,-3.60)
+      {\textbf{Monitor}\\[1pt]
+       {\tiny estatística e limiar declarados \emph{a priori}}};
+    \node[ntcaixa, text width=3.2cm, minimum height=13mm] (inv) at (10.35,-3.60)
+      {Sinal $\to$ investigação};
+    \draw[ntsetaf] (eio.south) -- ++(0,-0.42) -| (mon.north);
+    \draw[ntsetaf] (mon) -- (inv);
+    \draw[ntseta] (res.east) -- ++(0.65,0) -- (13.0,-5.35) -- (5.95,-5.35)
+      -- (mon.south);
+    \node[ntmini, anchor=north west] at (6.15,-5.45)
+      {o resíduo também alimenta o monitor, sem passar pelo estado};
+  \end{tikzpicture}
+  \caption[Referência, estado e monitor como três objetos distintos]%
+  {Os três objetos que o método em produção funde num só. A referência
+   responde à pergunta ``quanto se esperaria consumir'' e é fixa entre
+   revisões datadas; o modelo temporal responde a ``em que estado está a
+   unidade agora'' e atualiza-se com cada dia novo; o monitor responde a
+   ``isto é anormal'' e obriga a uma estatística e a um limiar declarados
+   antes de ver os dados. O alerta não nasce, assim, da escolha do
+   normalizador. Complementa a Figura~\ref{fig:desenhos-avaliacao}: aqui
+   os componentes, lá a cronologia da avaliação.}
+  \label{fig:ref-estado-monitor}
+\end{figure}

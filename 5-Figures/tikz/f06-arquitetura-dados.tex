@@ -1,0 +1,81 @@
+\begin{figure}[htbp]
+  \centering
+  \textbf{\small (a) Da origem ao facto}\\[3pt]
+  \begin{tikzpicture}[x=1cm, y=1cm, font=\scriptsize]
+    \node[ntcaixa, text width=2.5cm, minimum height=11mm] (o1) at (1.35,1.45)
+      {Historiador de processo\\[1pt]{\tiny \emph{tags}, valor horário}};
+    \node[ntcaixa, text width=2.5cm, minimum height=11mm] (o2) at (1.35,0.00)
+      {Balanços de utilidades\\e de produção\\[1pt]{\tiny valor diário}};
+    \node[ntcaixa, text width=2.5cm, minimum height=11mm] (o3) at (1.35,-1.45)
+      {Relatórios e ficheiros\\[1pt]{\tiny valor mensal}};
+    \node[ntcaixa, text width=2.9cm, minimum height=15mm] (ag) at (5.4,0.00)
+      {Agregação e conversão\\[1pt]
+       {\tiny soma horária $\to$ dia; parâmetros lidos de tabelas
+        (PCI, entalpias, factores)}};
+    \node[ntdestaque, text width=3.3cm, minimum height=15mm] (pr) at (9.5,0.00)
+      {Precedência\\linha a linha\\[1pt]
+       {\tiny mapeamento mestre: 286 linhas\\
+        unidade\,$\times$\,vetor\,$\times$\,papel}};
+    \node[ntdestaque, text width=2.4cm, minimum height=15mm] (fa) at (13.2,0.00)
+      {Tabelas de factos\\[1pt]{\tiny com origem, \emph{flags} e versão}};
+    \draw[ntseta] (o1.east) -- ++(0.35,0) |- (ag.west);
+    \draw[ntseta] (o2.east) -- (ag.west);
+    \draw[ntseta] (o3.east) -- ++(0.35,0) |- (ag.west);
+    \draw[ntsetaf] (ag) -- (pr);
+    \draw[ntsetaf] (pr) -- (fa);
+    \node[ntmini, anchor=north, align=center] at (9.5,-1.05)
+      {nenhuma constante de conversão\\vive fora de uma tabela versionada};
+  \end{tikzpicture}
+
+  \vspace{4mm}
+  \textbf{\small (b) Esquema em estrela simplificado}\\[3pt]
+  \begin{tikzpicture}[x=1cm, y=1cm, font=\scriptsize]
+    \node[ntcaixa, text width=2.1cm, minimum height=9mm] (dc) at (1.20,1.65)
+      {\textsc{dim} Calendário\\[1pt]{\tiny dia}};
+    \node[ntcaixa, text width=2.1cm, minimum height=9mm] (du) at (1.20,0.15)
+      {\textsc{dim} Unidade\\[1pt]{\tiny 16 unidades}};
+    \node[ntcaixa, text width=2.1cm, minimum height=9mm] (dv) at (1.20,-1.35)
+      {\textsc{dim} Vetor\\[1pt]{\tiny 7 vetores}};
+
+    \node[ntdestaque, text width=4.3cm, minimum height=12mm] (fe) at (6.45,1.65)
+      {\textsc{fact} Energia\\[1pt]
+       {\tiny dia\,$\times$\,unidade\,$\times$\,vetor --- 200\,924 linhas,
+        2020-01-01 a 2026-07-31}};
+    \node[ntdestaque, text width=4.3cm, minimum height=12mm] (fc) at (6.45,0.15)
+      {\textsc{fact} Carga\\[1pt]
+       {\tiny dia\,$\times$\,unidade --- 45\,408 linhas, total e componentes}};
+    \node[ntcaixa, text width=4.3cm, minimum height=12mm] (fp) at (6.45,-1.35)
+      {\textsc{fact} Propriedades da carga\\[1pt]
+       {\tiny dia\,$\times$\,unidade --- 19\,105 linhas, 8 unidades}};
+
+    \foreach \f in {fe,fc,fp} {
+      \draw[corCinzaC, line width=.5pt] (dc) -- (\f);
+      \draw[corCinzaC, line width=.5pt] (du) -- (\f);
+    }
+    \draw[corCinzaC, line width=.5pt] (dv) -- (fe);
+
+    \node[ntcaixa, text width=3.0cm, minimum height=14mm, fill=corFundo] (el)
+      at (11.75,1.65)
+      {\textbf{Eletricidade}\\[1pt]
+       {\tiny medida ao mês e alocada ao dia por regra declarada: a variação
+        diária que se lê é a do repartidor, não a do consumo}};
+    \draw[ntsetat, draw=corV3] (el.west) -- (fe.east);
+
+    \node[ntcaixa, text width=3.0cm, minimum height=10mm] (pa) at (11.75,-0.55)
+      {Tabelas de parâmetros\\[1pt]{\tiny PCI, entalpias, limiares de carga}};
+    \draw[corCinzaC, line width=.5pt] (pa.west) -- (fc.east);
+  \end{tikzpicture}
+  \caption[Arquitetura de dados: proveniência e granularidade]%
+  {Arquitetura de dados da plataforma. No painel~(a), o percurso de cada
+   valor desde a origem até ao facto: a agregação e a conversão usam
+   parâmetros lidos de tabelas, e a escolha entre canais é resolvida linha
+   a linha pelo mapeamento mestre, não por código. No painel~(b), o
+   esquema em estrela reduzido às três tabelas de factos e às três
+   dimensões que este trabalho usa, com a granularidade de cada facto
+   escrita por extenso. A eletricidade é a única exceção à granularidade
+   diária: é medida ao mês e alocada ao dia por uma regra declarada, pelo
+   que a variação diária que dela se lê não é variação de consumo. O
+   modelo completo tem 32 tabelas e está descrito no dicionário de dados
+   (Apêndice~\ref{app:manual}).}
+  \label{fig:arquitetura-dados}
+\end{figure}

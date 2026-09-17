@@ -1,0 +1,89 @@
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm, font=\scriptsize,
+      eq/.style={ntcaixa, text width=1.7cm, minimum height=9mm},
+      med/.style={circle, draw=corCinza, fill=white, line width=.5pt,
+                  inner sep=0pt, minimum size=3.1mm, font=\tiny}]
+    % ------------------------------------------------ fronteira -------
+    \begin{scope}[on background layer]
+      \fill[corFundo, rounded corners=3pt] (0,-1.35) rectangle (11.85,1.55);
+      \draw[corTinta, line width=.7pt, dash pattern=on 3pt off 2pt,
+            rounded corners=3pt] (0,-1.35) rectangle (11.85,1.55);
+    \end{scope}
+    \node[ntrot, anchor=north west, text=corTinta] at (0.15,1.45)
+      {\textbf{Fronteira do indicador}};
+
+    % ---------------------------------------------- cadeia processual --
+    \node[eq] (pa1) at (1.75,0.30) {Pré-aquecimento};
+    \node[eq] (des) at (3.90,0.30) {Dessalgação};
+    \node[eq] (pa2) at (6.05,0.30) {Pré-aquecimento};
+    \node[eq, draw=corFG, line width=.7pt, fill=corFG!7] (for) at (8.20,0.30)
+      {Forno atmosférico};
+    \node[ntcaixa, text width=1.6cm, minimum height=17mm,
+          draw=corFG, line width=.7pt, fill=corFG!7] (col) at (10.70,0.20)
+      {Coluna de destilação};
+
+    \node[ntmini, anchor=north] at (0.45,0.22) {crude};
+    \draw[ntsetaf] (0.15,0.30) -- (pa1.west);
+    \draw[ntsetaf] (pa1) -- (des);
+    \draw[ntsetaf] (des) -- (pa2);
+    \draw[ntsetaf] (pa2) -- (for);
+    \draw[ntsetaf] (for) -- (col.west|-for);
+
+    % ----------------------------------------------------- produtos ----
+    \foreach \y/\t in {0.90/{gases e nafta}, 0.20/{petróleo e gasóleos},
+                       -0.50/{resíduo atmosférico}} {
+      \draw[ntsetaf] (11.50,\y) -- (12.25,\y);
+      \node[ntmini, anchor=west] at (12.30,\y) {\t};
+    }
+
+    % ------------------------------------------- entradas de energia ---
+    \foreach \x/\c/\t/\n in {1.75/corEE/{eletricidade}/pa1,
+                             3.90/corV24/{vapor 24 e 10 bar}/des,
+                             8.20/corFG/{fuel gás}/for} {
+      \draw[-{Stealth[length=4pt,width=3pt]}, draw=\c, line width=.9pt]
+        (\x,-2.02) -- (\n.south);
+      \node[ntmini, anchor=north, text=\c] at (\x,-2.14) {\t};
+      \node[med] at (\x,-1.35) {M};
+    }
+    \draw[-{Stealth[length=4pt,width=3pt]}, draw=corV3, line width=.9pt]
+      (10.70,-2.02) -- (col.south);
+    \node[ntmini, anchor=north, text=corV3] at (10.70,-2.14) {vapor 3 bar};
+    \node[med] at (10.70,-1.35) {M};
+    \node[ntmini, anchor=north] at (1.75,-2.50)
+      {medida ao mês, alocada ao dia};
+
+    % -------------------------------------- retornos e producao -------
+    \draw[{Stealth[length=4pt,width=3pt]}-, draw=corV10, line width=.9pt]
+      (6.05,2.00) -- (pa2.north);
+    \node[ntmini, anchor=south, text=corV10] at (6.05,2.03)
+      {vapor produzido na recuperação de calor};
+    \node[med] at (6.05,1.55) {M};
+    \draw[{Stealth[length=4pt,width=3pt]}-, draw=corCinza, line width=.7pt]
+      (10.70,2.00) -- (col.north);
+    \node[ntmini, anchor=south] at (10.70,2.03) {condensados};
+
+    % ----------------------------------------------------- legenda -----
+    \node[med] at (0.10,-3.15) {M};
+    \node[ntmini, anchor=west] at (0.32,-3.15) {ponto de medição declarado};
+    \draw[-{Stealth[length=4pt,width=3pt]}, draw=corCinza, line width=.9pt]
+      (3.7,-3.15) -- ++(0.5,0);
+    \node[ntmini, anchor=west] at (4.3,-3.15) {consumo bruto que entra};
+    \draw[{Stealth[length=4pt,width=3pt]}-, draw=corV10, line width=.9pt]
+      (7.6,-3.15) -- ++(0.5,0);
+    \node[ntmini, anchor=west] at (8.2,-3.15) {produção creditada (abate ao bruto)};
+  \end{tikzpicture}
+  \caption[Fronteira energética da unidade de destilação atmosférica]%
+  {Esquema funcional da unidade de destilação atmosférica e da fronteira
+   que o indicador de desempenho usa. O desenho não tem escala nem caudais:
+   representa a sequência de operações e os pontos onde entra e sai energia.
+   Três noções de consumo convivem e não devem ser confundidas: o
+   \emph{consumo bruto} é tudo o que atravessa a fronteira para dentro; o
+   \emph{consumo líquido} desconta a produção creditada, como o vapor gerado
+   na recuperação de calor; o \emph{consumo alocado} reparte por unidade
+   aquilo que é medido num ponto comum, segundo uma regra declarada --- é
+   o caso da eletricidade, medida ao mês para um conjunto de equipamentos e
+   repartida por dia. Por isso, um desvio medido nesta fronteira pode ter
+   origem no processo ou na regra de repartição.}
+  \label{fig:fronteira-cdu}
+\end{figure}

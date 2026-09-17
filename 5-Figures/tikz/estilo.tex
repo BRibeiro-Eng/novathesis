@@ -1,0 +1,29 @@
+%% Estilos partilhados das figuras vetoriais desenhadas em TikZ (2026-09-17).
+%% Paleta validada (segura para daltonismo) igual a das figuras geradas em Python.
+\usetikzlibrary{arrows.meta, positioning, fit, calc, shapes.geometric,
+                backgrounds, patterns, decorations.pathreplacing}
+\definecolor{corFG}{HTML}{0072B2}   % fuel gas / producao
+\definecolor{corV24}{HTML}{B37700}  % vapor 24 bar
+\definecolor{corV10}{HTML}{009E73}  % vapor 10 bar
+\definecolor{corV3}{HTML}{D55E00}   % vapor 3 bar
+\definecolor{corEE}{HTML}{56B4E9}   % eletricidade
+\definecolor{corTinta}{HTML}{1A1A1A}
+\definecolor{corCinza}{HTML}{6E6E6E}
+\definecolor{corCinzaC}{HTML}{C8C8C8}
+\definecolor{corFundo}{HTML}{F4F4F4}
+\tikzset{
+  ntcaixa/.style={draw=corCinza, line width=.5pt, rounded corners=1.2pt,
+                  fill=white, align=center, inner sep=3pt, font=\scriptsize,
+                  text=corTinta, minimum height=7mm},
+  ntdestaque/.style={ntcaixa, draw=corFG, line width=.7pt, fill=corFG!6},
+  ntproposta/.style={ntcaixa, draw=corCinza, dash pattern=on 2pt off 1.4pt,
+                     fill=corFundo},
+  ntfaixa/.style={draw=corCinzaC, line width=.5pt, rounded corners=2pt,
+                  fill=corFundo, inner sep=6pt},
+  ntseta/.style={-{Stealth[length=4pt,width=3pt]}, draw=corCinza, line width=.6pt},
+  ntsetaf/.style={ntseta, draw=corTinta},
+  ntsetat/.style={ntseta, dash pattern=on 2pt off 1.4pt},
+  ntrot/.style={font=\scriptsize, text=corCinza, align=center, inner sep=1.5pt},
+  ntmini/.style={font=\tiny, text=corCinza, align=center, inner sep=1pt},
+  ntcap/.style={font=\scriptsize\itshape, text=corCinza},
+}
