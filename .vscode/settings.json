@@ -1,0 +1,41 @@
+{
+  // 2026-09-17: a pasta da tese vive no Desktop, que esta em iCloud Drive.
+  // O agente de sincronizacao (bird) mexe nos auxiliares a meio das passagens
+  // do latexmk, o que corrompe o .bcf e faz o biber devolver um .bbl vazio.
+  // Solucao: manter o .tex aqui e mandar todos os auxiliares para fora do
+  // iCloud. A mesma pasta que o _gerador/build.sh usa, para haver uma so
+  // arvore de build.
+  "latex-workshop.latex.outDir": "/tmp/tese-build",
+
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk-fora-do-icloud",
+      "command": "latexmk",
+      "args": [
+        "-pdf",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-outdir=/tmp/tese-build",
+        "%DOC%"
+      ],
+      "env": {}
+    },
+    {
+      "name": "build-sh",
+      "command": "sh",
+      "args": ["_gerador/build.sh"],
+      "env": {}
+    }
+  ],
+
+  "latex-workshop.latex.recipes": [
+    { "name": "Tese (latexmk)", "tools": ["latexmk-fora-do-icloud"] },
+    { "name": "Tese (build.sh, passagens fixas)", "tools": ["build-sh"] }
+  ],
+
+  // 236 paginas: compilar a cada gravacao seria insuportavel. Compilar a mao
+  // com Cmd+Alt+B.
+  "latex-workshop.latex.autoBuild.run": "never",
+  "latex-workshop.latex.autoClean.run": "never"
+}

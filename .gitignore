@@ -409,3 +409,6 @@ Scripts/
 # scratch
 __pycache__/
 .rev-*.png
+
+# auxiliares arquivados (lixo de build, nao apagados por seguranca)
+_gerador/aux-antigos-*/
