@@ -116,17 +116,15 @@ fisicamente errado, e uma coincidência confirma a contabilização, não a
 medição física. O método existe para encontrar a causa de cada
 divergência.
 
-% [REV-2026-09-13][F08][P2][FIGURA]
-\revisaotese{F08}{P2}{FIGURA}
-{Prova visual da reconciliação antes e depois}
-{Após descrever a amostra, inserir dois painéis. (a) Barras empilhadas
-por versão com coincidente/divergente/sem consumo/sem dados; manter os
-mesmos 400 casos e distinguir vazios de sucessos. (b) Discrepância por
-unidade-vetor ou gráfico de diferenças, com limites de tolerância e
-identificação das causas corrigidas. Usar apenas as versões verificadas,
-não o fecho "esperado". Uma tabela de causas/n.º de casos/impacto
-complementa; mover os relatos repetidos de bugs para o apêndice do manual do dashboard.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:validacao-mapeamento} acompanha essa progressão versão a versão.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{gerado/cap5-validacao-progressao}
+  \caption[Progressão da validação do mapeamento]%
+  {Progressão da validação do mapeamento, versão a versão. Cada barra reparte as mesmas 400 células unidade--vetor--mês da amostra de validação em coincidentes, divergentes e sem consumo, para que os vazios não sejam lidos como sucessos. As quatro primeiras barras são estados verificados célula a célula; a barra da v15.1, tracejada, é o resultado \emph{esperado} do fecho das últimas cinco divergências, não uma verificação observada. As causas de cada divergência e o número de casos que explicam estão descritas no texto que se segue.}
+  \label{fig:validacao-mapeamento}
+\end{figure}
 \paragraph{O ponto de partida.} Na versão 13 do mapeamento, 242 células
 coincidiam, 64 estavam vazias (combinações unidade--vetor sem consumo) e
 94 divergiam. O trabalho de julho de 2026 foi explicar as 94, uma a uma,

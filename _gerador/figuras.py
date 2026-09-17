@@ -107,22 +107,25 @@ def f11_dispersao():
         tons = np.linspace(0.30, 1.0, len(bb))
         for (_, r), t in zip(bb.iterrows(), tons):
             ax.plot(qq, r.slope * qq + r.intercept, color=TINTA, alpha=t, lw=0.9, zorder=4)
-            if int(r.ano_baseline) in (2020, 2025):
-                dy = -7 if int(r.ano_baseline) == 2020 else 7
-                ax.annotate(str(int(r.ano_baseline)), (qq[-1], r.slope * qq[-1] + r.intercept),
-                            xytext=(3, dy), textcoords="offset points", fontsize=6.5,
-                            color=TINTA, alpha=max(t, 0.6), va="center")
+            if int(r.ano_baseline) == 2020:
+                ax.annotate("2020", (qq[0], r.slope * qq[0] + r.intercept),
+                            xytext=(-4, 0), textcoords="offset points", fontsize=6.5,
+                            color=TINTA, alpha=0.75, va="center", ha="right")
+            if int(r.ano_baseline) == 2025:
+                ax.annotate("2025", (qq[-1], r.slope * qq[-1] + r.intercept),
+                            xytext=(4, 0), textcoords="offset points", fontsize=6.5,
+                            color=TINTA, va="center")
         ax.axvline(LIMIAR, color=CINZA, lw=0.8, ls=(0, (4, 2)), zorder=1)
         ax.set_title(NOME[v], loc="left", color=COR[v])
         ax.set_xlabel("carga (kt/d)"); ax.set_ylabel("consumo (t GNE/d)")
         ax.yaxis.set_major_formatter(virgula(0)); ax.xaxis.set_major_formatter(virgula(0))
-        ax.set_xlim(-1, 36); guarda(ax)
+        ax.set_xlim(-4, 38); guarda(ax)
     ax = axs.flat[4]
     x = d[(d.vector_id == "energia_eletrica") & (d.ano <= 2025)].sort_values("ts")
     ax.plot(x.ts, x.E, color=COR["energia_eletrica"], lw=0.8)
     ax.annotate("2021--2022: alocação quase nula,\nsó nesta unidade (ver texto)",
-                (pd.Timestamp("2022-01-01"), 1.0), xytext=(0, 40), textcoords="offset points",
-                fontsize=6.5, color=CINZA, ha="center",
+                (pd.Timestamp("2022-01-01"), 1.0), xytext=(0, 62), textcoords="offset points",
+                fontsize=6.5, color=TINTA, ha="center",
                 arrowprops=dict(arrowstyle="-", color=CINZA, lw=0.6))
     ax.set_title("Eletricidade: alocação mensal", loc="left", color=COR["energia_eletrica"])
     ax.set_xlabel("dia"); ax.set_ylabel("consumo alocado (t GNE/d)")
@@ -215,9 +218,11 @@ def f14_cobertura():
             ax.plot([r.mbb_lower, r.mbb_upper], [i, i], color=COR[v], lw=2.6,
                     solid_capstyle="round", zorder=3)
             ax.plot([r.coverage], [i], "o", ms=4.2, color=COR[v], mec="white", mew=0.6, zorder=4)
-            ss = s[(s.vector_id == v) & (s.pair_id == r.pair_id) & (s.block_length.isin([30, 60]))]
-            for _, q in ss.iterrows():
-                ax.plot([q.mbb_lower, q.mbb_upper], [i + 0.30, i + 0.30], color=CINZA, lw=0.8, zorder=2)
+            ss = s[(s.vector_id == v) & (s.pair_id == r.pair_id) &
+                   (s.block_length.isin([30, 60]))].sort_values("block_length")
+            for k, (_, q) in enumerate(ss.iterrows()):
+                ax.plot([q.mbb_lower, q.mbb_upper], [i + 0.24 + 0.16 * k] * 2,
+                        color=CINZA, lw=0.8, zorder=2)
             ax.annotate(f"{pt(r.n_alarms)}/{pt(r.n_obs)} dias fora", (1.004, i),
                         xycoords=("axes fraction", "data"), fontsize=6.5, color=CINZA, va="center")
         ax.axvline(0.9545, color=TINTA, lw=0.8, zorder=1)
@@ -574,9 +579,97 @@ def f18_matriz():
     fig.tight_layout()
     grava(fig, "cap7-matriz-decisao")
 
+
+# ------------------------------------------------- dependência residual --
+def fdep_dependencia():
+    a = tsv("D", "D1_dependence_functions.tsv")
+    a = a[(a.period_scope == "complete_year") & (a.acf_status == "estimable") &
+          (a.lag_days <= 21)]
+    fig, axs = plt.subplots(2, 2, figsize=(15.5 * CM, 9.0 * CM), sharex=True, sharey=True)
+    anos = sorted(a.year.unique())
+    for ax, v in zip(axs.flat, VEC4):
+        x = a[a.vector_id == v]
+        for i, an in enumerate(anos):
+            y = x[x.year == an].sort_values("lag_days")
+            if not len(y): continue
+            t = 0.28 + 0.72 * i / max(1, len(anos) - 1)
+            ax.plot(y.lag_days, y.acf, color=COR[v], alpha=t, lw=1.0,
+                    label=str(an) if v == "fuel_gas" else None)
+        n = float(x.n_pairs.median())
+        lim = 1.96 / np.sqrt(n)
+        ax.axhspan(-lim, lim, color=CINZA_C, alpha=0.45, lw=0, zorder=0)
+        ax.axhline(0, color=TINTA, lw=0.6)
+        ax.set_title(NOME[v], loc="left", color=COR[v])
+        ax.set_ylim(-0.25, 1.0); ax.set_xlim(0.5, 21.5)
+        ax.yaxis.set_major_formatter(virgula(1)); guarda(ax)
+    for ax in axs[1]: ax.set_xlabel("desfasamento (dias)")
+    for ax in axs[:, 0]: ax.set_ylabel("autocorrelação do resíduo")
+    h, l = axs.flat[0].get_legend_handles_labels()
+    h.append(Rectangle((0, 0), 1, 1, color=CINZA_C, alpha=0.45))
+    l.append("faixa compatível com independência")
+    fig.tight_layout(h_pad=1.2, w_pad=2.0, rect=(0, 0.07, 1, 1))
+    fig.legend(h, l, loc="lower center", ncols=len(l), frameon=False,
+               bbox_to_anchor=(0.5, 0.0), handlelength=1.6, columnspacing=1.2)
+    grava(fig, "cap6-dependencia-residuos")
+
+# --------------------------------------------- rajadas e episódios -------
+def _z_fora_amostra(v, treino, aplica):
+    """Resíduos padronizados do ano de aplicação face à reta do ano de treino.
+    Reproduz exatamente a banda de produção (2 sigma): verificado contra E4."""
+    d = painel(); b = fits()
+    r = b[(b.vector_id == v) & (b.ano_baseline == treino)].iloc[0]
+    x = d[(d.vector_id == v) & (d.ano == aplica) & (d.Q >= LIMIAR) & (d.E != 0)].copy()
+    x["z"] = (x.E - (r.slope * x.Q + r.intercept)) / r.sigma
+    return x.sort_values("ts")
+
+def f14b_rajadas():
+    casos = [("fuel_gas", 2020, 2021), ("vapor_3bar", 2021, 2022)]
+    ar = tsv("E4", "E4_alarm_runs.tsv")
+    ar = ar[ar.scope == "confirmatory"]
+    fig = plt.figure(figsize=(15.5 * CM, 11.0 * CM))
+    gs = fig.add_gridspec(3, 1, height_ratios=[1, 1, 1.45], hspace=0.68)
+    for k, (v, tr, ap) in enumerate(casos):
+        ax = fig.add_subplot(gs[k])
+        x = _z_fora_amostra(v, tr, ap)
+        fora = x.z.abs() > 2
+        ax.axhspan(-2, 2, color=CINZA_C, alpha=0.40, lw=0, zorder=0)
+        ax.plot(x.ts, x.z, color=CINZA, lw=0.7, zorder=2)
+        ax.scatter(x.ts[fora], x.z[fora], s=5, color=COR[v], lw=0, zorder=3)
+        ax.axhline(0, color=TINTA, lw=0.6)
+        ax.set_title(f"{NOME[v]}: referência de {tr} aplicada a {ap} — "
+                     f"{pt(int(fora.sum()))} de {pt(len(x))} dias fora da banda",
+                     loc="left", fontsize=8)
+        ax.set_ylabel("resíduo\npadronizado")
+        ax.yaxis.set_major_formatter(virgula(0)); guarda(ax)
+    ax = fig.add_subplot(gs[2])
+    for v in VEC4:
+        y = ar[ar.vector_id == v]
+        ax.scatter(y.independence_mean_run_length, y.mean_run_length, s=18,
+                   color=COR[v], lw=0.4, edgecolor="white", zorder=3, label=NOME[v])
+        for _, r in y.iterrows():
+            if r.mean_run_length >= 4.5:
+                dir = r.independence_mean_run_length > 2.2
+                ax.annotate(f"{r.pair_id.replace('->', '→')} (máx. {pt(r.max_run_length)} d)",
+                            (r.independence_mean_run_length, r.mean_run_length),
+                            xytext=(-6 if dir else 6, 0), textcoords="offset points",
+                            fontsize=6.2, color=CINZA, va="center",
+                            ha="right" if dir else "left")
+    ax.plot([1.0, 3.3], [1.0, 3.3], color=TINTA, lw=0.7, ls=(0, (3, 2)), zorder=1)
+    ax.annotate("igualdade: alarmes isolados", (3.25, 3.25), xytext=(0, 5),
+                textcoords="offset points", fontsize=6.5, color=CINZA, ha="right")
+    ax.set_xlim(0.9, 3.45); ax.set_ylim(0.6, 9.4)
+    ax.set_xlabel("comprimento médio de sequência esperado sob independência (dias)")
+    ax.set_ylabel("comprimento médio\nobservado (dias)")
+    ax.xaxis.set_major_formatter(virgula(1)); ax.yaxis.set_major_formatter(virgula(0))
+    ax.legend(frameon=False, ncols=4, fontsize=7, loc="upper center",
+              bbox_to_anchor=(0.5, -0.30))
+    guarda(ax)
+    fig.tight_layout()
+    grava(fig, "cap6-rajadas-e-episodios")
+
 FIGS = {"f08": f08_validacao, "f10": f10_amostra, "f11": f11_dispersao, "f12": f12_ganho,
         "f13": f13_predicoes, "f14": f14_cobertura, "f15": f15_acoplamento,
-        "f16": f16_sensibilidade, "f18": f18_matriz, "f19": f19_injeccao, "f20": f20_deteccao}
+        "f16": f16_sensibilidade, "f18": f18_matriz, "fdep": fdep_dependencia, "f14b": f14b_rajadas, "f19": f19_injeccao, "f20": f20_deteccao}
 if __name__ == "__main__":
     alvos = sys.argv[1:] or list(FIGS)
     for a in alvos: FIGS[a]()

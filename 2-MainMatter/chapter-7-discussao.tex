@@ -114,17 +114,9 @@ e detetar: é tratar a referência de reporte e a referência de deteção como
 dois objetos com funções distintas, quando o método em produção tenta ser
 ambos com um só modelo reestimado uma vez por ano.
 
-% [REV-2026-09-13][F17][P2][FIGURA]
-\revisaotese{F17}{P2}{FIGURA}
-{Esquema central: referência, estado e monitor}
-{Após a tabela dos estimandos, inserir diagrama em três ramos:
-E\_t,Q\_t,Z\_t -\textgreater{} referência fixa f\_ref -\textgreater{} resíduo;
-resíduo -\textgreater{} modelo temporal -\textgreater{} estado estimado + inovação;
-resíduo/estado/inovação -\textgreater{} monitor explicitamente definido -\textgreater{} investigação.
-Distinguir o que fica fixo e o que se atualiza e indicar quando os
-dados entram. Mostrar que o alerta não nasce apenas da escolha do
-normalizador. Complementa F07: aqui componentes, lá cronologia.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:ref-estado-monitor} separa os três objetos e mostra onde cada um entra.
+
+\input{5-Figures/tikz/f17-referencia-estado-monitor}
 \paragraph{Três formas de avaliar, três estimandos.} O que se segue avalia
 \emph{baselines} de três maneiras que respondem a perguntas diferentes, e
 que convém distinguir antes de ler qualquer número. A primeira, herdada do
@@ -507,17 +499,15 @@ população de dias e ao mesmo nível nominal.
 
 \subsection{O critério de aceitação e o que decidiu}
 \label{sec:demo-gate}
-% [REV-2026-09-13][F18][P2][FIGURA]
-\revisaotese{F18}{P2}{FIGURA}
-{Matriz de decisão por candidato e por par anual}
-{Depois da definição do candidato, apresentar matriz com linhas
-estimador+banda+vetor, colunas cinco transições e duas marcas por célula
-(ganho/cobertura). Distinguir rejeitado, compatível, inconclusivo e NE.
-À direita, decisão 4/5; em painel secundário, sensibilidade 3/5.
-Dar nomes às oito combinações efetivamente avaliadas por vetor:
-3 estimadores x 6 bandas x 4 vetores não é um fatorial de 32 células.
-A tabela atual resume bem; a matriz completa pode ir ao apêndice das tabelas do diagnóstico.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:matriz-decisao} mostra a matriz completa: cada candidato, cada par anual e o estado de cada um dos dois critérios.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap7-matriz-decisao}
+  \caption[Matriz de decisão por candidato e por par anual]%
+  {Os trinta e dois candidatos efetivamente avaliados --- quatro vetores, três ajustes pontuais e as bandas construídas sobre cada um --- contra os cinco pares anuais. Cada célula tem duas metades: à esquerda o critério de ganho preditivo, que é uma propriedade do ajuste pontual e por isso se repete entre bandas do mesmo estimador; à direita o critério de suporte da banda. As contagens à direita são os pares em que cada critério é cumprido, e os dois quadrados marcam se atingem a regra declarada de quatro em cinco. Nenhum candidato a cumpre nos dois critérios, e a regra de sensibilidade de três em cinco não altera essa conclusão. O conjunto avaliado não é o fatorial de estimadores por bandas: as bandas robustas só existem para os estimadores robustos.}
+  \label{fig:matriz-decisao}
+\end{figure}
 
 O critério foi aplicado por adjudicação pura sobre os resultados já
 publicados --- o poder preditivo do Capítulo~\ref{cha:diagnostico} e as
@@ -676,17 +666,15 @@ Cobre mais porque se adapta ao desvio que a banda fixa existe para revelar
 um substituto: é um controlo, pontuável em $38\%$ dos dias primários
 (exige sessenta erros admissíveis nos noventa dias anteriores).
 
-% [REV-2026-09-13][F19][P2][FIGURA]
-\revisaotese{F19}{P2}{FIGURA}
-{Visualizar quanto sinal cada componente preserva}
-{Inserir junto da experiência de injeção uma figura com três painéis
-no mesmo eixo de dias: sinal conhecido (degrau/rampa); resíduos da
-referência fixa e do refit; estado, inovação e estatística do monitor.
-Marcar treino, início do desvio, reajuste, lacunas e limiar de deteção.
-Curvas do lote validado e mesma população; legenda distingue identidade
-algébrica, atenuação medida e deteção. Não usar uma imagem conceptual
-para provar os valores 0,136/0,002 ou 3\%.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:injeccao} mostra, dia a dia, quanto do desvio inserido cada componente ainda deixa ver.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap7-injeccao-degrau}
+  \caption[Quanto sinal sobrevive a cada componente]%
+  {Experiência de injeção no fuel gás: um desvio conhecido é somado à série e segue-se o que resta dele em cada componente, nos primeiros 150 dias de aplicação, para um degrau e para uma rampa da mesma amplitude. Em cima, o desvio inserido. Ao meio, o desvio medido contra a referência congelada e a parte que o reajuste anual absorve. Em baixo, a inovação do filtro. A diferença entre os dois primeiros painéis é uma identidade algébrica, não uma medição; o terceiro painel é que mostra a atenuação efetiva. Os valores numéricos citados no texto vêm do lote validado, não desta ilustração.}
+  \label{fig:injeccao}
+\end{figure}
 \paragraph{Um desvio inserido sobrevive à referência fixa e não sobrevive ao
 reajuste.} Para medir o mecanismo diretamente, inseriu-se um desvio
 conhecido --- um degrau e uma rampa, em unidades da escala de cada vetor
@@ -793,16 +781,15 @@ carga$\times$densidade a \emph{baseline} aditiva ganha. A escolha do monitor
 é um compromisso, não uma melhoria --- e nenhuma recomendação vale sem a
 natureza do desvio e a autocorrelação medidas ao lado.
 
-% [REV-2026-09-13][F20][P2][FIGURA]
-\revisaotese{F20}{P2}{FIGURA}
-{Curvas de deteção e atraso sob o mesmo falso sinal}
-{Usar painéis para rho=0,6/0,9/0,95, amplitude do desvio no eixo x e
-P(deteção até 90 dias) no y, com IC Monte Carlo e um traço por monitor.
-Marcar censura e limiar de 50\%; separar degrau de rampa.
-Acrescentar distribuição do atraso com não deteções censuradas, se
-calculada; reportar só atraso entre detetados favorece métodos pouco
-sensíveis. Identificar gerador simulado, não previsão para a refinaria.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:deteccao} compara os três monitores sob o mesmo orçamento de falsos sinais.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap7-deteccao-simulacao}
+  \caption[Deteção simulada, ao mesmo orçamento de falsos sinais]%
+  {Probabilidade de detetar um desvio nos primeiros 90 dias, por amplitude, para três monitores calibrados ao mesmo orçamento de falsos sinais. Os dois primeiros painéis separam degrau de rampa com dependência moderada ($\rho=0{,}6$); o terceiro fixa a amplitude num desvio-padrão e varia a dependência do gerador. A banda é o intervalo de Wilson sobre as réplicas. A linha a tracejado marca metade das deteções. Os valores descrevem o gerador simulado e as suas hipóteses, e não são uma previsão do que aconteceria na refinaria.}
+  \label{fig:deteccao}
+\end{figure}
 \paragraph{A dependência decide quanto se deteta.} O gerador primário tem
 $\rho = 0{,}6$, que é a autocorrelação residual observada no fuel gás; os
 três vapores estão entre $0{,}8$ e $0{,}9$, e a subir
@@ -875,17 +862,9 @@ onde uma parte em revisão entra, entra qualitativamente e assinalada.
 
 \section{Implicações para a plataforma}
 \label{sec:implicacoes-plataforma}
-% [REV-2026-09-13][F21][P3][FIGURA]
-\revisaotese{F21}{P3}{FIGURA}
-{Protótipo da ficha e diagrama de estados}
-{Após os requisitos, mostrar um wireframe identificado como "proposta",
-com referência/data, domínio, desvio, cobertura/IC, estado e ação.
-Uma segunda faixa representa operação -\textgreater{} investigar -\textgreater{} suspender/
-recalibrar -\textgreater{} verificar, com gatilhos e responsável; separar eventos
-(alarme) de estados persistentes. A versão anterior da referência
-permanece consultável. Usar poucos campos legíveis na ficha principal;
-os 76 campos e o registo detalhado ficam no apêndice do manual do dashboard.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:ficha-estados} concretiza os requisitos numa ficha e num ciclo de vida.
+
+\input{5-Figures/tikz/f21-ficha-estados}
 
 O Capítulo~\ref{cha:plataforma} entregou um instrumento que torna o
 diagnóstico possível; este capítulo devolve-lhe uma especificação. O que se

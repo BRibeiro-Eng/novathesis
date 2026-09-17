@@ -91,27 +91,25 @@ alarme do dashboard --- e não a uma reconstrução aproximada dele.
 
 \section{Perfil dos dados e domínio de validade}
 \label{sec:perfil-dados}
-% [REV-2026-09-13][F10][P2][FIGURA]
-\revisaotese{F10}{P2}{FIGURA}
-{Amostra e filtros precisam de um fluxo e de um calendário}
-{Antes dos resultados, inserir figura composta: (a) fluxo com dias/células
-candidatos -\textgreater{} faltas -\textgreater{} zeros/energia válida -\textgreater{} limiar -\textgreater{} treino/teste;
-(b) calendário de disponibilidade por vetor com exclusões e ano parcial.
-Explicar 11 955 versus 11 467 e 251 dias versus 744 observações removidas,
-sempre com denominador e ordem dos filtros. Dar data final exata de 2026
-e não apenas "corte oficial". Não confundir série-dia com dia único.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:amostra-filtros} mostra a cascata de filtros, pela ordem em que é aplicada, e a disponibilidade mês a mês que dela resulta.
 
-% [REV-2026-09-13][F11][P2][FIGURA]
-\revisaotese{F11}{P2}{FIGURA}
-{Distribuição operacional e relação energia-carga}
-{Aproveitar os gráficos D0 já sugeridos, sem duplicar o calendário:
-quatro painéis energia versus carga, um por vetor diário, pontos por ano,
-limiar vertical e retas anuais; um painel separado mostra eletricidade
-em patamares mensais. Acrescentar distribuição de Q antes/depois do filtro.
-Preservar pontos excluídos em cinzento para tornar visível a população
-não coberta. Eixos com t GNE/d e kt/d; cores consistentes entre capítulos.}%
-% [/REV-2026-09-13]
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap6-amostra-e-filtros}
+  \caption[Construção da amostra e disponibilidade por mês]%
+  {Construção da amostra de análise. À esquerda, a cascata de filtros pela ordem em que é aplicada: 2\,403 dias candidatos entre 2020-01-01 e 2026-07-30, a data de corte oficial dos dados de 2026; 11\,955 observações série--dia para os cinco vetores diários, que são 60 menos do que o produto $2\,403\times5$ por falta de eletricidade em novembro de 2021 e em julho de 2026; 11\,467 com energia medida; e 10\,723 depois do limiar de carga, que remove 744 observações concentradas em 251 dias, 10,4\,\% dos dias. Cada etapa conta observações série--dia, não dias: um dia excluído retira até cinco observações. À direita, a fração de dias retidos em cada mês e vetor, que localiza no calendário as paragens e as lacunas de medição.}
+  \label{fig:amostra-filtros}
+\end{figure}
+
+A Figura~\ref{fig:dispersao-energia-carga} põe lado a lado a relação que cada vetor tem com a carga e a população de dias que o filtro deixa de fora.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap6-dispersao-energia-carga}
+  \caption[Consumo e carga por vetor energético]%
+  {Consumo diário contra carga diária, por vetor, na unidade de destilação atmosférica, de 2020 a 2025. Os pontos a cinzento são os dias excluídos --- carga abaixo do limiar oficial de 18,6\,kt/d ou consumo nulo --- e estão desenhados para que a população não coberta pela \emph{baseline} fique visível. As retas são as regressões anuais oficiais, da mais clara (2020) à mais escura (2025). O painel da eletricidade não é uma dispersão: mostra a série no tempo, e os patamares mensais são o efeito da alocação, não variação de consumo; a quase anulação da alocação em 2021 e 2022, que não se observa em nenhuma outra unidade, está assinalada e discutida no texto. O último painel compara a distribuição da carga diária antes e depois do limiar.}
+  \label{fig:dispersao-energia-carga}
+\end{figure}
 %% FIGURA: outputs .../figures/D0_4_threshold_effect.svg (converter p/ PDF)
 %% FIGURA: outputs .../figures/D0_6_scatter_official.svg
 
@@ -159,6 +157,41 @@ total mensal. Por esta razão, a energia
 elétrica é excluída de todas as análises de resolução diária e avaliada
 apenas por um diagnóstico mensal próprio.
 
+\paragraph{E tem, nesta unidade, uma anomalia por explicar.} A alocação
+diária de energia elétrica à unidade de destilação atmosférica vale, em
+média anual, 19,0~t~GNE/d em 2020 e 19,1, 21,0 e 18,2 entre 2023 e 2025,
+mas 1,0 em 2021 e em 2022: uma queda de cerca de 95\,\% seguida de um
+regresso ao nível anterior, sem correspondência em qualquer alteração
+operacional conhecida e sem paragem que a justifique. Nenhuma das outras
+quinze unidades do modelo apresenta um padrão deste tipo no mesmo período.
+A leitura mais económica é uma falha de mapeamento ou de ingestão
+circunscrita a esses dois anos, e não uma variação real de consumo; a
+alternativa --- uma alteração temporária da regra de repartição ---
+teria de estar registada na tabela de mapeamento, com datas de vigência,
+e não está. O facto não contamina os resultados deste capítulo, porque a
+energia elétrica está excluída de toda a análise diária, mas invalida
+qualquer leitura plurianual do vetor elétrico desta unidade no
+\emph{dashboard} e é, por si, um caso de teste para a camada de dados: a
+plataforma reproduziu o valor oficial sem o assinalar, o que é exatamente
+a diferença entre rastreabilidade e exatidão que o
+Capítulo~\ref{cha:introducao} anunciou. Fica registado como achado, não
+como diagnóstico fechado: a confirmação exige a origem do dado junto de
+quem o produz.
+
+% [REV-2026-09-17][C6-01][P1][DADOS]
+\revisaotese{C6-01}{P1}{DADOS}
+{Confirmar a anomalia da eletricidade de 2021--2022 antes da entrega}
+{A alocação elétrica da unidade cai de 19,0 para 1,0 t GNE/d em 2021 e 2022
+e regressa a 19,1 em 2023, sem paralelo nas outras quinze unidades.
+Confirmar com quem produz o dado se houve mudança de regra de repartição
+(e, em caso afirmativo, porque não está datada na tabela de mapeamento) ou
+se é falha de ingestão. Se for falha, decidir se se corrige antes da
+entrega ou se fica declarada como limitação; em qualquer dos casos,
+verificar se o \emph{dashboard} mostra estes dois anos sem aviso.
+Se a explicação chegar a tempo, substituir este parágrafo pela causa
+apurada e atualizar a anotação da Figura~\ref{fig:dispersao-energia-carga}.}%
+% [/REV-2026-09-17]
+
 \paragraph{Os resíduos são fortemente dependentes.} A autocorrelação residual
 de primeira ordem das regressões oficiais situa-se entre $0{,}46$ e $0{,}90$
 consoante o vetor e o ano completo (medição sistemática na
@@ -174,19 +207,38 @@ justifica a maquinaria inferencial do protocolo
 (Secção~\ref{sec:protocolo-baselines}) e que as Secções~\ref{sec:estabilidade}
 e~\ref{sec:calibracao} usam.
 
+A Figura~\ref{fig:dependencia-residuos} mostra a extensão dessa dependência,
+vetor a vetor e ano a ano.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap6-dependencia-residuos}
+  \caption[Autocorrelação dos resíduos das \emph{baselines} oficiais]%
+  {Autocorrelação dos resíduos das regressões oficiais, por vetor e por ano
+   completo, até 21 dias de desfasamento. A cor identifica o vetor e o tom
+   identifica o ano, do mais claro (2020) ao mais escuro (2025). A faixa
+   cinzenta é o intervalo em que a autocorrelação seria compatível com
+   independência ao nível de 5\,\%, dado o número de pares disponíveis em
+   cada desfasamento. Nenhum vetor, em nenhum ano, tem resíduos compatíveis
+   com independência à escala do dia, e nos vapores a dependência estende-se
+   a duas e três semanas. É esta a razão pela qual os erros-padrão e os
+   $p$-values clássicos não são usados neste capítulo e toda a incerteza é
+   estimada por reamostragem em blocos.}
+  \label{fig:dependencia-residuos}
+\end{figure}
+
 \section{Poder preditivo contra referências triviais}
 \label{sec:poder-preditivo}
 
-% [REV-2026-09-13][F12][P2][FIGURA]
-\revisaotese{F12}{P2}{FIGURA}
-{Forest plot do ganho preditivo com a sensibilidade visível}
-{Usar E2\_2 como figura principal desta secção: \ensuremath{\Delta}MAE e IC95 por transição,
-em quatro painéis por vetor, linha zero e direção do ganho explícita.
-Mostrar IC do bloco base e, com traço distinto, do bloco longo relevante;
-anotar n comum e comparador. Evitar apenas heatmap de significância.
-A série temporal E2\_4 pode ser exemplo secundário; tabelas de todos os
-comparadores ficam no apêndice das tabelas do diagnóstico. Gerar do mesmo lote citado pela prosa.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:ganho-preditivo} mostra o contraste por vetor e por transição, com a sensibilidade ao comprimento do bloco à vista.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap6-ganho-preditivo}
+  \caption[Ganho preditivo face ao nulo trivial]%
+  {Diferença de erro absoluto médio entre a \emph{baseline} e o nulo trivial --- a média do ano de treino --- em cada transição treino\,$\to$\,teste. Valores à direita da linha zero significam que o modelo erra menos do que o nulo. O traço grosso é o intervalo de confiança a 95\,\% com o comprimento de bloco base; o traço fino, deslocado, é o mesmo intervalo com blocos de 60 dias, e a distância entre os dois é a medida honesta da sensibilidade a essa escolha. O $n$ anotado é o número de dias avaliados, comum ao modelo e ao nulo. Só o fuel gás tem ganho que exclui o zero na maioria das transições; nos três vapores há transições em que o nulo é melhor.}
+  \label{fig:ganho-preditivo}
+\end{figure}
 %% FIGURAS: E2_2_delta_mae_forest.svg, E2_1_skill_heatmap.svg,
 %%          E2_4_fuel_gas_forward_series.svg (bundle E2)
 
@@ -263,16 +315,15 @@ alocação uniforme, nenhuma comparação sustenta uma conclusão.
 \section{Estabilidade dos parâmetros}
 \label{sec:estabilidade}
 
-% [REV-2026-09-13][F13][P2][FIGURA]
-\revisaotese{F13}{P2}{FIGURA}
-{Predições a carga comum em vez de quatro figuras repetidas}
-{Compor os quatro vetores numa figura com anos no eixo x e previsão
-numa carga q\_ref dentro do suporte comum no eixo y, acompanhada de IC HAC.
-Se houver espaço, mostrar duas cargas comuns, explicitadas na legenda.
-Não interpretar o intercepto a Q=0 como consumo base físico extrapolado.
-Conservar os gráficos completos por vetor no apêndice das tabelas do diagnóstico e reportar na
-legenda que a rejeição estatística é sensível ao método de dependência.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:predicoes-carga-comum} compara as predições em cargas dentro do suporte comum, que é onde a comparação entre anos tem sentido.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap6-predicoes-carga-comum}
+  \caption[Predições a carga comum, por ano de \emph{baseline}]%
+  {Consumo previsto por cada \emph{baseline} anual, avaliado em duas cargas fixas dentro do suporte comum a todos os anos --- os percentis 25 e 75 da carga observada --- com o intervalo de confiança a 95\,\% construído com erros-padrão robustos a heterocedasticidade e autocorrelação. A comparação faz-se aqui, e não no intercepto: o valor da reta em $Q=0$ está fora do domínio observado e não é um consumo base físico. A rejeição estatística da hipótese de coeficientes constantes ao longo dos anos é sensível ao tratamento da dependência temporal, como o Apêndice~\ref{app:tabelas} documenta.}
+  \label{fig:predicoes-carga-comum}
+\end{figure}
 %% FIGURAS: E3_1_<vector>_reference_predictions.svg (bundle E3, 4 figuras)
 
 A recalibração anual do método de produção pressupõe que cada ano de dados
@@ -346,16 +397,15 @@ mostra, de onde se faz começar o ano.
 \section{Calibração das bandas de alarme}
 \label{sec:calibracao}
 
-% [REV-2026-09-13][F14][P2][FIGURA]
-\revisaotese{F14}{P2}{FIGURA}
-{Cobertura, excursões e persistência numa leitura única}
-{Depois da definição de cobertura, incluir pontos e IC MBB por
-vetor/transição, referência 0,9545 e n/N, com indicação dos casos sensíveis
-a blocos longos. Acrescentar uma faixa temporal dos dois casos extremos,
-com resíduos e banda, para distinguir alarmes isolados de episódios.
-Sem semáforo "válido" só porque o IC inclui a nominal. O apêndice das tabelas do diagnóstico
-guarda cobertura condicional, distribuição de rajadas e todos os blocos.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:cobertura-bandas} reúne a cobertura de todas as transições, com o nível nominal e a contagem de dias fora à vista.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap6-cobertura-bandas}
+  \caption[Cobertura das bandas de alarme fora da amostra]%
+  {Fração de dias do ano de aplicação que caem dentro da banda de alarme construída no ano de treino, por vetor e por transição. A linha vertical é o nível nominal de 0,9545, o que a banda promete. O traço grosso é o intervalo obtido por reamostragem em blocos com o comprimento base; os traços finos, deslocados, repetem o exercício com blocos de 30 e de 60 dias. Um intervalo que inclui o valor nominal não certifica a banda: apenas diz que os dados disponíveis não a excluem. A contagem à direita dá os dias fora da banda sobre os dias avaliados.}
+  \label{fig:cobertura-bandas}
+\end{figure}
 %% FIGURAS: bundle E4 (cobertura por par, rajadas, forma da banda)
 
 O sistema de alarmes em produção declara um dia anómalo quando o resíduo sai
@@ -405,6 +455,29 @@ predição média da baseline de 2025 ($14{,}4$). O nível, que tinha subido at�
 2025 (Secção~\ref{sec:estabilidade}), inverteu nesta amostra; a data e a
 causa da alteração não estão identificadas, e a análise de estabilidade,
 que termina em 2025, nada afirma sobre 2026.
+
+A Figura~\ref{fig:rajadas-episodios} traduz estes números em calendário e
+mostra que os alarmes chegam em episódios, não em dias soltos.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap6-rajadas-e-episodios}
+  \caption[Alarmes em episódios, não em dias isolados]%
+  {Os alarmes não chegam isolados. Em cima, os resíduos padronizados dos dois
+   casos mais extremos, dia a dia, com a banda de produção --- dois
+   desvios-padrão do ano de treino --- a cinzento e os dias em alarme
+   assinalados; a reconstrução a partir dos parâmetros oficiais reproduz
+   exatamente as contagens da corrida canónica, 115 em 301 e 221 em 355. Em
+   baixo, o comprimento médio das sequências de dias consecutivos em alarme,
+   observado contra o que se esperaria se cada dia em alarme fosse
+   independente do anterior, para todos os vetores e transições. Todos os
+   pontos estão acima da diagonal e os casos com mais alarmes estão muito
+   acima dela: uma sequência de 44 ou de 58 dias consecutivos não é um dia
+   anómalo, é um período inteiro em que a referência deixou de descrever a
+   unidade. Os comprimentos de sequência são descritivos e não sustentam, por
+   si, um teste de independência.}
+  \label{fig:rajadas-episodios}
+\end{figure}
 
 Duas qualificações completam o quadro. Primeiro, a sensibilidade aos blocos:
 das sete sub-coberturas confirmadas, três das mais moderadas (vapor de 10~bar
@@ -619,16 +692,15 @@ deslocação das covariáveis é, porém, uma das explicações concorrentes par
 má transportabilidade dos modelos aumentados
 (Secção~\ref{sec:suficiencia}).
 
-% [REV-2026-09-13][F15][P3][FIGURA]
-\revisaotese{F15}{P3}{FIGURA}
-{Acoplamento de vapor com hipótese física explícita}
-{Figura opcional após este parágrafo: resíduos padronizados 24/10 bar
-no mesmo calendário, diagrama de dispersão por ano e pequeno esquema
-dos fluxos partilhados, apenas se o circuito for conhecido. A legenda
-diz "associação compatível com..." e enumera reconciliação comum como
-alternativa. Não desenhar setas causais a partir da correlação. Se a
-fronteira de F03 já explicar a rede, bastam os dois painéis de dados.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:acoplamento-vapores} mostra os dois vapores no mesmo calendário e a associação que deles resulta.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap6-acoplamento-vapores}
+  \caption[Associação entre os resíduos dos vapores de 24 e de 10 bar]%
+  {Resíduos padronizados das \emph{baselines} oficiais dos vapores de 24 e de 10\,bar. À esquerda, as duas séries no mesmo calendário de 2025; à direita, a dispersão de todos os anos, com cada ano numa tonalidade. A associação é forte e persistente, e é compatível com um circuito de vapor partilhado, com uma regra de alocação comum aos dois níveis ou com as duas coisas ao mesmo tempo: os dados não distinguem entre estas explicações e a figura não sustenta nenhuma seta causal. Os coeficientes anuais e agregados estão anotados no painel da direita.}
+  \label{fig:acoplamento-vapores}
+\end{figure}
 \paragraph{Os vetores não falham de forma independente.} As correlações
 cruzadas dos resíduos padronizados entre vetores são aproximadamente nulas
 em todos os pares exceto um: vapor de 24~bar contra vapor de 10~bar, com
@@ -758,17 +830,15 @@ calendário operacional isso não é mensurável
 (Secção~\ref{sec:detetabilidade}). Nada nestes dados permite, também,
 classificar os desvios rápidos como menos importantes do que os lentos.
 
-% [REV-2026-09-13][F16][P3][FIGURA]
-\revisaotese{F16}{P3}{FIGURA}
-{Sensibilidade dos efeitos, não apenas dos rótulos}
-{Aproveitar SENS\_survival\_matrix, mas distinguir não estimável, troca de
-sinal e perda de exclusão de zero. Acompanhar rótulos por estimativas/IC
-dos contrastes principais. Para atribuir efeito à âncora anual, comparar
-mesma cobertura temporal; se não for possível, legendar partição +
-mudança de período. Nunca escolher a janela que torna o resultado mais
-favorável. Para intervalos que mudam com a seed, reportar instabilidade
-Monte Carlo e aumentar réplicas apenas como diagnóstico documentado.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:sensibilidade-convencoes} mede quanto das conclusões sobrevive a mudar essas convenções.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap6-sensibilidade-convencoes}
+  \caption[Sensibilidade das conclusões às convenções de janela e de limiar]%
+  {Percentagem de conclusões que mudam de rótulo quando se altera a convenção de janela --- ano civil ou ano móvel de julho a junho --- e o limiar de carga, multiplicado por 0,8 e por 1,2. Cada célula dá a percentagem e, entre parênteses, o número de reavaliações em que assenta. A célula de referência é a de ano civil com o limiar oficial. A comparação entre as duas metades da figura confunde dois efeitos, mudança de partição e mudança de período coberto, e por isso não permite atribuir o resultado à âncora anual; nenhuma das janelas foi escolhida depois de ver qual favorecia a conclusão.}
+  \label{fig:sensibilidade-convencoes}
+\end{figure}
 \paragraph{Sensibilidade: o que sobrevive a mexer nas convenções.} Todo o
 diagnóstico assenta em duas convenções herdadas do método de produção: o
 limiar de carga e a janela anual civil. Uma grelha de sensibilidade

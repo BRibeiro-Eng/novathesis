@@ -150,17 +150,9 @@ viva --- que o Capítulo~\ref{cha:diagnostico} trabalha.
 
 \section{Modelo dimensional e reconciliação}
 \label{sec:modelo-dimensional}
-% [REV-2026-09-13][F06][P2][FIGURA]
-\revisaotese{F06}{P2}{FIGURA}
-{Arquitetura de dados com granularidade e proveniência}
-{Depois de apresentar as tabelas de factos, inserir um esquema com dois
-painéis: (a) historiador/balanços/relatórios -\textgreater{} agregação e conversão -\textgreater{}
-precedência por linha -\textgreater{} factos; (b) estrela simplificada energia/carga/
-propriedades com calendário, unidade e vetor. Escrever a granularidade
-de cada facto e marcar eletricidade mensal alocada. Não mostrar as 32
-tabelas nem um screenshot ilegível do modelo inteiro. Referenciar o
-dicionário e mostrar onde se retêm origem, flags e versões.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:arquitetura-dados} mostra o percurso de um valor desde a origem até ao facto e o esquema em estrela que dele resulta.
+
+\input{5-Figures/tikz/f06-arquitetura-dados}
 
 A plataforma é um modelo tabular em esquema em estrela~\cite{KimballRoss2013}, em modo de
 importação, com 32 tabelas, 243 colunas, 13 relações e 159 medidas.
@@ -506,17 +498,9 @@ janelas de doze meses ancoradas a 1 de julho --- num total de 624
 reavaliações, com a célula de referência a reproduzir exatamente os testes
 deterministas. A grelha qualifica; nunca cria conclusões.
 
-% [REV-2026-09-13][F07][P2][FIGURA]
-\revisaotese{F07}{P2}{FIGURA}
-{Linha temporal dos três desenhos de avaliação}
-{Inserir aqui, antes da demonstração: três faixas alinhadas em 2020--2026.
-(a) treino y -\textgreater{} teste y+1 nos cinco pares; (b) mesmos pares para comparar
-candidatos, com afinação interna; (c) referência 2020 -\textgreater{} aplicação
-2021--2025. Marcar 2026 parcial e indicar que os dados já foram explorados.
-Uma faixa auxiliar distingue observação real de simulação. Legenda
-declara disponibilidade de Q\_t/covariáveis e dos resíduos passados,
-para separar normalização ex post de previsão genuína a um passo.}%
-% [/REV-2026-09-13]
+A Figura~\ref{fig:desenhos-avaliacao} alinha os três desenhos no mesmo eixo temporal e torna visível o que cada um pode e não pode demonstrar.
+
+\input{5-Figures/tikz/f07-linha-temporal}
 \paragraph{Demonstração das linhas orientadoras.} A avaliação de
 candidatos alternativos (estimadores robustos, bandas com dependência
 modelada, critério de aceitação) usa os mesmos cinco pares anuais, com
