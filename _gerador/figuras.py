@@ -647,9 +647,9 @@ def f14b_rajadas():
         ax.scatter(y.independence_mean_run_length, y.mean_run_length, s=18,
                    color=COR[v], lw=0.4, edgecolor="white", zorder=3, label=NOME[v])
         for _, r in y.iterrows():
-            if r.mean_run_length >= 4.5:
+            if r.mean_run_length >= 5.5:
                 dir = r.independence_mean_run_length > 2.2
-                ax.annotate(f"{r.pair_id.replace('->', '→')} (máx. {pt(r.max_run_length)} d)",
+                ax.annotate(f"máx. {pt(r.max_run_length)} d",
                             (r.independence_mean_run_length, r.mean_run_length),
                             xytext=(-6 if dir else 6, 0), textcoords="offset points",
                             fontsize=6.2, color=CINZA, va="center",

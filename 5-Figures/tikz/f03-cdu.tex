@@ -23,7 +23,7 @@
           draw=corFG, line width=.7pt, fill=corFG!7] (col) at (10.70,0.20)
       {Coluna de destilação};
 
-    \node[ntmini, anchor=north] at (0.45,0.22) {crude};
+    \node[ntmini, anchor=north west] at (0.12,0.22) {crude};
     \draw[ntsetaf] (0.15,0.30) -- (pa1.west);
     \draw[ntsetaf] (pa1) -- (des);
     \draw[ntsetaf] (des) -- (pa2);
@@ -33,29 +33,35 @@
     % ----------------------------------------------------- produtos ----
     \foreach \y/\t in {0.90/{gases e nafta}, 0.20/{petróleo e gasóleos},
                        -0.50/{resíduo atmosférico}} {
-      \draw[ntsetaf] (11.50,\y) -- (12.25,\y);
-      \node[ntmini, anchor=west] at (12.30,\y) {\t};
+      \draw[ntsetaf] (11.50,\y) -- (12.15,\y);
+      \node[ntmini, anchor=west, text width=2.5cm, align=left] at (12.20,\y) {\t};
     }
 
     % ------------------------------------------- entradas de energia ---
-    \foreach \x/\c/\t/\n in {1.75/corEE/{eletricidade}/pa1,
-                             3.90/corV24/{vapor 24 e 10 bar}/des,
-                             8.20/corFG/{fuel gás}/for} {
+    % fuel gas: entra no forno, que e onde e queimado
+    \draw[-{Stealth[length=4pt,width=3pt]}, draw=corFG, line width=.9pt]
+      (8.20,-2.02) -- (for.south);
+    \node[ntmini, anchor=north, text=corFG] at (8.20,-2.14) {fuel gás};
+    \node[med] at (8.20,-1.35) {M};
+    % eletricidade e vapores de alta: atravessam a fronteira, distribuidos
+    % por varios equipamentos; a seta para na fronteira, sem atribuir destino
+    \foreach \x/\c/\t in {1.75/corEE/{eletricidade}, 3.90/corV24/{vapor 24 e 10 bar}} {
       \draw[-{Stealth[length=4pt,width=3pt]}, draw=\c, line width=.9pt]
-        (\x,-2.02) -- (\n.south);
+        (\x,-2.02) -- (\x,-1.20);
       \node[ntmini, anchor=north, text=\c] at (\x,-2.14) {\t};
       \node[med] at (\x,-1.35) {M};
     }
+    \node[ntmini, anchor=north west, align=left] at (0.05,-2.50)
+      {distribuídos por vários equipamentos; a eletricidade é medida ao mês e
+       alocada ao dia};
     \draw[-{Stealth[length=4pt,width=3pt]}, draw=corV3, line width=.9pt]
       (10.70,-2.02) -- (col.south);
     \node[ntmini, anchor=north, text=corV3] at (10.70,-2.14) {vapor 3 bar};
     \node[med] at (10.70,-1.35) {M};
-    \node[ntmini, anchor=north] at (1.75,-2.50)
-      {medida ao mês, alocada ao dia};
 
     % -------------------------------------- retornos e producao -------
     \draw[{Stealth[length=4pt,width=3pt]}-, draw=corV10, line width=.9pt]
-      (6.05,2.00) -- (pa2.north);
+      (6.05,2.00) -- (6.05,1.20);
     \node[ntmini, anchor=south, text=corV10] at (6.05,2.03)
       {vapor produzido na recuperação de calor};
     \node[med] at (6.05,1.55) {M};
@@ -64,14 +70,14 @@
     \node[ntmini, anchor=south] at (10.70,2.03) {condensados};
 
     % ----------------------------------------------------- legenda -----
-    \node[med] at (0.10,-3.15) {M};
-    \node[ntmini, anchor=west] at (0.32,-3.15) {ponto de medição declarado};
+    \node[med] at (0.10,-3.20) {M};
+    \node[ntmini, anchor=west] at (0.32,-3.20) {ponto de medição declarado};
     \draw[-{Stealth[length=4pt,width=3pt]}, draw=corCinza, line width=.9pt]
-      (3.7,-3.15) -- ++(0.5,0);
-    \node[ntmini, anchor=west] at (4.3,-3.15) {consumo bruto que entra};
+      (3.7,-3.20) -- ++(0.5,0);
+    \node[ntmini, anchor=west] at (4.3,-3.20) {consumo bruto que entra};
     \draw[{Stealth[length=4pt,width=3pt]}-, draw=corV10, line width=.9pt]
-      (7.6,-3.15) -- ++(0.5,0);
-    \node[ntmini, anchor=west] at (8.2,-3.15) {produção creditada (abate ao bruto)};
+      (7.6,-3.20) -- ++(0.5,0);
+    \node[ntmini, anchor=west] at (8.2,-3.20) {produção creditada (abate ao bruto)};
   \end{tikzpicture}
   \caption[Fronteira energética da unidade de destilação atmosférica]%
   {Esquema funcional da unidade de destilação atmosférica e da fronteira
