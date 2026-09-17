@@ -24,18 +24,15 @@ referência em produção não serve da mesma maneira aos cinco vetores.
 de processo, balanços mensais de produção e de utilidades, relatórios de
 eletricidade --- ficaram reunidas num modelo dimensional único, que cobre
 dezasseis unidades e é atualizado diariamente. A validação a três leituras,
-em 400 células unidade--vetor--mês de janeiro a maio de 2026, explicou as 94
-divergências iniciais por sete causas, com a última correção na versão~15.1
-do mapeamento; o fecho de 400 em 400 era o esperado depois dessa correção e
-não ficou registado como observado. As causas estavam nas três fontes: no
+em 400 células unidade--vetor--mês de janeiro a maio de 2026, fechou com as
+400 coincidentes na versão~15.1 do mapeamento, depois de explicadas as 94
+divergências iniciais por sete causas. As causas estavam nas três fontes: no
 motor de ingestão, no mapeamento e no próprio relatório oficial. O fuel gás
 ficou validado apenas contra duas fontes que leem o mesmo balanço, o que é
 consistência e não verificação (Secção~\ref{sec:validacao-dados}). A
 primeira camada da fiabilidade, a dos dados, ficou resolvida no âmbito
-validado, que são cinco meses de 2026: nos seis anos avaliados, o canal de
-\emph{tags} e o de balanço afastam-se de forma variável de ano para ano, e a
-série avaliada é a do balanço (Secção~\ref{sec:modelo-dimensional}). A lição
-transferível é que nenhuma das três fontes, isolada, era fiável.
+validado; a lição transferível é que nenhuma das três fontes, isolada, era
+fiável.
 
 \paragraph{Diagnosticar.} O método de referência em produção foi replicado
 de forma exata nas 30 células vetor--ano de 2020 a 2025, com erro máximo da
@@ -58,19 +55,17 @@ atravessam os vetores: o limiar de carga de $18\,600$~t/d exclui 10,4\% dos
 dias, que pertencem a outro regime operatório e definem um domínio de
 validade nunca declarado; os resíduos têm autocorrelação de primeira ordem
 entre 0,46 e 0,90, o que invalida os erros-padrão clássicos em que a banda
-se apoia; e a reestimação anual acomoda nos parâmetros a deriva que o
-indicador devia mostrar. As covariáveis de processo disponíveis (densidade e condições de
-\emph{flash}) não são um remédio geral: acrescentam valor em quatro de cinco
-pares no vapor de 10~bar, com um ganho frágil à análise de sensibilidade,
-oscilam entre ganho robusto e prejuízo no de 3~bar, e prejudicam na maioria
-dos pares no fuel gás e no de 24~bar. A detetabilidade real ficou por estimar, porque o
+se apoia; e a reestimação anual reabsorve nos parâmetros a deriva do ano
+anterior. As covariáveis de processo disponíveis (densidade e condições de
+\emph{flash}) só acrescentam valor preditivo robusto no vapor de 3~bar e
+prejudicam no fuel gás. A detetabilidade real ficou por estimar, porque o
 calendário operacional não estava disponível. Estes resultados são
 moderadamente robustos às convenções: mudar o limiar em 20\% altera 20 de
 208 rótulos, quase todos em pares fronteiriços
 (Secção~\ref{sec:sintese-modos-falha}).
 
 \paragraph{Prescrever.} As linhas orientadoras levam a classe linear
-estática tão longe quanto a demonstração permitiu: domínio declarado nas variáveis explicativas,
+estática ao limite defensável: domínio declarado nas variáveis explicativas,
 exclusões por causa e nunca por valor, especificação antes de robustificação,
 estimação robusta pré-especificada, bandas que admitem três desfechos
 (incluindo nenhuma banda suportada), critério de aceitação encadeado no
@@ -126,7 +121,7 @@ duas coisas: dados reconciliados e referências avaliadas.
     \toprule
     Condição & Antes da plataforma & No fim do trabalho \\
     \midrule
-    Cada número é rastreável até à fonte e à regra & Folhas de cálculo manuais; três fontes separadas & Cumprida no âmbito validado (janeiro a maio de 2026): modelo único, mapeamento como contrato, validação a três leituras, proveniência por \emph{hash} \\
+    Cada número é rastreável até à fonte e à regra & Folhas de cálculo manuais; três fontes separadas & Cumprida: modelo único, mapeamento como contrato, validação a três leituras, proveniência por \emph{hash} \\
     \addlinespace
     O domínio da comparação está declarado & Implícito no limiar de carga & Medido (10,4\% dos dias fora do domínio, outro regime); declaração e supressão do alarme especificadas, não implantadas \\
     \addlinespace

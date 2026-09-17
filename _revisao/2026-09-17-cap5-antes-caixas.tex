@@ -56,8 +56,7 @@ Secção~\ref{sec:modelo-dimensional} descreve: os três canais de origem
 coexistem na tabela de factos e uma regra de precedência declarada escolhe
 por linha, com a origem registada --- é o que torna a validação da secção
 seguinte possível, porque um dia com balanço e \emph{tag} em simultâneo é
-um dia com duas leituras da mesma grandeza, processadas por caminhos
-diferentes, que podem ainda assim partilhar o medidor. A segunda é que a
+um dia com duas medições independentes da mesma coisa. A segunda é que a
 \emph{baseline} é materializada no modelo: a tabela de coeficientes por
 unidade, vetor e ano é calculada uma vez por atualização e as medidas de
 resíduo, banda e excesso leem-na por pesquisa, em vez de reestimarem a
@@ -94,6 +93,17 @@ validação da secção seguinte motivou a maior parte das últimas.
 
 \section{Validação da camada de dados}
 \label{sec:validacao-dados}
+% [REV-2026-09-13][C5-02][P1][VALIDACAO]
+\revisaotese{C5-02}{P1}{VALIDACAO}
+{As três leituras podem partilhar o mesmo erro}
+{Relatório, reconstrução e dashboard podem derivar do mesmo balanço e
+dos mesmos medidores. Descrever independência do processamento e
+dependência das fontes, sem as chamar três medições independentes.
+Divergência pode vir de fronteiras/definições diferentes, não de um valor
+fisicamente errado. Especificar os 400 casos, unidade da tolerância
+(t ou MWh, conforme vetor), denominador, regra para zeros/ausentes e
+tratamento do sinal. Separar confirmação física e concordância contabilística.}%
+% [/REV-2026-09-13]
 
 Um \emph{dashboard} que apresenta números errados com confiança é pior do
 que nenhum \emph{dashboard}. Antes de qualquer visual ser dado por
@@ -102,19 +112,10 @@ unidade, vetor e mês de janeiro a maio de 2026, o valor do
 \emph{dashboard} foi comparado com o relatório oficial de consumo emitido
 por cada fábrica (o ``Envio'') e com uma reconstrução independente a
 partir do mapeamento mestre aplicado diretamente às folhas de medidores do
-balanço. A amostra são 400 células: as combinações unidade--vetor do
-relatório nos cinco meses, incluindo as que não têm consumo, contadas à
-parte como vazias. Uma célula coincide quando a diferença absoluta entre o
-\emph{dashboard} e as outras duas leituras não excede 2~t ou 0,2\% do valor,
-o que for maior; o sinal da diferença regista-se para a análise de
-consistência descrita adiante. As três leituras não são três medições
-independentes. O relatório e a reconstrução partem do mesmo balanço e dos
-mesmos medidores, e o \emph{dashboard} lê esse balanço por outro código:
-a independência é do processamento, não da fonte. Uma divergência pode por
-isso vir de uma fronteira ou de uma definição diferentes, e não de um valor
-fisicamente errado, e uma coincidência confirma a contabilização, não a
-medição física. O método existe para encontrar a causa de cada
-divergência.
+balanço --- 400 células, com tolerância de 2~t ou 0,2\%, o que for maior.
+As três fontes são, em princípio, três leituras da mesma realidade física;
+onde discordam, uma delas está errada, e o método existe para descobrir
+qual.
 
 % [REV-2026-09-13][F08][P2][FIGURA]
 \revisaotese{F08}{P2}{FIGURA}
@@ -178,22 +179,23 @@ decimal entre a célula de fevereiro e a de maio. O Processamento de Dados
 confirmou e corrigiu o relatório; as três células fecharam a três fontes
 ao decimal. É o episódio que inverte a hierarquia habitual: a
 ``verdade-terreno'' estava errada e o \emph{dashboard} certo, e só uma
-validação com três leituras processadas por caminhos diferentes o podia
-mostrar.
+validação com três leituras independentes o podia mostrar.
 
-\paragraph{O fecho.} Contando à parte as células vazias, a progressão foi
-de 242 células numéricas coincidentes na versão 13 (com 64 vazias) para 263
-depois do factor de inclusão e 327 com a versão 15 (com 65 vazias; uma
-combinação deixou de ter consumo entre as duas versões), 330 com o
-relatório de fevereiro corrigido e, com a versão 15.1, a correção das
-últimas cinco, nas referências de fuel gás dos enxofres. As 94 divergências
-iniciais ficaram todas explicadas. O registo de 3 de julho de 2026 dá o
-fecho de 400 de 400 como o esperado na atualização seguinte com a
-versão~15.1; essa execução não ficou registada com data, e o fecho completo
-é, nesta versão do texto, um resultado esperado e não observado. A
-validação cobre janeiro a maio de 2026 e não se estende por si aos anos de
-2020 a 2025 que o Capítulo~\ref{cha:diagnostico} avalia
-(Secção~\ref{sec:modelo-dimensional}).
+% [REV-2026-09-13][C5-03][P1][EVIDENCIA]
+\revisaotese{C5-03}{P1}{EVIDENCIA}
+{400/400 aparece como facto e como resultado por confirmar}
+{O comentário existente diz que 400/400 era "esperado". Até existir
+evidência da execução final, esta afirmação não pode provar a validação
+completamente limpa. Referenciar relatório/data/versão e separar casos
+numéricos de vazios. Esclarecer mudança de 64 para 65 vazios.
+Não extrapolar janeiro--maio de 2026 para 2020--2025 sem verificação
+histórica; a análise de baselines usa sobretudo esse intervalo anterior.}%
+% [/REV-2026-09-13]
+\paragraph{O fecho.} A progressão foi 242 células coincidentes na versão
+13, 263 depois do factor de inclusão, 392 de 400 com a versão 15 (327
+coincidentes mais 65 vazias), 395 com o relatório de fevereiro corrigido e
+400 de 400 com a versão 15.1 --- a primeira validação completamente limpa
+da cadeia, dos relatórios ao motor ao mapeamento.
 %% CONFIRMAR: o 400/400 foi observado no refresh seguinte a v15.1 (a nota
 %% de 2026-07-03 diz "esperado"); se sim, indicar a data.
 O fuel gás foi validado a duas fontes, por decisão de âmbito, e a
@@ -202,16 +204,16 @@ ambos leem o mesmo balanço de produção; é consistência entre fontes
 dependentes, não verificação, e se o balanço vier errado erram os dois
 sem aviso.
 
-% [REV-2026-09-17][C5-06][P1][EVIDENCIA]
-\revisaotese{C5-06}{P1}{EVIDENCIA}
-{Confirmar se o 400/400 da versão 15.1 foi observado}
-{O parágrafo anterior deixou de afirmar o 400/400 como resultado observado:
-a nota de 2026-07-03 diz ``esperado no próximo refresh'' e não há registo
-da execução. Se a validação foi corrida depois da 15.1 (ou sobre a v22 de
-2026-07-31), indicar data e ficheiro e repor a afirmação aqui, no
-Cap.~8 (Construir) e na Tabela~8.1. Confirmar também a unidade da tolerância
-de 2 na eletricidade (MWh?).}%
-% [/REV-2026-09-17]
+% [REV-2026-09-13][C5-04][P2][DADOS]
+\revisaotese{C5-04}{P2}{DADOS}
+{A definição de carga interfere diretamente no diagnóstico}
+{Explicar a correspondência entre 24 unidades da validação e 16 do
+dashboard, e qual definição de Q entra em cada indicador e regressão.
+Mostrar efeito de reprocessamento na seleção pelo limiar e no ajuste,
+além do consumo específico. Se a escolha permanece pendente, separar
+replicação da convenção existente da validade física dessa convenção;
+não a deixar como detalhe administrativo.}%
+% [/REV-2026-09-13]
 \paragraph{A carga.} A carga foi validada por outro caminho: a soma dos
 componentes de carga de cada unidade contra a linha de carga do balanço,
 em 118 de 120 células (24 unidades, cinco meses) a $\pm0{,}1$~t; as duas
@@ -225,18 +227,6 @@ total do balanço), ambas reproduzíveis, e a escolha muda os consumos
 específicos --- 2,4\% numa unidade só pelo hidrogénio, um factor de sete
 noutra. É uma decisão de definição de indicador, registada como pendente
 e devolvida a quem define o indicador.
-
-A validação usa as 24 unidades do balanço; o \emph{dashboard} agrega-as em 16,
-e a destilação atmosférica do \emph{dashboard} junta à coluna as secções
-auxiliares declaradas na sua composição. A carga que entra nos indicadores
-e na regressão dessa unidade é a linha de carga do balanço, que exclui o
-resíduo atmosférico reprocessado e os \emph{slops}. A escolha pesa pouco na
-avaliação que se segue, mas não é nula: com a carga total da coluna, 15 dos
-2\,192 dias de 2020 a 2025 passariam o limiar, e o declive anual do fuel gás
-mudaria entre $-2{,}5\%$ e $+3{,}4\%$; nos vapores, cujos declives são
-próximos de zero, as mudanças relativas são grandes e as absolutas
-pequenas. O Capítulo~\ref{cha:diagnostico} replica a convenção em produção;
-replicá-la não diz se é a fisicamente correta.
 
 \paragraph{O que a validação ensinou.} Quatro lições passaram a regras
 da plataforma. Uma tolerância relativa em números grandes esconde termos
@@ -273,6 +263,17 @@ contra a \emph{baseline} do ano de referência selecionado, aplicada à carga
 do próprio dia, e é positivo quando o consumo excede o previsto.
 %% FIGURA: prints_dashboard (uma por pagina), recortadas ao canvas.
 
+% [REV-2026-09-13][C5-05][P2][INTERPRETACAO]
+\revisaotese{C5-05}{P2}{INTERPRETACAO}
+{A ordenação do dashboard herda os limites das baselines}
+{"Melhor/pior unidade", Pareto de excesso e semáforos podem ordenar erro
+de modelo, escala e exposição em vez de desempenho energético. Descrever
+como comportamento atual, sem o validar por utilidade presumida.
+Na proposta, preferir "maior desvio observado", mostrar domínio/qualidade,
+volume processado e incerteza; não usar média de R\textsuperscript{2} como certificação de
+qualidade. Acrescentar um exemplo de como uma decisão mudaria ao conhecer
+o estado da baseline, sem alegar poupança não medida.}%
+% [/REV-2026-09-13]
 \paragraph{Vista comparativa da refinaria.} A primeira página responde à
 pergunta da reunião da manhã: onde olhar primeiro. Uma matriz de
 semáforos cruza as 16 unidades com os seis vetores e mostra o desvio na
@@ -291,16 +292,7 @@ médio, contagem de relações adequadas, marginais e inadequadas, e a
 qualidade por unidade. Este último cartão é a primeira forma em que o
 diagnóstico do Capítulo~\ref{cha:diagnostico} entrou na plataforma: ainda
 antes de qualquer teste, mostra ao utilizador que a maioria das relações
-com a carga explica pouco. As ordenações desta página descrevem o
-comportamento atual e herdam os limites das \emph{baselines}: a ``pior
-unidade'', o Pareto do excesso e os semáforos ordenam desvios face à
-referência, que misturam desempenho energético com erro do modelo, escala
-da unidade e número de dias, e um coeficiente de determinação médio não
-certifica a qualidade de nenhuma referência. Uma unidade com uma referência
-sem conteúdo preditivo pode aparecer como a pior só por isso; saber o
-estado da referência muda a decisão de onde olhar primeiro. A
-Secção~\ref{sec:implicacoes-plataforma} propõe mostrar o maior desvio
-observado com o domínio, o volume processado e a incerteza ao lado.
+com a carga explica pouco.
 
 \paragraph{Detalhe da unidade.} A segunda página fixa uma unidade e mostra
 os seus vetores: cartões de melhor e pior vetor, índice de intensidade,

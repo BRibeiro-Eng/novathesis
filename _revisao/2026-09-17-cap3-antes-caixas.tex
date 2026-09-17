@@ -102,7 +102,7 @@ no protocolo antes da seleção: refinação de petróleo, petroquímica,
 cimento e cal, pasta e papel, siderurgia e outros metais primários de
 produção contínua, química contínua, gases industriais e vidro de fusão
 contínua. Uma menção ao setor na introdução ou numa revisão não chega.
-B é um subconjunto de A e não uma segunda amostra: cada publicação de B
+B é uma partição de A e não uma segunda amostra: cada publicação de B
 conta uma vez na bibliometria e é lida com mais profundidade na síntese.
 
 A lista de setores foi fixada antes da seleção por uma razão de desenho.
@@ -378,11 +378,7 @@ resolver são 51,1\% do corpus. O setor de atividade e o país dos casos estão
 pior, com 145 e 144 valores concordantes em texto livre ainda por normalizar.
 As distribuições seguintes descrevem o subconjunto concordante de cada campo,
 com o denominador explícito, e não tratam um valor em falta como ausência da
-característica. Um valor concordante entre duas extrações não é uma
-classificação adjudicada: a auditoria por amostragem prevista para estes
-campos tem o estado por confirmar (Apêndice~\ref{app:protocolo-sr}), e um
-contexto pouco representado descreve a cobertura deste corpus, não a
-inexistência de métodos nesse contexto.
+característica.
 
 % [REV-2026-09-14][C3-V02][P2][FIGURA]
 \revisaotese{C3-V02}{P2}{FIGURA}
@@ -396,6 +392,16 @@ estados efetivos; não mudar apenas a legenda de ``concordante'' para
 ``validado''.}%
 % [/REV-2026-09-14]
 
+% [REV-2026-09-13][C3-03][P2][ANALISE]
+\revisaotese{C3-03}{P2}{ANALISE}
+{Os resultados de conteúdo do Corpus A são pré-extrações concordantes}
+{As contagens desta secção foram conferidas com as tabelas de
+\texttt{corpus\_a\_registado} (331), mas descrevem valores em que duas
+extrações concordam, não uma classificação adjudicada. A auditoria por
+amostragem da C-2.3 (n = 40, semente 44) tem estado desconhecido
+(caixa AP-A no Apêndice A). Um contexto pouco representado indica a
+cobertura deste corpus; não demonstra a inexistência de métodos.}%
+% [/REV-2026-09-13]
 
 \subsection{Evolução temporal e fontes}
 
@@ -765,17 +771,9 @@ consegue perceber. Só 27 modelos, em nove artigos, têm um regime declarado:
 por evento com gatilho explícito (16), janela móvel (6), atualização
 contínua (3) ou periodicidade fixa (2). O domínio de validade não é
 declarado em 118 modelos; é-o qualitativamente em 11 e com limites numéricos
-em 11, estes em três artigos. E a validação fora da amostra, com resultado reportado, aparece em 13
+em 11, estes em três artigos. E a validação fora da amostra aparece em 13
 modelos de quatro artigos, contra 49 modelos com ajuste reportado nos dados
-de treino. Outros seis modelos, em três artigos, descrevem uma partição em
-treino e teste sem darem o resultado no teste: \textcite{Velazquez2013}
-separam os registos em dois conjuntos e reportam um único R² sem dizer em
-qual, \textcite{Khalid2024b} reportam só as métricas do treino e
-\textcite{Tarasovskii2014} descrevem o procedimento de forma genérica. Não entram nos 13. Dos 13, 12 usam uma
-partição dos dados que é aleatória~\cite{Moghadasi2025,ElMaghraby2024} ou
-cuja ordem temporal não é descrita~\cite{Hamedi2019}, e o décimo
-terceiro compara uma simulação com a operação real~\cite{Almanza2025}.
-Nenhum descreve um teste em blocos de tempo posteriores ao ajuste. Dizer que um modelo tem R² de 0,9 nos dados que o ajustaram é o
+de treino. Dizer que um modelo tem R² de 0,9 nos dados que o ajustaram é o
 que a literatura mais faz; testar se ainda prevê no ano seguinte, o que
 menos faz.
 
@@ -1030,9 +1028,9 @@ mais se aproxima, com a fronteira descrita, uma regra para refazer o modelo
 depois de alterações na instalação e um domínio de validade dado pelos
 pontos usados na identificação, mas sem teste fora da amostra.
 \textcite{Moghadasi2025} reportam um R² de 0,99 num conjunto de validação
-com 20\% dos dados escolhidos ao acaso; numa série sub-horária de um ano,
-pontos vizinhos ficam dos dois lados da partição e a validação mede
-interpolação, não previsão.
+com 20\% dos dados; numa série sub-horária de um ano, se a partição for
+aleatória, pontos vizinhos ficam dos dois lados e a validação mede
+interpolação, não previsão. O extrato não permite saber qual foi o desenho.
 \textcite{Yao2016} propõem refazer o modelo quando o consumo cai três
 desvios-padrão abaixo da referência. A regra tem um problema que atravessa
 esta dissertação: uma melhoria real do desempenho dispara a mesma condição
@@ -1190,17 +1188,22 @@ decisão for posterior e tiver sido informada pela revisão, dizê-lo nessa
 linha em vez de a apresentar como anterior.}%
 % [/REV-2026-09-17]
 
+% [REV-2026-09-17][C3-09][P2][DADOS]
+\revisaotese{C3-09}{P2}{DADOS}
+{Incoerência entre desenho de validação e estado da validação}
+{No C8, 18 modelos têm desenho ``held-out split'' mas só 13 têm validação fora
+da amostra ``reported'' (ex.: \textcite{Velazquez2013} tem desenho de retenção e
+estado ``not reported''). Não entrou na verificação por não ter citação no
+estado. Ler os casos antes de fixar o número 13 no texto e na
+Tabela~\ref{tab:gap}.}%
+% [/REV-2026-09-17]
 
-% [REV-2026-09-17][C3-10][P3][CONTEUDO]
-\revisaotese{C3-10}{P3}{CONTEUDO}
-{Entradas bibliográficas do Corpus~B: resíduo da verificação}
-{Conferidas contra o Crossref a 2026-09-17: título corrigido em
-\texttt{EspinelBlanco2020} (vinha truncado do export) e \texttt{Hashim2022}
-(maiúsculas); \texttt{Morales2018}, \texttt{Bassetti2025} e
-\texttt{Mahesthi2020} passaram a artigo de série; números de artigo em
-\texttt{eid}; autor duplicado removido em \texttt{Morales2018}. Ficam sem DOI
-\texttt{CastrillonMendoza2013}, \texttt{Ottermann2011} e \texttt{Boyd2016},
-e sem páginas as quatro comunicações IEEE. O título de \texttt{Hashim2022}
-fala de uma empresa petrolífera; a Tabela~\ref{tab:b-proximos} descreve
-``empresas petroquímicas'': confirmar no artigo.}%
+% [REV-2026-09-17][C3-10][P2][CONTEUDO]
+\revisaotese{C3-10}{P2}{CONTEUDO}
+{Entradas bibliográficas do Corpus~B geradas do export}
+{As 39 entradas \texttt{Almanza2025}\ldots\texttt{Yao2016} foram geradas de
+\texttt{data/articles.csv} (metadados Rayyan). Verificar títulos em
+maiúsculas, páginas em falta, nomes com diacríticos e o tipo (artigo ou
+conferência) antes da entrega; confirmar que o estilo não imprime campos
+vazios.}%
 % [/REV-2026-09-17]

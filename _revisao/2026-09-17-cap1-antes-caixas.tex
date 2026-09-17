@@ -33,17 +33,16 @@
 
 \chapter{Introdução}
 \label{cha:introducao}
-% [REV-2026-09-17][C1-01][P2][ESTRUTURA]
+% [REV-2026-09-13][C1-01][P2][ESTRUTURA]
 \revisaotese{C1-01}{P2}{ESTRUTURA}
 {Estado da dissertação e ordem de revisão}
-{Atualizado a 2026-09-17. Texto completo nos Caps.~1--8, resumos e
-Apêndices A--C. Falta: Apêndice~D; a redução do Apêndice~E ao que o corpo
-cita; as figuras (caixas F); as caixas que pedem decisão ou confirmação do
-autor (C2-08, C3-06, C3-08, C5-06, AP-A); e as caixas editoriais deixadas
-para a revisão integral (C1-08, C2-05, C4-01, C4-10, C5-01, C7-01, C3-02,
-C3-10). As caixas acionáveis de 2026-09-13 foram resolvidas no texto e
-retiradas; o registo está em \texttt{\_revisao/}.}%
-% [/REV-2026-09-17]
+{Revisão crítica de 2026-09-13, atualizada a 2026-09-17. O arco plataforma
+-\textgreater{} diagnóstico -\textgreater{} proposta é defensável. Faltam ainda: as duas
+secções do Corpus~B e o \emph{gap} no Cap.~3; o Cap.~8; os resumos; os
+Apêndices B--D; a redução do Apêndice~E ao que o corpo cita. Não
+apresentar como entregues elementos ainda em esqueleto. Procurar
+REV-2026-09-13 em todos os .tex.}%
+% [/REV-2026-09-13]
 
 \section{Contexto e motivação}
 \label{sec:contexto}
@@ -164,11 +163,11 @@ rotineiramente --- mas não é medido, e a referência não o vê. O
 levantamento reconheceu a tensão: as métricas precisam de uma referência
 robusta, e uma referência rígida não serve todas as situações, pelo que
 se adapta a análise \enquote{caso a caso}, com \enquote{espírito
-crítico}. Uma referência reestimada todos os anos resolve a mesma
-tensão de outra maneira: cada nova reta acomoda o nível que a anterior
-deixou, e um desvio lento e persistente, que é o que a gestão de energia
-existe para apanhar, sai dos resíduos à medida que os parâmetros o
-absorvem. Medir não basta. Esta dissertação parte do
+crítico}. Uma referência que se reajusta todos os anos resolve a mesma
+tensão de outra maneira, pior: em cada janeiro absorve a deriva do ano
+anterior e volta a zero. Sobram para os alarmes os desvios rápidos; os
+lentos, que são os que a gestão de energia existe para apanhar, ficam
+invisíveis por construção. Medir não basta. Esta dissertação parte do
 pedido de um \emph{dashboard} e chega a essa conclusão pelo caminho mais
 longo, o de mostrar o que falta.
 
@@ -245,35 +244,33 @@ uma organização pode estar em conformidade formal com a ISO~50001 (tem
 EnPI, tem EnB, normaliza, reporta) e não ter forma de saber se as
 suas \emph{baselines} cumprem alguma das três funções que lhes são
 pedidas: normalizar o consumo pela carga, sustentar comparações entre
-períodos e alimentar alarmes. A norma pede indicadores e referências
-adequados e deixa à organização a demonstração dessa adequação, sem fixar
-um teste para a fazer.
+períodos e alimentar alarmes. A certificação não pergunta; a norma não
+exige que se pergunte.
 
-É este o problema: \emph{falta demonstrar, no caso estudado, que as
+% [REV-2026-09-13][C1-04][P1][ARGUMENTO]
+\revisaotese{C1-04}{P1}{ARGUMENTO}
+{Fechar a lacuna com a síntese do Cap.~3}
+{O parágrafo seguinte está na formulação provisória. Depois da síntese do
+Corpus~B: delimitar a lacuna por âmbito, período, fontes pesquisadas e
+características que as abordagens existentes cobrem; confirmar contra a
+síntese final a frase sobre a quase ausência da incrustação na literatura
+(leitura assistida, sem verificação humana por ocorrência). A inovação
+pode ser a integração e demonstração industrial do procedimento, mesmo
+que os componentes já existam.}%
+% [/REV-2026-09-13]
+É este o problema, na formulação que o Capítulo~\ref{cha:revisao}
+delimita: \emph{falta demonstrar, no caso estudado, que as
 \emph{baselines} em produção são adequadas aos usos que a norma lhes
 atribui, e falta um procedimento operacional para o fazer; sem ele, uma
 organização não tem meio de saber se a sua plataforma de monitorização é
 fiável na segunda camada, por mais fiável que seja na primeira.} A
-revisão de âmbito do Capítulo~\ref{cha:revisao} delimita a lacuna nas
-publicações em inglês posteriores a 1995 indexadas na Scopus e na Web of
-Science até fevereiro de 2026. As peças existem: rácios e regressões sobre a
-carga, a norma que os enquadra e casos em quase todos os setores de processo
-contínuo. O que falta está nas condições em que esses modelos podem servir
-de referência. Nos 140 modelos dos 39 estudos de processo contínuo
-cartografados, 27 têm um regime de reestimação declarado, 22 um domínio de
-validade e 13 uma validação fora da amostra; nenhum dos 13 estudos em
-refinação ou petroquímica junta energia medida na fronteira do modelo,
-regra de reestimação, domínio declarado e teste fora da amostra. Os estudos
-relatam sobretudo sintomas no modelo e raramente a causa física: em 90 das
-132 ocorrências de efeito extraídas não se nomeia nenhuma causa, e a
-incrustação que a orientação industrial identificou de imediato aparece
-uma vez, como motivação e não como limite do modelo. Estas contagens vêm de
-uma extração assistida sem verificação humana por ocorrência
-(Secção~\ref{sec:extracao-verificacao}). A contribuição não está, por isso,
-em componentes novos, muitos dos quais existem na literatura estatística e
-de medição e verificação, mas na sua integração numa unidade industrial
-real, com a referência em produção replicada exatamente e avaliada contra um
-protocolo fixado antes dos resultados. Os capítulos empíricos mostram o que
+revisão sistemática do âmbito pergunta à literatura o que existe.
+Adianta-se aqui só o que muda a maneira de ler o resto do documento: os
+estudos em processo contínuo reportam sobretudo sintomas no modelo ---
+relações que não se mantêm, indicadores que deixam de ter significado,
+grandezas que não são medidas --- e quase nunca a causa física por trás
+deles. A incrustação que a orientação industrial identificou de imediato
+é, nessa literatura, quase ausente. Os capítulos empíricos mostram o que
 o problema custa numa refinaria real e o que é preciso para o tratar.
 
 \section{Objetivos e questões de investigação}
@@ -425,15 +422,16 @@ As contribuições metodológicas são quatro. Um protocolo de avaliação de
 \emph{baselines} energéticas, especificado antes dos resultados, com
 correção de multiplicidade e grelha de sensibilidade, reutilizável na
 classe acima (Secção~\ref{sec:protocolo-baselines}). O diagnóstico do
-método em produção: quatro modos de falha distintos nos vetores diários,
-uma limitação de medição na eletricidade, e o mecanismo que os liga --- a
-reestimação anual acomoda nos parâmetros a deriva que o indicador devia
-mostrar (Capítulo~\ref{cha:diagnostico}). Linhas orientadoras para
+método em produção: cinco modos de falha qualitativamente distintos, um
+por vetor energético, e o mecanismo que os liga --- a recalibração anual
+absorve a deriva que devia expor, e o sistema fica cego por construção
+aos fenómenos lentos e ruidoso nos rápidos
+(Capítulo~\ref{cha:diagnostico}). Linhas orientadoras para
 \emph{baselines} em processo contínuo, com um critério de aceitação
-fixado antes dos resultados e demonstradas na unidade, incluindo o que muda quando se congela
+selado e demonstradas na unidade, incluindo o que muda quando se congela
 uma referência em vez de a reajustar e o que um monitor sequencial
 consegue detetar quando a verdade é conhecida por simulação
-(Capítulo~\ref{cha:discussao}). E uma revisão de âmbito
+(Capítulo~\ref{cha:discussao}). E uma revisão sistemática do âmbito
 registada, com corpus fechado e extração assistida por modelos de
 linguagem sobre um instrumento congelado, sem verificação humana por
 ocorrência, que situa o caso na literatura no estado em que o
@@ -506,11 +504,10 @@ aqui o objeto é a \emph{baseline} que julga cada dia de operação, um
 problema distinto que partilha instrumentos com o primeiro.
 
 Estas fronteiras têm um custo, e declara-se já. Uma unidade e um único
-\emph{snapshot} de dados já explorados não permitem uma validação
-independente da seleção, e a demonstração das linhas orientadoras é
-retrospetiva. A
-eletricidade fica sem diagnóstico diário. O que a reestimação anual
-acomodou em cada ano não é mensurável sem o calendário operacional. Os
+\emph{snapshot} de dados já explorados não permitem afirmações fora de
+amostra, e a demonstração das linhas orientadoras é retrospetiva. A
+eletricidade fica sem diagnóstico diário. O que a recalibração anual
+mascarou em cada ano não é mensurável sem o calendário operacional. Os
 critérios de sucesso da ferramenta, que o levantamento deixou por
 definir, nunca chegaram a ser fixados: a plataforma foi avaliada pela
 reconciliação e pelo diagnóstico que tornou possível, não contra
