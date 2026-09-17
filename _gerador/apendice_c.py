@@ -32,6 +32,9 @@ def f(x, n=2):
     s = f"{abs(x):,.{n}f}".replace(",", "\\,").replace(".", ",")
     return ("$-$" if x < 0 else "") + s
 def pair(p): return p.replace("->", "$\\to$")
+def ic(lo, hi, n=2):
+    if lo is None or hi is None or not np.isfinite(lo) or not np.isfinite(hi): return "---"
+    return "[" + f(lo, n) + "; " + f(hi, n) + "]"
 def tsv(run, name): return pd.read_csv(os.path.join(R, RUNS[run], name), sep="\t")
 def write(fn, head, body, caption, label, colspec, short=None, size="footnotesize"):
     L = [f"%% Gerado por _gerador/apendice_c.py (2026-09-17) das corridas canonicas. Nao editar a mao.",
@@ -66,9 +69,12 @@ write("apC-t2.tex", "Vetor & Par & Comparador & $n$ & MAE mod. & MAE nulo & $\\D
 s = tsv("E2", "E2_bootstrap_sensitivity.tsv")
 s["st"] = s.block_interval_status.map(st)
 p = s.pivot_table(index=["vector_id", "pair_id", "null_id"], columns="block_length", values="st", aggfunc="first")
-body = [f"{VEC[i[0]]} & {pair(i[1])} & {NULL[i[2]]} & " + " & ".join(str(p.loc[i, c]) for c in p.columns) + " \\\\" for i in p.index]
+def cell(v):
+    v = str(v)
+    return "---" if v in ("nan", "None", "") else v
+body = [f"{VEC[i[0]]} & {pair(i[1])} & {NULL[i[2]]} & " + " & ".join(cell(p.loc[i, c]) for c in p.columns) + " \\\\" for i in p.index]
 write("apC-t3.tex", "Vetor & Par & Comparador & " + " & ".join(f"{c}~d" for c in p.columns) + " \\\\", body,
-      "Sensibilidade do intervalo do ganho preditivo ao comprimento do bloco do \\emph{bootstrap} (E2). Mesma convenção de estatuto da Tabela~\\ref{tab:apC-e2}.",
+      "Sensibilidade do intervalo do ganho preditivo ao comprimento do bloco do \\emph{bootstrap} (E2). Mesma convenção de estatuto da Tabela~\\ref{tab:apC-e2}. As colunas de 6 e 8 dias são blocos base, que dependem do número de observações do par ($\\lceil n^{1/3}\\rceil$); ``---'' significa que esse comprimento não se aplica ao par.",
       "tab:apC-e2-blocos", "@{}llp{2.6cm}" + "c" * len(p.columns) + "@{}", "Ganho preditivo: sensibilidade ao bloco")
 
 # ---- C4: E3 testes e sensibilidades ------------------------------------------
@@ -118,12 +124,12 @@ write("apC-t10.tex", "Vetor & Par & $\\hat\\sigma$ & Banda constante & \\multico
 
 # ---- C6: E6 covariaveis -------------------------------------------------------
 sk = tsv("E6", "E6_skill.tsv")
-body = [f"{VEC[r.vector_id]} & {pair(r.pair_id)} & {int(r.n_obs)} & {f(r.mae_baseline)} & {f(r.mae_augmented)} & {f(r.delta_mae)} & [{f(r.delta_lower)}; {f(r.delta_upper)}] & {f(r.skill_fraction,3)} & {st(r.skill_status)} \\\\" for r in sk.itertuples()]
+body = [f"{VEC[r.vector_id]} & {pair(r.pair_id)} & {int(r.n_obs)} & {f(r.mae_baseline)} & {f(r.mae_augmented)} & {f(r.delta_mae)} & {ic(r.delta_lower, r.delta_upper)} & {f(r.skill_fraction,3)} & {st(r.skill_status)} \\\\" for r in sk.itertuples()]
 write("apC-t11.tex", "Vetor & Par & $n$ & MAE $Q$ & MAE $Q+Z$ & $\\Delta$MAE & IC 95\\% & fração & Est. \\\\", body,
       "Valor incremental das covariáveis (E6): erro absoluto médio no ano seguinte com carga apenas e com carga mais densidade e condições de \\emph{flash}, nos mesmos dias, com intervalo por \\emph{bootstrap} de blocos.",
       "tab:apC-e6", "@{}llrrrrlrl@{}", "Valor incremental das covariáveis")
 cs = tsv("E6", "E6_coverage_secondary.tsv")
-body = [f"{VEC[r.vector_id]} & {pair(r.pair_id)} & {f(r.coverage_baseline,3)} & {f(r.coverage_augmented,3)} & {f(r.delta_coverage,3)} & [{f(r.delta_lower,3)}; {f(r.delta_upper,3)}] \\\\" for r in cs.itertuples()]
+body = [f"{VEC[r.vector_id]} & {pair(r.pair_id)} & {f(r.coverage_baseline,3)} & {f(r.coverage_augmented,3)} & {f(r.delta_coverage,3)} & {ic(r.delta_lower, r.delta_upper, 3)} \\\\" for r in cs.itertuples()]
 write("apC-t12.tex", "Vetor & Par & Cobertura $Q$ & Cobertura $Q+Z$ & $\\Delta$ & IC 95\\% \\\\", body,
       "Comparação secundária de cobertura (E6): cobertura da banda dos dois modelos encaixados nos mesmos dias.",
       "tab:apC-e6-cobertura", "@{}llrrrl@{}", "Cobertura das bandas dos modelos encaixados")
@@ -158,7 +164,12 @@ write("apC-t16.tex", "Vetor A & Vetor B & Âmbito & $n$ & Pearson & Spearman \\\
 # ---- C8: sensibilidade --------------------------------------------------------
 sg = tsv("SENS", "SENS_grid.tsv")
 g = sg.groupby(["endpoint", "cell_id"]).agg(n=("survives", "size"), muda=("survives", lambda x: int((~x.astype(bool)).sum()))).reset_index()
-body = [f"{r.endpoint} & {r.cell_id.replace('_',' ').replace('ano civil','ano civil').replace('movel','móvel')} & {int(r.n)} & {int(r.muda)} \\\\" for r in g.itertuples()]
+def celula(cid):
+    mult, _, jan = cid.partition("_")
+    mult = mult.replace("x", "").replace(".", ",")
+    jan = "ano civil" if jan == "ano_civil" else "janela móvel de 12 meses"
+    return f"${mult}\\times$, {jan}"
+body = [f"{r.endpoint} & {celula(r.cell_id)} & {int(r.n)} & {int(r.muda)} \\\\" for r in g.itertuples()]
 write("apC-t17.tex", "\\emph{Endpoint} & Célula & Reavaliações & Mudam de rótulo \\\\", body,
       "Grelha de sensibilidade: número de reavaliações por \\emph{endpoint} e célula (limiar de carga $\\times$ esquema de janela) e quantas mudam de rótulo face à célula de referência ($1\\times$, ano civil).",
       "tab:apC-sens", "@{}llrr@{}", "Grelha de sensibilidade às convenções")
