@@ -1,23 +1,45 @@
 %!TEX root = ../template.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% glossary.tex
-%% NOVA thesis document file
-%%
-%% Glossary definition
+%% glossary.tex -- termos operacionais da dissertacao (2026-09-17).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \typeout{NT FILE glossary.tex}%
 
-% [REV-2026-09-13][FR-03][P3][APRESENTACAO] Remover conteúdo demonstrativo e fixar termos operacionais
-% O glossário contém ainda a entrada computer e uma citação de exemplo
-% Artho04 sem relação com a tese. Substituir por definições curtas de
-% baseline, normalização, referência congelada, fator estático, desvio,
-% excursão, episódio de alarme, calibração e reconciliação de fontes,
-% se o glossário for mantido. As distinções resolvem ambiguidades
-% recorrentes no texto, não são apenas limpeza do template.
-% [/REV-2026-09-13]
-\newglossaryentry{computer}{
-  name={computer},
-  sort={computer},
-  description={An electronic device which is capable of receiving information (data) in a particular form and of performing a sequence of operations in accordance with a predetermined but variable set of procedural instructions (program) to produce a result in the form of information or signals. This is a test that adds a citation~\cite{Artho04} to the glossary!}
-}
+\newglossaryentry{gl-baseline}{name={\emph{baseline} (energética)}, sort={baseline},
+  description={relação declarada entre o consumo energético e as variáveis relevantes, estimada num período de referência e usada para julgar os períodos seguintes. Nesta dissertação, salvo indicação em contrário, é a reta $E=aQ+b$ estimada por ano civil}}
+
+\newglossaryentry{gl-normalizacao}{name={normalização}, sort={normalizacao},
+  description={ajustamento do consumo às condições em que foi obtido, para permitir comparar períodos ``em condições equivalentes''. Normalizar não é prever: um modelo pode normalizar mal e prever bem, e o contrário}}
+
+\newglossaryentry{gl-referencia-congelada}{name={referência congelada}, sort={referencia congelada},
+  description={\emph{baseline} estimada uma vez e aplicada sem reestimação aos anos seguintes. Mede o desvio face a um ponto fixo; é o objeto sobre o qual corre um monitor sequencial}}
+
+\newglossaryentry{gl-reestimacao}{name={reestimação (recalibração)}, sort={reestimacao},
+  description={repetição da estimação da \emph{baseline}, por calendário ou por evento. A reestimação anual acomoda nos parâmetros a parte da deriva que se projeta na carga e na constante}}
+
+\newglossaryentry{gl-fator-estatico}{name={fator estático}, sort={fator estatico},
+  description={fator com impacto significativo no desempenho energético que não muda rotineiramente (ISO~50006, \S3.17), por oposição a variável relevante, que muda}}
+
+\newglossaryentry{gl-dominio}{name={domínio de validade}, sort={dominio de validade},
+  description={conjunto de condições --- em particular, a gama de carga --- em que a \emph{baseline} foi estimada e dentro do qual a sua aplicação é defensável. Um dia fora do domínio fica ``não avaliado''}}
+
+\newglossaryentry{gl-desvio}{name={desvio}, sort={desvio},
+  description={diferença entre o consumo observado e o previsto pela \emph{baseline}, à carga do próprio dia. Um desvio não é, por si, ineficiência: classificá-lo exige o calendário operacional e margens de materialidade}}
+
+\newglossaryentry{gl-excursao}{name={excursão}, sort={excursao},
+  description={dia em que o resíduo sai da banda de alarme. A taxa de excursões é o complemento da cobertura; contada por dia, não distingue alarmes isolados de episódios}}
+
+\newglossaryentry{gl-episodio}{name={episódio de alarme}, sort={episodio de alarme},
+  description={sequência de dias consecutivos em excursão, contada uma vez. Sob dependência serial, os dias em excursão chegam em sequências, e contar dias sobrestima o número de eventos}}
+
+\newglossaryentry{gl-calibracao}{name={calibração (de uma banda)}, sort={calibracao},
+  description={correspondência entre a cobertura declarada de uma banda e a observada. Uma banda compatível pelo critério adotado não é uma banda validada: um intervalo largo inclui a referência com mais facilidade}}
+
+\newglossaryentry{gl-detetabilidade}{name={detetabilidade}, sort={detetabilidade},
+  description={capacidade de um sistema de monitorização de assinalar um desvio de dada amplitude num dado horizonte. Sem eventos reais rotulados, só é estimável em simulação}}
+
+\newglossaryentry{gl-reconciliacao}{name={reconciliação (de fontes)}, sort={reconciliacao},
+  description={harmonização de fontes por regra de precedência declarada e confronto com o relatório oficial. Não é reconciliação estatística de dados sujeita a balanços de massa e energia, e a concordância entre canais não prova exatidão metrológica}}
+
+\newglossaryentry{gl-replicacao}{name={replicação exata}, sort={replicacao exata},
+  description={reprodução dos parâmetros do método em produção, célula a célula, dentro de uma tolerância pré-registada. É o que garante que a crítica incide sobre o método real e não sobre uma reconstrução dele}}

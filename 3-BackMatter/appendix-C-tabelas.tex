@@ -1,23 +1,124 @@
 %!TEX root = ../template.tex
 %% ====================================================================
-%% Anexo D -- Tabelas completas do diagnostico
-%% Esqueleto gerado 2026-08-13 a partir do indice v1
-%% (Mind Palace: salas/tese/2026-08-13-indice-dissertacao-v1.md)
-%% Cada '>>' descreve o que a seccao deve conter. Apagar ao escrever.
+%% Apendice C -- Tabelas completas do diagnostico. Escrito em 2026-09-17.
+%% Tabelas geradas por _gerador/apendice_c.py a partir das corridas canonicas
+%% pinadas em baselines-cc/config/params.yaml. Nao editar apC-t*.tex a mao.
+%% Versao anterior (esqueleto) em _revisao/2026-09-17-apC-antes.tex.
 %% ====================================================================
 
 \chapter{Tabelas completas do diagnóstico}
 \label{app:tabelas}
-% [REV-2026-09-13][AP-D][P2][APENDICE]
-\revisaotese{AP-D}{P2}{APENDICE}
-{Publicar as tabelas que sustentam os qualificadores}
-{O corpo remete repetidamente para tabelas ainda ausentes. Incluir
-n por vetor/ano e população comum, MAE de ambos os comparadores,
-delta/skill com IC e blocos, HAC/BH/BY, cobertura n/N superior/inferior,
-sensibilidades, candidatos/NE e resultados de simulação. Cada tabela
-declara unidade, estimando, lote e convenção temporal. Os resumos não
-substituem as linhas necessárias para verificar uma afirmação.}%
-% [/REV-2026-09-13]
 
-%% >> Resultados por vector x ano dos endpoints E1--E6 e da bateria descritiva D1--D9.
+O Capítulo~\ref{cha:diagnostico} cita, de cada instrumento, o que sustenta a
+leitura; este apêndice publica as linhas todas, para que qualquer afirmação
+possa ser verificada no seu denominador. As tabelas foram geradas das corridas
+canónicas identificadas na configuração do repositório de avaliação, sem
+recálculo e sem valores escritos à mão: poder preditivo
+(\texttt{E2}, corrida \texttt{20260828T153423}), estabilidade (\texttt{E3},
+\texttt{20260829T122639}), calibração (\texttt{E4}, \texttt{20260829T135121}),
+suficiência (\texttt{E6}, \texttt{20260829T153020}), diagnósticos descritivos
+(\texttt{D1--D9}, \texttt{20260829T182000}) e grelha de sensibilidade
+(\texttt{SENS}, \texttt{20260829T195138}).
 
+Três convenções atravessam todas as tabelas. Um par $y\to y{+}1$ é o modelo
+oficial estimado no ano $y$ e aplicado, sem reestimação, aos dias retidos de
+$y{+}1$; os pares 2025$\to$2026 são diagnósticos, porque 2026 está incompleto,
+e nenhuma conclusão assenta neles. Os intervalos são percentis por
+\emph{bootstrap} de blocos móveis com o bloco base, salvo indicação em
+contrário, e uma conclusão existe apenas quando o intervalo exclui o valor de
+referência. As unidades de energia são toneladas de gás natural equivalente por
+dia, exceto na eletricidade, em MWh.
+
+\section{Parâmetros das \emph{baselines} oficiais}
+\label{sec:apC-parametros}
+
+A Tabela~\ref{tab:apC-parametros} dá os parâmetros que a replicação exata da
+Secção~\ref{sec:replicacao} reproduziu, por vetor e ano, com a gama de carga
+sobre a qual foram estimados. É a base de tudo o resto: cada previsão do ano
+seguinte usa a linha do ano anterior.
+
+\input{3-BackMatter/apC-t1}
+
+\section{Poder preditivo}
+\label{sec:apC-e2}
+
+A Tabela~\ref{tab:apC-e2} publica os três comparadores da
+Secção~\ref{sec:poder-preditivo} para cada par, com o erro absoluto médio do
+modelo e do comparador, a diferença emparelhada, o intervalo e o \emph{skill}.
+As últimas linhas são o diagnóstico mensal da eletricidade, com os seus
+comparadores próprios. A Tabela~\ref{tab:apC-e2-blocos} mostra como o estatuto
+de cada contraste muda com o comprimento do bloco do \emph{bootstrap}: é onde
+se vê quais das conclusões são fronteiriças.
+
+\input{3-BackMatter/apC-t2}
+\input{3-BackMatter/apC-t3}
+
+\section{Estabilidade dos parâmetros}
+\label{sec:apC-e3}
+
+A Tabela~\ref{tab:apC-e3} dá os testes de Wald com covariância HAC para as duas
+famílias de hipóteses, com as correções de multiplicidade. As duas seguintes
+dão a sensibilidade ao único parâmetro de afinação do estimador de covariância
+(Tabela~\ref{tab:apC-e3-hac}) e à rota alternativa de inferência, por
+\emph{bootstrap} de blocos sob a hipótese nula (Tabela~\ref{tab:apC-e3-blocos}),
+em que nenhuma rejeição sobrevive com blocos de 60 dias.
+
+\input{3-BackMatter/apC-t4}
+\input{3-BackMatter/apC-t5}
+\input{3-BackMatter/apC-t6}
+
+\section{Calibração das bandas}
+\label{sec:apC-e4}
+
+A Tabela~\ref{tab:apC-e4} dá a cobertura marginal com os dois intervalos ---
+o que respeita a dependência e o binomial clássico, publicado só como
+contraste. A Tabela~\ref{tab:apC-e4-cond} decompõe a cobertura por tercil de
+carga e por semestre, e é onde se lê que uma cobertura anual compatível com a
+referência pode esconder subperíodos descalibrados. A
+Tabela~\ref{tab:apC-e4-rajadas} conta as sequências de dias em alarme, que
+a taxa marginal não distingue de alarmes isolados. A
+Tabela~\ref{tab:apC-e4-forma} compara a meia-largura da banda constante com a
+de um intervalo de predição clássico, para mostrar o erro de forma de uma banda
+que não varia com a carga.
+
+\input{3-BackMatter/apC-t7}
+\input{3-BackMatter/apC-t8}
+\input{3-BackMatter/apC-t9}
+\input{3-BackMatter/apC-t10}
+
+\section{Suficiência da variável explicativa}
+\label{sec:apC-e6}
+
+As três tabelas seguintes completam a Secção~\ref{sec:suficiencia}: o valor
+incremental das covariáveis com o seu intervalo, a comparação secundária de
+cobertura das bandas dos dois modelos, e os coeficientes estimados, onde se vê
+que os coeficientes das covariáveis mudam de sinal entre anos de treino.
+
+\input{3-BackMatter/apC-t11}
+\input{3-BackMatter/apC-t12}
+\input{3-BackMatter/apC-t13}
+
+\section{Diagnósticos descritivos}
+\label{sec:apC-descritivos}
+
+A Tabela~\ref{tab:apC-d123} reúne, por vetor e ano, a dependência, a variância e
+a forma da distribuição dos resíduos. Os valores $p$ que constam dela são
+calculados sob independência --- que os próprios diagnósticos mostram não valer
+--- e estão aqui como contraste técnico, sem interpretação inferencial; a
+leitura do Capítulo~\ref{cha:diagnostico} assenta nas medidas descritivas. As
+Tabelas~\ref{tab:apC-d6} e~\ref{tab:apC-d9} dão a sobreposição de suporte entre
+anos e a correlação cruzada dos resíduos entre vetores.
+
+\input{3-BackMatter/apC-t14}
+\input{3-BackMatter/apC-t15}
+\input{3-BackMatter/apC-t16}
+
+\section{Sensibilidade às convenções}
+\label{sec:apC-sens}
+
+A Tabela~\ref{tab:apC-sens} resume a grelha de sensibilidade: quantas
+reavaliações cada célula produz e quantas mudam de rótulo face à célula de
+referência. A leitura substantiva --- que conclusões mudam, e porquê --- está
+na Secção~\ref{sec:sintese-modos-falha}.
+
+\input{3-BackMatter/apC-t17}

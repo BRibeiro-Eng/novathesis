@@ -52,38 +52,35 @@
 % \usepackage{algorithm2e}
 % \RestyleAlgo{ruled}
 
-%% 2026-09-17: minted desativado. O texto da dissertacao nao usa listagens de codigo,
-%% e o auxiliar latexminted da instalacao falha (ArgParser 'color'), fazendo o pdflatex
-%% terminar com codigo 1 e o latexmk parar antes do biber. Para reativar, descomentar.
-% \usepackage{minted}    % Fontification of source code listings
-%
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %% 6. Customization for LaTeX pretty print with minted
-% \definecolor{latexbg}{HTML}{F5F5EE}
-% \newminted{latex}{
-%   bgcolor=latexbg,
-%   fontsize=\small,
-%   breaklines,
-%   tabsize=2,
-%   autogobble,
-%   % frame=single,
-%   % framesep=3mm,
-%   % rulecolor=black!20,
-% }
-% \newmintinline{latex}{}
-% \newenvironment{ltx}
-%   {\VerbatimEnvironment
-%    \begin{minted}[
-%     bgcolor=latexbg,
-%     fontsize=\small,
-%     breaklines,
-%     tabsize=2,
-%     autogobble,
-%     % frame=single,
-%     % framesep=3mm,
-%     % rulecolor=black!20,
-%    ]{latex}}
-%   {\end{minted}}
+\usepackage{minted}    % Fontification of source code listings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 6. Customization for LaTeX pretty print with minted
+\definecolor{latexbg}{HTML}{F5F5EE}
+\newminted{latex}{
+  bgcolor=latexbg,
+  fontsize=\small,
+  breaklines,
+  tabsize=2,
+  autogobble,
+  % frame=single,
+  % framesep=3mm,
+  % rulecolor=black!20,
+}
+\newmintinline{latex}{}
+\newenvironment{ltx}
+  {\VerbatimEnvironment
+   \begin{minted}[
+    bgcolor=latexbg,
+    fontsize=\small,
+    breaklines,
+    tabsize=2,
+    autogobble,
+    % frame=single,
+    % framesep=3mm,
+    % rulecolor=black!20,
+   ]{latex}}
+  {\end{minted}}
 
 
 
@@ -134,8 +131,4 @@
 %%  listas de consulta; nenhum termo e marcado com \gls no corpo,
 %%  por isso as entradas sao todas adicionadas sem numeros de pagina.
 %%============================================================
-%% As listas de siglas, simbolos e glossario sao listas de consulta: nenhum termo
-%% e marcado com \gls no corpo. Imprimem-se todas as entradas definidas com o
-%% mecanismo "unsrt" do glossaries-extra. (Nao usar \glsaddall: escreve no .bcf
-%% e corrompe a bibliografia do biber.)
-\AtBeginDocument{\renewcommand{\printglossaries}{\printunsrtglossaries}}
+\AtBeginDocument{\glsaddall[format=glsignore]}

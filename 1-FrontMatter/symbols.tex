@@ -1,21 +1,32 @@
 %!TEX root = ../template.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% symbols.tex
-%% NOVA thesis document file
-%%
-%% Symbols definition
+%% symbols.tex -- notacao fisica e estatistica (2026-09-17).
+%% As definicoes formais estao no Apendice E.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \typeout{NT FILE symbols.tex}%
 
-% [REV-2026-09-13][FR-02][P3][NOTACAO] Definir a notação física e estatística com unidades
-% Trocar símbolos de exemplo por E_t, Q_t, Z_t, a, b, e_t, sigma residual,
-% sigma da inovação, rho, delta_MAE, cobertura, k e h do CUSUM.
-% Dar unidades e separar índice temporal de ano. A unidade do declive
-% com E em t GNE/d e Q em kt/d é t GNE/kt: o dia cancela.
-% Distinguir IC de parâmetro/média, intervalo preditivo e banda de alarme
-% no Apêndice G e nas legendas.
-% [/REV-2026-09-13]
-\glsxtrnewsymbol[sort=mu,description={Mu}]{mu}{\ensuremath{\mu}}
-\glsxtrnewsymbol[description={the numerical value of pi}]{pi}{\ensuremath{\pi}}
-\glsxtrnewsymbol[description={the radius of a circle}]{r}{\ensuremath{r}}
-% \glsxtrnewsymbol[description={Total Angular Momentum}]{jay}{\ensuremath{\vv{J}}}
+%% --- Grandezas do processo ----------------------------------------------
+\glsxtrnewsymbol[sort=aa,description={consumo energético do dia $t$, em t~GNE/d (MWh na eletricidade)}]{Et}{\ensuremath{E_t}}
+\glsxtrnewsymbol[sort=ab,description={carga processada no dia $t$, em kt/d}]{Qt}{\ensuremath{Q_t}}
+\glsxtrnewsymbol[sort=ac,description={covariáveis de processo do dia $t$: densidade da carga, temperatura e pressão de \emph{flash}}]{Zt}{\ensuremath{Z_t}}
+\glsxtrnewsymbol[sort=ad,description={massa diária, em toneladas}]{md}{\ensuremath{m}}
+\glsxtrnewsymbol[sort=ae,description={entalpia equivalente de um nível de vapor, em kcal/kg}]{hp}{\ensuremath{h_p}}
+\glsxtrnewsymbol[sort=af,description={poder calorífico inferior de referência do gás natural, 11\,820 kcal/kg}]{pciref}{\ensuremath{\mathrm{PCI}_{\mathrm{ref}}}}
+
+%% --- Modelo de referência ------------------------------------------------
+\glsxtrnewsymbol[sort=ba,description={declive da \emph{baseline} $E=aQ+b$, em t~GNE por kt de carga (o dia cancela)}]{aslope}{\ensuremath{a}}
+\glsxtrnewsymbol[sort=bb,description={ordenada na origem da \emph{baseline}, em t~GNE/d}]{bint}{\ensuremath{b}}
+\glsxtrnewsymbol[sort=bc,description={previsão do consumo no dia $t$ pela \emph{baseline} aplicada à carga desse dia}]{Ehat}{\ensuremath{\hat E_t}}
+\glsxtrnewsymbol[sort=bd,description={resíduo do dia $t$: $e_t=E_t-\hat E_t$}]{et}{\ensuremath{e_t}}
+\glsxtrnewsymbol[sort=be,description={desvio-padrão residual do ano de treino, em t~GNE/d; a banda de alarme em produção é $\pm2\hat\sigma$}]{sigma}{\ensuremath{\hat\sigma}}
+\glsxtrnewsymbol[sort=bf,description={desvio-padrão da inovação de um modelo autorregressivo sobre os resíduos}]{sigmainov}{\ensuremath{\sigma_\eta}}
+\glsxtrnewsymbol[sort=bg,description={coeficiente de determinação, calculado nos dados de ajuste}]{R2}{\ensuremath{R^2}}
+
+%% --- Avaliação ------------------------------------------------------------
+\glsxtrnewsymbol[sort=ca,description={autocorrelação de primeira ordem dos resíduos, em desfasamento civil}]{rho}{\ensuremath{\rho_1}}
+\glsxtrnewsymbol[sort=cb,description={diferença emparelhada de erro absoluto médio entre o comparador e o modelo; positiva quando o modelo prevê melhor}]{dmae}{\ensuremath{\Delta_{\mathrm{MAE}}}}
+\glsxtrnewsymbol[sort=cc,description={\emph{skill}: $1-\mathrm{MAE}_{\text{modelo}}/\mathrm{MAE}_{\text{comparador}}$}]{skill}{\ensuremath{S}}
+\glsxtrnewsymbol[sort=cd,description={cobertura de uma banda: fração dos dias de aplicação dentro dela; a referência normal a $\pm2\sigma$ é 0,9545}]{cov}{\ensuremath{C}}
+\glsxtrnewsymbol[sort=ce,description={valor de referência (\emph{slack}) da soma acumulada, em unidades da escala dos resíduos}]{kcusum}{\ensuremath{k}}
+\glsxtrnewsymbol[sort=cf,description={limiar de sinal da soma acumulada, calibrado sob a hipótese nula}]{hcusum}{\ensuremath{h}}
+\glsxtrnewsymbol[sort=cg,description={ano de treino de uma \emph{baseline}; o par $y\to y+1$ aplica-a ao ano seguinte sem reestimação}]{yano}{\ensuremath{y}}

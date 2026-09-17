@@ -1,39 +1,55 @@
 %!TEX root = ../template.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% acronyms.tex
-%% NOVA thesis document file
-%%
-%% Acronyms definition
+%% acronyms.tex -- siglas usadas na dissertacao (2026-09-17).
+%% Apenas siglas que aparecem no corpo ou nos apendices.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \typeout{NT FILE acronyms.tex}%
 
+%% --- Normas, gestão de energia e medição -------------------------------
+\newacronym{SGE}{SGE}{sistema de gestão de energia (ISO~50001)}
+\newacronym{USE}{USE}{uso significativo de energia (ISO~50001, \S6.3)}
+\newacronym{EnPI}{EnPI}{indicador de desempenho energético (\emph{energy performance indicator}; IDE na versão portuguesa da ISO~50006)}
+\newacronym{EnB}{EnB}{consumo energético de referência (\emph{energy baseline}; CER na versão portuguesa da ISO~50006)}
+\newacronym{PDCA}{PDCA}{\emph{Plan-Do-Check-Act}, ciclo de melhoria contínua da ISO~50001}
+\newacronym{MV}{M\&V}{medição e verificação do desempenho energético}
+\newacronym{IPMVP}{IPMVP}{\emph{International Performance Measurement and Verification Protocol}}
+\newacronym{ASHRAE}{ASHRAE}{\emph{American Society of Heating, Refrigerating and Air-Conditioning Engineers}}
+\newacronym{FEMP}{FEMP}{\emph{Federal Energy Management Program} (Estados Unidos)}
+\newacronym{NMBE}{NMBE}{erro médio normalizado (\emph{normalised mean bias error})}
+\newacronym{CVRMSE}{CV(RMSE)}{coeficiente de variação da raiz do erro quadrático médio}
 
-% [REV-2026-09-13][FR-01][P3][APRESENTACAO] Substituir as siglas de exemplo pelas usadas na tese
-% Este ficheiro ainda contém abbrev, aaa, xpto e outras entradas do
-% template. Criar apenas as necessárias: CDU, SGE, USE, EnPI, EnB, GNE,
-% EII, OLS, HAC, MBB, MAE, CUSUM, PRISMA-ScR, entre outras realmente usadas.
-% Definir equivalências EnPI/IDE e EnB/CER uma vez e escolher a notação
-% principal. Uniformizar kt/d, t GNE/d e grafia fuel gás/fuel gas.
-% [/REV-2026-09-13]
-\newacronym{abbrev}{abbrev}{abbreviation of a longer text}
-\newacronym{aaa}{aaa}{acronym aaa}
-\newacronym{aab}{aab}{acronym aab}
-\newacronym{aba}{aba}{acronym aba}
-\newacronym{bbb}{bbb}{acronym bbb}
-\newacronym{xpt}{xpto}{and extension of a xpto xpto xpto xpto xpto xpto xpto xpto xpto xpto xpto xpto xpto xpto xpto xpto xpto xpto xpto}
+%% --- Processo, unidades e plataforma -----------------------------------
+\newacronym{CDU}{CDU}{unidade de destilação atmosférica de crude (\emph{crude distillation unit})}
+\newacronym{GNE}{GNE}{gás natural equivalente; unidade de energia usada na refinaria (t~GNE/d)}
+\newacronym{EII}{EII}{índice de intensidade energética (\emph{energy intensity index}) da metodologia de \emph{benchmarking} da indústria}
+\newacronym{PCI}{PCI}{poder calorífico inferior}
+\newacronym{IP21}{IP21}{historiador de processo da refinaria}
+\newacronym{DAX}{DAX}{\emph{Data Analysis Expressions}, linguagem de cálculo do modelo tabular}
+\newacronym{API}{$^{\circ}$API}{grau API, densidade relativa normalizada do petróleo}
 
-% \newacronym{novathesis}{\emph{novathesis}}{\emph{novathesis} template}
-%
-% \newacronym{novathesisclass}{\texttt{novathesis.cls}}{\texttt{novathesis.cls} class}
+%% --- Estatística e avaliação -------------------------------------------
+\newacronym{OLS}{OLS}{mínimos quadrados ordinários (\emph{ordinary least squares})}
+\newacronym{HAC}{HAC}{erros-padrão robustos à heterocedasticidade e à autocorrelação}
+\newacronym{MBB}{MBB}{\emph{bootstrap} de blocos móveis (\emph{moving-block bootstrap})}
+\newacronym{MAE}{MAE}{erro absoluto médio (\emph{mean absolute error})}
+\newacronym{RMSE}{RMSE}{raiz do erro quadrático médio}
+\newacronym{CUSUM}{CUSUM}{soma acumulada (\emph{cumulative sum}); monitor sequencial quando tem referência e limiar}
+\newacronym{BH}{BH}{correção de multiplicidade de Benjamini--Hochberg}
+\newacronym{BY}{BY}{correção de multiplicidade de Benjamini--Yekutieli}
+\newacronym{BIC}{BIC}{critério de informação bayesiano}
+\newacronym{ACF}{ACF}{função de autocorrelação}
+\newacronym{DW}{DW}{estatística de Durbin--Watson}
+\newacronym{SMD}{SMD}{diferença padronizada de médias (\emph{standardised mean difference})}
 
+%% --- Revisão de âmbito --------------------------------------------------
+\newacronym{PRISMAScR}{PRISMA-ScR}{\emph{Preferred Reporting Items for Systematic reviews and Meta-Analyses extension for Scoping Reviews}}
+\newacronym{OSF}{OSF}{\emph{Open Science Framework}, onde o protocolo e as emendas estão registados}
+\newacronym{DOI}{DOI}{identificador digital de objeto}
+\newacronym{SHA}{SHA-256}{função de dispersão criptográfica usada na proveniência dos dados}
+\newacronym{MD5}{MD5}{função de dispersão usada no manifesto da extração de ficheiros}
+\newacronym{SQ}{SQ}{subquestão da revisão de âmbito (SQ1--SQ4)}
 
-\newacronym[sort=novathesis]{novathesis}{\novathesis}{NOVAthesis \LaTeX}
-
-\newacronym{novathesisclass}{novathesis.cls}{\novathesis\ class}
-
-\newacronym{NOVA}{NOVA}{NOVA University Lisbon}
-
+%% --- Instituições -------------------------------------------------------
+\newacronym{NOVA}{NOVA}{Universidade NOVA de Lisboa}
 \newacronym{FCT}{FCT}{NOVA School of Science and Technology}
-
-\newacronym{DI}{DI}{Department of Computer Science}

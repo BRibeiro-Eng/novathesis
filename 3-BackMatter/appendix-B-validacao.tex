@@ -1,23 +1,253 @@
 %!TEX root = ../template.tex
 %% ====================================================================
-%% Anexo B -- Protocolo de validacao da extracao e fluxo PRISMA
-%% Esqueleto gerado 2026-08-13 a partir do indice v1
-%% (Mind Palace: salas/tese/2026-08-13-indice-dissertacao-v1.md)
-%% Cada '>>' descreve o que a seccao deve conter. Apagar ao escrever.
+%% Apendice B -- Extracao assistida e validacao. Escrito em 2026-09-17.
+%% Fontes: LocalResearch/Screening/level3_extraction (VALIDATION_PROTOCOL_C.md,
+%% STAGE_C_2026-09-12.md, PILOT_RESULTS_2026-09-12-1.md, CORPUS_CLOSURE_2026-09-12.md,
+%% production/reviewer_workspace/reports/TIER1_CLOSURE_2026-09-09.md,
+%% stage_c/QUARANTINE_472536714_2026-09-15.md, stage_c/verification_v1/).
+%% Tabela B.3 gerada por stage_c/figuras_cap3/tabela_apendice_b.py.
+%% Versao anterior (esqueleto) em _revisao/2026-09-17-apB-antes.tex.
 %% ====================================================================
 
 \chapter{Extração assistida e validação}
 \label{app:validacao}
-% [REV-2026-09-13][AP-B][P2][APENDICE]
-\revisaotese{AP-B}{P2}{APENDICE}
-{Validação da extração assistida e adjudicação humana}
-{Descrever modelos/versões, prompts, acesso aos textos, campos extraídos,
-amostra de validação, referência humana, discordâncias e adjudicação.
-Dois modelos não constituem automaticamente dois revisores independentes:
-podem partilhar erros. Reportar acerto por campo, erros críticos, omissões
-e denominadores; concordância entre modelos não basta. Distinguir piloto
-de extração completa. O PRISMA principal deve ficar também no Cap. 3.}%
-% [/REV-2026-09-13]
 
-%% >> Desenho de validacao da extracao dual-modelo e diagrama PRISMA-ScR detalhado.
+Este apêndice descreve como foram extraídos os dados da revisão de âmbito do
+Capítulo~\ref{cha:revisao}, que controlos se aplicaram e o que cada controlo
+permite afirmar. A regra que o organiza é a mesma do capítulo: um número vale
+o que vale a camada de onde vem. Os desvios ao protocolo registado estão no
+Apêndice~\ref{app:protocolo-sr}; aqui descreve-se o que foi feito.
 
+\section{Três camadas}
+\label{sec:apB-camadas}
+
+A extração decorreu em três camadas, com instrumentos e níveis de decisão
+humana diferentes (Tabela~\ref{tab:apB-camadas}).
+
+\begin{table}[htbp]
+  \centering\footnotesize
+  \caption[Camadas da extração e o que cada uma permite afirmar]{Camadas da
+  extração, instrumento, decisão humana e alcance das afirmações.}
+  \label{tab:apB-camadas}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    Camada & Instrumento & Decisão humana & Alcance \\
+    \midrule
+    Pertença aos corpora & Pré-extração por duas famílias de modelos; formulário às cegas para as divergências & Por publicação, nas 82 com divergência & Contagens de A e de B, e a pertença de cada publicação \\
+    \addlinespace
+    Campos do Corpus~A & Duas famílias de modelos, esquema v2.2.1; só valores concordantes & Nenhuma por valor; auditoria por amostragem com estado por confirmar & Distribuições descritivas do subconjunto concordante, com denominador \\
+    \addlinespace
+    Campos do Corpus~B & Uma família de modelos, esquema v2.3.0-C, citação e página por valor; releitura por modelo em 2026-09-17 & Nos itens que a regra de adjudicação não resolveu; amostra de controlo por rever & Contagens e ordens do Corpus~B, com as ressalvas da Secção~\ref{sec:apB-verificacao} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Superfícies e proveniência}
+\label{sec:apB-superficies}
+
+Os modelos correram em aplicações de subscrição e não por API: o Claude Code,
+com o modelo reportado em cada execução como \texttt{claude-opus-4-8} (e um
+modelo auxiliar \texttt{claude-haiku-4-5}), e o Codex CLI numa subscrição
+ChatGPT Plus. Estas superfícies não expõem parâmetros de amostragem, versões
+datadas dos modelos nem identificadores de pedido, pelo que a proveniência se
+regista ao nível da superfície: versão da aplicação, modelo reportado, data e
+\emph{hash} do instrumento. Cada publicação foi tratada numa sessão nova, sem
+ferramentas, a partir do texto extraído do PDF página a página. Uma
+reexecução com versões futuras dos modelos não reproduz necessariamente os
+valores; o que fica reprodutível é o instrumento, os registos e as
+verificações feitas sobre eles. O revisor é o único adjudicador, e os
+modelos são instrumentos de extração, não revisores independentes: dois
+modelos podem partilhar o mesmo erro, e a concordância entre eles é usada
+para encaminhar casos, nunca como medida de fiabilidade.
+
+\section{Pertença aos corpora}
+\label{sec:apB-pertenca}
+
+A pertença aos corpora foi pré-extraída pelas duas famílias. Nas 82
+publicações em que as extrações divergiam num campo com consequência para a
+pertença (90 células), o revisor decidiu num formulário às cegas, sem ver os
+valores propostos. O protocolo previa que, depois de gravada a decisão cega,
+o formulário revelasse a proposta dos modelos e registasse qualquer
+alteração. Esse passo foi executado integralmente numa publicação, sem
+alterações, e parcialmente em três; em cinco a proposta foi revelada por uma
+sessão automatizada, que alterou um valor, revertido a partir da cópia cega
+imutável; nas restantes 73 não foi executado, e a decisão cega foi assumida
+como final por decisão do revisor de 2026-09-09. Nenhuma decisão de pertença
+foi tomada com a proposta dos modelos à vista; perdeu-se a segunda leitura
+sobre 81 das 82 publicações e, com ela, a medida de quanto essa leitura teria
+mudado as decisões.
+
+O controlo de falsos negativos do Corpus~B e os sete veredictos adjudicados
+sobre excertos literais, sem abertura dos PDF completos, estão descritos no
+desvio D6 (Apêndice~\ref{app:protocolo-sr}); nenhum falso negativo foi
+confirmado. A correção de pertença de 2026-09-17, que retirou do Corpus~B dois
+relatórios excluídos de A por falta de modelo, está na
+Secção~\ref{sec:pesquisa}; a regra de que B é um subconjunto de A está
+imposta no código que gera os corpora.
+
+\section{Campos do Corpus~A}
+\label{sec:apB-corpus-a}
+
+Os campos do Corpus~A (tipo de estudo, setor, tipo de organização,
+enquadramento normativo, protocolo de medição e verificação, famílias de
+modelos, país) foram extraídos pelas duas famílias com o esquema v2.2.1,
+congelado antes da extração. A análise usa só os valores concordantes; as
+divergências, as extrações únicas e as ausências de valor ficam como ``por
+resolver'' e aparecem assim nas figuras. A cobertura por campo está na
+Secção~\ref{sec:corpus-a}: nas famílias de modelos, o campo mais próximo da
+SQ1, há 162 valores concordantes em 331.
+
+Cada valor devia trazer uma citação do texto. A verificação de ancoragem
+desta camada aceitava citações por semelhança, com limiares de 95, 90 e 85
+consoante o comprimento, e 28\% dos valores não tinham citação e ficaram
+fora dessa garantia. A auditoria por amostragem aleatória simples prevista na
+emenda C-2.3 (40 publicações, semente 44), que daria um intervalo de erro por
+campo, tem o estado por confirmar (caixa AP-A-04 no
+Apêndice~\ref{app:protocolo-sr}). Sem ela, não há limite de erro para os
+valores concordantes do Corpus~A.
+
+\section{Campos do Corpus~B: o instrumento Stage~C}
+\label{sec:apB-stage-c}
+
+\paragraph{Instrumento.} O Corpus~B foi extraído de novo com o esquema
+v2.3.0-C, congelado a 2026-09-13 com o \emph{hash} registado na emenda
+(Apêndice~\ref{app:protocolo-sr}). O esquema organiza cada registo em
+publicação, aplicações e modelos, para que os valores de dois modelos do
+mesmo artigo não se misturem na mesma linha. Os campos C1 a C8 descrevem cada
+modelo (variável dependente, forma, variáveis explicativas, dados, medição na
+fronteira, regime de re-estimação, domínio de validade e métricas); C9 e C11
+codificam mecanismos e adaptações; C10, C12 e C13 registam limitações,
+requisitos e reprodutibilidade. C9 e C11 foram derivados do pré-preenchimento
+das 42 publicações então no Corpus~B, antes do congelamento: é uma revisão do
+instrumento informada pelo corpus, declarada como tal. O mesmo texto de
+instruções serviu as duas superfícies.
+
+\paragraph{Ancoragem.} Todos os valores têm uma citação literal e a página
+física. Distinguem-se três verificações: a citação existe; está na página
+indicada; e sustenta o valor. As duas primeiras são automáticas e exatas,
+depois de duas regras de normalização publicadas (hifenização e ligaduras;
+colunas intercaladas e números de linha dos manuscritos). O localizador de
+página pode ser corrigido quando a citação existe palavra por palavra numa
+única outra página (desvio D5). A terceira verificação não é automática e não
+se afirma para esta camada senão através da releitura descrita na
+Secção~\ref{sec:apB-verificacao}.
+
+\paragraph{Piloto.} Antes do congelamento, cinco publicações heterogéneas
+(refinação, petroquímica, vidro e ferro fundido, nove setores, cimento)
+foram extraídas com o esquema provisório. As cinco validaram; as 538
+citações foram encontradas na página indicada, e as 184 ausências declaradas
+tinham base de pesquisa registada. Doze das dezassete tentativas foram gastas
+em cinco defeitos do instrumento --- regras que nenhuma extração podia
+satisfazer ---, todos corrigidos com um teste próprio antes do congelamento.
+Os registos do piloto não são registos de extração: as cinco publicações
+foram extraídas de novo depois do congelamento.
+
+\paragraph{Produção e quarentena.} A extração correu numa só superfície
+(desvio D4), uma sessão por publicação. Das 42 publicações então no
+Corpus~B, 41 validaram. A publicação \texttt{rayyan-472536714}, um estudo de
+\emph{benchmarking} com pelo menos quinze aplicações, não foi devolvida
+inteira em quatro tentativas: a resposta vinha truncada no início, sem as
+primeiras treze aplicações. Um analisador mais tolerante recuperaria um
+fragmento válido e registá-lo-ia como a extração do artigo, com treze setores
+a menos; por isso ficou em quarentena, e a razão é uma limitação da
+superfície, não do conteúdo. Depois da correção de pertença, o Corpus~B tem
+40 publicações, das quais 39 com registo.
+
+\section{Verificação por modelo}
+\label{sec:apB-verificacao}
+
+A verificação humana por ocorrência prevista para o Corpus~B não foi feita
+(desvio D7). Em sua substituição, a 2026-09-17, as células com citação de que
+os resultados da Secção~\ref{sec:corpus-b} dependem foram relidas por um
+segundo passe de modelo.
+
+\paragraph{Âmbito e procedimento.} Entraram 368 células: 145 mecanismos, 91
+adaptações e 132 valores de modelo (fronteira, re-estimação, domínio,
+validação fora da amostra e reprodutibilidade). Foram distribuídas por sete
+sessões independentes de um modelo da mesma família do extrator, cada uma
+com a página citada e as adjacentes e com um livro de códigos escrito a partir
+das instruções de extração. Para cada célula, o verificador respondia a três
+perguntas: a citação está na página; lida no seu parágrafo, sustenta o valor;
+se não sustenta, qual é o valor certo, escolhido só entre os permitidos. O
+livro de códigos pedia uma decisão conservadora --- não inferir causas que o
+artigo não nomeia, marcar dúvida sempre que a confiança não fosse alta ---,
+porque uma confirmação errada passaria sem revisão.
+
+\paragraph{Regra de adjudicação.} As propostas foram triadas por uma regra
+fixada antes de as ler: aceitam-se as correções que tornam o valor mais fraco
+ou que aplicam uma regra explícita do livro de códigos; as que o tornam mais
+forte só com evidência quantitativa na página ou citação da norma; o resto
+fica para o revisor.
+
+\paragraph{Resultados.} O verificador confirmou 225 valores com confiança
+alta e 7 com confiança baixa, propôs correção em 104 e remoção em 21, e deu 11
+como não sustentados sem valor alternativo. Aplicada a regra, o estado final
+à data desta versão é o da Tabela~\ref{tab:apB-verificacao}.
+
+\begin{table}[htbp]
+  \centering\small
+  \caption[Estado das células do Corpus B após a verificação por
+  modelo]{Estado das 368 células do Corpus~B após a verificação por modelo e
+  a adjudicação de 2026-09-17. Pendentes: itens de dúvida D1--D8 e regras R1
+  e R4, que ficam no valor original até decisão do revisor.}
+  \label{tab:apB-verificacao}
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    Tipo & Confirmado & Corrigido & Retirado & Mantido & Pendente & Total \\
+    \midrule
+    Mecanismos  & 87  & 34 & 13 & 5 & 6  & 145 \\
+    Adaptações  & 49  & 24 & 3  & 0 & 15 & 91 \\
+    Modelos     & 89  & 33 & 0  & 0 & 10 & 132 \\
+    \midrule
+    Total       & 225 & 91 & 16 & 5 & 31 & 368 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{O que fica para o revisor.} Os treze itens de dúvida agrupam-se em
+oito perguntas: se os pressupostos de um modelo de simulação são mecanismos
+(D1); que efeito atribuir a um consumo desligado da produção (D2); se a única
+menção a incrustação é um mecanismo ou uma motivação (D3); se os modelos
+ajustados por modo e crude de um caso de fornecedor são re-estimação em linha
+ou referência segmentada (D4); se metas ajustadas pelos últimos três meses
+são uma janela móvel da referência (D5); se uma função definida para
+produção positiva declara um domínio de validade (D6); a que modelos se
+aplica uma frase sobre limites de validade (D7); e se dados e código em
+apêndice contam como disponíveis (D8). As duas regras pendentes são o
+critério de enquadramento normativo implícito das adaptações (R1, catorze
+itens) e se o consumo não produtivo encontrado nos dados é um mecanismo (R4,
+dois itens). Uma amostra aleatória de dez confirmações (semente 44) está
+reservada para leitura humana, para medir quantas confirmações erradas
+passaram. Os números da Secção~\ref{sec:corpus-b} usam as correções aceites e
+o valor original nos itens pendentes; a regeneração depois das decisões é
+automática (caixa C3-06).
+
+\paragraph{Limites.} O verificador pertence à mesma família de modelos do
+extrator, e erros partilhados podem passar sem sinal. A verificação cobre
+valores com citação; uma ausência (``não reportado'') só se confirma lendo as
+secções relevantes do artigo, o que não foi feito. Não há conjunto de
+referência humano, pelo que não se estima um erro por campo. Chamar a esta
+camada ``verificada'' seria impreciso: é uma releitura independente do
+extrator, com adjudicação por regra e decisão humana nos casos que a regra
+não resolve.
+
+\section{O Corpus~B, estudo a estudo}
+\label{sec:apB-tabela}
+
+A Tabela~\ref{tab:apB-corpus-b} dá, para cada um dos 39 registos, o nível mais
+forte declarado nas quatro condições da Figura~\ref{fig:mapa-evidencia} e o
+número de mecanismos e adaptações. É a versão em tabela do mapa de evidência.
+
+\input{3-BackMatter/apB-tabela-corpus-b}
+
+\section{O que falta para uma validação humana}
+\label{sec:apB-falta}
+
+Para que os valores do Corpus~B possam ser apresentados como verificados, faltam
+três passos, por ordem de custo: decidir os treze itens e as duas regras
+pendentes e ler a amostra de controlo; ler, em cada publicação, as secções em
+que se apoiam as ausências usadas nos resultados; e ler às cegas as onze
+publicações nucleares previstas na emenda de 2026-09-13. Para o Corpus~A,
+falta a auditoria por amostragem. Nenhum destes passos muda o método do
+Capítulo~\ref{cha:revisao}; mudam o nível de confiança com que os seus
+números podem ser citados.
