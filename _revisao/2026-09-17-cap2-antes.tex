@@ -2,13 +2,24 @@
 %% ====================================================================
 %% Capitulo 2 -- Enquadramento
 %% Esqueleto gerado 2026-08-13 a partir do indice v1
-%% Seccoes 2.1-2.3 preenchidas em 2026-08-28 (rascunho v0 -> LaTeX); 2.4-2.5 escritas em 2026-09-17
+%% Seccoes 2.1-2.3 preenchidas em 2026-08-28 (rascunho v0 -> LaTeX)
 %% Fonte do rascunho: dissertacao/cap2_rascunho_v0.md
 %% Pendencias marcadas com \todo{...}; ver tambem notas no fim do ficheiro.
 %% ====================================================================
 
 \chapter{Enquadramento}
 \label{cha:enquadramento}
+% [REV-2026-09-13][C2-01][P2][ESTRUTURA]
+\revisaotese{C2-01}{P2}{ESTRUTURA}
+{Dar base de engenharia ao argumento estatístico}
+{O capítulo desenvolve longamente as normas, mas deixa vazios o processo
+contínuo e o caso CDU. Para uma tese de Engenharia Química, antecipar
+uma apresentação breve da CDU e dos fluxos energéticos antes da crítica
+normativa; depois explicar EnPI/EnB, pressupostos e modos de falha.
+Opção recomendada: processo/fronteiras -\textgreater{} conceitos -\textgreater{} normas -\textgreater{}
+síntese das exigências de avaliação. Se a ordem atual ficar, completar
+2.4/2.5 e remeter para elas logo ao introduzir os vetores.}%
+% [/REV-2026-09-13]
 
 \section{Gestão de energia e o quadro normativo}
 \label{sec:normas}
@@ -173,7 +184,7 @@ reservar transcrições breves para a distinção verbal realmente analisada.}%
 \subsection{Formulação}
 \label{sec:assimetria-formulacao}
 
-Chamamos assimetria normativa ao desequilíbrio, documentado cláusula a cláusula na secção anterior, entre a densidade prescritiva das normas quanto à \emph{existência} dos instrumentos de medição do desempenho energético e o seu silêncio quanto à \emph{validade} desses instrumentos. A família ISO~50001 obriga a que haja EnPI, EnB, normalização, investigação de desvios e revisão da referência; nomeia, inclusive, os instrumentos estatísticos com que a validade poderia ser aferida; mas em nenhum ponto converte a aferição em requisito, fixa limiares de aceitação, exige a verificação dos pressupostos dos modelos ou fornece critérios operacionais para detetar que uma referência deixou de ser válida. O resultado prático é que um sistema de gestão certificado pode operar indefinidamente sobre \emph{baselines} estatisticamente inválidas sem que nenhum requisito normativo seja violado --- situação que o Capítulo~\ref{cha:diagnostico} documenta empiricamente para os cinco vetores energéticos da unidade em estudo (Secção~\ref{sec:caso-estudo}).
+Chamamos assimetria normativa ao desequilíbrio, documentado cláusula a cláusula na secção anterior, entre a densidade prescritiva das normas quanto à \emph{existência} dos instrumentos de medição do desempenho energético e o seu silêncio quanto à \emph{validade} desses instrumentos. A família ISO~50001 obriga a que haja EnPI, EnB, normalização, investigação de desvios e revisão da referência; nomeia, inclusive, os instrumentos estatísticos com que a validade poderia ser aferida; mas em nenhum ponto converte a aferição em requisito, fixa limiares de aceitação, exige a verificação dos pressupostos dos modelos ou fornece critérios operacionais para detetar que uma referência deixou de ser válida. O resultado prático é que um sistema de gestão certificado pode operar indefinidamente sobre \emph{baselines} estatisticamente inválidas sem que nenhum requisito normativo seja violado --- situação que o Capítulo~\ref{cha:diagnostico} documenta empiricamente para os cinco vetores energéticos da unidade em estudo.
 
 A assimetria tem uma segunda face, menos evidente: as normas embutem pressupostos estatísticos que nunca enunciam. A comparação \enquote{em condições equivalentes} pressupõe a suficiência das variáveis relevantes; a extrapolação do modelo de \emph{baseline} para o período de reporte pressupõe a estabilidade estrutural da relação; o período de referência de doze meses pressupõe que um ciclo anual é representativo; os gatilhos de revisão pressupõem que a mudança é observável por quem opera. Nenhum destes pressupostos é neutro num processo contínuo sujeito a \emph{fouling}, desativação de catalisador e deslocamento gradual do espaço operacional --- a especificidade desenvolvida na Secção~\ref{sec:processos-continuos}.
 
@@ -260,113 +271,21 @@ O quadro normativo obriga a medir e a demonstrar melhoria, sugere sem obrigar os
 
 \section{Especificidade dos processos contínuos}
 \label{sec:processos-continuos}
+% [REV-2026-09-13][F02][P2][FIGURA]
+\revisaotese{F02}{P2}{FIGURA}
+{Quadro físico de mecanismos e variáveis observáveis}
+{Depois do primeiro parágrafo desta secção, inserir uma tabela de quatro
+colunas: mecanismo; efeito esperado em energia/carga; variável observável;
+explicações alternativas. Incluir fouling do pré-aquecimento, composição
+do crude, severidade de separação, integração térmica e balanço entre
+níveis de vapor. Distinguir mecanismos gerais dos efetivamente presentes
+na CDU. Esta tabela liga a física às escolhas de covariáveis e evita
+que sinais de regressão sejam interpretados como leis causais.}%
+% [/REV-2026-09-13]
 
-Num edifício, o que desloca a relação entre consumo e variável explicativa
-é quase sempre exterior ao sistema e periódico: a temperatura exterior, a
-ocupação, o calendário. Num processo contínuo de refinação, a relação move-se
-também por dentro. O equipamento degrada-se enquanto opera, a matéria-prima
-muda de composição de um navio para o seguinte, a unidade troca calor e
-vapor com as vizinhas, e as intervenções que repõem o desempenho fazem-no aos
-saltos. Estes mecanismos têm escalas de tempo diferentes, pedem respostas
-diferentes e, sobretudo, nem todos são ineficiência. É esta a diferença que
-torna os pressupostos da Secção~\ref{sec:assimetria-matriz} verificáveis em
-vez de razoáveis.
+%% >> Fouling, desativacao de catalisador e variabilidade da carga como nao-estacionariedade estrutural que nao e ineficiencia.
+%% >> Fecho: cada mecanismo fisico viola um dos seis pressupostos da Tabela~\ref{tab:matriz-rastreabilidade}.
 
-\paragraph{Degradação com recuperação: a incrustação.} Numa unidade de
-destilação atmosférica, o crude é aquecido primeiro numa bateria de
-permutadores que recupera calor dos produtos e dos refluxos circulantes da
-coluna, e só depois no forno, que fornece o que a bateria não entregou~\cite{Gary2007}.
-Os depósitos que o crude forma nas superfícies de permuta reduzem o calor
-recuperado; a temperatura à entrada do forno desce e o forno queima mais
-combustível para a mesma carga e o mesmo corte~\cite{ColettiMacchietto2011}.
-A velocidade de deposição depende da temperatura da parede e da tensão de
-corte junto a ela, o que faz com que a mesma bateria incruste a ritmos
-diferentes consoante o caudal e o crude~\cite{Wilson2017}. O depósito envelhece e
-endurece, e a limpeza, que interrompe a permuta e tem custo, é agendada num
-compromisso entre a energia perdida e o custo de parar o
-permutador~\cite{Ishiyama2011}. O resultado, visto a partir do consumo
-específico do forno, é um dente de serra: subida gradual ao longo de semanas
-ou meses, queda na limpeza, recomeço. É um mecanismo físico previsível e, ao
-mesmo tempo, uma perda de eficiência real que a operação pode adiar ou
-antecipar. Um modelo que só conhece a carga atribui a subida ao resíduo, e um
-modelo reajustado todos os anos absorve-a na ordenada na origem.
-
-\paragraph{Mudança da matéria-prima.} A refinação processa crudes diferentes
-em sequência, e a composição da carga determina quanto dela vaporiza na zona
-de \emph{flash}, que rendimentos saem em cada corte e que calor é preciso
-para os obter~\cite{Gary2007}. A mesma tonelada de crude não pede a mesma
-energia. Parte deste efeito é observável: a densidade, as condições de
-\emph{flash} e o rendimento em resíduo são medidos ou calculados
-diariamente, e entram, por exemplo, no índice de intensidade energética da
-refinaria. A composição altera também a tendência para incrustar, pelo que
-este mecanismo e o anterior aparecem misturados nos dados.
-
-\paragraph{Modo de operação e fronteira.} A mesma unidade pode ser operada para
-favorecer um produto ou outro, com refluxos, vapor de \emph{stripping} e
-temperaturas de corte diferentes, e em regimes de carga reduzida em que o
-consumo deixa de ser proporcional à carga porque uma parte dele não depende
-dela. Além disso, uma unidade de destilação não é uma ilha energética: recebe
-e cede calor e vapor à rede da refinaria, produz vapor de um nível e consome
-de outros. O que se contabiliza como consumo da unidade depende do estado da
-rede e da convenção de fronteira, e pode mudar sem que nada mude dentro dela.
-
-\paragraph{Desativação de catalisador.} Nas unidades de conversão com reator,
-fora da destilação, o catalisador perde atividade ao longo do ciclo por
-deposição de coque, envenenamento e sinterização~\cite{Bartholomew2001}. A
-compensação habitual é subir a temperatura de reação, com mais energia
-fornecida por tonelada à medida que o ciclo avança, até à regeneração ou
-substituição. É o mesmo padrão do dente de serra, com uma escala de tempo mais
-longa. Não se aplica à unidade estudada, mas aplica-se a várias das
-dezasseis unidades que a plataforma cobre.
-
-\paragraph{Intervenções e medição.} Limpezas, paragens para manutenção,
-alterações de equipamento e recalibrações de instrumentos produzem mudanças
-em degrau. Umas repõem desempenho, outras alteram a fronteira ou a escala da
-medição, e nenhuma é visível para um modelo que não receba o registo do
-evento. A distinção importa: uma melhoria real, uma limpeza e um instrumento
-substituído produzem resíduos com a mesma forma.
-
-A destilação atmosférica e a de vácuo estão entre as maiores consumidoras de
-energia de uma refinaria, e a manutenção dos fornos e a recuperação de calor
-nas baterias de pré-aquecimento figuram entre as medidas de poupança
-identificadas para estas unidades~\cite{WorrellGalitsky2005}. São também,
-pelas razões desta secção, o sítio onde uma referência estática mais
-facilmente falha. A Tabela~\ref{tab:mecanismos-pressupostos} fecha a secção: para cada
-mecanismo, o efeito esperado sobre a relação consumo--carga, o que dele se
-observa, o que se pode confundir com ele e o pressuposto da
-Secção~\ref{sec:assimetria-matriz} que viola. A última coluna é a ligação
-entre a física desta secção e os testes do Capítulo~\ref{cha:diagnostico}.
-
-\begin{table}[htbp]
-  \centering\footnotesize
-  \caption[Mecanismos de processo contínuo e pressupostos que violam]{Mecanismos
-  de não estacionariedade em processo contínuo, o que deles se observa e o
-  pressuposto tácito que violam. CDU: presente na unidade estudada. Os
-  pressupostos são os da Secção~\ref{sec:assimetria-matriz}.}
-  \label{tab:mecanismos-pressupostos}
-  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{2.1cm}@{}}
-    \toprule
-    \textbf{Mecanismo} & \textbf{Efeito na relação consumo--carga} & \textbf{O que se observa} & \textbf{Com que se confunde} & \textbf{Pressuposto violado} \\
-    \midrule
-    Incrustação da bateria de pré-aquecimento (CDU) & Mais combustível no forno para a mesma carga; subida gradual e queda na limpeza & Temperaturas e caudais dos permutadores, a partir dos quais se pode estimar a resistência de incrustação; o estado não é medido & Mudança de crude; excesso de ar no forno; ineficiência operacional & Suficiência; transportabilidade \\
-    \addlinespace
-    Composição do crude (CDU) & Energia por tonelada diferente de crude para crude; muda também a tendência para incrustar & Densidade, condições de \emph{flash}, rendimento em resíduo; plano de crudes & Incrustação; mudança de modo de operação & Suficiência; forma \\
-    \addlinespace
-    Modo de operação e carga reduzida (CDU) & Refluxos e vapor de \emph{stripping} diferentes; parte do consumo deixa de acompanhar a carga & Temperaturas de corte, vapor de \emph{stripping}, carga & Dias atípicos; ineficiência & Forma; representatividade \\
-    \addlinespace
-    Estado da rede de vapor e integração térmica (CDU e refinaria) & O consumo líquido de um nível de vapor muda de sinal sem mudança na unidade & Balanço de utilidades por nível de pressão & Variação real de consumo & Suficiência; calibração \\
-    \addlinespace
-    Desativação de catalisador (outras unidades) & Mais energia por tonelada ao longo do ciclo, até à regeneração & Temperatura de reação; dias desde a regeneração & Mudança de carga ou de severidade & Transportabilidade; representatividade \\
-    \addlinespace
-    Limpezas, paragens, recalibrações & Degraus na relação ou na escala da medição & Registos de manutenção e de instrumentação, fora dos dados analisados & Melhoria real do desempenho & Transportabilidade; detetabilidade \\
-    \bottomrule
-  \end{tabularx}
-\end{table}
-
-A Secção~\ref{sec:corpus-b} mostra que a literatura sobre indicadores e
-referências nomeia estas causas raramente: relata o efeito no modelo e
-quase nunca o mecanismo no processo. É uma razão adicional para as fixar
-aqui, antes dos dados.
 
 \section{O caso de estudo: a refinaria de Sines e a unidade de destilação atmosférica}
 \label{sec:caso-estudo}
@@ -379,81 +298,20 @@ Assinalar entradas/saídas de fuel gás, vapor 24/10/3 bar e eletricidade,
 retornos e produção creditada, fronteira do indicador e pontos de medição.
 Sem caudais inventados; se não houver dados autorizados, esquema funcional
 sem escala. Legenda distingue consumo bruto, líquido e alocado. Desenho
-vetorial, uma página no máximo.}%
+vetorial, uma página no máximo. Mais útil aqui que uma fotografia geral
+da refinaria; uma fotografia só se identificar equipamento relevante.}%
 % [/REV-2026-09-13]
 
-A refinaria de Sines é a única refinaria em operação em Portugal desde que a
-Galp encerrou a refinação em Matosinhos, em 2021, e tem capacidade para
-destilar 226 mil barris de crude por dia~\cite{Galp2026Industrial}. É certificada
-segundo a ISO~50001 e tem quatro indicadores de desempenho energético
-definidos: consumos específicos por unidade, índice de intensidade
-energética, emissões de CO$_2$ associadas ao consumo e as retas que servem
-de referência ao consumo de cada unidade (Secção~\ref{sec:contexto}).
-
-\paragraph{A unidade.} A unidade de destilação atmosférica (CDU; CC na
-designação interna) é a primeira por onde passa todo o crude. Segue o
-esquema clássico: armazenagem, bateria de pré-aquecimento, dessalgação,
-nova recuperação de calor, forno e coluna de destilação à pressão
-atmosférica, com vapor de \emph{stripping} no fundo e nas colunas laterais,
-refluxos circulantes que devolvem calor à bateria e cortes laterais que
-seguem para as unidades a jusante~\cite{Gary2007}. Foi escolhida por três
-razões que o Capítulo~\ref{cha:introducao} desenvolve: é, pela sua dimensão,
-um uso significativo de energia por si só; é nela que o mecanismo de
-incrustação da bateria de pré-aquecimento torna legível a falha de uma
-referência estática; e quatro dos seus cinco vetores energéticos existem
-com resolução diária.
-
-\paragraph{A fronteira energética e os cinco vetores.} O consumo da CDU é
-contabilizado em cinco vetores. O fuel gás alimenta o forno e é medido no
-historiador de processo, com o poder calorífico do dia. O vapor entra em três
-níveis de pressão, de 24, 10 e 3~bar; a unidade também produz vapor, e o vetor
-de 10~bar é contabilizado como consumo líquido, que pode ser negativo. A eletricidade,
-consumida sobretudo em bombas e aeroarrefecedores, só existe como total
-mensal por unidade, distribuído uniformemente pelos dias. Os vetores são
-convertidos numa unidade comum, a tonelada de gás natural equivalente por
-dia (t~GNE/d), que é a convenção de contabilização em que a refinaria
-orçamenta e reporta: soma energias de natureza diferente por equivalência
-com um combustível de referência, e não é uma medida de energia primária nem
-de exergia. As regras de conversão estão na Secção~\ref{sec:metricas}.
-
-\paragraph{O índice de intensidade energética.} Ao lado das retas internas, a
-refinaria acompanha o índice de intensidade energética da metodologia de
-\emph{benchmarking} da indústria, que compara o consumo real com uma energia
-padrão função da carga e das características de cada unidade. Serve para
-comparar refinarias entre si e com os quartis do setor. Não é uma
-referência de acompanhamento diário, e fica fora do diagnóstico
-(Secção~\ref{sec:metricas}).
-
-\paragraph{A referência em produção.} Para cada unidade, vetor e ano civil,
-o modelo de dados estima por mínimos quadrados a reta $E = a\,Q + b$ entre o
-consumo diário em t~GNE/d e a carga diária, usando só os dias em que a carga
-atinge o limiar declarado para a unidade --- na CDU, $18\,600$~t/d, que deixa de
-fora 10,4\% dos dias. O desvio-padrão dos resíduos do ano de referência
-define bandas a $\pm1$, $\pm2$ e $\pm3\sigma$; a saída da banda de $\pm2\sigma$
-é o alarme; um gráfico de somas acumuladas e oito regras de carta de controlo
-completam a leitura (Secção~\ref{sec:metricas}). Cada ano tem a sua reta, e o
-ano de referência pode ser escolhido. É, na tipologia da ISO~50006, um modelo
-estatístico com uma variável explicativa (Tabela~\ref{tab:tipologia-enpi}). A
-forma do modelo e a revisão periódica não são excluídas por nenhuma das
-cláusulas analisadas na Secção~\ref{sec:enb}; a questão que a dissertação
-coloca é outra: se os pressupostos de que dependem se verificam nesta unidade.
-
-Os pressupostos que a Secção~\ref{sec:assimetria-matriz} extrai das normas e
-os mecanismos da Secção~\ref{sec:processos-continuos} encontram-se aqui. A
-carga é a única variável explicativa, e a incrustação, o crude e o estado da
-rede de vapor ficam de fora; um ano civil é o período de treino; as bandas
-assumem resíduos com escala conhecida; e a reestimação anual é a regra de
-revisão. É este o objeto que o resto da dissertação examina: replicado de
-forma exata a partir das tabelas de configuração oficiais
-(Secção~\ref{sec:replicacao}), antes de qualquer crítica.
-
-% [REV-2026-09-17][C2-08][P2][CONFIDENCIALIDADE]
-\revisaotese{C2-08}{P2}{CONFIDENCIALIDADE}
-{Confirmar o nível de detalhe da CDU com a orientação industrial}
-{As Secções 2.4 e 2.5 descrevem a CDU ao nível de um esquema genérico de
-destilação atmosférica e usam só números já presentes nos Caps. 4--6
-(limiar de 18\,600~t/d, cinco vetores) e a capacidade pública da refinaria.
-Confirmar que a orientação industrial aceita este nível de detalhe e a
-descrição da configuração (dessalgação, refluxos circulantes, produção de
-vapor de 10~bar); não foi usado nenhum documento de licenciador.}%
-% [/REV-2026-09-17]
+% [REV-2026-09-13][C2-07][P2][CONTEUDO]
+\revisaotese{C2-07}{P2}{CONTEUDO}
+{Contextualizar seleção da unidade e energia equivalente}
+{Acrescentar função/capacidade apenas com fonte, razão documentada da escolha,
+perímetro material e energético, mistura/reprocessamento de carga,
+principais consumidores e utilidades partilhadas. Explicar GNE como
+convenção de contabilização e EII como referência de benchmarking.
+Não confundir equivalência energética, energia primária e exergia.
+Citar literatura de refinação/integração térmica para os mecanismos;
+a bibliografia atual está concentrada em normas e estatística.}%
+% [/REV-2026-09-13]
+%% >> A CDU, os cinco vectores energeticos, o EII e o metodo de baseline em producao.
+%% >> Devolver a bola a sintese 2.3.4: "este e o objeto que o resto da dissertacao disseca".
