@@ -236,17 +236,6 @@ apanhou erros nas três fontes e nenhuma delas, isolada, era fiável.
 
 \section{O \emph{dashboard}}
 \label{sec:dashboard}
-% [REV-2026-09-13][F09][P2][FIGURA]
-\revisaotese{F09}{P2}{FIGURA}
-{Dois screenshots anotados no corpo, quatro páginas no manual}
-{Usar (1) vista da refinaria com percurso unidade -\textgreater{} vetor e (2) detalhe
-de baseline com reta, dados, banda e acumulado; colocar cada imagem
-após o respetivo parágrafo. Recortar ao canvas e anotar 3--5 elementos
-referidos no texto; incluir data, filtros, janela e referência visíveis.
-Usar capturas reais verificadas de prints\_dashboard, sem inventar estados.
-Mover capturas integrais das quatro páginas e instruções para o apêndice do manual do dashboard.
-Uma figura por página só se os rótulos ficarem legíveis à dimensão final.}%
-% [/REV-2026-09-13]
 
 O \emph{dashboard} tem quatro páginas, desenhadas como um percurso de
 diagnóstico: da refinaria para a unidade, da unidade para o vetor, do
@@ -255,9 +244,9 @@ vetor para a \emph{baseline} que o julga. Todas partilham o cabeçalho
 da última atualização --- e a mesma semântica: um desvio é sempre medido
 contra a \emph{baseline} do ano de referência selecionado, aplicada à carga
 do próprio dia, e é positivo quando o consumo excede o previsto.
-%% FIGURA: prints_dashboard (uma por pagina), recortadas ao canvas.
 
-\paragraph{Vista comparativa da refinaria.} A primeira página responde à
+\paragraph{Vista comparativa da refinaria.} A primeira página
+(Figura~\ref{fig:dashboard-overview}) responde à
 pergunta da reunião da manhã: onde olhar primeiro. Uma matriz de
 semáforos cruza as 16 unidades com os seis vetores e mostra o desvio na
 métrica e janela escolhidas, distinguindo ``sem vetor'', ``sem
@@ -286,6 +275,28 @@ estado da referência muda a decisão de onde olhar primeiro. A
 Secção~\ref{sec:implicacoes-plataforma} propõe mostrar o maior desvio
 observado com o domínio, o volume processado e a incerteza ao lado.
 
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{cap5/dashboard-overview}
+  \caption[Página comparativa da refinaria]{Página comparativa da refinaria,
+  no estado de 31 de julho de 2026 (versão~22; dados até 29 de julho).
+  \textcircled{\footnotesize 1}~seletores partilhados por todas as páginas:
+  métrica (toneladas de gás natural equivalente por dia, percentagem ou
+  desvios-padrão), janela, ano e mês, e ano de referência da
+  \emph{baseline} --- aqui, desvio em t~GNE/d sobre média móvel de sete dias,
+  com referência em 2025. \textcircled{\footnotesize 2}~matriz de semáforos,
+  16 unidades por seis vetores, que distingue ``sem vetor'' ($-$), ``sem
+  \emph{baseline}'' (\o) e ``sem dados na janela''.
+  \textcircled{\footnotesize 3}~unidades ordenadas pelo desvio.
+  \textcircled{\footnotesize 4}~Pareto por par unidade--vetor: poucos pares
+  concentram o excesso acumulado. \textcircled{\footnotesize 5}~qualidade das
+  \emph{baselines} do ano de referência --- é aqui que o diagnóstico do
+  Capítulo~\ref{cha:diagnostico} entra na plataforma, com o coeficiente de
+  determinação médio de 0,20 sobre 76 relações.}
+  \label{fig:dashboard-overview}
+\end{figure}
+
 \paragraph{Detalhe da unidade.} A segunda página fixa uma unidade e mostra
 os seus vetores: cartões de melhor e pior vetor, índice de intensidade,
 GNE total e específico do dia e acumulado do período com variação face à
@@ -312,7 +323,8 @@ padrão dia a dia, com o contexto de carga e de qualidade da
 externa que a refinaria já usa; não substitui a \emph{baseline} interna nem
 foi objeto do diagnóstico.
 
-\paragraph{\emph{Baselines} e diagnóstico.} A quarta página é a que a
+\paragraph{\emph{Baselines} e diagnóstico.} A quarta página
+(Figura~\ref{fig:dashboard-baselines}) é a que a
 avaliação do Capítulo~\ref{cha:diagnostico} tomou como objeto. Para um
 vetor, uma unidade e um ano de referência: o diagrama de dispersão do
 consumo contra a carga, com a reta estimada, a banda de $\pm2\sigma$ e os
@@ -331,6 +343,29 @@ das oito regras violadas e 124 dias em 295 com pelo menos uma violação, a
 regra dominante a ser oito dias consecutivos do mesmo lado --- o retrato,
 já visível no instrumento, do que o Capítulo~\ref{cha:diagnostico} mede
 com inferência adequada.
+
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{cap5/dashboard-baselines}
+  \caption[Página de \emph{baselines} e diagnóstico]{Página de
+  \emph{baselines} e diagnóstico, no mesmo estado, para o agregado da
+  destilação atmosférica em 2026 com referência em 2025.
+  \textcircled{\footnotesize 1}~dispersão consumo--carga com a reta do ano de
+  referência, a banda de $\pm2\hat\sigma$ e os pontos coloridos do mais
+  antigo ao mais recente. \textcircled{\footnotesize 2}~estatísticas: a
+  equação, o coeficiente de determinação no ano de referência (0,600) e no
+  período ($-1{,}461$, isto é, a reta prevê pior do que a média do próprio
+  período), e a fração de dias fora da banda.
+  \textcircled{\footnotesize 3}~as oito regras de carta de controlo, com seis
+  violadas e 178 dos 185 dias analisados com pelo menos uma.
+  \textcircled{\footnotesize 4}~soma acumulada dos resíduos, que revela o
+  desvio persistente antes de a banda diária o assinalar.
+  \textcircled{\footnotesize 5}~consumo observado contra o previsto, ou, por
+  alternância, os resíduos padronizados. A leitura desta página é o objeto do
+  Capítulo~\ref{cha:diagnostico}.}
+  \label{fig:dashboard-baselines}
+\end{figure}
 
 \paragraph{O que a monitorização passou a permitir.} Antes da plataforma,
 o consumo por unidade e vetor existia em relatórios mensais por fábrica,

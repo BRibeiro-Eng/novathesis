@@ -662,9 +662,99 @@ def f14b_rajadas():
     fig.tight_layout()
     grava(fig, "cap6-rajadas-e-episodios")
 
+
+# ------------------------------------------- Corpus A (revisao, Cap. 3) ----
+# As figuras da bibliometria vinham do pipeline do Corpus A com estilo proprio
+# e com um rodape "CONTEUDO PROVISORIO" gravado na imagem. Aqui sao refeitas a
+# partir das mesmas tabelas, no estilo do resto da tese, e o que era rodape
+# passa a legenda em LaTeX, onde se le e se corrige.
+BIB = _first(["~/LocalResearch/Screening/level3_extraction/bibliometrics/results/corpus_a_registado",
+              "~/mnt/LocalResearch/Screening/level3_extraction/bibliometrics/results/corpus_a_registado"])
+def tab_a(nome):
+    return pd.read_csv(os.path.join(BIB, "tables", nome), encoding="utf-8-sig", index_col=0)
+
+def v02_cobertura():
+    """Estado de extracao campo a campo: o denominador antes das distribuicoes."""
+    d = tab_a("field_status.csv")
+    rotulo = {"paper_type": "Tipo de documento", "multi_site": "Multi-instalação",
+              "country_region": "País ou região", "sector_of_activity": "Setor",
+              "type_of_organisation": "Tipo de organização", "ems_standard": "Norma de gestão",
+              "mv_protocol": "Protocolo de M\\&V", "regulatory_driver": "Motivação regulamentar",
+              "enpi_enb_model_types": "Famílias de modelos",
+              "complementary_methodologies": "Metodologias complementares"}
+    cols = ["concordância IA; sem validação humana integral", "divergência IA por resolver",
+            "uma única extração IA", "sem extração"]
+    curto = ["concordância entre modelos", "divergência por resolver",
+             "extração única", "sem extração"]
+    cores = [COR["fuel_gas"], COR["vapor_24bar"], COR["energia_eletrica"], CINZA_C]
+    d = d.loc[d[cols[0]].sort_values().index]
+    fig, ax = plt.subplots(figsize=(14.0 * CM, 7.4 * CM))
+    esq = np.zeros(len(d))
+    for c, lab, cor in zip(cols, curto, cores):
+        v = d[c].values
+        ax.barh(range(len(d)), v, left=esq, color=cor, label=lab, height=0.68)
+        esq = esq + v
+    ax.set_yticks(range(len(d)))
+    ax.set_yticklabels([rotulo.get(i, i) for i in d.index])
+    ax.set_xlabel("publicações")
+    ax.xaxis.set_major_formatter(virgula(0))
+    ax.set_xlim(0, 331)
+    ax.legend(frameon=False, ncols=2, loc="upper center", bbox_to_anchor=(0.5, -0.16))
+    guarda(ax); ax.grid(axis="y", lw=0)
+    fig.tight_layout()
+    grava(fig, "cap3-cobertura-campos")
+
+def v03_evolucao():
+    """Publicacoes por ano e acumuladas, com 2026 parcial assinalado."""
+    d = tab_a("annual.csv"); d.index = d.index.astype(int)
+    fig, axs = plt.subplots(1, 2, figsize=(15.0 * CM, 5.6 * CM))
+    ax = axs[0]
+    cores = [CINZA_C if a == 2026 else COR["fuel_gas"] for a in d.index]
+    ax.bar(d.index, d.n, color=cores, width=0.75)
+    ax.axvline(2011, color=CINZA, lw=0.8, ls=(0, (4, 2)), zorder=1)
+    ax.annotate("ISO 50001", (2011, ax.get_ylim()[1] * 0.96), rotation=90,
+                ha="right", va="top", fontsize=7, color=CINZA)
+    ax.set_title("Publicações por ano", loc="left")
+    ax.set_xlabel("ano de publicação"); ax.set_ylabel("publicações")
+    ax = axs[1]
+    ax.plot(d.index, d.cumulative, color=COR["fuel_gas"], marker="o", ms=2.2)
+    ax.scatter([d.index[-1]], [d.cumulative.iloc[-1]], s=14, facecolor="white",
+               edgecolor=COR["fuel_gas"], lw=0.9, zorder=4)
+    ax.set_title("Acumulado", loc="left")
+    ax.set_xlabel("ano de publicação"); ax.set_ylabel("publicações")
+    for a in axs:
+        a.yaxis.set_major_formatter(virgula(0)); guarda(a)
+        a.set_xlim(1996, 2027)
+    fig.tight_layout()
+    grava(fig, "cap3-evolucao-anual")
+
+def v06_modelos():
+    """Familias de modelos, com o nao extraido a vista e nao escondido."""
+    d = tab_a("enpi_enb_model_types.csv")
+    rotulo = {"Por resolver / sem extração": "Por resolver ou sem extração",
+              "simple intensity ratio": "Rácio de intensidade", "linear regression": "Regressão linear",
+              "multiple regression": "Regressão múltipla", "physical model": "Modelo físico",
+              "change-point or SPC": "Ponto de mudança ou CEP", "ML": "Aprendizagem automática",
+              "SEC mean": "Média do consumo específico", "other": "Outra",
+              "composite index": "Índice composto", "process integration": "Integração de processo"}
+    d = d.sort_values("n")
+    cores = [CINZA_C if i.startswith("Por resolver") else COR["fuel_gas"] for i in d.index]
+    fig, ax = plt.subplots(figsize=(13.0 * CM, 6.6 * CM))
+    b = ax.barh(range(len(d)), d.n, color=cores, height=0.68)
+    ax.set_yticks(range(len(d))); ax.set_yticklabels([rotulo.get(i, i) for i in d.index])
+    for r, n in zip(b, d.n):
+        ax.annotate(pt(n), (r.get_width() + 2.5, r.get_y() + r.get_height() / 2),
+                    va="center", fontsize=7, color=TINTA)
+    ax.set_xlabel("publicações (de 331; uma publicação pode ter mais de uma família)")
+    ax.xaxis.set_major_formatter(virgula(0)); ax.set_xlim(0, 195)
+    guarda(ax); ax.grid(axis="y", lw=0)
+    fig.tight_layout()
+    grava(fig, "cap3-familias-modelos")
+
 FIGS = {"f08": f08_validacao, "f10": f10_amostra, "f11": f11_dispersao, "f12": f12_ganho,
         "f13": f13_predicoes, "f14": f14_cobertura, "f15": f15_acoplamento,
-        "f16": f16_sensibilidade, "f18": f18_matriz, "fdep": fdep_dependencia, "f14b": f14b_rajadas, "f19": f19_injeccao, "f20": f20_deteccao}
+        "f16": f16_sensibilidade, "f18": f18_matriz, "fdep": fdep_dependencia, "f14b": f14b_rajadas, "f19": f19_injeccao, "f20": f20_deteccao,
+        "v02": v02_cobertura, "v03": v03_evolucao, "v06": v06_modelos}
 if __name__ == "__main__":
     alvos = sys.argv[1:] or list(FIGS)
     for a in alvos: FIGS[a]()

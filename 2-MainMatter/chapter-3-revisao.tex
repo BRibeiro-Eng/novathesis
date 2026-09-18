@@ -338,17 +338,19 @@ campos tem o estado por confirmar (Apêndice~\ref{app:protocolo-sr}), e um
 contexto pouco representado descreve a cobertura deste corpus, não a
 inexistência de métodos nesse contexto.
 
-% [REV-2026-09-14][C3-V02][P2][FIGURA]
-\revisaotese{C3-V02}{P2}{FIGURA}
-{Mostrar a cobertura antes das distribuições de conteúdo}
-{Inserir \texttt{field\_status.pdf} de \texttt{results/corpus\_a\_registado}
-imediatamente após estes parágrafos. As barras separam concordância entre
-modelos, divergência, extração única e ausência de extração, e explicam
-porque é que os denominadores dos resultados de conteúdo diferem de 331.
-Se houver adjudicação humana antes da entrega, regenerar a figura com os
-estados efetivos; não mudar apenas a legenda de ``concordante'' para
-``validado''.}%
-% [/REV-2026-09-14]
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.93\textwidth]{gerado/cap3-cobertura-campos}
+  \caption[Estado de extração campo a campo no Corpus A]{Estado de extração
+  de cada campo nas 331 publicações do Corpus~A. A figura vem antes das
+  distribuições de propósito: é ela que fixa o denominador de cada uma.
+  Concordância entre modelos significa que duas extrações independentes deram
+  o mesmo valor --- não é validação humana nem classificação adjudicada. As
+  famílias de modelos, o setor e o país são os campos com menos cobertura, e
+  é por isso que os resultados dessas secções se leem sobre denominadores
+  menores do que 331.}
+  \label{fig:cobertura-campos}
+\end{figure}
 
 \subsection{Evolução temporal e fontes}
 
@@ -368,15 +370,18 @@ diz nada sobre a qualidade de cada estudo. As 331 publicações repartem-se por
 \emph{Energy} e a \emph{Energy Procedia} nove cada. É uma literatura
 dispersa, sem uma revista de referência.
 
-% [REV-2026-09-14][C3-V03][P2][FIGURA]
-\revisaotese{C3-V03}{P2}{FIGURA}
-{Evolução anual como primeira figura de resultados}
-{Usar \texttt{annual.pdf} (\texttt{corpus\_a\_registado}), com publicações
-anuais e acumuladas em dois painéis. Sombrear 2026 como cobertura parcial
-e marcar 2011 (ISO~50001:2011). Pode acrescentar-se a composição por tipo
-de documento a partir de \texttt{document\_type.csv}. Reservar
-\texttt{annual\_study\_types.pdf}: contém classificações por resolver.}%
-% [/REV-2026-09-14]
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap3-evolucao-anual}
+  \caption[Evolução anual das publicações do Corpus A]{Publicações do
+  Corpus~A por ano e acumuladas, 1997--2026. A barra de 2026 está a cinzento
+  porque a cobertura do ano é parcial: a pesquisa foi executada em fevereiro
+  de 2026 e o ano não pode ser lido como completo. A linha vertical marca a
+  publicação da ISO~50001:2011; o crescimento que se segue é consistente com
+  ela, mas a figura não estabelece a relação, porque a expressão de pesquisa
+  privilegia o vocabulário da norma.}
+  \label{fig:evolucao-anual}
+\end{figure}
 
 % [REV-2026-09-14][C3-V04][P2][FIGURA]
 \revisaotese{C3-V04}{P2}{FIGURA}
@@ -438,15 +443,20 @@ avaliada. A categoria de deteção de mudança e controlo estatístico junta
 procedimentos com funções distintas; a sua presença não mostra que uma
 referência seja atualizada nem que a não estacionariedade seja tratada.
 
-% [REV-2026-09-14][C3-V06][P2][FIGURA]
-\revisaotese{C3-V06}{P2}{FIGURA}
-{Distribuição e combinações dos modelos}
-{Usar \texttt{enpi\_enb\_model\_types.pdf} para as frequências e
-\texttt{upset\_enpi\_enb\_model\_types.pdf} para as interseções exatas.
-Indicar 162 classificações disponíveis e 169 por resolver. Antes da versão
-final, rever os casos em que foi atribuída regressão múltipla por defeito,
-sem número de variáveis especificado.}%
-% [/REV-2026-09-14]
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{gerado/cap3-familias-modelos}
+  \caption[Famílias de modelos no Corpus A]{Famílias de modelos de
+  desempenho energético no Corpus~A. Uma publicação pode declarar mais de uma
+  família, pelo que as barras não somam 331. A primeira barra, a cinzento,
+  não é uma família: são as 169 publicações cujo campo ficou por resolver ou
+  sem extração, e está no mesmo eixo para que a ordem das restantes se leia
+  contra o que não se sabe. Entre as 162 classificadas, o rácio de
+  intensidade simples é a família mais frequente, e as três primeiras ---
+  rácio, regressão linear e regressão múltipla --- são as que o
+  Capítulo~\ref{cha:diagnostico} avalia no caso real.}
+  \label{fig:familias-modelos}
+\end{figure}
 
 % [REV-2026-09-14][C3-V07][P2][FIGURA]
 \revisaotese{C3-V07}{P2}{FIGURA}

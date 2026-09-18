@@ -22,7 +22,11 @@ $P template > /tmp/b3.log 2>&1
 $P template > /tmp/b4.log 2>&1
 cp "$OUT/template.pdf" template.pdf 2>/dev/null
 {
-  echo "undefined=$(grep -c undefined $OUT/template.log)"
+  # so referencias e citacoes por resolver. "grep -c undefined" apanhava tambem
+  # avisos de forma de fonte (OMS/zpltlf do Palatino, substituida por cmsy),
+  # que sao inocuos e faziam o estado mentir.
+  echo "undefined=$(grep -c -E '(Reference|Citation|LaTeX Warning: .*)[^ ]* .*undefined' $OUT/template.log)"
+  echo "fontwarn=$(grep -c 'Font shape' $OUT/template.log)"
   echo "erros=$(grep -a -c '^\!' $OUT/template.log)"
   echo "paginas=$(pdfinfo $OUT/template.pdf | awk '/Pages/{print $2}')"
   echo "bbl=$(wc -c < $OUT/template.bbl)"
