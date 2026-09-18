@@ -7,18 +7,16 @@
   // arvore de build.
   "latex-workshop.latex.outDir": "/tmp/tese-build",
 
+  // 2026-09-18: as duas receitas passam por scripts. A receita que chamava
+  // "latexmk" directamente falhava sempre que o VS Code era aberto pelo Dock,
+  // porque nesse caso o PATH nao tem /Library/TeX/texbin; e nao recriava
+  // /tmp/tese-build depois de um arranque do macOS. Os scripts tratam das duas
+  // coisas -- ver o cabecalho de _gerador/latexmk-vscode.sh.
   "latex-workshop.latex.tools": [
     {
-      "name": "latexmk-fora-do-icloud",
-      "command": "latexmk",
-      "args": [
-        "-pdf",
-        "-synctex=1",
-        "-interaction=nonstopmode",
-        "-file-line-error",
-        "-outdir=/tmp/tese-build",
-        "%DOC%"
-      ],
+      "name": "latexmk-wrapper",
+      "command": "sh",
+      "args": ["_gerador/latexmk-vscode.sh"],
       "env": {}
     },
     {
@@ -30,11 +28,11 @@
   ],
 
   "latex-workshop.latex.recipes": [
-    { "name": "Tese (latexmk)", "tools": ["latexmk-fora-do-icloud"] },
+    { "name": "Tese (latexmk, incremental)", "tools": ["latexmk-wrapper"] },
     { "name": "Tese (build.sh, passagens fixas)", "tools": ["build-sh"] }
   ],
 
-  // 236 paginas: compilar a cada gravacao seria insuportavel. Compilar a mao
+  // 285 paginas: compilar a cada gravacao seria insuportavel. Compilar a mao
   // com Cmd+Alt+B.
   "latex-workshop.latex.autoBuild.run": "never",
   "latex-workshop.latex.autoClean.run": "never"
