@@ -1,26 +1,89 @@
 %!TEX root = ../template.tex
 %% ====================================================================
-%% Anexo E -- Manual do dashboard
-%% Esqueleto gerado 2026-08-13 a partir do indice v1
-%% (Mind Palace: salas/tese/2026-08-13-indice-dissertacao-v1.md)
-%% Cada '>>' descreve o que a seccao deve conter. Apagar ao escrever.
+%% Apêndice D -- Manual do dashboard
+%% O corpo do manual entra como PDF incluído; o bloco \includepdf e as
+%% entradas de índice são gerados por _gerador/manual_apendice.py a partir
+%% de ../manual-dashboard/Manual_Dashboard_Energia_apendice.docx.
+%% Não copiar metadados/09_roles_perspetivas_fontes.csv (connection strings).
 %% ====================================================================
 
 \chapter{Manual do \emph{dashboard}}
 \label{app:manual}
-% [REV-2026-09-13][AP-E][P2][APENDICE]
-\revisaotese{AP-E}{P2}{APENDICE}
-{Manual operacional e proposta futura devem ser distinguíveis}
-{Inserir referência/versão do manual e o mínimo necessário para ler
-as quatro páginas: filtros, referência, unidades, atualização e estados
-sem dados/sem baseline/fora de domínio. Capturas integrais ficam aqui.
-Separar funções disponíveis em julho de 2026 do wireframe proposto
-do bloco de saúde; ficha detalhada e transições podem acompanhar a
-proposta, claramente identificadas como não implantadas.}%
-% [/REV-2026-09-13]
 
-%% >> Entregavel autonomo, aqui referenciado; ver documento em separado.
-%% >> 2026-09-16: absorve o dicionario de dados e o mapeamento mestre (ex-Apendice C).
-%% >> Fonte: ~/tese-extraccao (modelo.bim, metadados/, medidas/, Mapeamento_Master_v22.xlsx).
-%% >> Nao copiar metadados/09_roles_perspetivas_fontes.csv (connection strings).
+O \emph{dashboard} descrito no Capítulo~\ref{cha:plataforma} foi entregue com
+um manual, e é esse manual que se reproduz aqui. Não é um resumo escrito para
+a dissertação: é o documento operacional da equipa de monitorização de
+processo, mantido por ela, cuja fonte vive na pasta partilhada ao lado do
+ficheiro do \emph{dashboard}. O que se segue é a versão fixa à data da
+entrega --- \emph{dashboard} v22 e mapeamento mestre v22, sobre a extração do
+modelo de 31 de julho de 2026.
 
+\paragraph{Porque acompanha a dissertação.} Três razões. A primeira é de
+prova: o Capítulo~\ref{cha:plataforma} afirma decisões de desenho --- os três
+perímetros de consumo, a precedência entre canais, o limiar de carga por
+unidade, a reta anual por unidade e vetor --- e o manual é onde essas
+decisões estão escritas para quem tem de as manter, com o motivo ao lado. A
+segunda é de âmbito: a plataforma só é utilizável se alguém a puder operar e
+alterar sem o autor, e um manual que passe esse teste faz parte do
+entregável, não é documentação acessória. A terceira é de honestidade: o
+manual traz as suas próprias lacunas visíveis, e é preferível mostrá-las a
+descrevê-las.
+
+\paragraph{O que está incluído.} O corpo do manual, integral: a casca
+(regras de manutenção, cobertura atual e pendências, pré-requisitos de acesso
+e as duas tabelas de despacho, por papel e por sintoma); a Parte~A, que
+ensina a operar --- quatro caminhos de diagnóstico, uma secção por página do
+\emph{dashboard} com a respetiva captura, e os conceitos de que o operador
+precisa; a Parte~B, que explica como o sistema é feito e como se muda ---
+topologia, um capítulo por componente com função, interfaces, mecânica,
+justificação e modos de falha, os casos de manutenção e o dicionário de dados;
+e o capítulo de estado futuro. Ficam de fora os anexos da versão entregue à
+refinaria: as secções-modelo para crescer o documento, o catálogo das
+159 medidas com o código \gls{DAX} de cada uma, o código
+\emph{Power Query} das 21 consultas e das 32 partições, e a
+galeria com os 33 estados capturados. São material de referência para
+quem mantém o modelo, somam mais de uma centena de páginas de código e
+incorporam a correlação licenciada da metodologia de comparação externa, que
+não é reproduzível aqui.
+
+\paragraph{Como ler as marcas.} O manual assinala a laranja, com
+\textsf{[POR PREENCHER: \ldots]}, aquilo que só pode ser preenchido por quem
+tem acesso ao sistema: o dono do documento, o \emph{workspace} e o endereço de
+produção, a hora e o responsável da atualização agendada, os destinatários de
+cada ação de diagnóstico. O acesso do autor ao \emph{dashboard} terminou com o
+estágio, e a alternativa --- inventar valores plausíveis --- seria pior do que
+a lacuna assinalada. A vermelho, entre sinais de menor e maior, estão os
+caminhos internos tornados genéricos: o servidor de ficheiros, a unidade de
+rede dos planos de fabrico e a pasta do mapeamento mestre. Não há credenciais
+no documento nem no código que ele reproduz; o acesso ao historiador faz-se
+por uma fonte de dados configurada na máquina que atualiza o modelo. A cópia
+entregue à refinaria segue com um documento de instruções que lista as duas
+coisas, marca a marca.
+
+\paragraph{O que é estado e o que é proposta.} A distinção percorre o manual e
+importa para a leitura: o que o sistema cobre em julho de 2026 está na tabela
+de cobertura da casca, com as pendências declaradas linha a linha, e é essa
+tabela --- não a ausência de um visual --- que diz se algo devia lá estar. O
+bloco de saúde das \emph{baselines} que o Capítulo~\ref{cha:discussao} propõe
+a partir do diagnóstico aparece no capítulo de estado futuro do manual,
+identificado como proposta não implantada. Nada do que está nas Partes~A e~B
+descreve funcionalidade que não exista.
+
+\paragraph{Correspondências com o corpo da dissertação.} A tabela de cobertura
+e os modos de falha dos componentes de ingestão e mapeamento são a forma
+operacional dos achados da validação descrita na
+Secção~\ref{sec:validacao-dados}. A advertência de que a banda de $\pm2\hat\sigma$
+vale no ano em que foi estimada, e de que a cobertura fora da amostra variou
+entre 38 e 99,7\,\% conforme o par de anos, é a passagem do
+diagnóstico do Capítulo~\ref{cha:diagnostico} para a linguagem de quem lê o
+\emph{dashboard} todas as manhãs. E o caso de manutenção que manda validar
+cada mês contra o fecho oficial, com as duas pistas de deteção rápida, é o
+procedimento que a validação de julho de 2026 deixou como método.
+
+\medskip
+\noindent As páginas que se seguem são o manual tal como foi entregue. A
+numeração é a dele; os capítulos e as partes estão listados no índice desta
+dissertação.
+
+\clearpage
+\input{3-BackMatter/gerado/appendix-D-includepdf}
