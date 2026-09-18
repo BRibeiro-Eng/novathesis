@@ -52,17 +52,11 @@
 \@ifpackageloaded{minted}{\has@listings@list=2}{}
 \@ifpackageloaded{minted2}{\has@listings@list=2}{}
 
-% 2026-09-18: a tese nao tem listagens de codigo. O pacote listings entra por
-% arrastamento (tcolorbox -> tcblistings, por causa das caixas de revisao), e a
-% deteccao automatica acima passava a imprimir um "Indice de Listagens" vazio.
-% Desligado de proposito; reactivar se alguma vez houver \begin{lstlisting}.
-\ifnum\has@listings@list=0
-    \relax
-\fi
-% \ifnum\has@listings@list=1
-%     \ntaddlistof{lstlistoflistings} % Standard listings style
-% \else\ifnum\has@listings@list=2
-%     \ntaddlistof{listoflistings}    % Minted style
-% \fi\fi
+% Execute based on priority/package loaded
+\ifnum\has@listings@list=1
+    \ntaddlistof{lstlistoflistings} % Standard listings style
+\else\ifnum\has@listings@list=2
+    \ntaddlistof{listoflistings}    % Minted style
+\fi\fi
 
 \makeatother
