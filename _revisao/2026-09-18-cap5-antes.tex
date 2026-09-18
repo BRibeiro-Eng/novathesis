@@ -27,26 +27,29 @@ mostrar como se leem.
 
 \section{Arquitetura entregue}
 \label{sec:arquitetura}
+% [REV-2026-09-13][C5-01][P2][ESTRUTURA]
+\revisaotese{C5-01}{P2}{ESTRUTURA}
+{Separar resultado entregue de características da implementação}
+{O inventário da arquitetura repete o Cap. 4. Aqui bastam funcionalidades,
+âmbito coberto e evidência de entrega/uso: versão, data, modo de publicação,
+cadência de atualização e responsável pela manutenção. Tempo de refresh,
+latência dos dados e desempenho em tarefas concretas são evidências
+melhores de utilidade que número de medidas ou tamanho do ficheiro.
+Se não foram medidos, limitar a conclusão a implementação funcional.}%
+% [/REV-2026-09-13]
 
-\paragraph{O que foi entregue.} \emph{Energy Performance Monitor}, versão
-22, de 31 de julho de 2026: um modelo tabular em Power BI que cobre 16
-unidades processuais em três fábricas e nos extras (enxofres e
-\emph{flares}), sete vetores energéticos, com resolução diária de 1 de
-janeiro de 2020 ao dia anterior a cada atualização, e quatro páginas de
-leitura. Foi entregue à equipa de monitorização de processo, que o mantém, e
-atualiza-se uma vez por dia. Acompanha-o o manual reproduzido no
-Apêndice~\ref{app:manual}, que é a condição de a plataforma continuar a ser
-utilizável sem o autor: descreve cada página, cada componente e cada caso de
-manutenção, e o seu dicionário de dados dispensa este capítulo de repetir o
-inventário do modelo.
-
-\paragraph{Como se liga às fontes.} O historiador é consultado através da
-plataforma de dados da refinaria; os balanços e os relatórios de
-eletricidade são lidos das pastas de rede onde o Processamento de Dados os
-mantém, e os planos de fabrico do arquivo de planeamento. As consultas ao
-historiador são geradas a partir das tabelas de mapeamento no momento da
-atualização; nenhuma \emph{tag} está escrita no código, e é isso que torna
-a Secção~\ref{sec:validacao-dados} possível sobre um artefacto vivo.
+\paragraph{O que é.} A plataforma é um modelo tabular em Power BI ---
+\emph{Energy Performance Monitor}, versão 22, de 31 de julho de 2026 ---
+com um esquema em estrela de 32 tabelas, 243 colunas, 13 relações, 159
+medidas e 21 consultas de transformação, que cobre 16 unidades processuais
+em três fábricas e nos extras (enxofres e \emph{flares}), sete vetores
+energéticos, resolução diária, de 1 de janeiro de 2020 ao dia anterior a
+cada atualização. O modelo ocupa 68,7~MB e importa os dados; o historiador
+é consultado através da plataforma de dados da refinaria, os balanços e os
+relatórios de eletricidade lidos das pastas de rede onde o Processamento de
+Dados os mantém, e os planos de fabrico do arquivo de planeamento. As
+consultas ao historiador são geradas a partir das tabelas de mapeamento
+no momento da atualização; nenhuma \emph{tag} está escrita no código.
 
 \paragraph{Três decisões que o definem.} A primeira é a que a
 Secção~\ref{sec:modelo-dimensional} descreve: os três canais de origem
@@ -119,7 +122,7 @@ A Figura~\ref{fig:validacao-mapeamento} acompanha essa progressão versão a ver
   \centering
   \includegraphics[width=0.86\textwidth]{gerado/cap5-validacao-progressao}
   \caption[Progressão da validação do mapeamento]%
-  {Progressão da validação do mapeamento, versão a versão. Cada barra reparte as mesmas 400 células unidade--vetor--mês da amostra de validação em coincidentes, divergentes e sem consumo, para que os vazios não sejam lidos como sucessos. Cada barra é um estado verificado célula a célula; a última corresponde à correção das cinco divergências que restavam, nas referências de fuel gás dos enxofres. As causas de cada divergência e o número de casos que explicam estão descritas no texto que se segue.}
+  {Progressão da validação do mapeamento, versão a versão. Cada barra reparte as mesmas 400 células unidade--vetor--mês da amostra de validação em coincidentes, divergentes e sem consumo, para que os vazios não sejam lidos como sucessos. As quatro primeiras barras são estados verificados célula a célula; a barra da v15.1, tracejada, é o resultado \emph{esperado} do fecho das últimas cinco divergências, não uma verificação observada. As causas de cada divergência e o número de casos que explicam estão descritas no texto que se segue.}
   \label{fig:validacao-mapeamento}
 \end{figure}
 \paragraph{O ponto de partida.} Na versão 13 do mapeamento, 242 células
@@ -182,20 +185,31 @@ depois do factor de inclusão e 327 com a versão 15 (com 65 vazias; uma
 combinação deixou de ter consumo entre as duas versões), 330 com o
 relatório de fevereiro corrigido e, com a versão 15.1, a correção das
 últimas cinco, nas referências de fuel gás dos enxofres. As 94 divergências
-iniciais ficaram todas explicadas e a atualização seguinte, já com a
-versão~15.1, correu sem erros e sem divergências detetadas. O número exato
-de células que fecharam não é reportado: a amostra foi desenhada para
-explicar divergências, não para produzir uma taxa, e uma razão sobre 400
-diria menos do que a lista de causas que a antecede. A
+iniciais ficaram todas explicadas. O registo de 3 de julho de 2026 dá o
+fecho de 400 de 400 como o esperado na atualização seguinte com a
+versão~15.1; essa execução não ficou registada com data, e o fecho completo
+é, nesta versão do texto, um resultado esperado e não observado. A
 validação cobre janeiro a maio de 2026 e não se estende por si aos anos de
 2020 a 2025 que o Capítulo~\ref{cha:diagnostico} avalia
 (Secção~\ref{sec:modelo-dimensional}).
+%% CONFIRMAR: o 400/400 foi observado no refresh seguinte a v15.1 (a nota
+%% de 2026-07-03 diz "esperado"); se sim, indicar a data.
 O fuel gás foi validado a duas fontes, por decisão de âmbito, e a
 ressalva fica escrita: o \emph{dashboard} coincide com o relatório porque
 ambos leem o mesmo balanço de produção; é consistência entre fontes
 dependentes, não verificação, e se o balanço vier errado erram os dois
 sem aviso.
 
+% [REV-2026-09-17][C5-06][P1][EVIDENCIA]
+\revisaotese{C5-06}{P1}{EVIDENCIA}
+{Confirmar se o 400/400 da versão 15.1 foi observado}
+{O parágrafo anterior deixou de afirmar o 400/400 como resultado observado:
+a nota de 2026-07-03 diz ``esperado no próximo refresh'' e não há registo
+da execução. Se a validação foi corrida depois da 15.1 (ou sobre a v22 de
+2026-07-31), indicar data e ficheiro e repor a afirmação aqui, no
+Cap.~8 (Construir) e na Tabela~8.1. Confirmar também a unidade da tolerância
+de 2 na eletricidade (MWh?).}%
+% [/REV-2026-09-17]
 \paragraph{A carga.} A carga foi validada por outro caminho: a soma dos
 componentes de carga de cada unidade contra a linha de carga do balanço,
 em 118 de 120 células (24 unidades, cinco meses) a $\pm0{,}1$~t; as duas
@@ -386,16 +400,6 @@ consumos específicos; duas fórmulas de alocação foram devolvidas ao
 controlo processual; o fuel gás está validado a duas fontes dependentes; e
 o mecanismo de zeros fabricados no canal de balanço, que a estimação de
 \emph{baselines} exclui por filtro, continua por resolver na fonte.
-
-\paragraph{O que não foi medido.} A entrega é demonstrável --- versão,
-data, manual, equipa que a mantém, atualização diária ---, mas a utilidade
-não foi medida. Não há registo do tempo de atualização, da latência entre o
-dado existir na fonte e aparecer no \emph{dashboard}, nem do desempenho de
-um utilizador numa tarefa concreta face ao procedimento anterior. Sem essas
-medidas, a conclusão que este capítulo sustenta é a de uma implementação
-funcional e entregue, não a de um ganho de eficácia demonstrado; e a
-comparação com o que existia antes, no Capítulo~\ref{cha:discussao}, é
-qualitativa por esta razão e não por omissão.
 
 \paragraph{O que o instrumento não decide.} A plataforma mostra desvios
 face a uma \emph{baseline}; não diz se a \emph{baseline} é válida, nem se um

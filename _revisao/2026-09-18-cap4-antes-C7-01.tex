@@ -17,12 +17,12 @@
 % [REV-2026-09-13][C4-01][P2][ESTRUTURA]
 \revisaotese{C4-01}{P2}{ESTRUTURA}
 {Separar método reproduzível da história do desenvolvimento}
-{Feito a 2026-09-18: as definições dos três estimandos, da classe de
-candidatos e do critério de aceitação vieram do Cap. 7 para o fim da
-Secção~\ref{sec:protocolo-baselines}. Fica para a revisão integral: mover
-inventários extensos, erros de implementação, contagens de testes e
-pormenores de publicação de corridas para apêndices, conservando no corpo
-só as decisões que alteram o estimando ou a validade dos resultados.}%
+{Acrescentar uma secção inicial com desenho do estudo, unidade de análise,
+janelas, perguntas e métricas primárias. Trazer para aqui as definições
+dos candidatos, critérios e simulador atualmente introduzidos no Cap. 7.
+Mover inventários extensos, erros de implementação, contagens de testes
+e pormenores de publicação de corridas para apêndices. No corpo,
+conservar decisões que alteram o estimando ou a validade dos resultados.}%
 % [/REV-2026-09-13]
 
 Este capítulo descreve o que foi construído e como foi avaliado. As três
@@ -608,71 +608,6 @@ a hipótese nula a 5\%, quatrocentas réplicas por célula, oito contrastes
 co-primários declarados antes da execução). Todos os artefactos
 distinguem, linha a linha, o que foi observado no \emph{snapshot} do que
 foi imposto em simulação.
-
-\paragraph{Três formas de avaliar, três estimandos.} A dissertação avalia
-\emph{baselines} de três maneiras, que respondem a perguntas diferentes e
-não se somam. A primeira, o diagnóstico do Capítulo~\ref{cha:diagnostico},
-reajusta o modelo em cada ano e aplica-o ao seguinte: mede a
-transportabilidade da relação anual. A segunda, a demonstração das linhas
-orientadoras (Secção~\ref{sec:demonstracao}), mantém esses mesmos cinco
-pares anuais mas substitui o estimador, a banda ou ambos, e adjudica cada
-candidato por um critério declarado a priori: mede se existe um candidato
-aceitável dentro de uma classe. A terceira
-(Secção~\ref{sec:referencia-congelada}) congela uma referência em 2020 e
-aplica-a a 2021--2025 sem lhe tocar: mede o desvio face a um ponto fixo, e o
-que cada componente de um sistema de monitorização --- normalizador, escala,
-monitor, banda --- faz a esse desvio. A Tabela~\ref{tab:estimandos} fixa os
-três antes de qualquer resultado.
-
-\begin{table}[htbp]
-  \centering
-  \caption[Os três estimandos deste capítulo]{As três formas de avaliar uma
-  \emph{baseline} usadas na dissertação, o que cada uma mede e o que não
-  pode estabelecer.}
-  \label{tab:estimandos}
-  \small
-  \begin{tabular}{p{3.0cm}p{3.6cm}p{3.6cm}p{3.4cm}}
-    \toprule
-    Avaliação & Desenho & O que mede & O que não estabelece \\
-    \midrule
-    Diagnóstico (Cap.~\ref{cha:diagnostico}) & modelo do ano $y$ aplicado a $y{+}1$, cinco pares 2020--2025 & transportabilidade da relação anual; calibração da banda; valor de covariáveis & utilidade para deteção; causa da instabilidade \\
-    Demonstração (Secção~\ref{sec:demonstracao}) & os mesmos cinco pares; estimador, banda e critério de aceitação declarados a priori & se algum candidato da classe passa o critério & impossibilidade da classe; necessidade de modelos com estado \\
-    Referência congelada (Secção~\ref{sec:referencia-congelada}) & referência de 2020 aplicada a 2021--2025; simulação com verdade conhecida & desvio face a um ponto fixo; o que cada componente faz ao desvio & poupança, alarme validado, mecanismo; factos sobre a refinaria a partir da simulação \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\paragraph{A classe de candidatos e o critério de aceitação.} A demonstração
-da Secção~\ref{sec:demonstracao} avalia uma classe declarada antes de
-qualquer resultado. Um candidato é um par (estimador, banda). Os estimadores
-são três retas sobre o ano de treino --- mínimos quadrados, que é o método de
-produção, Huber e Theil--Sen ---, comparadas pela perda absoluta diária no
-ano seguinte, sem reestimação, por contraste emparelhado. As bandas são
-quatro: a de produção, $\pm2\hat\sigma$ dos resíduos do treino; duas
-construídas sobre um processo autorregressivo ajustado aos resíduos do
-treino, com desfasamentos civis exatos e ordem escolhida pelo critério de
-informação bayesiano~\cite{Schwarz1978} só no treino, uma gaussiana
-($\pm2\hat\sigma$ das inovações) e outra por quantis empíricos das
-inovações; e uma por regressão quantílica a $\tau = 0{,}02275$ e
-$0{,}97725$, os quantis que correspondem a $\pm2\sigma$ numa normal, com
-verificação de não cruzamento que recusa o resultado em vez de o corrigir.
-O conjunto avaliado não é o fatorial: as bandas robustas só existem para os
-estimadores robustos.
-
-\paragraph{O que o critério aceita, e o que não certifica.} Um candidato é
-aceite se cumprir os dois critérios do contrato da
-Tabela~\ref{tab:contrato-inferencial} --- conteúdo preditivo sobre o nulo
-primário e cobertura compatível com a nominal --- em pelo menos quatro dos
-cinco pares anuais, com três em cinco como sensibilidade declarada. A
-adjudicação é pura: lê os valores de corridas identificadas e verificadas por
-\emph{hash} e não recalcula nada. O que o critério aceita é um par formado
-por um preditor da relação com a carga, sob a hipótese de que ela se
-transporta para o ano seguinte, e uma banda calibrada sob a hipótese de que
-nada mudou. A referência congelada lê a mesma perda de cobertura no ano
-seguinte como um sinal a preservar, e sem eventos rotulados os dados não
-separam as duas leituras: aceitar um candidato não o certificaria como
-detetor, e rejeitar todos não retira utilidade a uma referência usada para
-medir desvios.
 
 \section{Reprodutibilidade e proveniência}
 \label{sec:reprodutibilidade}

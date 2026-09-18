@@ -400,14 +400,9 @@ def f08_validacao():
     b2 = ax.bar(versoes, divergentes, bottom=coincidentes, color=COR["vapor_3bar"], label="divergentes")
     b3 = ax.bar(versoes, vazias, bottom=np.add(coincidentes, divergentes), color=CINZA_C,
                 label="sem consumo (vazias)")
-    for r in b3[-1:]:
-        r.set_hatch("///"); r.set_edgecolor("white")
-    for r in [b1[-1], b2[-1]]:
-        r.set_hatch("///"); r.set_edgecolor("white")
     for i, (c, d) in enumerate(zip(coincidentes, divergentes)):
         ax.annotate(pt(c), (i, c / 2), ha="center", va="center", color="white", fontsize=7)
         if d: ax.annotate(pt(d), (i, c + d / 2), ha="center", va="center", color="white", fontsize=7)
-    ax.annotate("esperado,\nnão observado", (4, 200), ha="center", fontsize=6.8, color=TINTA)
     ax.set_ylabel("células unidade--vetor--mês (de 400)")
     ax.set_xlabel("versão da tabela de mapeamento")
     ax.yaxis.set_major_formatter(virgula(0))

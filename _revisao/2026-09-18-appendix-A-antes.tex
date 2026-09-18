@@ -19,7 +19,11 @@ Este apêndice documenta o que foi planeado para a revisão de âmbito do Capít
 \section{Registo e cronologia}
 \label{sec:apA-cronologia}
 
-O protocolo foi registado no Open Science Framework a 24 de fevereiro de 2026, com o DOI \nolinkurl{10.17605/OSF.IO/TDW6C}. O registo não antecede a pesquisa nas bases: a calibração das expressões e a execução das pesquisas decorreram em fevereiro de 2026 e o protocolo registado já reporta os volumes recuperados (Secção~4.3 do protocolo). O registo antecede a triagem de título e resumo, a recuperação dos textos integrais, a definição do instrumento de extração e toda a extração: a exportação do Rayyan tem a data do depósito, e a triagem começou depois dele. A Tabela~\ref{tab:apA-cronologia} distingue os registos das etapas de execução que os delimitam.
+O protocolo foi registado no Open Science Framework a 24 de fevereiro de 2026, com o DOI \nolinkurl{10.17605/OSF.IO/TDW6C}. O registo não antecede a pesquisa nas bases: a calibração das expressões e a execução das pesquisas decorreram em fevereiro de 2026 e o protocolo registado já reporta os volumes recuperados (Secção~4.3 do protocolo). O registo antecede a recuperação dos textos integrais, a definição do instrumento de extração e toda a extração. A Tabela~\ref{tab:apA-cronologia} distingue os registos das etapas de execução que os delimitam.
+
+\revisaotese{AP-A-01}{P1}{CONFIRMAR}
+{Triagem antes ou depois do registo}
+{A data de exportação do Rayyan (24 de fevereiro de 2026) coincide com a do registo. Confirmar se a triagem de título e resumo começou depois do depósito; se sim, acrescentar ``e a triagem'' à frase anterior. Confirmar também a data exata do depósito da emenda de abril (protocolo v2).}
 
 \begin{table}[H]
 \centering\small
@@ -107,7 +111,7 @@ A S1 foi descartada por perder literatura metodológica que não cita a norma e 
 \section{Desvios ao protocolo}
 \label{sec:apA-desvios}
 
-A Tabela~\ref{tab:apA-desvios} reúne os desvios ao protocolo e às emendas, registados ou não. Os desvios posteriores a D6 não foram objeto de emenda: por decisão do autor, as alterações posteriores a 13 de setembro de 2026 declaram-se apenas nesta dissertação. Os quatro últimos (D10--D13) são controlos previstos na emenda C-2.3 que não chegaram a ser executados; nenhum deles é invocado no Capítulo~\ref{cha:revisao} como garantia.
+A Tabela~\ref{tab:apA-desvios} reúne os desvios ao protocolo e às emendas, registados ou não. Os três últimos não foram objeto de emenda: por decisão do autor, as alterações posteriores a 13 de setembro de 2026 declaram-se apenas nesta dissertação.
 
 {\small
 \begin{xltabular}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}Xl@{}}
@@ -131,13 +135,12 @@ D6 & Controlo de falsos negativos do Corpus~B com decisão humana fundamentada p
 D7 & Cobertura humana do Corpus~B: 11 publicações às cegas e 31 com verificação dos campos que sustentam resultados (emenda de 2026-09-13). & Não executada como previsto. Os registos Stage~C têm verificação automática de ancoragem das citações ao texto. A 2026-09-17, as 368 células com citação que sustentam resultados foram relidas por um segundo passe de modelo da mesma família do extrator, com regra de adjudicação fixa; 31 células e duas regras ficaram para decisão do autor e uma amostra de dez confirmações para leitura humana (Apêndice~\ref{app:validacao}). As ausências não foram verificadas. & não registado \\
 D8 & Subquestão SQ4, sobre aplicabilidade na refinação (protocolo e emendas). & Retirada a 2026-09-16: sem a leitura às cegas das 11 publicações nucleares, a revisão não sustenta afirmações de transferibilidade para a refinação. & não registado \\
 D9 & Rastreio de referências retrospetivo e prospetivo, com regra de suplementação da pesquisa (Secções~4.1 e~5; C-2.3). & Não executado, por decisão de 2026-09-16. O rendimento é nulo por omissão e não por resultado; o custo foi estimado e é declarado como limitação no Capítulo~\ref{cha:revisao}. & não registado \\
-D10 & Auditoria por amostragem das decisões de elegibilidade do nível~A, com 40 registos e semente 44 (C-2.3). & Não executada. Não há registo da corrida, e um controlo que a dissertação declarasse ter feito sem o poder mostrar valeria menos do que a sua ausência declarada. & não registado \\
-D11 & Reteste de 30 decisões do revisor, para medir concordância intra-revisor (C-2.3). & Não executado, pela mesma razão. A verificação do Corpus~B (D7) cobre a extração, não a triagem. & não registado \\
-D12 & Canário de instabilidade em 30 publicações, para detetar deriva entre lotes (C-2.3). & Não executado. A estabilidade entre lotes não foi medida; as contagens do Capítulo~\ref{cha:revisao} devem ler-se sem esse controlo. & não registado \\
-D13 & Pesquisa terminológica nas exclusões de título e resumo, com amostra de 50 (C-2.3). & Não executada. É o controlo cuja ausência mais pesa: os falsos negativos da triagem ficam sem estimativa própria, e só o rastreio de referências (D9), também não executado, os apanharia. & não registado \\
-D14 & Análise por expressão de pesquisa: atribuir cada registo à expressão~A, à~B ou a ambas, para medir o rendimento de cada uma. & Não executada. O campo de origem ficou vazio no ficheiro analítico e um valor vazio não distingue «entrou por rastreio» de «não foi registado»; recuperá-lo obrigaria a voltar aos ficheiros de exportação das bases. Nenhuma conclusão da revisão depende desta análise. & não registado \\
 \end{xltabular}
 }
+
+\revisaotese{AP-A-04}{P1}{CONFIRMAR}
+{Desvio D6 e controlos da C-2.3 sem estado conhecido}
+{D6: confirmar como foram re-decididos os 171 candidatos anulados antes do fecho de 12 de setembro; a redação atual só afirma o que os registos documentam. Confirmar ainda o estado de quatro controlos da C-2.3: auditoria por amostragem do nível~A (n=40, semente 44), reteste de 30 decisões do revisor, canário de instabilidade em 30 publicações e pesquisa terminológica nas exclusões de título e resumo com amostra de 50. Os não executados entram na tabela como D10 e seguintes.}
 
 \section{Lista de verificação PRISMA-ScR}
 \label{sec:apA-prisma}
@@ -184,7 +187,10 @@ A Tabela~\ref{tab:apA-prisma} indica onde cada item da extensão PRISMA-ScR~\cit
 20 & Limitações & Secções~\ref{sec:gap} e~\ref{sec:limitacoes} & Revisor único; 137 textos não recuperados, de forma não aleatória; extração numa superfície de IA sem verificação humana por ocorrência; só inglês; literatura cinzenta parcial; SQ4 retirada; rastreio de referências não executado. \\
 21 & Conclusões & Secção~\ref{sec:gap}; Capítulo~\ref{cha:conclusoes} & \\
 \multicolumn{4}{@{}l}{\emph{Financiamento}}\\
-22 & Financiamento & Este apêndice & A revisão não teve financiamento específico. O autor realizou estágio curricular na organização que é objeto do caso empírico dos Capítulos~\ref{cha:plataforma} e~\ref{cha:diagnostico}, e suportou os custos de computação da extração. \\
+22 & Financiamento & Secção~\ref{sec:ambito} & Ver AP-A-05. \\
 \end{xltabular}
 }
 
+\revisaotese{AP-A-05}{P1}{CONFIRMAR}
+{Financiamento e conflitos de interesse (item 22)}
+{Declarar se a revisão teve financiamento específico, o papel do estágio curricular na Galp e qualquer interesse decorrente de o caso empírico ser o local do estágio. Uma frase no §1.5 e a nota deste item. Os custos de computação da extração (Stage~C) foram suportados pelo autor? Confirmar.}

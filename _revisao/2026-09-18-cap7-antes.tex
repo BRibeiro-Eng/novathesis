@@ -25,6 +25,17 @@
 
 \chapter{Discussão e proposta metodológica}
 \label{cha:discussao}
+% [REV-2026-09-13][C7-01][P2][ESTRUTURA]
+\revisaotese{C7-01}{P2}{ESTRUTURA}
+{O capítulo mistura discussão, métodos e novos resultados}
+{É o capítulo mais longo e introduz candidatos, bandas, critério,
+populações, simulador e resultados antes de os discutir. Levar definições
+de estimandos, candidatos e simulação para o Cap. 4/apêndice de matemática; manter
+aqui proposta, resultados essenciais da demonstração e interpretação.
+Alternativa, se a simulação for contribuição central: capítulo autónomo
+de resultados III e discussão mais curta. Recomenda-se primeiro a
+redistribuição sem criar outro capítulo, preservando o arco da tese.}%
+% [/REV-2026-09-13]
 
 O Capítulo~\ref{cha:diagnostico} estabeleceu que o método de \emph{baselines}
 em produção se reproduz exatamente e não é adequado, de forma uniforme, aos
@@ -42,10 +53,7 @@ todos os anos, se congela uma referência e se mede tudo o resto como desvio
 face a ela, incluindo com verdade conhecida por simulação. Terceiro,
 devolve a proposta ao instrumento do Capítulo~\ref{cha:plataforma} como
 especificação de um bloco de saúde das \emph{baselines}, e declara os
-limites de tudo o que aqui se afirma. O capítulo apresenta a proposta e a sua
-demonstração, não o método que a suporta: o desenho da avaliação, a classe de
-candidatos e o critério de aceitação estão definidos na
-Secção~\ref{sec:protocolo-baselines}, e a matemática de cada instrumento
+limites de tudo o que aqui se afirma. A matemática de cada instrumento
 consta do Apêndice~\ref{app:matematica}.
 
 \section{Leitura integrada do diagnóstico}
@@ -109,20 +117,44 @@ ambos com um só modelo reestimado uma vez por ano.
 A Figura~\ref{fig:ref-estado-monitor} separa os três objetos e mostra onde cada um entra.
 
 \input{5-Figures/tikz/f17-referencia-estado-monitor}
-\paragraph{Três formas de avaliar, três estimandos.} As três avaliações que
-este capítulo mobiliza --- a transportabilidade anual do
-Capítulo~\ref{cha:diagnostico}, a adjudicação de candidatos da
-Secção~\ref{sec:demonstracao} e a referência congelada da
-Secção~\ref{sec:referencia-congelada} --- respondem a perguntas diferentes
-e estão definidas, com os respetivos estimandos, na
-Secção~\ref{sec:protocolo-baselines} e na Tabela~\ref{tab:estimandos}. A
-distinção importa para ler o que se segue: o mesmo vetor pode ter leituras
-que só parecem contraditórias, como o vapor de 24~bar, ``estável e
-calibrado'' na primeira avaliação e, na terceira, a deslocar-se de nível sem
-que nenhum normalizador acrescente nada à média de 2020. Não há contradição
---- a primeira pergunta pela relação com a carga ano a ano, a terceira pelo
-nível face a um ano fixo.
+\paragraph{Três formas de avaliar, três estimandos.} O que se segue avalia
+\emph{baselines} de três maneiras que respondem a perguntas diferentes, e
+que convém distinguir antes de ler qualquer número. A primeira, herdada do
+Capítulo~\ref{cha:diagnostico}, reajusta o modelo em cada ano e aplica-o ao
+seguinte: mede a transportabilidade da relação anual. A segunda, usada na
+demonstração das linhas orientadoras (Secção~\ref{sec:demonstracao}),
+mantém esses mesmos cinco pares anuais mas substitui o estimador, a banda ou
+ambos, e adjudica cada candidato por um critério declarado a priori: mede se
+existe um candidato aceitável dentro de uma classe. A terceira
+(Secção~\ref{sec:referencia-congelada}) congela uma referência em 2020 e
+aplica-a a 2021--2025 sem lhe tocar: mede o desvio face a um ponto fixo, e o
+que cada componente de um sistema de monitorização --- normalizador,
+escala, monitor, banda --- faz a esse desvio. Os três estimandos são
+diferentes por construção, e o mesmo vetor pode ter leituras que só parecem
+contraditórias: o vapor de 24~bar é ``estável e calibrado'' na primeira
+(declives iguais, banda de produção compatível em cinco pares) e, na
+terceira, ``desloca-se de nível sem que nenhum normalizador acrescente nada
+à média de 2020''. Não há contradição: a primeira pergunta pela relação com
+a carga ano a ano, a terceira pelo nível face a um ano fixo. A
+Tabela~\ref{tab:estimandos} fixa os três antes de qualquer resultado.
 
+\begin{table}[htbp]
+  \centering
+  \caption[Os três estimandos deste capítulo]{As três formas de avaliar uma
+  \emph{baseline} usadas na dissertação, o que cada uma mede e o que não
+  pode estabelecer.}
+  \label{tab:estimandos}
+  \small
+  \begin{tabular}{p{3.0cm}p{3.6cm}p{3.6cm}p{3.4cm}}
+    \toprule
+    Avaliação & Desenho & O que mede & O que não estabelece \\
+    \midrule
+    Diagnóstico (Cap.~\ref{cha:diagnostico}) & modelo do ano $y$ aplicado a $y{+}1$, cinco pares 2020--2025 & transportabilidade da relação anual; calibração da banda; valor de covariáveis & utilidade para deteção; causa da instabilidade \\
+    Demonstração (Secção~\ref{sec:demonstracao}) & os mesmos cinco pares; estimador, banda e critério de aceitação declarados a priori & se algum candidato da classe passa o critério & impossibilidade da classe; necessidade de modelos com estado \\
+    Referência congelada (Secção~\ref{sec:referencia-congelada}) & referência de 2020 aplicada a 2021--2025; simulação com verdade conhecida & desvio face a um ponto fixo; o que cada componente faz ao desvio & poupança, alarme validado, mecanismo; factos sobre a refinaria a partir da simulação \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \section{Implicações para a conformidade normativa}
 \label{sec:implicacoes-normativas}
@@ -349,12 +381,15 @@ margens materiais declaradas como não elicitadas --- não há, nesta unidade,
 um limiar acordado a partir do qual um desvio importa. Nenhuma linha desta
 secção se descreve como \emph{holdout}.
 
-A classe de candidatos --- três estimadores, quatro construções de banda ---
-e o critério que os adjudica estão definidos na
-Secção~\ref{sec:protocolo-baselines}, com o que a aceitação de um candidato
-estabelece e o que não estabelece; é dessa assimetria que saem as duas pistas
-da Secção~\ref{sec:implicacoes-plataforma}. Esta secção apresenta o que a
-aplicação desse critério decidiu.
+O que o critério aceita tem de ficar claro antes dos números. Aceita um par
+formado por um preditor da relação com a carga, sob a hipótese de que ela se
+transporta para o ano seguinte, e uma banda calibrada sob a hipótese de que
+nada mudou. A referência congelada da Secção~\ref{sec:referencia-congelada}
+lê a mesma perda de cobertura no ano seguinte como um sinal a preservar, e
+sem eventos rotulados os dados não separam as duas leituras. A aceitação de
+um candidato não o certificaria, por isso, como detetor, e a rejeição de
+todos não retira utilidade a uma referência usada para medir desvios; é
+esta a razão das duas pistas da Secção~\ref{sec:implicacoes-plataforma}.
 
 \subsection{Estimadores robustos}
 \label{sec:demo-robustos}
@@ -404,12 +439,17 @@ esta é a razão de a linha orientadora os separar.
 \subsection{Bandas condicionais e quantílicas}
 \label{sec:demo-bandas}
 
-Das quatro construções definidas na Secção~\ref{sec:protocolo-baselines}, a
-rota primária são as duas autorregressivas --- ordem entre um e sete dias,
-predição a um passo no ano seguinte, com recurso declarado à banda marginal
-quando o histórico não chega (124 dos $6\,580$ dias avaliados nas duas
-construções, $1{,}9\%$), a gaussiana primária no veredicto --- e a rota de
-sensibilidade é a regressão quantílica. Uma banda é
+A rota primária ajustou, sobre os resíduos dos mínimos quadrados de cada ano
+de treino, um processo autorregressivo com desfasamentos civis exatos e
+ordem escolhida pelo critério de informação bayesiano~\cite{Schwarz1978} só
+no treino (entre um e sete dias), com predição a um passo no ano seguinte e recurso declarado à banda
+marginal quando o histórico não chega (124 dos $6\,580$ dias avaliados nas
+duas construções, $1{,}9\%$); produziu duas construções, uma
+gaussiana ($\pm 2\hat\sigma$ das inovações, primária no veredicto) e uma por
+quantis empíricos das inovações. A rota de sensibilidade foi a regressão
+quantílica a $\tau = 0{,}02275$ e $0{,}97725$ --- os quantis que
+correspondem a $\pm 2\sigma$ numa normal --- com verificação de não
+cruzamento que recusa o resultado em vez de o corrigir. Uma banda é
 dada como suportada num vetor se o intervalo de confiança da sua cobertura
 inclui $95{,}45\%$ em pelo menos quatro dos cinco pares, sem degeneração ---
 compatibilidade pelo critério adotado, no sentido e com os limites acima.
@@ -472,8 +512,10 @@ A Figura~\ref{fig:matriz-decisao} mostra a matriz completa: cada candidato, cada
 O critério foi aplicado por adjudicação pura sobre os resultados já
 publicados --- o poder preditivo do Capítulo~\ref{cha:diagnostico} e as
 bandas da secção anterior ---, sem recalcular nada, com cada valor lido de
-uma corrida identificada e verificada por \emph{hash}. Com os mínimos quadrados e as quatro construções de banda, são dezasseis
-decisões. O par junta dois objetos julgados em separado: o normalizador, a reta anual, pelo conteúdo preditivo do
+uma corrida identificada e verificada por \emph{hash}. Um candidato é um par
+(estimador, banda); com os mínimos quadrados e as quatro construções de
+banda, são dezasseis decisões. O par junta dois objetos julgados em
+separado: o normalizador, a reta anual, pelo conteúdo preditivo do
 Capítulo~\ref{cha:diagnostico}, e a banda, pela cobertura. Nas construções
 autorregressivas a banda desloca também o centro da predição com os
 resíduos dos dias anteriores; o erro dessa predição completa não foi
