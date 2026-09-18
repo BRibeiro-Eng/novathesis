@@ -288,6 +288,20 @@ passar sem sinal. A verificação cobre valores positivos; uma ausência
 (``não reportado'') só se confirma lendo as secções relevantes, o que não
 foi feito.
 
+% [REV-2026-09-17][C3-06][P1][DADOS]
+\revisaotese{C3-06}{P1}{DADOS}
+{Fechar as decisões pendentes da verificação e regenerar os números de B}
+{Os números da Secção~\ref{sec:corpus-b} usam as correções aceites e o
+valor original nos itens pendentes (dúvidas D1--D8, regras R1 e R4;
+\nolinkurl{stage_c/verification_v1/verificacao_modelo/V1_DUVIDAS_2026-09-17.xlsx}).
+Depois das decisões e da amostra de controlo: atualizar
+\texttt{decisoes\_2026-09-17.json}, correr
+\texttt{tabelas\_cap3.py} e \texttt{mapa\_evidencia.py} com
+\texttt{--decisoes} e substituir os números das Tabelas~\ref{tab:b-composicao}
+a~\ref{tab:b-proximos}, da Figura~\ref{fig:mapa-evidencia} e do texto.
+Depois disso, reescrever a frase sobre os quinze itens e a amostra de controlo com o resultado (número de confirmações erradas em 10). Se R1 for decidida pelo critério de conceito, reverificar todas as
+adaptações \emph{implicit}/\emph{absent}.}%
+% [/REV-2026-09-17]
 
 \section{Distribuição da literatura (Corpus~A)}
 \label{sec:corpus-a}
@@ -693,12 +707,12 @@ favorece os artigos com vários modelos.
 % [REV-2026-09-13][F05][P2][FIGURA]
 \revisaotese{F05}{P2}{FIGURA}
 {Mapa de evidência: versão final depois das decisões pendentes}
-{Regenerada a 2026-09-18 com as decisões do autor
-(\texttt{5-Figures/cap3/mapa-evidencia-corpus-b.pdf}, gerada por
-\texttt{stage\_c/figuras\_cap3/mapa\_evidencia.py --decisoes}). Falta rever
-na página impressa se as etiquetas das colunas se leem a 100\%; se não,
-passar a figura a orientação horizontal ou cortar a coluna ``Ajuste no
-treino''.}%
+{A figura está inserida (\texttt{5-Figures/cap3/mapa-evidencia-corpus-b.pdf},
+gerada por \texttt{stage\_c/figuras\_cap3/mapa\_evidencia.py --decisoes}).
+Regenerar depois de fechar a caixa C3-06. Rever na página impressa se as
+etiquetas das colunas se leem a 100\%; se não, passar a figura a
+orientação horizontal ou cortar a coluna ``Ajuste no treino''. A tabela
+modelo a modelo vai para o Apêndice~B.}%
 % [/REV-2026-09-13]
 
 A medição na fronteira é a primeira falha. As 140 descrições de modelo têm
@@ -713,11 +727,11 @@ corrigiu em 12 entradas, onde a frase citada dizia de onde vinha o dado e
 nada sobre onde estava a fronteira.
 
 A validade temporal é a segunda. Em 89 dos 140 modelos, e em 26 artigos, o
-texto não menciona que o modelo seja alguma vez refeito; em 28 não se
-consegue perceber. Só 23 modelos, em oito artigos, têm um regime declarado:
-por evento com gatilho explícito (16), janela móvel (3), atualização
-contínua (2) ou periodicidade fixa (2). O domínio de validade não é
-declarado em 121 modelos; é-o qualitativamente em oito e com limites numéricos
+texto não menciona que o modelo seja alguma vez refeito; em 24 não se
+consegue perceber. Só 27 modelos, em nove artigos, têm um regime declarado:
+por evento com gatilho explícito (16), janela móvel (6), atualização
+contínua (3) ou periodicidade fixa (2). O domínio de validade não é
+declarado em 118 modelos; é-o qualitativamente em 11 e com limites numéricos
 em 11, estes em três artigos. E a validação fora da amostra, com resultado reportado, aparece em 13
 modelos de quatro artigos, contra 49 modelos com ajuste reportado nos dados
 de treino. Outros seis modelos, em três artigos, descrevem uma partição em
@@ -735,7 +749,7 @@ menos faz.
 \subsection{SQ2: o que corre mal ao modelo}
 \label{sec:b-mecanismos}
 
-Os artigos descrevem 130 ocorrências de mecanismos, em 36 dos 39. A
+Os artigos descrevem 132 ocorrências de mecanismos, em 36 dos 39. A
 Tabela~\ref{tab:b-mecanismos} cruza o efeito sobre o modelo com o estatuto
 da afirmação, e é esse cruzamento que muda a leitura.
 
@@ -756,22 +770,22 @@ da afirmação, e é esse cruzamento que muda a leitura.
     Indicador sem significado tal como definido & 24 (18) & 10 & 8 & 6 & 13 \\
     Má especificação estatística & 21 (13) & 13 & 3 & 5 & 7 \\
     Comparabilidade entre instalações & 15 (11) & 6 & 7 & 2 & 8 \\
-    Outro & 13 (10) & 1 & 9 & 3 & 9 \\
+    Outro & 14 (10) & 1 & 10 & 3 & 9 \\
     Grandeza não medida & 10 (9) & 0 & 9 & 1 & 9 \\
-    Consumo de base ou não produtivo & 10 (7) & 5 & 0 & 5 & 3 \\
+    Não estacionariedade da relação & 10 (9) & 3 & 5 & 2 & 7 \\
+    Consumo de base ou não produtivo & 9 (7) & 5 & 0 & 4 & 3 \\
     Dados em falta, errados ou descontínuos & 9 (6) & 1 & 5 & 3 & 5 \\
-    Não estacionariedade da relação & 8 (7) & 2 & 5 & 1 & 6 \\
     Alocação entre produtos & 8 (6) & 5 & 3 & 0 & 2 \\
     Deriva ou caducidade da referência & 7 (6) & 5 & 1 & 1 & 2 \\
     Domínio de validade excedido & 4 (3) & 1 & 2 & 1 & 3 \\
     Série demasiado curta & 1 (1) & 1 & 0 & 0 & 0 \\
     \midrule
-    Total & 130 (36) & 50 (19) & 52 (28) & 28 (15) & 34 \\
+    Total & 132 (36) & 51 (20) & 53 (28) & 28 (15) & 34 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Trinta e oito por cento das ocorrências (50 em 130) são afirmações \emph{general}:
+Quarenta por cento das ocorrências (51 em 132) são afirmações \emph{general}:
 uma definição de heteroscedasticidade, a cautela de que os processos não são
 lineares, a observação de que a correlação é sensível a valores extremos. Não
 são resultados dos estudos. Contá-las com as outras mede o que a literatura
@@ -802,19 +816,16 @@ Este resultado é uma ordem, não uma proporção: com a cobertura executada
 não se pode dizer quantos dos 40 artigos reportam cada efeito, só como se
 ordenam no que foi extraído.
 
-O segundo eixo quase não devolve informação. Em 89 das 130 ocorrências
+O segundo eixo quase não devolve informação. Em 90 das 132 ocorrências
 (68\%) o artigo não nomeia nenhuma causa física ou operacional, e em mais 16
-a causa não cabe nas categorias. As causas nomeadas somam 25 ocorrências:
+a causa não cabe nas categorias. As causas nomeadas somam 26 ocorrências:
 mudança de gama ou grau de produto (12, em nove artigos), qualidade da
 alimentação, condições ambientais, mudança de modo de operação e alteração
-da instalação (três cada) e degradação de equipamento (uma). No texto
-extraído dos 39 registos não se encontrou nenhuma ocorrência de desativação
-de catalisador nem de incrustação. A única frase do corpus que nomeia
-incrustação~\cite{Morales2018} enumera-a entre as razões por que o
-desempenho de uma caldeira se degrada com o tempo, como motivação para
-monitorizar; na decisão de codificação de 18 de setembro de 2026 foi
-classificada como motivação e não como limitação do modelo, e a categoria
-fica, por isso, a zero. Não se afirma
+da instalação (três cada), incrustação e degradação de equipamento (uma
+cada). No texto extraído dos 39 registos não se encontrou nenhuma ocorrência
+de desativação de catalisador, e a única menção a incrustação~\cite{Morales2018}
+é uma frase geral sobre a degradação de caldeiras ao longo do tempo, dada
+como motivação para monitorizar e não como limite do modelo. Não se afirma
 que o corpus esteja livre delas. Há duas leituras, e as duas têm de ficar. A literatura
 relata sintomas no modelo e raramente diz o que, no processo, os causou; ou
 o instrumento, com uma lista de causas pensada a partir da refinação, não
@@ -859,9 +870,8 @@ setorial~\cite{Boyd2013,Boyd2017}.
   \caption[Adaptações por tipo, estado e enquadramento]{Adaptações no
   Corpus~B por tipo, estado e enquadramento normativo (ocorrências; artigos
   entre parênteses). Ligadas: o artigo liga explicitamente a adaptação a um
-  mecanismo que descreveu. \emph{Implícito} exige que a adaptação corresponda
-  a um conceito da norma --- variável relevante, fator estático, revisão da
-  referência, fronteira ---, e não que o parágrafo use vocabulário da norma.}
+  mecanismo que descreveu. O enquadramento aguarda uma decisão de
+  codificação (caixa C3-06).}
   \label{tab:b-adaptacoes}
   \begin{tabular}{lrrrrrrrr}
     \toprule
@@ -869,17 +879,17 @@ setorial~\cite{Boyd2013,Boyd2017}.
     \cmidrule(lr){3-5}\cmidrule(lr){6-8}
     Tipo & Total & Prop. & Impl. & Aval. & ISO expl. & Implíc. & Ausente & Ligadas \\
     \midrule
-    Outra & 35 (23) & 20 & 11 & 4 & 3 & 13 & 19 & 16 \\
-    Variável de normalização adicional & 17 (15) & 4 & 11 & 2 & 4 & 8 & 5 & 13 \\
+    Outra & 35 (23) & 20 & 11 & 4 & 3 & 11 & 21 & 16 \\
+    Variável de normalização adicional & 17 (15) & 4 & 11 & 2 & 4 & 7 & 6 & 13 \\
     Exclusão de valores atípicos & 10 (10) & 0 & 10 & 0 & 0 & 3 & 7 & 4 \\
-    Referência segmentada & 9 (8) & 3 & 6 & 0 & 0 & 6 & 3 & 2 \\
-    Medição melhorada & 7 (6) & 6 & 1 & 0 & 0 & 2 & 5 & 4 \\
-    Normalização a produto de referência & 5 (5) & 1 & 4 & 0 & 0 & 5 & 0 & 2 \\
-    Re-estimação contínua & 2 (2) & 1 & 1 & 0 & 0 & 2 & 0 & 2 \\
+    Referência segmentada & 8 (7) & 3 & 5 & 0 & 0 & 1 & 7 & 2 \\
+    Medição melhorada & 7 (6) & 6 & 1 & 0 & 0 & 1 & 6 & 4 \\
+    Normalização a produto de referência & 5 (5) & 1 & 4 & 0 & 0 & 2 & 3 & 2 \\
+    Re-estimação contínua & 3 (3) & 1 & 2 & 0 & 0 & 3 & 0 & 2 \\
     Estimação ponderada & 2 (2) & 0 & 2 & 0 & 0 & 0 & 2 & 0 \\
     Janela móvel & 1 (1) & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
     \midrule
-    Total & 88 (36) & 35 & 47 & 6 & 7 & 40 & 41 & 43 \\
+    Total & 88 (36) & 35 & 47 & 6 & 7 & 29 & 52 & 43 \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -902,20 +912,13 @@ antigo aos dados novos.
 
 As adaptações que tocam a primeira lacuna quase não saem do papel: melhorar
 a medição é proposto seis vezes e feito uma. As que tocam a validade
-temporal são raras: dois casos de re-estimação contínua e um de janela
+temporal são raras: três casos de re-estimação contínua e um de janela
 móvel, contra dez exclusões de valores atípicos, que são a adaptação
 implementada mais comum e a que menos muda o modelo.
 
 O enquadramento normativo explícito é raro, como o protocolo previa: sete
 das 88 adaptações, em cinco artigos, justificam-se citando a ISO~50001 ou a
-ISO~50006. Outras 40 são implícitas e 41 não têm enquadramento nenhum. Esta
-repartição depende inteiramente do critério de ``implícito'', e o adotado é o
-estrito: conta a adaptação que corresponde a um conceito da norma --- uma
-variável relevante, um fator estático, a revisão da referência, a fronteira
-do indicador --- sem a citar. O critério largo, o de contar a presença de
-vocabulário da norma no parágrafo, classificaria quase todas como implícitas:
-a palavra EnPI está em quase todo o corpus porque a expressão de pesquisa~B a
-exige, e o campo deixaria de medir alguma coisa. Outra expectativa registada, a de que as adaptações raramente se
+ISO~50006. Outra expectativa registada, a de que as adaptações raramente se
 ligam ao mecanismo que tratam, tem de ser reformulada: 43 das 88 ligam-se
 explicitamente a um mecanismo descrito no mesmo artigo. ``Raramente'' é
 errado; metade não se liga, e é isso que se pode dizer.
@@ -1041,7 +1044,7 @@ que os artigos contêm. O rastreio de referências não foi feito, e a
 literatura de \emph{benchmarking} que os estudos citam ficou fora
 (Secção~\ref{sec:pesquisa}). Faltam 137 textos integrais não recuperados, com
 perda desigual. As listas de tipos são curtas: 35 das 88 adaptações, 16 das
-130 causas e 13 dos 130 efeitos caíram em ``outra''. O Corpus~B não é uma
+132 causas e 14 dos 132 efeitos caíram em ``outra''. O Corpus~B não é uma
 amostra aleatória de nada: são os estudos destes setores que estas expressões
 encontraram, com cimento e siderurgia a dar quase metade das aplicações. As
 ordens de efeitos e as contagens servem para comparar dentro do corpus, não

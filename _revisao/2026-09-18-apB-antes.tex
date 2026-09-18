@@ -189,57 +189,43 @@ de confiança baixa não entram nesse estado. O estado final à data desta vers�
 \begin{table}[htbp]
   \centering\small
   \caption[Estado das células do Corpus B após a verificação por
-  modelo]{Estado das 368 células do Corpus~B após a verificação por modelo,
-  a adjudicação de 2026-09-17 e as decisões do autor de 2026-09-18 sobre os
-  itens de dúvida e as duas regras.}
+  modelo]{Estado das 368 células do Corpus~B após a verificação por modelo e
+  a adjudicação de 2026-09-17. Pendentes: itens de dúvida D1--D8 e regras R1
+  e R4, que ficam no valor original até decisão do revisor.}
   \label{tab:apB-verificacao}
-  \begin{tabular}{lrrrrr}
+  \begin{tabular}{lrrrrrr}
     \toprule
-    Tipo & Confirmado & Corrigido & Retirado & Mantido & Total \\
+    Tipo & Confirmado & Corrigido & Retirado & Mantido & Pendente & Total \\
     \midrule
-    Mecanismos  & 90  & 35 & 15 & 5 & 145 \\
-    Adaptações  & 52  & 36 & 3  & 0 & 91 \\
-    Modelos     & 92  & 40 & 0  & 0 & 132 \\
+    Mecanismos  & 87  & 34 & 13 & 5 & 6  & 145 \\
+    Adaptações  & 49  & 24 & 3  & 0 & 15 & 91 \\
+    Modelos     & 89  & 33 & 0  & 0 & 10 & 132 \\
     \midrule
-    Total       & 234 & 111 & 18 & 5 & 368 \\
+    Total       & 225 & 91 & 16 & 5 & 31 & 368 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-\paragraph{O que o autor decidiu.} Os quinze itens de dúvida agrupavam-se em
-oito perguntas, decididas a 18 de setembro de 2026. Os pressupostos de um
-modelo de simulação: o que delimita o âmbito do estudo sai, o que condiciona
-o que o modelo pode dizer fica (D1). O consumo de carvão desligado da
-produção é consumo não produtivo, não não estacionaridade --- o artigo diz
-que as variações não estão associadas à produção, e atribui a correlação
-baixa à pouca variação do caudal, que é outra frase (D2). A única menção a
-incrustação é motivação para monitorizar uma caldeira, não limitação de um
-modelo, e sai (D3). Os modelos ajustados por modo e crude são referência
-segmentada, e o artigo não declara regime de re-estimação (D4). Metas
-ajustadas pelos últimos três meses não são uma janela móvel da referência
-(D5). Uma função definida para produção positiva define a função, não declara
-domínio de validade (D6). A frase sobre limites de validade aplica-se à
-família de modelos do artigo, que a nomeia, e fica (D7). Os apêndices com
-dados e código são material suplementar, não estão no artigo, e a declaração
-formal é de disponibilização a pedido: fica parcial (D8).
+\paragraph{O que fica para o revisor.} Os quinze itens de dúvida agrupam-se em
+oito perguntas: se os pressupostos de um modelo de simulação são mecanismos
+(D1); que efeito atribuir a um consumo desligado da produção (D2); se a única
+menção a incrustação é um mecanismo ou uma motivação (D3); se os modelos
+ajustados por modo e crude de um caso de fornecedor são re-estimação em linha
+ou referência segmentada (D4); se metas ajustadas pelos últimos três meses
+são uma janela móvel da referência (D5); se uma função definida para
+produção positiva declara um domínio de validade (D6); a que modelos se
+aplica uma frase sobre limites de validade (D7); e se dados e código em
+apêndice contam como disponíveis (D8). As duas regras pendentes são o
+critério de enquadramento normativo implícito das adaptações (R1, catorze
+itens) e se o consumo não produtivo encontrado nos dados é um mecanismo (R4,
+dois itens). Uma amostra aleatória de dez confirmações (semente 44) está
+reservada para leitura humana, para medir quantas confirmações erradas
+passaram. Os números da Secção~\ref{sec:corpus-b} usam as correções aceites e
+o valor original nos itens pendentes; a regeneração depois das decisões é
+automática (caixa C3-06).
 
-\paragraph{As duas regras.} Para o enquadramento normativo implícito (R1,
-catorze itens) adotou-se o critério estrito: conta a adaptação que corresponde
-a um conceito da norma sem a citar, não a presença de vocabulário da norma no
-parágrafo. Aplicado item a item, classifica onze das catorze como implícitas
-e mantém três sem enquadramento --- aplicar aprendizagem automática a
-indicadores, excluir valores atípicos e ponderar um indicador por preço médio
-não são conceitos da norma. Para o consumo não produtivo encontrado nos dados
-(R4, dois itens) mantiveram-se os dois como mecanismos: o consumo de base é o
-termo constante do próprio modelo, e num dos artigos a consequência para o
-indicador está declarada.
-
-\paragraph{Limites.} A amostra aleatória de dez confirmações (semente 44),
-reservada para medir quantas confirmações erradas do verificador passaram sem
-revisão, não foi lida. A taxa de erro das confirmações fica, por isso, sem
-estimativa: o que se sabe é o que a adjudicação e as decisões do autor
-corrigiram, não o que passou despercebido. O verificador pertence à mesma
-família de modelos do extrator, e erros partilhados podem passar sem sinal. A verificação cobre
+\paragraph{Limites.} O verificador pertence à mesma família de modelos do
+extrator, e erros partilhados podem passar sem sinal. A verificação cobre
 valores com citação; uma ausência (``não reportado'') só se confirma lendo as
 secções relevantes do artigo, o que não foi feito. Não há conjunto de
 referência humano, pelo que não se estima um erro por campo. Chamar a esta
@@ -260,8 +246,8 @@ número de mecanismos e adaptações. É a versão em tabela do mapa de evidênc
 \label{sec:apB-falta}
 
 Para que os valores do Corpus~B possam ser apresentados como verificados, faltam
-três passos, por ordem de custo: ler a amostra de controlo de dez
-confirmações; ler, em cada publicação, as secções em
+três passos, por ordem de custo: decidir os quinze itens e as duas regras
+pendentes e ler a amostra de controlo; ler, em cada publicação, as secções em
 que se apoiam as ausências usadas nos resultados; e ler às cegas as onze
 publicações nucleares previstas na emenda de 2026-09-13. Para o Corpus~A,
 falta a auditoria por amostragem. Nenhum destes passos muda o método do
