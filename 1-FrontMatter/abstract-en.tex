@@ -1,35 +1,55 @@
 %!TEX root = ../template.tex
 %% ====================================================================
-%% Abstract (EN). Translation of abstract-pt.tex (2026-09-17); same
-%% numbers, denominators and qualifications. Previous version in
-%% _revisao/2026-09-17-abstract-en-antes.tex.
+%% Abstract (EN). Translation of abstract-pt.tex (2026-09-18): same
+%% structure, same numbers, same denominators and same qualifications.
+%% Versao anterior em _revisao/2026-09-18-abstract-en-antes.tex.
 %% ====================================================================
 
-In an ISO~50001-certified refinery, the energy performance of each process
-unit is tracked by comparing daily consumption with an energy baseline that
-is linear in throughput and re-estimated every year. In the crude
-distillation unit studied, that number depended on three data systems and
-manual spreadsheets, and the baseline had never been evaluated outside the
-year it was fitted on. This work addresses both layers of that reliability.
-First, a platform was built that brings the three sources into a single
-dimensional model, updated daily and validated against the official reports
-over 400 unit--vector--month cells, with the 94 initial discrepancies traced
-to seven causes. Second, the production method was replicated exactly over
-2020--2025 and evaluated under a protocol fixed before any result was seen.
-For fuel gas, the baseline reduces next-year error by 30 to 40\% relative to
-the training-year mean, but its slope falls by about 30\% over five years
-and the alarm band loses coverage. For the three steam levels, throughput
-carries no usable predictive information, and band coverage ranges from 0.38
-to 0.997. None of the 32 linear candidates met the pre-registered acceptance
-criterion. In a known-truth simulation, the choice of monitor mattered more
-for detection than the choice of baseline. A scoping review of 331 eligible
-publications found, among the 13 studies set in refining or petrochemicals,
-none that combines measurement at the model boundary, a re-estimation rule,
-a declared validity domain and out-of-sample testing. The thesis proposes
-guidelines and a specification for the platform, not yet deployed, in which
+In a certified energy management system, it is the energy baseline that
+distinguishes normal consumption from a deviation worth investigating. The
+standard defines it as the relation between consumption and the variables
+that explain it; in practice, normalisation rests almost always on a single
+variable --- processed throughput. In the crude distillation unit studied,
+that relation is a straight line on throughput, replaced every year, and the
+goodness of fit that justifies it is computed on the year that produced it.
+Whether it is right in the year it is used, whether its parameters hold, and
+whether the deviation it should flag survives the re-fit had never been
+checked.
+
+Evaluating the baseline required being able to trust the number it judges:
+the three sources were brought into a single model, updated daily, that
+reproduces the official reports. On it, the production method was replicated
+exactly over six years of operation, outside the fitting year, in five
+train/test pairs and with the criteria declared before any result was seen.
+
+Of the four vectors evaluated, only fuel gas shows demonstrated predictive
+gain --- 30 to 40\% less error than the training-year mean, in four of the
+five pairs --- and it is there that the failure becomes visible: the slope
+falls 30\% in five years, the annual re-estimation absorbs the drift, and
+the band fails in the pairs that cross it. For the three steam levels
+throughput brings no gain, so their bands pass or fail for reasons unrelated
+to normalisation; in one of them, the band that should contain 95\% of days
+contained between 38\% and 99.7\%. None of the 32 estimator--band
+combinations evaluated met the declared criterion. Under the same
+false-signal budget, in a known-truth simulation, replacing the level
+monitor by a cumulative sum raised step detection by 32 to 49 percentage
+points, against less than three when the linear baseline was replaced by an
+additive model --- under a linear generator, which favours the linear one.
+
+A scoping review of 331 publications shows that this way of certifying a
+baseline is not particular to this unit: of the 140 models described, 13
+report an out-of-sample result and 49 only the fit to their own training
+data. No study set in refining or petrochemicals combines measurement at the
+boundary, a re-estimation rule, a declared validity domain and out-of-sample
+testing.
+
+The consequence is not to change model: an annual baseline only serves as a
+judgement once what it predicts outside its fitting year has been measured,
+with the monitor specified and tested alongside it. What remains are those
+conditions as requirements and a specification --- not deployed --- in which
 the domain, performance and uncertainty of the baseline are visible to
 whoever reads the alarm.
 
 \bigskip
-\noindent\textbf{Keywords:} energy performance; energy baselines;
+\noindent\textbf{Keywords:} energy performance; energy baseline;
 ISO~50006; oil refining; data reconciliation; out-of-sample evaluation

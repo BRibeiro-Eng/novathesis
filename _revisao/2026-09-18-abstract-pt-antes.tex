@@ -1,0 +1,50 @@
+%!TEX root = ../template.tex
+%% ====================================================================
+%% Resumo (PT). Escrito em 2026-09-17 a partir dos Caps. 3 a 8; nao
+%% introduz numeros que nao estejam no corpo. Versao anterior em
+%% _revisao/2026-09-17-abstract-pt-antes.tex.
+%% Estrutura: contexto -> problema -> o que se fez -> o que se
+%% encontrou -> o que se propoe.
+%% ====================================================================
+
+% [REV-2026-09-17][PT-02][P2][RESUMO]
+\revisaotese{PT-02}{P2}{RESUMO}
+{Extensão e identificação do caso no resumo}
+{O resumo tem cerca de 280 palavras e cabe numa página; confirmar o
+limite regulamentar da NOVA FCT (o limite de 200 palavras era do
+formulário de aprovação do título). O resumo é público no repositório
+mesmo com o texto sob embargo: por isso não nomeia a refinaria nem dá o
+limiar de carga, em linha com o título. Confirmar com a Galp se os
+restantes números (400 células, 94 divergências, 30--40\%, 0,38--0,997,
+32 candidatos) podem constar dos metadados públicos.}%
+% [/REV-2026-09-17]
+
+Numa refinaria certificada pela ISO~50001, o desempenho energético de cada
+unidade é acompanhado comparando o consumo diário com uma referência
+energética (\emph{baseline}) linear na carga, reestimada todos os anos. Na
+unidade de destilação de crude estudada, esse número dependia de três
+sistemas de dados e de folhas de cálculo manuais, e a referência nunca tinha
+sido avaliada fora do ano em que é estimada. O trabalho trata as duas
+camadas dessa fiabilidade. Primeiro, construiu-se uma plataforma que reúne as
+três fontes num modelo dimensional único, atualizado diariamente e validado
+contra os relatórios oficiais em 400 células unidade--vetor--mês, com as 94
+divergências iniciais explicadas por sete causas. Depois, replicou-se
+exatamente o método em produção sobre 2020--2025 e avaliou-se com um
+protocolo fixado antes dos resultados. No fuel gás, a referência reduz em 30
+a 40\% o erro do ano seguinte face à média do ano de treino, mas o declive
+desce cerca de 30\% em cinco anos e a banda de alarme perde cobertura. Nos
+três níveis de vapor, a carga não traz informação preditiva utilizável, e a
+cobertura das bandas vai de 0,38 a 0,997. Nenhum dos 32 candidatos lineares
+passou o critério de aceitação pré-registado. Numa simulação com verdade
+conhecida, a escolha do monitor pesou mais na deteção do que a escolha da
+referência. Uma revisão de âmbito com 331 publicações elegíveis não
+encontrou, entre os 13 estudos em refinação ou petroquímica, nenhum que
+junte medição na fronteira, regra de reestimação, domínio declarado e teste
+fora da amostra. Propõem-se linhas orientadoras e uma especificação para a
+plataforma, ainda não implantada, em que o domínio, o desempenho e a
+incerteza da referência ficam à vista de quem lê o alarme.
+
+\bigskip
+\noindent\textbf{Palavras-chave:} desempenho energético; baselines
+energéticas; ISO~50006; refinação de petróleo; reconciliação de dados;
+avaliação fora da amostra
