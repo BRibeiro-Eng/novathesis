@@ -435,99 +435,17 @@ tolerância pré-registada de $10^{-6}$; a identidade dos dias selecionados
 reproduzir-se; se uma falha, nada a jusante corre. Cada instrumento
 posterior repete uma guarda de replicação sobre as células que usa.
 
-\paragraph{O contrato inferencial de cada instrumento.} A
-Tabela~\ref{tab:contrato-inferencial} fixa, para cada instrumento, o que
-se estima ou se testa, sobre que unidade e que amostra, contra que
-comparador, com que intervalo e dentro de que família de multiplicidade
---- e o estatuto que o resultado tem na dissertação. Três fronteiras
-importam mais do que as restantes. Os intervalos são \emph{condicionais
-nos modelos já ajustados}: o \emph{bootstrap} reamostra a série do ano de
-aplicação --- diferenças diárias de perda, ou o indicador diário de
-pertença à banda --- com a reta do ano de treino fixa, e nunca reestima o
-treino; a incerteza da própria estimação anual entra só pela via dos
-erros-padrão HAC nos testes de igualdade, e não nos intervalos de perda ou
-de cobertura. Um intervalo de cobertura que contém o valor nominal diz que
-os dados não o excluem, não que a banda está calibrada. E a detetabilidade
-nos dados reais foi declarada não estimável antes das corridas, porque não
-há desvios rotulados; o que existe é a simulação da Parte~C, que descreve o
-gerador e não a refinaria.
-
-{\footnotesize
-\begin{xltabular}{\linewidth}{@{}>{\raggedright\arraybackslash}p{1.9cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{1.8cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{1.9cm}@{}}
-\caption[Contrato inferencial de cada instrumento]{Contrato inferencial
-  de cada instrumento do protocolo: o que se estima ou testa, sobre que
-  amostra, contra que comparador, com que incerteza e com que estatuto.
-  MBB: \emph{bootstrap} de blocos móveis, intervalo percentil a 95\,\%,
-  2\,000 réplicas, bloco base $\lceil n^{1/3}\rceil$ dias (7 nas amostras
-  anuais). Os cinco pares são 2020${\to}$2021 a 2024${\to}$2025; o par
-  2025${\to}$2026 é parcial e só diagnóstico.}\label{tab:contrato-inferencial}\\
-\toprule
-Instrumento & Estimando ou $H_0$ & Unidade; amostra & Comparador & Incerteza; multiplicidade & Estatuto \\
-\midrule
-\endfirsthead
-\toprule
-Instrumento & Estimando ou $H_0$ & Unidade; amostra & Comparador & Incerteza; multiplicidade & Estatuto \\
-\midrule
-\endhead
-\midrule
-\multicolumn{6}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
-    Poder preditivo (E2) & média das diferenças diárias de perda absoluta, modelo $-$ nulo, no ano de aplicação & dia; 5 pares & média do ano de treino (primário); mesmo dia do ano anterior e média móvel de 30 dias (secundários) & MBB sobre a série de diferenças; sensibilidade a blocos de 7, 14, 30, 60 e 90 dias; por contraste, sem correção & confirmatório; critério C1 do gate \\
-    \addlinespace
-    Estabilidade (E3) & $H_0$: declives anuais iguais na regressão empilhada com interações ano$\times$carga & dia; 6 anos & nenhum (teste de igualdade) & Wald com covariância HAC (\emph{kernel} quadrático-espectral, largura de Andrews); família de quatro hipóteses, uma por vetor, BH; BY como verificação & confirmatório \\
-    \addlinespace
-    Calibração (E4) & fração de dias do ano de aplicação dentro da banda $\pm2\hat\sigma$ do ano de treino & dia; 5 pares & nominal 0,9545 & MBB sobre o indicador diário; sensibilidade a blocos de 14, 30 e 60 dias; por contraste & confirmatório; critério C2 do gate \\
-    \addlinespace
-    Covariáveis (E6) & $\Delta_{\mathrm{MAE}}$ entre o modelo só com carga e o modelo com $Z$ pré-especificado, no ano seguinte, sem reestimação & dia; 5 pares & \emph{baseline} só com carga & MBB sobre as diferenças diárias; por contraste & confirmatório \\
-    \addlinespace
-    Detetabilidade (Parte C) & probabilidade de sinal até 90 dias, dada a amplitude e o gerador, ao mesmo orçamento de falsos sinais (5\,\% em 90 dias por canal) & réplica simulada & entre monitores e entre referências & Wilson sobre réplicas; 8 contrastes co-primários sem correção; 440 secundários publicados sem promoção & simulação; nos dados reais, não estimável \\
-    \addlinespace
-    Critério de aceitação (T13/T14) & decisão C1~$\wedge$~C2, cada um em $\ge 4/5$ pares; sensibilidade a $3/5$ & par & nenhum & herda os intervalos dos instrumentos; não recalcula & adjudicação \\
-    \addlinespace
-    Diagnósticos (D1--D9) & dependência, variância, caudas, suporte, influência, plausibilidade, correlação & dia & nenhum & sem inferência: $p$-values calculados sob independência e sem interpretação & descritivo \\
-    \addlinespace
-    Sensibilidade às convenções & reavaliação de cada conclusão em $3 \times 2$ células (limiar $\times$ partição) & célula; 624 reavaliações & célula de referência & rótulo muda ou não muda & qualifica; não cria conclusões \\
-    
-\end{xltabular}
-}
-
-\paragraph{O que o \emph{bootstrap} de blocos pode e não pode.} HAC e MBB
-tratam a dependência serial, não a não-estacionariedade: são
-assintoticamente válidos para séries estacionárias com dependência fraca, e
-a série reamostrada aqui é a das diferenças diárias de perda, ou a dos
-indicadores diários de cobertura, no ano de aplicação. Duas coisas os
-enfraquecem. A primeira é a persistência: antes de cada corrida, o
-protocolo mede a autocorrelação de primeira ordem da própria série
-reamostrada, sobre pares de dias consecutivos, e classifica o domínio ---
-abaixo de $0{,}90$ o intervalo é reportado como está, entre $0{,}90$ e
-$0{,}95$ a sensibilidade aos blocos longos torna-se obrigatória, e acima de
-$0{,}95$ o intervalo é despromovido a diagnóstico e não sustenta conclusão. A segunda é a quebra: se a relação
-muda a meio do ano de aplicação, a série reamostrada já não tem um valor
-esperado único e o intervalo deixa de apontar a uma quantidade fixa; é o
-que a cobertura condicional por semestre (Secção~\ref{sec:calibracao})
-existe para apanhar, e é a razão por que um contraste cujo intervalo exclui
-o valor de referência por pouco é apresentado como fronteiriço.
-
-\paragraph{Blocos civis com lacunas.} Os blocos são janelas do calendário,
-não de posições: um bloco de sete dias é uma janela de sete dias civis
-consecutivos, e há uma janela candidata por cada dia de arranque entre o
-primeiro e o último dia observado. Cada candidata contém as observações
-retidas cujas datas caem na janela; uma janela sem observação nenhuma é
-excluída, e uma janela que atravesse uma lacuna --- uma paragem, dias abaixo
-do limiar --- fica com menos observações do que o seu comprimento civil, e é
-mantida assim, porque é essa a dependência que os dados realmente têm. Cada
-réplica sorteia janelas com reposição e concatena as suas observações até
-atingir o número de dias da amostra, truncando a última; não há reinício
-em fronteira de lacuna, e a dependência entre o fim de uma janela e o início
-da seguinte é quebrada, como em qualquer \emph{bootstrap} de blocos. O
-comprimento base é $\lceil n^{1/3}\rceil$ observações, sete dias nas amostras
-anuais, e um comprimento declarado que exceda a extensão civil da amostra é
-reportado como inexequível, não substituído. As contagens de janelas
-candidatas e a distribuição do seu número de observações acompanham cada
-intervalo no Apêndice~\ref{app:tabelas}.
-
+% [REV-2026-09-13][C4-10][P2][INFERENCIA]
+\revisaotese{C4-10}{P2}{INFERENCIA}
+{Definir população, alvo inferencial e limites de HAC/MBB}
+{Dar tabela por teste com H0/estimando, unidade, pares/dias, comparador,
+IC, família de multiplicidade e estatuto. HAC/MBB não tornam qualquer
+série não-estacionária automaticamente tratável: discutir condições da
+série de perdas/indicadores reamostrada, quebras e dependência persistente.
+Precisar se os IC condicionam nos modelos já ajustados ou incorporam
+reestimação do treino. Explicar blocos civis com lacunas (elegibilidade,
+concatenação e reinício), não apenas citar o comprimento.}%
+% [/REV-2026-09-13]
 \paragraph{As perguntas e a inferência.} As conclusões do diagnóstico
 assentam em cinco perguntas, cada uma com estimador, comparador e
 critério declarados: se o modelo de um ano prevê o seguinte melhor do que
