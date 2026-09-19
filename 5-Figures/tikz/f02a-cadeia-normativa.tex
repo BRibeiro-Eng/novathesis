@@ -1,0 +1,70 @@
+%% Figura: a cadeia de medicao implicita na familia ISO 50001 e o pressuposto
+%% tacito que cada elo importa. Redesenho de 2026-09-19 no estilo partilhado
+%% (5-Figures/tikz/estilo.tex). Substitui o bloco tikz que estava inline no
+%% capitulo, onde o rotulo da seta de retroacao caia por cima da caixa 3 e a
+%% paleta laranja destoava das restantes figuras. Reconstrucao propria: a
+%% cadeia nao e apresentada como tal em nenhuma das normas.
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm]
+    % ------------------------------------------------ elos, primeira fila
+    \node[ntcaixa, text width=2.85cm, minimum height=13mm] (n1) at (1.6,4.7)
+      {1. Avaliação energética\\[2pt]
+       {\tiny\textcolor{corCinza}{50001 \S6.3}}};
+    \node[ntcaixa, text width=2.85cm, minimum height=13mm] (n2) at (5.2,4.7)
+      {2. USE e fronteiras\\[2pt]
+       {\tiny\textcolor{corCinza}{50001 \S6.3 · 50006 \S4.2.2}}};
+    \node[ntcaixa, text width=2.85cm, minimum height=13mm] (n3) at (8.8,4.7)
+      {3. Variáveis relevantes e fatores estáticos\\[2pt]
+       {\tiny\textcolor{corCinza}{50006 \S4.2.4--4.2.5}}};
+    \node[ntcaixa, text width=2.85cm, minimum height=13mm] (n4) at (12.4,4.7)
+      {4. EnPI: tipo e forma\\[2pt]
+       {\tiny\textcolor{corCinza}{50001 \S6.4 · 50006 \S4.3}}};
+
+    % ------------------------------------------------- elos, segunda fila
+    \node[ntdestaque, text width=2.85cm, minimum height=13mm] (n5) at (12.4,2.1)
+      {5. EnB: período e modelo\\[2pt]
+       {\tiny\textcolor{corCinza}{50001 \S6.5 · 50006 \S4.4}}};
+    \node[ntcaixa, text width=2.85cm, minimum height=13mm] (n6) at (8.2,2.1)
+      {6. Comparação normalizada\\[2pt]
+       {\tiny\textcolor{corCinza}{50006 \S4.5, Anexo~D}}};
+    \node[ntdestaque, text width=2.85cm, minimum height=13mm] (n7) at (4.0,2.1)
+      {7. Desvio significativo $\to$ ação\\[2pt]
+       {\tiny\textcolor{corCinza}{50001 \S9.1, \S10}}};
+
+    % ------------------------------------------------ pressupostos tacitos
+    \node[ntmini, font=\tiny\itshape, text width=2.9cm, anchor=south]
+      at (8.8,5.55) {suficiência das variáveis};
+    \node[ntmini, font=\tiny\itshape, text width=2.9cm, anchor=south]
+      at (12.4,5.55) {forma funcional adequada};
+    \node[ntmini, font=\tiny\itshape, text width=2.9cm, anchor=north]
+      at (12.4,1.25) {representatividade do período};
+    \node[ntmini, font=\tiny\itshape, text width=3.2cm, anchor=north]
+      at (8.2,1.25) {transportabilidade: estacionariedade da relação};
+    \node[ntmini, font=\tiny\itshape, text width=2.9cm, anchor=north]
+      at (4.0,1.25) {calibração e detetabilidade};
+
+    % ----------------------------------------------------------- ligacoes
+    \draw[ntseta] (n1) -- (n2);
+    \draw[ntseta] (n2) -- (n3);
+    \draw[ntseta] (n3) -- (n4);
+    \draw[ntseta] (n4) -- (n5);
+    \draw[ntseta] (n5) -- (n6);
+    \draw[ntseta] (n6) -- (n7);
+
+    % ------------------------------------------- retroacao: revisao do EnB
+    \draw[ntsetat] (n7.north) -- ++(0,0.45) -| (n5.north west);
+    \node[ntmini, fill=white, inner sep=2pt] at (7.4,3.20)
+      {revisão do EnB \textcolor{corCinzaC}{|} 50001 \S6.5 · 50006 \S4.6};
+  \end{tikzpicture}
+  \caption[A cadeia de medição normativa e os seus pressupostos tácitos]{A
+   cadeia de medição implícita na família ISO~50001 e, em itálico, o
+   pressuposto tácito que cada elo importa para funcionar. Os elos e as
+   cláusulas são texto normativo; a cadeia e os pressupostos são reconstrução
+   desta dissertação, que nenhuma das normas enuncia. A azul, os dois elos
+   sobre que incide o diagnóstico do Capítulo~\ref{cha:diagnostico}. A
+   tracejado, a retroação: a revisão da referência, que a norma prevê sem
+   fornecer um mecanismo de deteção. Reconstrução própria a partir de
+   \cite{ISO50001_2018,ISO50006_2014,ISO50015_2014}.}
+  \label{fig:cadeia-normativa}
+\end{figure}

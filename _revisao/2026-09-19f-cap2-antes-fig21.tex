@@ -112,9 +112,44 @@ Repare-se, desde já, em duas expressões que a redação normativa usa com natu
 
 Lidas em conjunto, a 50001 (requisitos), a 50006 (construção de EnPI/EnB) e a 50015 (M\&V) desenham uma cadeia de medição: uma sequência de operações que transforma dados de processo em declarações sobre desempenho energético e, no limite, em alarmes e decisões. A cadeia nunca é apresentada como tal em nenhuma das normas --- cada documento descreve o seu troço --- mas a sua reconstrução explícita (Figura~\ref{fig:cadeia-normativa}) é o instrumento analítico deste capítulo, porque permite perguntar, elo a elo, três coisas: o que é exigido, o que é deixado à organização, e que pressuposto tácito o elo precisa de importar para funcionar.
 
-%% 2026-09-19: figura movida para ficheiro proprio e redesenhada no
-%% estilo partilhado. Versao anterior em _revisao/2026-09-19f-cap2-antes-fig21.tex.
-\input{5-Figures/tikz/f02a-cadeia-normativa}
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+      font=\small,
+      elo/.style={draw, rounded corners=2pt, align=center, minimum height=11mm, inner sep=2pt, text width=26mm},
+      press/.style={align=center, text width=27mm, font=\scriptsize\itshape, text=orange!60!black},
+      seta/.style={-{Stealth[length=2.5mm]}, thick},
+      node distance=14mm and 4mm
+    ]
+    % linha superior
+    \node[elo] (n1) {1. Avaliação energética\\[1pt] {\scriptsize 50001 \S6.3}};
+    \node[elo, right=of n1] (n2) {2. USE e fronteiras\\[1pt] {\scriptsize 50001 \S6.3 · 50006 \S4.2.2}};
+    \node[elo, right=of n2] (n3) {3. Variáveis relevantes, fatores estáticos\\[1pt] {\scriptsize 50006 \S4.2.4--4.2.5}};
+    \node[elo, right=of n3] (n4) {4. EnPI: tipo e forma\\[1pt] {\scriptsize 50001 \S6.4 · 50006 \S4.3}};
+    % linha inferior (fluxo da direita para a esquerda)
+    \node[elo, below=of n4] (n5) {5. EnB: período e modelo\\[1pt] {\scriptsize 50001 \S6.5 · 50006 \S4.4}};
+    \node[elo, left=of n5] (n6) {6. Comparação normalizada\\[1pt] {\scriptsize 50006 \S4.5, Anexo~D}};
+    \node[elo, left=of n6] (n7) {7. Desvio significativo $\to$ ação\\[1pt] {\scriptsize 50001 \S9.1, \S10}};
+    % pressupostos tácitos
+    \node[press, below=1mm of n3.south] {suficiência das variáveis};
+    \node[press, below=1mm of n4.south] {forma funcional adequada};
+    \node[press, below=1mm of n5.south] {representatividade do período};
+    \node[press, below=1mm of n6.south] {transportabilidade (estacionariedade estrutural)};
+    \node[press, below=1mm of n7.south] {calibração e detetabilidade};
+    % setas
+    \draw[seta] (n1) -- (n2);
+    \draw[seta] (n2) -- (n3);
+    \draw[seta] (n3) -- (n4);
+    \draw[seta] (n4) -- (n5);
+    \draw[seta] (n5) -- (n6);
+    \draw[seta] (n6) -- (n7);
+    % retroação: revisão do EnB
+    \draw[seta, dashed] (n7.north) to[out=60, in=120]
+      node[midway, above, font=\scriptsize, align=center] {revisão do EnB\\ 50001 \S6.5 · 50006 \S4.6} (n5.north);
+  \end{tikzpicture}
+  \caption[A cadeia de medição normativa e os seus pressupostos tácitos]{A cadeia de medição implícita na família ISO~50001 e, em itálico, o pressuposto tácito que cada elo importa. Reconstrução própria a partir de \cite{ISO50001_2018,ISO50006_2014,ISO50015_2014}.}
+  \label{fig:cadeia-normativa}
+\end{figure}
 
 Percorramos os elos onde o texto normativo é mais revelador.
 
