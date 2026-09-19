@@ -270,14 +270,10 @@ a examina no} Capítulo~\ref{cha:diagnostico}.
 A leitura vertical da coluna dos pressupostos produz a lista compacta que estrutura o resto da dissertação: \textbf{suficiência} (as variáveis descrevem o estado), \textbf{forma} (a classe de modelo captura a relação), \textbf{representatividade} (o período de treino antecipa o futuro), \textbf{transportabilidade} \alterado{(a relação vale na aplicação, salvo
 pela mudança de desempenho que se procura)}, \textbf{calibração} (os desvios têm escala conhecida) e \textbf{detetabilidade} (a invalidação é observável). Os resultados do Capítulo~\ref{cha:diagnostico} organizam-se por estes pressupostos, com uma ressalva: nem todos os testaram com o mesmo alcance, e a detetabilidade real ficou por estimar.
 
-% 2026-09-19: titulo alargado (era "... com o IPMVP e a ASHRAE Guideline 14")
-\subsection[O silêncio como escolha: comparação com o IPMVP, a ASHRAE Guideline 14 e os quadros da indústria de processo]{O silêncio como escolha: comparação com o IPMVP, a ASHRAE Guideline 14 e os quadros aplicáveis à indústria de processo}
+\subsection{O silêncio como escolha: comparação com o IPMVP e a ASHRAE Guideline 14}
 \label{sec:assimetria-comparacao}
 
-Poderia argumentar-se que o silêncio quantitativo das normas ISO é inevitável --- que critérios de validação universais não podem ser fixados para organizações de todos os tipos e dimensões; é, de resto, a justificação implícita do \enquote{conforme definido pela organização} que percorre os três documentos. A comparação com os protocolos de M\&V do domínio dos edifícios desmente a
-inevitabilidade\novo{, e a comparação com os quadros que vinculam ou
-certificam a própria indústria de processo fecha-lhe a saída restante}. São
-\novo{quatro} frentes distintas.
+Poderia argumentar-se que o silêncio quantitativo das normas ISO é inevitável --- que critérios de validação universais não podem ser fixados para organizações de todos os tipos e dimensões; é, de resto, a justificação implícita do \enquote{conforme definido pela organização} que percorre os três documentos. A comparação com os protocolos de M\&V do domínio dos edifícios desmente a inevitabilidade, e fá-lo em três frentes distintas.
 
 Primeira frente: \emph{limiares de calibração de modelos}. A ASHRAE Guideline~14 exige, como requisito de conformidade da via de simulação calibrada, um erro médio normalizado (NMBE) máximo de $\pm 5\,\%$ e um coeficiente de variação do erro quadrático médio, CV(RMSE), máximo de $15\,\%$ face a dados de calibração mensais --- $\pm 10\,\%$ e $30\,\%$, respetivamente, para dados horários~\cite[\S4.3.2.4\,f), \S5.3.3.3.10]{ASHRAE14_2014}. As orientações de M\&V do programa federal norte-americano (FEMP) adotam exatamente os mesmos limiares, por remissão declarada para a ASHRAE~\cite[\S4.5.3.2, Tabela~4-2]{FEMP_2015}. Segundo \textcite{RuizBandera2017}, o IPMVP, que desde as edições de 2009 remete os detalhes técnicos de calibração para a Guideline~14, recomenda também, tal como o \emph{ASHRAE Handbook}, que o $R^2$ de um modelo calibrado não seja inferior a $0{,}75$. A recomendação é relatada por essa fonte secundária e não foi confirmada no texto do IPMVP; não se apresenta como critério atual verificado.
 
@@ -285,72 +281,7 @@ Segunda frente, mais próxima do caso em estudo: \emph{limiares sobre o próprio
 
 Terceira frente: \emph{incerteza com critério de aceitação}. A Guideline~14 não se limita a pedir que a incerteza seja reportada com cada relatório de poupanças: fixa um teto --- a incerteza tem de ser inferior a $50\,\%$ das poupanças anuais reportadas, a um nível de confiança de $68\,\%$~\cite[\S4.3.2.4\,h)]{ASHRAE14_2014}.
 
-\novo{Quarta frente, e a que dispensa qualquer transposição entre setores:
-\emph{critérios quantitativos em quadros aplicáveis a processo contínuo}. A
-objeção de que os limiares anteriores nasceram no domínio dos edifícios ---
-que se mantém válida quanto aos números --- não salva a tese da
-inevitabilidade, porque há dois quadros que fixam critérios quantitativos fora
-desse domínio, e um deles é direito vinculativo sobre a própria instalação em
-estudo.}
-
-\novo{O Regulamento de Execução (UE) 2018/2066, que rege a monitorização e a
-comunicação de emissões no regime europeu de comércio de licenças, define a
-incerteza como um intervalo de confiança a $95\,\%$ em torno do valor médio
-(artigo~3.º, n.º~6) e fixa, no Anexo~II, incertezas máximas admissíveis por
-nível de exatidão, com um bloco dedicado à refinação de petróleo: de
-$\pm10\,\%$ a $\pm2{,}5\,\%$, do nível~1 ao nível~4, para a regeneração de
-catalisador de \emph{cracking}, e de $\pm7{,}5\,\%$ a $\pm1{,}5\,\%$ para os
-fluxos-fonte de combustível. O artigo~26.º obriga o operador a aplicar o nível
-mais elevado do Anexo~II, admitindo descida apenas mediante prova de
-inviabilidade técnica ou de custos desproporcionados --- e o artigo~18.º chega
-a quantificar o teste de desproporção, com um preço de referência por licença.
-O artigo~28.º, n.º~2, exige que a avaliação de incerteza seja entregue com o
-plano de monitorização~\cite{MRR_2018}. A verificação independente tem, por
-sua vez, um limiar de materialidade declarado: $5\,\%$ para instalações das
-categorias A e B e $2\,\%$ para as da categoria~C~\cite[artigo~23.º]{AVR_2018}.
-O regime aplica-se à refinação de petróleo sem limiar de
-capacidade~\cite[Anexo~I]{ETS_Directive_2003}.}
-
-\novo{A comparação que daqui resulta é interna à instalação. Na mesma
-refinaria e a partir, em boa medida, das mesmas medições de combustível, o
-número de carbono está sujeito a uma incerteza máxima declarada, a um nível de
-confiança fixado, a uma avaliação documentada e a uma materialidade de
-verificação; o número de energia derivado desses dados não está sujeito a
-nenhum dos quatro. A assimetria não opõe edifícios a processo contínuo: opõe
-dois regimes que coabitam na mesma instalação, sobre a mesma medição, e que
-fizeram escolhas opostas quanto a fixar critérios.}
-
-\novo{O segundo quadro é um protocolo de M\&V industrial construído sobre a
-própria ISO~50001. O programa \emph{Superior Energy Performance} do
-Departamento de Energia norte-americano exige, para que um modelo de ajuste
-seja considerado estatisticamente válido, que o teste~$F$ do modelo tenha
-$p \leq 0{,}10$, que todas as variáveis relevantes incluídas tenham
-$p \leq 0{,}20$, que pelo menos uma tenha $p \leq 0{,}10$, que
-$R^2 \geq 0{,}50$, e que a seleção de variáveis e os coeficientes sejam
-coerentes com a compreensão física do consumo da
-instalação~\cite[p.~7]{Therkelsen2016}. O protocolo não é marginal na
-literatura do domínio: é invocado por sete das publicações do corpus da
-revisão (Capítulo~\ref{cha:revisao}). Os números em si não são o ponto ---
-são de ajuste e de significância, não de desempenho fora do treino, de
-calibração ou de deteção, que é o que o Capítulo~\ref{cha:metodos} adota. O
-ponto é que um programa de âmbito geral, dirigido à indústria e assente na
-ISO~50001, \emph{consegue} fixá-los. A camada de critérios existe; está fora
-da família ISO, e teve de ser acrescentada por quem quis auditar desempenho.}
-
-Independentemente do juízo sobre estes limiares em concreto --- a literatura discute a sua suficiência estatística, e o Capítulo~\ref{cha:metodos} adotará critérios de outra natureza, sobre desempenho fora do treino, calibração e deteção, que não se comparam com estes limiares de ajuste --- a sua simples existência demonstra que protocolos com ambição de aplicação geral \emph{conseguem} fixar critérios quantitativos de aceitação de modelos, regras de tratamento de dados e tetos de incerteza. A família ISO~50001 \alterado{não o faz}\novo{, nas três normas
-analisadas}.\footnote{\novo{A ISO~50047:2016, que trata a determinação de
-poupanças de energia em organizações e integra a mesma série, não foi
-consultada: o único excerto público acessível é o do projeto que lhe deu
-origem (ISO/DIS~17747) e cobre apenas até à cláusula~5.1.1. O seu índice
-anuncia uma cláusula~7.4, \enquote{Acceptable Uncertainty Criteria}, cujo
-conteúdo não foi possível verificar; regista-se com as restantes limitações de
-acesso documental (Secção~\ref{sec:limitacoes}). No excerto acessível, o
-registo é integralmente de recomendação, os anexos são todos informativos e o
-âmbito remete explicitamente os métodos de M\&V para a
-ISO~50015~\cite{ISO50047_2016}.}} A
-Tabela~\ref{tab:comparacao-frameworks} sintetiza a comparação\novo{; a
-Tabela~\ref{tab:comparadores-industriais} estende-a aos quadros aplicáveis a
-processo contínuo}.
+Independentemente do juízo sobre estes limiares em concreto --- a literatura discute a sua suficiência estatística, e o Capítulo~\ref{cha:metodos} adotará critérios de outra natureza, sobre desempenho fora do treino, calibração e deteção, que não se comparam com estes limiares de ajuste --- a sua simples existência demonstra que protocolos com ambição de aplicação geral \emph{conseguem} fixar critérios quantitativos de aceitação de modelos, regras de tratamento de dados e tetos de incerteza. A família ISO~50001 \alterado{não o faz}. A Tabela~\ref{tab:comparacao-frameworks} sintetiza a comparação.
 
 \begin{table}[htbp]
   \centering\footnotesize
@@ -378,59 +309,10 @@ processo contínuo}.
   \end{tabularx}
 \end{table}
 
-\novo{Uma clarificação, para prevenir a objeção óbvia. As
-metodologias de \emph{benchmarking} energético do setor da refinação,
-incluindo a que a instalação em estudo acompanha
-(Secção~\ref{sec:caso-estudo}), não são protocolos de M\&V e não preenchem
-esta lacuna. Comparam o consumo de cada unidade com uma energia padrão de
-coeficientes fixos, estimados pelo operador do estudo sobre a sua própria base
-de dados setorial e não reestimados pela instalação; respondem à pergunta
-\enquote{como me comparo com os meus pares}, não \enquote{o modelo com que
-sigo esta unidade continua válido}. O controlo de qualidade que lhes está
-associado incide sobre os dados de entrada --- coerência interna, balanços de
-massa e energia, desvios face ao reportado no passado --- e não sobre a
-validade do modelo que produz o padrão. Os critérios quantitativos que
-acompanham o seu uso certificativo, como o quartil superior de desempenho
-exigido para a certificação industrial ENERGY~STAR de refinarias, em que o
-engenheiro certificador verifica dados, fronteira e período e não refaz
-análise~\cite[\S4]{EnergyStarPE_2013}, são critérios de \emph{desempenho}, não
-de validade do modelo. A distinção entre as duas coisas atravessa todo este
-capítulo.}
-
-\begin{table}[htbp]
-  \centering\footnotesize
-  \caption[Quadros aplicáveis a processo contínuo quanto a critérios quantitativos]{\novo{Quadros aplicáveis a processo contínuo, quanto a critérios quantitativos. Nenhum é um protocolo de validação de modelos de \emph{baseline} energética: o primeiro fixa incerteza de medição para efeitos de carbono, o segundo fixa ajuste e significância, o terceiro fixa desempenho relativo.}}
-  \label{tab:comparadores-industriais}
-  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.1cm} X X X@{}}
-    \toprule
-    \textbf{Quadro} & \textbf{Objeto do critério} & \textbf{Critério quantitativo} & \textbf{Estatuto} \\
-    \midrule
-    \novo{Reg. (UE) 2018/2066 e 2018/2067 (CELE)} & \novo{Incerteza da medição de fluxos-fonte para emissões de GEE} & \novo{Incertezas máximas por nível ($\pm1{,}5$ a $\pm7{,}5\,\%$ em combustíveis; $\pm2{,}5$ a $\pm10\,\%$ na regeneração de catalisador), a $95\,\%$ de confiança; materialidade de verificação de $5\,\%$ ou $2\,\%$} & \novo{Direito da União, vinculativo; aplica-se à instalação em estudo} \\
-    \addlinespace
-    \novo{SEP M\&V Protocol (DOE)} & \novo{Validade estatística do modelo de ajuste de uma instalação industrial} & \novo{$F$ do modelo com $p \leq 0{,}10$; variáveis com $p \leq 0{,}20$, uma delas com $p \leq 0{,}10$; $R^2 \geq 0{,}50$} & \novo{Programa voluntário de certificação, construído sobre a ISO~50001} \\
-    \addlinespace
-    \novo{\emph{Benchmarking} energético setorial} & \novo{Desempenho relativo face a pares, contra energia padrão de coeficientes fixos} & \novo{Nenhum sobre o modelo; quartil de desempenho no uso certificativo} & \novo{Estudo comercial; coeficientes proprietários, não reestimados pela instalação} \\
-    \addlinespace
-    \novo{ISO 50001 / 50006 / 50015} & \novo{EnB e EnPI definidos pela organização} & \novo{Nenhum} & \novo{Requisitos (50001) e orientação (50006 e 50015)} \\
-    \bottomrule
-  \end{tabularx}
-\end{table}
-
-Três notas de rigor. Primeira: os limiares ASHRAE/IPMVP/FEMP foram desenvolvidos para modelos de energia de edifícios, com sazonalidade meteorológica dominante; a sua transposição direta para processo contínuo não é defendida aqui --- o que se importa é o \emph{princípio} de critérios de aceitação explícitos, não os números. \novo{Os limiares do Regulamento~2018/2066 não têm esse problema de domínio, mas incidem sobre a incerteza da medição de um fluxo-fonte e não sobre a validade de um modelo de consumo: servem para mostrar que fixar critérios é praticável no mesmo processo e sobre os mesmos instrumentos, não para serem importados como critérios de modelo.} Segunda: mesmo estes protocolos são imperfeitos --- \textcite{RuizBandera2017} documentam inconsistências de definição entre eles e entre as suas sucessivas edições (a confusão sistemática entre MBE e NMBE, fórmulas divergentes, limiares que mudam de versão para versão), \alterado{e a verificação dos pressupostos distribucionais dos seus
+Duas notas de rigor. Primeira: os limiares ASHRAE/IPMVP/FEMP foram desenvolvidos para modelos de energia de edifícios, com sazonalidade meteorológica dominante; a sua transposição direta para processo contínuo não é defendida aqui --- o que se importa é o \emph{princípio} de critérios de aceitação explícitos, não os números. Segunda: mesmo estes protocolos são imperfeitos --- \textcite{RuizBandera2017} documentam inconsistências de definição entre eles e entre as suas sucessivas edições (a confusão sistemática entre MBE e NMBE, fórmulas divergentes, limiares que mudam de versão para versão), \alterado{e a verificação dos pressupostos distribucionais dos seus
 próprios índices é, quando existe, parcial
 (Tabela~\ref{tab:comparacao-frameworks}).} O \emph{gap} identificado no Capítulo~\ref{cha:revisao} \alterado{não é,
 portanto, exclusivo da família ISO}; a família ISO é \alterado{o caso extremo, por nomear índices sem fixar nenhum}.
-
-\novo{Terceira: a existência de critérios não elimina o espaço de escolha que
-este capítulo identifica. O próprio protocolo SEP não fixa qual dos quatro
-métodos de normalização deve ser usado, e \textcite{ChenTherkelsen2019}
-mostram, sobre um único conjunto de dados industriais, que as poupanças
-calculadas em conformidade com o protocolo variam entre $-1\,091$ e
-$142\,248$~MMBtu, e o indicador normalizado entre $0{,}93$ e $1{,}00$,
-consoante o método escolhido. Fixar limiares de aceitação do modelo é condição
-necessária e não suficiente; a pergunta que o resto da dissertação persegue
-não é apenas se existem critérios, mas se os critérios existentes interrogam
-os pressupostos de que a validade depende.}
 
 \paragraph{Nota sobre as edições analisadas.} A presente análise reporta-se à ISO~50006:2014 e à ISO~50015:2014, as edições a que houve acesso. \alterado{Não se confirmou qual a edição
 enquadra o método de \emph{baseline} em produção na instalação em estudo.} Existe uma segunda edição da ISO~50006, de 2023, que substituiu a de 2014, harmonizada com a ISO~50001:2018, que introduz, entre outras alterações, uma cláusula dedicada à incerteza de modelo (\S8.2)~\cite{ISO50006_2023}; não foi possível consultá-la no âmbito deste trabalho. Regista-se como limitação (Secção~\ref{sec:limitacoes}): as afirmações desta secção sobre o silêncio normativo estão verificadas contra as edições de 2014, e a possibilidade de a edição de 2023 mitigar parcialmente algum dos silêncios identificados não pôde ser excluída nem confirmada. Assinale-se, porém, que a ISO~50006:2023 mantém o estatuto de norma de orientação, pelo que o argumento central --- a ausência de \emph{requisitos} de validação no único documento certificável da família, a ISO~50001 --- não depende dessa edição.
