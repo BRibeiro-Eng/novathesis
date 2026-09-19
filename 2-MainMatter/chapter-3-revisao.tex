@@ -253,7 +253,7 @@ O Corpus~B foi extraído de novo, em setembro, com um instrumento próprio
 (esquema v2.3.0-C, congelado a 13 de setembro) e uma só família de modelos
 (desvio D4). Cada registo organiza-se em aplicações, modelos e ocorrências.
 Um modelo é descrito pela variável dependente, forma, variáveis explicativas,
-dados, medição na fronteira, regime de re-estimação, domínio de validade e
+dados, medição na fronteira, regime de reestimação, domínio de validade e
 métricas (campos C1 a C8). Um mecanismo é codificado em dois eixos, a causa
 física ou operacional que o artigo nomeia e o efeito sobre o modelo, e
 recebe um estatuto de afirmação: \emph{general}, quando é uma afirmação
@@ -688,7 +688,7 @@ favorece os artigos com vários modelos.
   \caption[Mapa de evidência do Corpus B]{Mapa de evidência do Corpus~B
   (39 artigos). Cada célula dá o nível mais forte declarado entre os modelos
   do artigo. Fronteira medida (C5): exata (escuro), alocada por regra ou por
-  estimativa, desvio reconhecido (claro). Re-estimação (C6): regime declarado
+  estimativa, desvio reconhecido (claro). Reestimação (C6): regime declarado
   e executado (escuro) ou só declarado. Domínio de validade (C7): numérico
   (escuro) ou qualitativo. Ajuste no treino e validação fora da amostra
   (C8): reportado; tracejado quando nenhum modelo do artigo o permite.
@@ -885,7 +885,7 @@ setorial~\cite{Boyd2013,Boyd2017}.
     Referência segmentada & 9 (8) & 3 & 6 & 0 & 0 & 6 & 3 & 2 \\
     Medição melhorada & 7 (6) & 6 & 1 & 0 & 0 & 2 & 5 & 4 \\
     Normalização a produto de referência & 5 (5) & 1 & 4 & 0 & 0 & 5 & 0 & 2 \\
-    Re-estimação contínua & 2 (2) & 1 & 1 & 0 & 0 & 2 & 0 & 2 \\
+    Reestimação contínua & 2 (2) & 1 & 1 & 0 & 0 & 2 & 0 & 2 \\
     Estimação ponderada & 2 (2) & 0 & 2 & 0 & 0 & 0 & 2 & 0 \\
     Janela móvel & 1 (1) & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
     \midrule
@@ -912,7 +912,7 @@ antigo aos dados novos.
 
 As adaptações que tocam a primeira lacuna quase não saem do papel: melhorar
 a medição é proposto seis vezes e feito uma. As que tocam a validade
-temporal são raras: dois casos de re-estimação contínua e um de janela
+temporal são raras: dois casos de reestimação contínua e um de janela
 móvel, contra dez exclusões de valores atípicos, que são a adaptação
 implementada mais comum e a que menos muda o modelo.
 
@@ -970,13 +970,13 @@ diretos do caso e é contra eles que o contributo da dissertação se mede
   \scriptsize
   \caption[Estudos do Corpus B com aplicação em refinaria ou petroquímica]{Os
   13 estudos do Corpus~B com aplicação empírica em refinaria ou petroquímica.
-  Fronteira (C5), re-estimação (C6), domínio de validade (C7) e validação fora
+  Fronteira (C5), reestimação (C6), domínio de validade (C7) e validação fora
   da amostra (C8), no modelo mais forte de cada estudo. RL: regressão linear;
   n.r.: não reportado; n.a.: não aplicável.}
   \label{tab:b-proximos}
   \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{3.3cm}>{\raggedright\arraybackslash}p{1.15cm}>{\raggedright\arraybackslash}p{1.75cm}>{\raggedright\arraybackslash}p{1.55cm}>{\raggedright\arraybackslash}p{1.3cm}@{}}
     \toprule
-    Estudo e objeto & Modelo e variáveis além da carga & Fronteira & Re-estimação & Domínio & Fora da amostra \\
+    Estudo e objeto & Modelo e variáveis além da carga & Fronteira & Reestimação & Domínio & Fora da amostra \\
     \midrule
     \textcite{Velazquez2013}: unidade de reformação catalítica & RL horária; ambiente, alimentação, modo & n.r. & não mencionada & não declarado & n.r. \\
     \textcite{Yao2016}: compressão de gás de \emph{cracking} & RL; modo & n.r. & por evento & qualitativo & n.r. \\
@@ -1078,7 +1078,7 @@ variável dependente é um cálculo, numa fronteira que não coincide com a do
 contador, pode ajustar bem e medir outra coisa.
 
 A segunda é a validade no tempo. Só 27 de 140 modelos têm um regime de
-re-estimação declarado, 22 um domínio de validade e 13 uma validação fora da
+reestimação declarado, 22 um domínio de validade e 13 uma validação fora da
 amostra; das 88 adaptações, seis foram avaliadas contra uma alternativa e
 duas com dados que não serviram para ajustar. A literatura constrói
 referências e raramente as põe à prova depois. Onde propõe uma regra para as
@@ -1118,7 +1118,7 @@ outro autor reproduza uma referência a partir de um artigo.
     (Secção~\ref{sec:perfil-dados}) \\
     \addlinespace
     Validade da referência no tempo &
-    Regime de re-estimação em 27 de 140 modelos (9 artigos); domínio de
+    Regime de reestimação em 27 de 140 modelos (9 artigos); domínio de
     validade em 22 (numérico em 11, 3 artigos); validação fora da amostra em
     13 (4 artigos); 6 de 88 adaptações avaliadas &
     Protocolo pré-registado com replicação e comparadores triviais

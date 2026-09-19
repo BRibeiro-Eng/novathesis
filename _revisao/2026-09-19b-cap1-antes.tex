@@ -168,7 +168,7 @@ A Figura~\ref{fig:duas-camadas} resume as duas camadas e o lugar de cada capítu
 
 Isto importa por uma razão que a própria orientação industrial
 já havia reconhecido. Tomemos como exemplo a unidade de destilação atmosférica (unidade que servirá como caso de estudo e exemplo demonstrativo ao longo da dissertação). Os ciclos de limpeza dos permutadores da bateria de
-pré-aquecimento (ou até do próprio forno) alteram de forma previsível o consumo específico do forno
+pré-aquecimento (ou até do próprio forno) alteram e forma previsível o consumo específico do forno
 a jusante: a incrustação acumula-se, o forno compensa, a limpeza repõe
 parte do que se perdeu, e o ciclo recomeça. O estado de incrustação é uma
 variável relevante no sentido da ISO~50006 --- afeta o consumo e muda
@@ -230,8 +230,8 @@ protocolos de medição e verificação nascidos no setor dos edifícios
 fixam critérios quantitativos, e a família ISO cita-os sem os adotar.
 
 A segunda é um pressuposto que as normas fazem sem o enunciar.
-\alterado{Normalizar o consumo pelas variáveis relevantes}, comparar
-períodos \enquote{em condições equivalentes} e alarmar sobre um desvio só faz sentido se a relação
+Normalizar o consumo pela carga, comparar períodos \enquote{em condições
+equivalentes} e alarmar sobre um desvio só faz sentido se a relação
 entre consumo e variáveis relevantes for estável no tempo --- se o que
 a unidade consumia a uma dada carga no período de referência for o que
 consome a essa carga hoje. É um pressuposto de estacionariedade da
@@ -367,26 +367,16 @@ transferibilidade para a refinação. A Tabela~\ref{tab:objetivos-perguntas}
 liga cada objetivo às perguntas que o concretizam, à evidência que as
 responde e ao estado em que essa resposta se encontra.
 
-{\small
-\begin{xltabular}{\linewidth}{@{}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{3.1cm}@{}}
-\caption[Objetivos, perguntas, evidência e estado da resposta]{Objetivos,
-  perguntas empíricas, evidência e estado da resposta. As perguntas da
-  revisão constam para completar o mapa; a revisão não responde a nenhuma
-  pergunta empírica.}\label{tab:objetivos-perguntas}\\
-\toprule
-Objetivo & Pergunta & Evidência e onde & Estado \\
-\midrule
-\endfirsthead
-\toprule
-Objetivo & Pergunta & Evidência e onde & Estado \\
-\midrule
-\endhead
-\midrule
-\multicolumn{4}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
-
+\begin{table}[htbp]
+  \centering\small
+  \caption{Objetivos, perguntas empíricas, evidência e estado da resposta.
+  As perguntas da revisão constam para completar o mapa; a revisão não
+  responde a nenhuma pergunta empírica.}
+  \label{tab:objetivos-perguntas}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{3.1cm}@{}}
+    \toprule
+    Objetivo & Pergunta & Evidência e onde & Estado \\
+    \midrule
     Construir & Os dados reconciliados reproduzem os números oficiais, e cada divergência tem explicação? & Validação célula a célula contra o fecho mensal (Secção~\ref{sec:validacao-dados}) & respondida \\
     \addlinespace
     Diagnosticar & A plataforma reproduz ao dígito o método de \emph{baseline} em produção? & Replicação exata sobre o modelo de dados (Secção~\ref{sec:replicacao}) & respondida \\
@@ -401,10 +391,10 @@ Objetivo & Pergunta & Evidência e onde & Estado \\
     \addlinespace
     Revisão, SQ1 & Como se distribuem os modelos por setor, organização e enquadramento normativo? & Bibliometria do Corpus~A (Secção~\ref{sec:corpus-a}) & respondida \\
     Revisão, SQ2--SQ3 & Que mecanismos tornam os modelos inadequados, e que adaptações se propõem? & Síntese do Corpus~B (Secção~\ref{sec:corpus-b}) & respondida; verificação por modelo, decisões do autor fechadas \\
-    \addlinespace
     Revisão, SQ4 & As recomendações são aplicáveis numa refinaria? & --- & retirada (Apêndice~\ref{app:protocolo-sr}, D8) \\
-\end{xltabular}
-}
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
 %% 2026-09-19: paragrafo do desenho de investigacao cortado na revisao
 %% integral. A cronologia do registo do protocolo esta, melhor dita, na
@@ -412,8 +402,7 @@ Objetivo & Pergunta & Evidência e onde & Estado \\
 %% explorados passou para a Sec. 1.5. O resto repetia o Cap. 4 e o Ap. A.
 %% Versao anterior em _revisao/2026-09-19-cap1-antes.tex.
 
-%% 2026-09-19: \newpage retirado -- a Tabela 1.1 deixou de flutuar
-%% (xltabular), por isso fica onde o texto a chama e parte-se se precisar. 
+\newpage 
 
 
 \section{Contribuições}
@@ -573,9 +562,8 @@ avaliou: fontes e ingestão, modelo dimensional e reconciliação, cálculo
 de métricas, o protocolo de avaliação estatística das \emph{baselines}
 e a cadeia de proveniência que torna cada número reproduzível. O
 Capítulo~\ref{cha:plataforma} é o instrumento: a arquitetura entregue,
-\alterado{a prova de que a camada de dados reproduz os números
-oficiais e declara a origem de cada valor}, o \emph{dashboard} e o que
-ficou de fora. O Capítulo~\ref{cha:diagnostico} executa-se sobre o
+a prova de que a camada de dados diz a verdade, o \emph{dashboard} e o
+que ficou de fora. O Capítulo~\ref{cha:diagnostico} executa-se sobre o
 modelo de dados do capítulo anterior (é, literalmente, uma consulta a
 ele) e audita a camada analítica: replicação exata, perfil dos dados e
 domínio de validade, as quatro dimensões do protocolo e os diagnósticos
@@ -606,6 +594,3 @@ instrumentos de avaliação (Apêndice~\ref{app:matematica}).
 A pergunta com que o capítulo abriu --- consome a unidade hoje mais do
 que a referência prevê para a carga que tem? --- volta no fim do
 documento com uma resposta diferente da que o \emph{dashboard} dá.
-\alterado{Não é outro número: é o mesmo número com o seu estado --- desde
-quando vale a referência que o julga, contra que comparador foi medida e
-em que domínio. É isso que separa medir de saber.}
