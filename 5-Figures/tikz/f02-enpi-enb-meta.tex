@@ -1,0 +1,79 @@
+%% Figura: o conceito IDE/CER/meta e a fronteira entre o que a norma
+%% desenha e o que a implementacao acrescenta. Desenho proprio (2026-09-19);
+%% substitui o \missingfigure "FIG 2.3". Nao reproduz arte da ISO: e um
+%% esquema conceptual sem dados, construido a partir do texto das clausulas.
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[x=1.2cm, y=1cm]
+    % ---- banda de alarme (extensao da implementacao) ----
+    \begin{scope}[on background layer]
+      \fill[corFundo] (0.15,3.0) rectangle (10.9,3.8);
+    \end{scope}
+    \draw[corCinzaC, line width=.5pt, dash pattern=on 2pt off 1.4pt]
+      (0.15,3.8) -- (10.9,3.8);
+    \draw[corCinzaC, line width=.5pt, dash pattern=on 2pt off 1.4pt]
+      (0.15,3.0) -- (10.9,3.0);
+    \draw[corCinzaC, line width=.5pt] (11.0,3.0) -- (11.15,3.0)
+      -- (11.15,3.8) -- (11.0,3.8);
+    \node[ntmini, anchor=west] at (11.2,3.4) {$\pm 2\sigma$};
+
+    % ---- eixos ----
+    \draw[corCinza, line width=.6pt] (0.15,1.75) -- (11.0,1.75);
+    \draw[corCinza, line width=.6pt] (0.15,1.75) -- (0.15,4.95);
+    \node[ntrot, rotate=90, anchor=south] at (-0.12,3.35)
+      {IDE (consumo normalizado)};
+    \node[ntmini, anchor=north east] at (11.0,1.67) {tempo};
+
+    % ---- fronteira entre periodos ----
+    \draw[corTinta, line width=.6pt, dash pattern=on 2pt off 1.6pt]
+      (5.5,1.75) -- (5.5,4.80);
+    \node[ntrot, anchor=south] at (2.80,4.92) {período de referência (CER)};
+    \node[ntrot, anchor=south] at (8.25,4.92) {período de reporte};
+
+    % ---- modelo (CER) ----
+    \draw[corFG, line width=1pt] (0.15,3.4) -- (10.9,3.4);
+    \node[ntmini, text=corFG, anchor=north east] at (10.85,3.34)
+      {CER: modelo estimado à esquerda};
+
+    % ---- meta ----
+    \draw[corCinza, line width=.6pt, dash pattern=on 3pt off 2pt]
+      (0.15,2.40) -- (10.9,2.40);
+    \node[ntmini, anchor=south west] at (0.28,2.43) {meta energética};
+
+    % ---- consumo observado ----
+    \draw[corTinta, line width=.7pt]
+      (0.20,3.34) -- (0.90,3.56) -- (1.60,3.20) -- (2.30,3.52) --
+      (3.00,3.28) -- (3.70,3.56) -- (4.40,3.24) -- (5.10,3.46) -- (5.50,3.38)
+      -- (6.20,3.52) -- (6.90,3.44) -- (7.60,3.66) -- (8.30,3.62) --
+      (9.00,3.80) -- (9.70,3.90) -- (10.40,4.08) -- (10.90,4.15);
+    \node[ntmini, anchor=south east] at (10.9,4.22) {valor do IDE};
+
+    % ---- chamadas ----
+    \draw[corCinza, line width=.4pt] (1.25,4.28) -- (1.25,3.84);
+    \node[circle, draw=corTinta, line width=.4pt, fill=white, inner sep=1pt,
+          font=\tiny\bfseries, text=corTinta] at (1.25,4.38) {1};
+    \node[circle, draw=corTinta, line width=.4pt, fill=white, inner sep=1pt,
+          font=\tiny\bfseries, text=corTinta] at (5.5,4.62) {2};
+
+    % ---- notas ----
+    \node[ntproposta, text width=5.6cm, anchor=north west, align=left]
+      at (0.15,1.35)
+      {\textbf{1.} As bandas de alarme não constam de nenhuma figura
+       normativa: são extensão da implementação.};
+    \node[ntproposta, text width=5.6cm, anchor=north west, align=left]
+      at (5.35,1.35)
+      {\textbf{2.} Tudo o que está à direita pressupõe que a relação
+       estimada à esquerda continua válida.};
+  \end{tikzpicture}
+  \caption[O conceito IDE/CER/meta e a extensão de implementação]{O conceito
+   IDE/CER/meta e a fronteira entre o que a norma desenha e o que a
+   implementação acrescenta. A comparação entre o valor do indicador e a
+   referência é o mecanismo que a ISO~50001 exige (\S9.1.1); a banda de
+   alarme em torno da referência não aparece em nenhuma figura normativa e é
+   escolha da organização. O Anexo~D da ISO~50006 usa o modelo estimado no
+   período de referência para prever o período de reporte e lê a diferença
+   como melhoria de desempenho, sem enunciar a transportabilidade da relação
+   como pressuposto. Esquema próprio, sem dados, a partir de
+   \cite{ISO50001_2018,ISO50006_2014}.}
+  \label{fig:enpi-enb-meta}
+\end{figure}
