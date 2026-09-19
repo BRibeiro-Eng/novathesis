@@ -9,7 +9,13 @@
 %% pressuposto fica a direita do seu elo, e os elos 1 e 2 mostram-se sem
 %% pressuposto por estarem vazios, em vez de parecer que se perderam.
 %% Versao anterior em _revisao/2026-09-19g-f02a-serpentina.tex.
-\begin{figure}[H]   %% nao flutua: a figura e o mapa que precede o percurso
+%% [!t] e nao [H]: com [H] a figura nao cabia no resto da pagina, o LaTeX
+%% quebrava a pagina no ponto do \input e, como a classe usa \flushbottom,
+%% a folga ia toda para o espaco antes do titulo da 2.2.2 -- um buraco de
+%% cerca de 2 cm a meio da pagina. Com [!t] a figura vai para o cimo da
+%% pagina seguinte, que e exactamente onde [H] ja a punha, e a pagina
+%% anterior fecha cheia. [H] nao adiantava a figura; so abria o buraco.
+\begin{figure}[!t]
   \centering
   \begin{tikzpicture}[x=1cm, y=1cm]
     % ------------------------------------------------ cabecalhos de coluna
