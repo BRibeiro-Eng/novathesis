@@ -44,7 +44,7 @@ assinala aquelas de que o par depende.}
 %% orientacao -- e que se pode citar. Versao anterior em
 %% _revisao/2026-09-19-cap2-antes.tex.
 {\footnotesize
-\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.15cm}>{\raggedright\arraybackslash}p{3.5cm}X>{\raggedright\arraybackslash}p{2.35cm}@{}}
+\begin{xltabular}{\linewidth}{@{}>{\raggedright\arraybackslash}p{1.15cm}>{\raggedright\arraybackslash}p{3.5cm}X>{\raggedright\arraybackslash}p{2.35cm}@{}}
 \caption[A ISO 50001:2018 pelo ciclo PDCA]{Estrutura da ISO~50001:2018
   pelo ciclo PDCA. A negrito, as quatro cláusulas de que depende o par
   EnPI--EnB e que esta dissertação examina; entre parênteses, a norma de
@@ -53,11 +53,11 @@ assinala aquelas de que o par depende.}
   parte do sistema de gestão fica fora deste trabalho. Elaboração própria a
   partir de \cite{ISO50001_2018,ISO50006_2014,ISO50015_2014}.}\label{tab:pdca-50001}\\
 \toprule
-\textbf{Fase} & \textbf{Cláusula} & \textbf{O que a norma exige} & \textbf{Nesta dissertação} \\
+Fase & Cláusula & O que a norma exige & Nesta dissertação \\
 \midrule
 \endfirsthead
 \toprule
-\textbf{Fase} & \textbf{Cláusula} & \textbf{O que a norma exige} & \textbf{Nesta dissertação} \\
+Fase & Cláusula & O que a norma exige & Nesta dissertação \\
 \midrule
 \endhead
 \midrule
@@ -126,7 +126,7 @@ Percorramos os elos onde o texto normativo é mais revelador.
 \paragraph{Tipo de EnPI (elo 4).} A Tabela~2 da ISO~50006 é o artefacto mais interessante de toda a família para o argumento desta dissertação, porque a própria norma enumera, na coluna de observações, as fragilidades de cada tipo. Para o tipo \enquote{valor medido}: não tem em conta os efeitos das variáveis relevantes, \enquote{dando resultados enganadores na maioria das aplicações}. Para o rácio: não considera a carga de base nem efeitos não lineares, sendo \enquote{enganador em instalações com carga de base elevada}. Para o modelo estatístico: \enquote{pode ser impreciso se não for confirmado por testes estatísticos} e \enquote{os modelos devem ser mantidos para assegurar resultados válidos} (\S4.3.3, Tabela~2). \alterado{E, na mesma linha dessa tabela, uma observação que convém ler devagar: \enquote{pode não ser claro se algum erro residual se deve a erro de modelação ou a falta de controlo sobre o consumo de energia}. É o problema desta dissertação enunciado pela própria norma --- o resíduo de uma \emph{baseline} não separa o que o modelo não sabe do que a unidade fez mal --- e enunciado sem que lhe corresponda procedimento nenhum.}\footnote{Traduções do autor a partir do original inglês; as passagens críticas são reproduzidas no original em nota nas ocorrências seguintes.} A norma conhece, portanto, os modos de falha --- enuncia-os --- mas não converte nenhum deles em requisito verificável: não diz \emph{que} testes, \emph{com que limiares}, \emph{com que frequência}, nem \emph{o que fazer} quando falham. A Tabela~\ref{tab:tipologia-enpi} condensa esta tipologia e localiza o método em produção na refinaria --- regressão linear univariada por vetor energético, $E = a \cdot Q + b$ --- na classe \enquote{modelo estatístico}, herdando por escrito os \emph{caveats} que a própria norma lhe associa.
 
 \begin{table}[htbp]
-  \centering\footnotesize
+  \centering\small
   \caption[Tipologia de EnPI da ISO 50006 e localização do método em produção]{Tipologia de EnPI da ISO~50006 (\S4.3.3, Tabela~2, condensada; traduções do autor) e localização do método de \emph{baseline} em produção na unidade em estudo.}
   \label{tab:tipologia-enpi}
   \begin{tabularx}{\textwidth}{@{}l X X@{}}
@@ -134,11 +134,8 @@ Percorramos os elos onde o texto normativo é mais revelador.
     \textbf{Tipo de EnPI} & \textbf{Aplicação típica (norma)} & \textbf{Fragilidades enunciadas pela própria norma} \\
     \midrule
     Valor medido & Reduções absolutas; monitorização de custos & Ignora variáveis relevantes; \enquote{resultados enganadores na maioria das aplicações} \\
-    \addlinespace
     Rácio de valores medidos & Eficiência com uma só variável e carga de base pequena; \emph{benchmarking} & Ignora carga de base e efeitos não lineares \\
-    \addlinespace
     \textbf{Modelo estatístico} $\leftarrow$ \emph{método em produção} & Várias variáveis relevantes; carga de base; normalização & Impreciso se não confirmado por testes estatísticos; \alterado{pode não ser claro se o erro residual vem do modelo ou da falta de controlo do consumo;} exige manutenção para assegurar validade \\
-    \addlinespace
     Modelo de engenharia & Variáveis numerosas ou interdependentes; fase de projeto & Exige manutenção para assegurar validade \\
     \bottomrule
   \end{tabularx}
@@ -224,26 +221,16 @@ A Tabela~\ref{tab:matriz-rastreabilidade} formaliza a análise: para cada cláus
   \begin{tabularx}{\textwidth}{@{}c >{\raggedright\arraybackslash}p{2.1cm} X X X c@{}}
     \toprule
     \# & \textbf{Cláusula} & \textbf{Exige/sugere} & \textbf{Deixa por especificar} & \textbf{Pressuposto tácito} & \textbf{Teste} \\
-    \addlinespace
     \midrule
     1 & 50001 \S6.4; 50006 \S4.3 & EnPI \enquote{adequados para medir e monitorizar} & Critério de adequação; teste de conteúdo preditivo & O EnPI mede desempenho, não ruído & E2 \\
-    \addlinespace
-    2 & \alterado{50001 \S6.3~c)\,1), \S3.4.9~N1}; 50006 \S4.2.4 & Determinar variáveis relevantes (métodos gráficos) & Limiar de significância; teste de \emph{suficiência} do conjunto & As variáveis descrevem o estado operacional & E6 \\
-    \addlinespace
+    2 & 50001 \S3.4.9~N1; 50006 \S4.2.4 & Determinar variáveis relevantes (métodos gráficos) & Limiar de significância; teste de \emph{suficiência} do conjunto & As variáveis descrevem o estado operacional & E6 \\
     3 & 50006 \S4.4.2 & Período que \enquote{capture a variabilidade} (tip.\ 12 meses) & Verificação de representatividade & Um ciclo anual antecipa o futuro & E3, E4 \\
-    \addlinespace
     4 & 50006 \S4.4.3 & \enquote{Testar a validade} do EnB ($p$, $F$, $R^2$ nomeados) & \enquote{Se apropriado}; sem limiares; sem verificação das condições dos testes & O ajuste no treino indica desempenho fora dele; condições da inferência clássica cumpridas & E1, E2, D \\
-    \addlinespace
     5 & 50001 \S6.5; 50006 \S4.5, An.~D & Normalizar por variáveis relevantes via modelo & Validação do modelo de normalização; incerteza & A relação transporta-se do treino para o reporte & E3 \\
-    \addlinespace
     6 & 50001 \S9.1.1 & Investigar \enquote{desvios significativos} & Definição de significativo (remetida para a organização) & Existe calibração conhecida do desvio & E4 \\
-    \addlinespace
     7 & 50001 \S6.5~a)--c); 50006 \S4.6, \S3.1~N3 & Rever o EnB (3 gatilhos; \emph{reset} periódico sancionado) & Mecanismo de \emph{deteção} de invalidade; gatilho~a) circular & Mudanças invalidantes são conhecidas ou visíveis & E5 \\
-    \addlinespace
     8 & 50015 \S7 + Nota & Identificar e quantificar incerteza ($t$, $R^2$, $p$, limites de predição nomeados) & Obrigatoriedade; limiares; reporte junto ao resultado & A incerteza declarada é gerível caso a caso & E4 \\
-    \addlinespace
     9 & 50015 \S4.1, Introd. & Princípios de M\&V (exatidão, reprodutibilidade) & \enquote{Princípios, não requisitos}; não exigidos pela 50001 & A boa prática é adotada voluntariamente & --- \\
-    \addlinespace
     10 & 50006 \S4.2.6.4 & Rever qualidade dos dados; examinar \emph{outliers} & Procedimento e critério de exclusão; efeito sobre $\sigma$ & \emph{Outliers} são raros e identificáveis & D \\
     \bottomrule
   \end{tabularx}
@@ -273,17 +260,11 @@ Independentemente do juízo sobre estes limiares em concreto --- a literatura di
     \textbf{Dimensão} & \textbf{ISO 50001:2018} & \textbf{ISO 50006:2014 / 50015:2014} & \textbf{IPMVP} & \textbf{ASHRAE G14} \\
     \midrule
     Estatuto & Requisitos (certificável) & Orientação & Protocolo voluntário & \emph{Guideline} \\
-    \addlinespace
     Validação do modelo de \emph{baseline} & --- & \enquote{deverá, se apropriado} (50006 \S4.4.3) & Sim, por adesão ao protocolo & Sim (requisito de conformidade) \\
-    \addlinespace
     Limiares quantitativos & Nenhum & Nenhum (testes/diagnósticos apenas nomeados) & $R^2 \geq 0{,}75$ (recomendação relatada, simulação calibrada); detalhe remetido para a G14 & NMBE $\pm5/\pm10\,\%$, CV(RMSE) $15/30\,\%$ (calibração, \S4.3.2.4); CV(RMSE) $\leq 20$--$30\,\%$ no modelo de regressão de base (\S4.3.2.1) \\
-    \addlinespace
     Tratamento de exclusões e \emph{outliers} & --- & Rever, sem critério (50006 \S4.2.6.4) & Justificação exigida & Proibidas na via prescritiva; $\leq 25\,\%$, documentadas, na simulação \\
-    \addlinespace
     Verificação dos pressupostos dos testes & --- & --- & Parcial & Parcial \\
-    \addlinespace
     Incerteza reportada com o resultado & --- & \enquote{na medida do praticável} (50015 \S7) & Sim (Apêndice~B) & Sim, com teto: $<50\,\%$ das poupanças a $68\,\%$ de confiança \\
-    \addlinespace
     Deteção de invalidação da \emph{baseline} & 3 gatilhos qualitativos (\S6.5) & Qualitativa (50006 \S4.6; 50015 \S5.10.2) & Ajustes não-rotineiros & --- \\
     \bottomrule
   \end{tabularx}
