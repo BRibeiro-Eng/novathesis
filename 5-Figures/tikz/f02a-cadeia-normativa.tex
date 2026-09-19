@@ -9,13 +9,16 @@
 %% pressuposto fica a direita do seu elo, e os elos 1 e 2 mostram-se sem
 %% pressuposto por estarem vazios, em vez de parecer que se perderam.
 %% Versao anterior em _revisao/2026-09-19g-f02a-serpentina.tex.
-%% [!t] e nao [H]: com [H] a figura nao cabia no resto da pagina, o LaTeX
-%% quebrava a pagina no ponto do \input e, como a classe usa \flushbottom,
-%% a folga ia toda para o espaco antes do titulo da 2.2.2 -- um buraco de
-%% cerca de 2 cm a meio da pagina. Com [!t] a figura vai para o cimo da
-%% pagina seguinte, que e exactamente onde [H] ja a punha, e a pagina
-%% anterior fecha cheia. [H] nao adiantava a figura; so abria o buraco.
-\begin{figure}[!t]
+%% [H] com uma quebra explicita antes do \input, no capitulo.
+%% Historico: com [H] sozinho a figura nao cabia no resto da pagina, o LaTeX
+%% quebrava a pagina no ponto do \input e, com \flushbottom, a folga ia toda
+%% para o espaco antes do titulo da 2.2.2 -- um buraco a meio da pagina. Com
+%% [!t] sozinho a pagina fechava cheia mas o LaTeX puxava para tras o
+%% "Percorramos os elos" e as primeiras linhas do elo 3, que passavam a vir
+%% antes da figura. A quebra explicita (\newpage, que nao estica a pagina)
+%% resolve as duas: a pagina anterior fecha no paragrafo que apresenta a
+%% figura, e a figura abre a seguinte, antes do percurso.
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[x=1cm, y=1cm]
     % ------------------------------------------------ cabecalhos de coluna
