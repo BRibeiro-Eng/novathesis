@@ -337,41 +337,21 @@ ponto é que um programa de âmbito geral, dirigido à indústria e assente na
 ISO~50001, \emph{consegue} fixá-los. A camada de critérios existe; está fora
 da família ISO, e teve de ser acrescentada por quem quis auditar desempenho.}
 
-\novo{Uma clarificação, para prevenir a objeção óbvia. As
-metodologias de \emph{benchmarking} energético do setor da refinação,
-incluindo a que a instalação em estudo acompanha
-(Secção~\ref{sec:caso-estudo}), não são protocolos de M\&V e não preenchem
-esta lacuna. Comparam o consumo de cada unidade com uma energia padrão de
-coeficientes fixos, estimados pelo operador do estudo sobre a sua própria base
-de dados setorial e não reestimados pela instalação; respondem à pergunta
-\enquote{como me comparo com os meus pares}, não \enquote{o modelo com que
-sigo esta unidade continua válido}. O controlo de qualidade que lhes está
-associado incide sobre os dados de entrada --- coerência interna, balanços de
-massa e energia, desvios face ao reportado no passado --- e não sobre a
-validade do modelo que produz o padrão. Os critérios quantitativos que
-acompanham o seu uso certificativo, como o quartil superior de desempenho
-exigido para a certificação industrial ENERGY~STAR de refinarias, em que o
-engenheiro certificador verifica dados, fronteira e período e não refaz
-análise~\cite[\S4]{EnergyStarPE_2013}, são critérios de \emph{desempenho}, não
-de validade do modelo. A distinção entre as duas coisas atravessa todo este
-capítulo.}
-
 Independentemente do juízo sobre estes limiares em concreto --- a literatura discute a sua suficiência estatística, e o Capítulo~\ref{cha:metodos} adotará critérios de outra natureza, sobre desempenho fora do treino, calibração e deteção, que não se comparam com estes limiares de ajuste --- a sua simples existência demonstra que protocolos com ambição de aplicação geral \emph{conseguem} fixar critérios quantitativos de aceitação de modelos, regras de tratamento de dados e tetos de incerteza. A família ISO~50001 \alterado{não o faz}\novo{, nas três normas
-analisadas --- com a ressalva de acesso documental registada no fim desta
-secção}. A
+analisadas}.\footnote{\novo{A ISO~50047:2016, que trata a determinação de
+poupanças de energia em organizações e integra a mesma série, não foi
+consultada: o único excerto público acessível é o do projeto que lhe deu
+origem (ISO/DIS~17747) e cobre apenas até à cláusula~5.1.1. O seu índice
+anuncia uma cláusula~7.4, \enquote{Acceptable Uncertainty Criteria}, cujo
+conteúdo não foi possível verificar; regista-se com as restantes limitações de
+acesso documental (Secção~\ref{sec:limitacoes}). No excerto acessível, o
+registo é integralmente de recomendação, os anexos são todos informativos e o
+âmbito remete explicitamente os métodos de M\&V para a
+ISO~50015~\cite{ISO50047_2016}.}} A
 Tabela~\ref{tab:comparacao-frameworks} sintetiza a comparação\novo{; a
 Tabela~\ref{tab:comparadores-industriais} estende-a aos quadros aplicáveis a
 processo contínuo}.
 
-% As duas tabelas de comparacao formam par e o texto anuncia-as juntas, por
-% isso o paragrafo da clarificacao passou para ANTES do paragrafo que as
-% anuncia (antes estava entre as duas). Juntas sao mais altas do que uma
-% pagina de texto, logo nunca cabem na mesma pagina; com [htbp] e esta ordem
-% saem em paginas consecutivas, sem texto pelo meio e sem buracos.
-% Tentativas descartadas: [H] nao cabia no resto da pagina e o \flushbottom
-% despejava a folga num buraco a meio; \newpage antes deixava meia pagina em
-% branco, porque o paragrafo que as anuncia acaba a um terco da pagina;
-% [p] adiava ambas seis paginas, para longe da primeira referencia.
 \begin{table}[htbp]
   \centering\footnotesize
   \caption[Comparação de quadros normativos quanto a requisitos de validação]{Comparação de quadros normativos e protocolos de M\&V quanto a requisitos de validação de modelos de \emph{baseline}. ASHRAE Guideline~14 na edição de 2014; o conteúdo da coluna IPMVP é relatado por \textcite{RuizBandera2017}, sem consulta da edição corrente do protocolo.}
@@ -397,6 +377,25 @@ processo contínuo}.
     \bottomrule
   \end{tabularx}
 \end{table}
+
+\novo{Uma clarificação, para prevenir a objeção óbvia. As
+metodologias de \emph{benchmarking} energético do setor da refinação,
+incluindo a que a instalação em estudo acompanha
+(Secção~\ref{sec:caso-estudo}), não são protocolos de M\&V e não preenchem
+esta lacuna. Comparam o consumo de cada unidade com uma energia padrão de
+coeficientes fixos, estimados pelo operador do estudo sobre a sua própria base
+de dados setorial e não reestimados pela instalação; respondem à pergunta
+\enquote{como me comparo com os meus pares}, não \enquote{o modelo com que
+sigo esta unidade continua válido}. O controlo de qualidade que lhes está
+associado incide sobre os dados de entrada --- coerência interna, balanços de
+massa e energia, desvios face ao reportado no passado --- e não sobre a
+validade do modelo que produz o padrão. Os critérios quantitativos que
+acompanham o seu uso certificativo, como o quartil superior de desempenho
+exigido para a certificação industrial ENERGY~STAR de refinarias, em que o
+engenheiro certificador verifica dados, fronteira e período e não refaz
+análise~\cite[\S4]{EnergyStarPE_2013}, são critérios de \emph{desempenho}, não
+de validade do modelo. A distinção entre as duas coisas atravessa todo este
+capítulo.}
 
 \begin{table}[htbp]
   \centering\footnotesize
@@ -434,19 +433,7 @@ não é apenas se existem critérios, mas se os critérios existentes interrogam
 os pressupostos de que a validade depende.}
 
 \paragraph{Nota sobre as edições analisadas.} A presente análise reporta-se à ISO~50006:2014 e à ISO~50015:2014, as edições a que houve acesso. \alterado{Não se confirmou qual a edição
-enquadra o método de \emph{baseline} em produção na instalação em estudo.} Existe uma segunda edição da ISO~50006, de 2023, que substituiu a de 2014, harmonizada com a ISO~50001:2018, que introduz, entre outras alterações, uma cláusula dedicada à incerteza de modelo (\S8.2)~\cite{ISO50006_2023}; não foi possível consultá-la no âmbito deste trabalho. Regista-se como limitação (Secção~\ref{sec:limitacoes}): as afirmações desta secção sobre o silêncio normativo estão verificadas contra as edições de 2014, e a possibilidade de a edição de 2023 mitigar parcialmente algum dos silêncios identificados não pôde ser excluída nem confirmada. Assinale-se, porém, que a ISO~50006:2023 mantém o estatuto de norma de
-orientação, pelo que o argumento central --- a ausência de \emph{requisitos} de
-validação no único documento certificável da família, a ISO~50001 --- não
-depende dessa edição. \novo{A mesma ressalva vale para a ISO~50047:2016, que
-trata a determinação de poupanças de energia em organizações: também não foi
-consultada, porque o único excerto público acessível é o do projeto que lhe deu
-origem, a ISO/DIS~17747, e cobre apenas até à cláusula~5.1.1. O seu índice
-anuncia uma cláusula~7.4, \enquote{Acceptable Uncertainty Criteria}, cujo
-conteúdo não foi possível verificar; no excerto acessível, o registo é
-integralmente de recomendação, os anexos são todos informativos e o âmbito
-remete explicitamente os métodos de M\&V para a
-ISO~50015~\cite{ISO50047_2016}. É por isso que a afirmação de silêncio
-quantitativo se restringe, acima, às três normas efetivamente analisadas.}
+enquadra o método de \emph{baseline} em produção na instalação em estudo.} Existe uma segunda edição da ISO~50006, de 2023, que substituiu a de 2014, harmonizada com a ISO~50001:2018, que introduz, entre outras alterações, uma cláusula dedicada à incerteza de modelo (\S8.2)~\cite{ISO50006_2023}; não foi possível consultá-la no âmbito deste trabalho. Regista-se como limitação (Secção~\ref{sec:limitacoes}): as afirmações desta secção sobre o silêncio normativo estão verificadas contra as edições de 2014, e a possibilidade de a edição de 2023 mitigar parcialmente algum dos silêncios identificados não pôde ser excluída nem confirmada. Assinale-se, porém, que a ISO~50006:2023 mantém o estatuto de norma de orientação, pelo que o argumento central --- a ausência de \emph{requisitos} de validação no único documento certificável da família, a ISO~50001 --- não depende dessa edição.
 
 \subsection{Síntese}
 \label{sec:assimetria-sintese}
