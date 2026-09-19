@@ -17,9 +17,17 @@
 # O build.sh ja fazia as duas coisas; era so por isso que funcionava sempre.
 cd "$HOME/Desktop/Tese/novathesis" || exit 1
 export PATH=/Library/TeX/texbin:/opt/homebrew/bin:/usr/local/bin:$PATH
-OUT=/tmp/tese-build
+#  3. Pasta de saida PROPRIA (2026-09-19). O build.sh usa /tmp/tese-build.
+#     Enquanto os dois partilharam a mesma pasta, uma compilacao no VS Code
+#     ao mesmo tempo que uma compilacao pelo build.sh punha dois pdflatex a
+#     escrever o mesmo template.aux: o resultado era centenas de referencias
+#     por resolver e um PDF com menos paginas, sem um unico erro no log.
+#     Pastas separadas tornam isso impossivel.
+
+OUT=/tmp/tese-build-code
 mkdir -p "$OUT"
 latexmk -pdf -synctex=1 -interaction=nonstopmode -file-line-error -outdir="$OUT" template.tex
 STATUS=$?
-cp "$OUT/template.pdf" template.pdf 2>/dev/null
+# copia atomica: os dois compiladores escrevem o mesmo template.pdf na raiz
+cp "$OUT/template.pdf" template.pdf.tmp 2>/dev/null && mv -f template.pdf.tmp template.pdf
 exit $STATUS
