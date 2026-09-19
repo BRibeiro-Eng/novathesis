@@ -27,7 +27,7 @@
     \node[ntdestaque, text width=2.7cm, minimum height=11mm] (ind) at (9.7,0.70)
       {Indicador de\\desempenho (EnPI)};
     \node[ntcaixa, text width=2.2cm, minimum height=11mm] (dic) at (12.7,0.70)
-      {Proveniência:\\origem, regra\\e versão};
+      {Dicionário,\\origem, \emph{flags}\\e versões};
 
     \draw[ntseta] (s1.east) -- ++(0.45,0) |- (rec.west);
     \draw[ntseta] (s2.east) -- (rec.west);
@@ -51,10 +51,17 @@
     \draw[ntseta] (ind.south) -- ++(0,-0.62) -| (des.north);
     \node[ntmini, anchor=west] at (5.55,-0.95) {consumo observado};
 
-    %% 2026-09-19: faixa da "proposta ainda por testar" e legenda do
-    %% tracejado retiradas na revisao integral -- a figura define as duas
-    %% camadas; a proposta e anunciada em 1.4 e desenhada no Cap. 7.
-    %% Versao anterior em _revisao/2026-09-19-f01-antes.tex.
+    % --------------------------------------- proposta por testar ------
+    \node[ntproposta, text width=12.6cm, minimum height=7mm] (aval) at (6.85,-4.55)
+      {\textbf{Proposta ainda por testar} (Cap.~\ref{cha:discussao}):
+       separar referência fixa, estado estimado e monitor declarado};
+    \draw[ntsetat] (aval.north) -- ++(0,0.32);
+
+    \draw[-{Stealth[length=4pt,width=3pt]}, draw=corTinta, line width=.6pt]
+      (-0.05,-5.25) -- ++(0.6,0);
+    \node[ntmini, anchor=west] at (0.6,-5.25) {em produção na refinaria};
+    \draw[ntsetat] (4.3,-5.25) -- ++(0.6,0);
+    \node[ntmini, anchor=west] at (4.95,-5.25) {proposta ainda por testar};
   \end{tikzpicture}
   \caption[As duas camadas da fiabilidade do desempenho energético]%
   {As duas camadas da fiabilidade do desempenho energético e os capítulos
@@ -63,6 +70,8 @@
    responde por interpretação: converte o consumo observado num desvio face
    a uma referência e transforma o desvio num alerta. As duas respondem a
    perguntas diferentes --- rastreabilidade não equivale a exatidão física,
-   e um desvio, por si, não identifica a sua causa.}
+   e um desvio, por si, não identifica a sua causa. A traço contínuo, o que
+   está em produção; a tracejado, a arquitetura proposta no
+   Capítulo~\ref{cha:discussao}, que este trabalho não chegou a implementar.}
   \label{fig:duas-camadas}
 \end{figure}

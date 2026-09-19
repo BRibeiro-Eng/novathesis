@@ -98,53 +98,25 @@ fiável?}
 Fiável não quer dizer infalível. Nenhum detetor estatístico garante que
 cada alarme corresponde a um problema e que a ausência de alarme
 corresponde à ausência de problema, e esta dissertação não mede tal
-coisa. \alterado{Fiável, neste trabalho, quer dizer quatro coisas
-verificáveis, cada uma pedida por alguma das normas ou protocolos de
-medição e verificação, nenhuma exigida em conjunto por nenhum deles.
-Cada número é rastreável até à fonte e à regra que o produziu, no
-sentido de transparência e de completude com que os princípios de
-medição e verificação da ISO~50015 usam o termo~\cite{ISO50015_2014}. O
-domínio em que a comparação é válida está declarado, e sabe-se quando se
-está fora dele, que é o que a ISO~50006 pede ao mandar fixar as
-condições de referência e as variáveis relevantes~\cite{ISO50006_2014}.
-O desempenho da referência está quantificado --- contra que comparador,
-com que erro, em que período ---, à maneira dos critérios quantitativos
-de aceitação de modelo que o ASHRAE Guideline~14 e o IPMVP fixam e que a
-família ISO cita sem adotar~\cite{ASHRAE14_2014,IPMVP_2022}. E a
-incerteza acompanha o resultado, em vez de ficar implícita numa reta
-desenhada sobre uma nuvem de pontos.} A
+coisa. Fiável quer dizer quatro coisas verificáveis. Cada número é
+rastreável até à fonte e à regra que o produziu. O domínio em que a
+comparação é válida está declarado, e sabe-se quando se está fora dele. O
+desempenho da referência está quantificado: contra que comparador, com
+que erro, em que período. E a incerteza acompanha o resultado, em vez de
+ficar implícita numa reta desenhada sobre uma nuvem de pontos. A
 definição é exigente por ser modesta: não promete alarmes certos, promete
 que se sabe o que cada alarme vale.
 
-\alterado{A fiabilidade assim definida tem duas camadas, que se
-distinguem pela pergunta a que respondem. A primeira é a dos dados, e
-responde a de onde vem cada número e ao que lhe foi feito antes de
-chegar aqui. A tentação é dizer que a plataforma tem de dizer a verdade
-sobre o que a unidade consumiu e processou, mas a formulação não resiste
-ao caso. A fonte de verdade da refinaria é o balanço: é sobre os seus
-valores que assentam os cálculos, e o historiador de processo entra
-sobretudo para cobrir os dias em que o balanço ainda não fechou. Só que
-o balanço não é uma leitura --- é, em boa parte, as mesmas medições do
-historiador depois de um procedimento de ajustamento que redistribui os
-desajustes por certas correntes até as contas fecharem, segundo regras
-que este trabalho não auditou. E os dois canais divergem de forma que
-muda de ano para ano: no fuel gás, a mediana da diferença relativa entre
-eles vai de $-11\%$ a $0\%$ consoante o ano, e nos vapores chega a
-$\pm30\%$ (Secção~\ref{sec:modelo-dimensional}). A camada de dados não
-pode, por isso, prometer verdade metrológica. O que pode prometer, e é o
-que a plataforma entrega, é que cada valor chega com a sua origem, a sua
-regra de escolha e a sua versão declaradas, e que as divergências entre
-canais ficam à vista em vez de serem resolvidas caso a caso numa folha
-de cálculo.
-
-A segunda camada é a da analítica, e responde a contra o que é julgado
-cada número. A plataforma compara o consumo com uma referência --- uma
-\emph{baseline} energética --- que diz quanto a unidade consumiria,
-àquela carga, em condições de referência. Não é o consumo ótimo, nem o
-que a unidade \enquote{devia} consumir: uma regressão sobre o histórico
-estima o que foi habitual, não o que é termodinamicamente possível. Se a
-referência estiver errada, os dados podem estar certos e o alarme
-continuar a não significar nada.}
+A fiabilidade assim definida tem duas camadas. A primeira é a dos dados: a plataforma tem de dizer a
+verdade sobre o que a unidade consumiu e processou, o que exige as fontes
+reconciliadas num modelo único, com cada divergência explicada. A segunda
+é a da analítica: a plataforma compara essa verdade com uma referência
+--- uma \emph{baseline} energética --- que diz quanto a unidade
+consumiria, àquela carga, em condições de referência. Não é o consumo
+ótimo, nem o que a unidade \enquote{devia} consumir: uma regressão sobre
+o histórico estima o que foi habitual, não o que é termodinamicamente
+possível. Se a referência estiver errada, os dados podem estar certos e o
+alarme continuar a não significar nada.
 
 As duas camadas não são uma escolha de desenho; são as duas metades de
 um requisito. A ISO~50001 obriga a organização a monitorizar, medir e
@@ -153,14 +125,13 @@ significativos~\cite[\S9.1]{ISO50001_2018}; a ISO~50006 operacionaliza a
 comparação através do par indicador--referência, os indicadores de
 desempenho energético (EnPI) e os consumos energéticos de referência
 (EnB, as \emph{baselines})~\cite{ISO50006_2014}. A infraestrutura de
-medição é a primeira metade; a \emph{baseline} validada é a segunda. \alterado{Uma organização pode ter as duas e não ter meio de saber
-se a segunda funciona, e é o que se encontrou em Sines: um método de
-\emph{baseline} aplicado com disciplina há seis anos, reproduzível ao
-dígito, que normaliza o consumo por uma única variável, a carga ---
-nenhuma covariável de processo, nenhum fator estático entra ---, com
-bandas, alarmes e cartas de controlo já em uso, e cuja adequação ao fim
-que a norma lhe atribui nunca tinha sido avaliada com um protocolo
-declarado.}
+medição é a primeira metade; a \emph{baseline} validada é a segunda. Uma
+organização pode ter a primeira e não ter a segunda, e é o que se
+encontrou em Sines: um método de \emph{baseline} aplicado com disciplina
+há seis anos, reproduzível ao dígito, que normaliza o consumo por uma
+única variável, a carga --- nenhuma variável externa, nenhum fator
+estático entra --- e cuja adequação ao fim que a norma lhe atribui nunca
+tinha sido avaliada com um protocolo declarado.
 
 A Figura~\ref{fig:duas-camadas} resume as duas camadas e o lugar de cada capítulo nelas.
 
@@ -192,24 +163,13 @@ auditorias ou a elaboração dos relatórios trimestrais de consumos. Há decis�
 visibilidade atempada sobre os dados. A refinaria consegue demonstrar
 melhoria com dados, mas o processo é descrito como pouco eficiente e
 lento; quanto tempo ao certo custa a elaboração de cada relatório trimestral não foi
-quantificado. \alterado{A referência que julga cada dia normaliza o consumo por
-uma única variável, a carga: nenhuma covariável de processo entra na
-reta e nenhum fator estático é declarado. Não é que a refinaria ignore
-que a carga não chega --- o índice de intensidade energética que
-acompanha ao lado incorpora a densidade da carga, o rendimento em
-resíduo e as condições de \emph{flash}
-(Secção~\ref{sec:metricas}) ---, mas esse índice serve de contexto de
-\emph{benchmarking} entre refinarias e não é a referência com que se
-julgam dias. Em fevereiro de 2026, antes de qualquer resultado, a
-leitura da norma contra o levantamento já apontava essa ausência como
-lacuna face aos requisitos de determinação de variáveis relevantes e de
-normalização~\cite[\S6.4--6.5]{ISO50001_2018}. Uma plataforma resolve a
-parte do problema que é de acesso --- a periodicidade, a latência dos
-relatórios, o trabalho manual em folhas de cálculo, a deteção tardia dos
-problemas de qualidade ---, e o Capítulo~\ref{cha:plataforma} mostra
-como. Não resolve a outra parte: determinar que variáveis são relevantes
-e normalizar por elas não é um problema de infraestrutura, e é aí que
-começa o resto da dissertação.}
+quantificado. Nenhuma variável externa
+entra na normalização dos indicadores. Em fevereiro de 2026, antes de
+qualquer resultado, a leitura da norma contra o levantamento já apontava
+essa ausência como lacuna face aos requisitos de determinação de
+variáveis relevantes e de normalização~\cite[\S6.4--6.5]{ISO50001_2018}.
+Esta parte do problema, uma plataforma resolve-a em grande medida, e o
+Capítulo~\ref{cha:plataforma} mostra como.
 
 Por trás dela há duas razões, e a segunda explica por que motivo a
 primeira não se resolve com mais dados.
@@ -265,9 +225,8 @@ silêncios que a gestão aprende a ler como normalidade. Normativo, porque
 uma organização pode estar em conformidade formal com a ISO~50001 (tem
 EnPI, tem EnB, normaliza, reporta) e não ter forma de saber se as
 suas \emph{baselines} cumprem alguma das três funções que lhes são
-pedidas: \alterado{normalizar o consumo pelas variáveis relevantes,
-sustentar comparações entre períodos e alimentar alarmes. No caso
-estudado, a única variável relevante admitida é a carga.} A norma pede indicadores e referências
+pedidas: normalizar o consumo pela carga, sustentar comparações entre
+períodos e alimentar alarmes. A norma pede indicadores e referências
 adequados e deixa à organização a demonstração dessa adequação, sem fixar
 um teste para a fazer.
 
@@ -315,8 +274,8 @@ responde ao pedido industrial e produz o instrumento.
 O segundo é \emph{diagnosticar}: replicar exatamente, dentro desse
 instrumento, o método de \emph{baseline} que a refinaria usa há seis
 anos, e avaliá-lo com um protocolo estatístico especificado e selado
-antes de qualquer resultado: \alterado{desempenho preditivo} contra
-referências triviais, estabilidade dos parâmetros, calibração das bandas de alarme,
+antes de qualquer resultado: poder preditivo contra referências
+triviais, estabilidade dos parâmetros, calibração das bandas de alarme,
 detetabilidade e suficiência da variável explicativa, com correção de
 multiplicidade e análise de sensibilidade às convenções herdadas do
 método. A replicação exata é o que garante que se critica o método real
@@ -396,13 +355,26 @@ responde e ao estado em que essa resposta se encontra.
   \end{tabularx}
 \end{table}
 
-%% 2026-09-19: paragrafo do desenho de investigacao cortado na revisao
-%% integral. A cronologia do registo do protocolo esta, melhor dita, na
-%% Sec. 3.1 (Registo, emendas e desvios); a nota sobre os dados ja
-%% explorados passou para a Sec. 1.5. O resto repetia o Cap. 4 e o Ap. A.
-%% Versao anterior em _revisao/2026-09-19-cap1-antes.tex.
-
-
+O desenho de investigação assenta em três rotas de evidência, cada uma
+com a sua regra fixada antes do resultado e com a cronologia declarada,
+para que se saiba o que se sabia em cada momento. A revisão diz o que
+existe: o protocolo foi registado publicamente a 24 de fevereiro de 2026,
+depois das pesquisas nas bases bibliográficas e antes da recuperação dos
+textos e de qualquer extração; cada alteração posterior é uma emenda
+datada, e os desvios que não foram objeto de emenda estão declarados com
+a mesma visibilidade (Apêndice~\ref{app:protocolo-sr}). O caso real diz o
+que acontece: o método de produção é replicado com exatidão, sobre os
+dados da própria refinaria, antes de ser avaliado. O protocolo de
+avaliação diz como se sabe: os estimandos, os testes, os limiares e a
+correção de multiplicidade foram fixados e versionados antes de se olhar
+para um resultado, na lógica do pré-registo~\cite{Nosek2018}, e
+submetidos a quatro revisões adversariais produzidas por modelos de
+linguagem e adjudicadas pelo autor --- um controlo de defeitos, não uma
+revisão por pares. Os dados, esses, não eram desconhecidos: a exploração
+feita ao construir a plataforma antecedeu o protocolo, e o
+Capítulo~\ref{cha:metodos} diz onde isso pesou. Uma grelha de
+sensibilidade reavalia as conclusões sob variações das convenções que o
+método herdou.
 
 \section{Contribuições}
 \label{sec:contribuicoes}
@@ -416,9 +388,8 @@ sobre a qual se afirma alguma coisa.
 Para a refinaria, entregaram-se duas coisas e especificou-se uma
 terceira. Uma plataforma de monitorização energética em produção, sobre
 um modelo dimensional único que reconcilia os três tipos de fontes e cobre
-dezasseis unidades processuais em três fábricas, validada contra os números oficiais célula a célula
-\alterado{na janela de janeiro a maio de 2026}
-(Capítulo~\ref{cha:plataforma}). Um
+dezasseis unidades processuais em três fábricas, validada contra os
+números oficiais célula a célula (Capítulo~\ref{cha:plataforma}). Um
 \emph{dashboard} desenhado como percurso de diagnóstico, da refinaria
 para a unidade, da unidade para o vetor, do vetor para a \emph{baseline}
 que o julga (Secção~\ref{sec:dashboard}). E a especificação de um bloco
@@ -428,29 +399,23 @@ por \emph{baseline} e políticas de estado registadas, formulada como
 requisitos, cada um ancorado num resultado, e ainda por implantar
 (Secção~\ref{sec:implicacoes-plataforma}).
 
-\alterado{As contribuições metodológicas são quatro.
-
-A primeira é um protocolo de avaliação de \emph{baselines} energéticas,
-especificado antes dos resultados, com correção de multiplicidade e
-grelha de sensibilidade. É reutilizável na classe acima
-(Secção~\ref{sec:protocolo-baselines}).
-
-A segunda é o diagnóstico do método em produção: quatro modos de falha
-distintos nos vetores diários, uma limitação de medição na eletricidade
-e o mecanismo que os liga --- a reestimação anual acomoda nos parâmetros
-a deriva que o indicador devia mostrar
-(Capítulo~\ref{cha:diagnostico}).
-
-A terceira são linhas orientadoras para \emph{baselines} em processo
-contínuo, com um critério de aceitação fixado antes dos resultados e
-demonstradas na própria unidade
-(Capítulo~\ref{cha:discussao}).
-
-A quarta é uma revisão de âmbito registada, com corpus fechado e
-extração assistida por modelos de linguagem sobre um instrumento
-congelado, que situa o caso na literatura no estado em que o
-Capítulo~\ref{cha:revisao} a documenta
-(Apêndices~\ref{app:protocolo-sr} e~\ref{app:validacao}).}
+As contribuições metodológicas são quatro. Um protocolo de avaliação de
+\emph{baselines} energéticas, especificado antes dos resultados, com
+correção de multiplicidade e grelha de sensibilidade, reutilizável na
+classe acima (Secção~\ref{sec:protocolo-baselines}). O diagnóstico do
+método em produção: quatro modos de falha distintos nos vetores diários,
+uma limitação de medição na eletricidade, e o mecanismo que os liga --- a
+reestimação anual acomoda nos parâmetros a deriva que o indicador devia
+mostrar (Capítulo~\ref{cha:diagnostico}). Linhas orientadoras para
+\emph{baselines} em processo contínuo, com um critério de aceitação
+fixado antes dos resultados e demonstradas na unidade, incluindo o que muda quando se congela
+uma referência em vez de a reajustar e o que um monitor sequencial
+consegue detetar quando a verdade é conhecida por simulação
+(Capítulo~\ref{cha:discussao}). E uma revisão de âmbito
+registada, com corpus fechado e extração assistida por modelos de
+linguagem sobre um instrumento congelado, que situa o caso na literatura no estado em que o
+Capítulo~\ref{cha:revisao} a documenta (Apêndices~\ref{app:protocolo-sr}
+e~\ref{app:validacao}).
 
 As quatro últimas não existiriam sem as três primeiras, e as três
 primeiras ficariam por acabar sem as quatro últimas: o instrumento foi
@@ -517,9 +482,7 @@ problema distinto que partilha instrumentos com o primeiro.
 Estas fronteiras têm um custo, e declara-se já. Uma unidade e um único
 \emph{snapshot} de dados já explorados não permitem uma validação
 independente da seleção, e a demonstração das linhas orientadoras é
-retrospetiva. \alterado{A exploração feita ao construir a plataforma
-antecedeu o protocolo de avaliação, e o Capítulo~\ref{cha:metodos} diz
-onde isso pesou.} A
+retrospetiva. A
 eletricidade fica sem diagnóstico diário. Os
 critérios de sucesso da ferramenta, que o levantamento deixou por
 definir, nunca chegaram a ser fixados: a plataforma foi avaliada pela
@@ -595,5 +558,5 @@ que a referência prevê para a carga que tem? --- volta no fim do
 documento com uma resposta diferente da que o \emph{dashboard} dá: um
 número acompanhado do seu estado --- em que domínio a referência é
 válida, contra que comparador foi medida, com que cobertura, desde
-quando está em vigor e por que razão ainda não foi substituída. \alterado{Nenhuma destas coisas é um número novo: são o estado do
-número que já existe. É isso que separa medir de saber.}
+quando está em vigor e por que razão ainda não foi substituída. É isso que o bloco de saúde passaria a trazer, e é isso que
+separa medir de saber.
