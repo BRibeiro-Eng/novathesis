@@ -1,0 +1,477 @@
+--- cap1-sem-marcas-anteriores.tex
++++ 2-MainMatter/chapter-1-introducao.tex
+@@ -1,6 +1,9 @@
+ %!TEX root = ../template.tex
+ %% ====================================================================
+ %% Capitulo 1 -- Introducao
++%% 2026-09-19c: marcas anteriores aceites; nova revisao de precisao
++%% conceptual, alcance normativo, cronologia, transferibilidade e concisao.
++%% Original: _revisao/2026-09-19c-cap1-antes-apreciacao.tex.
+ %% v1 2026-09-13. v2 2026-09-17: adaptado ao levantamento de requisitos
+ %% de fevereiro de 2026 (random/Perguntas Contextualizacao Problema.docx),
+ %% ao titulo "Medir nao basta" e aos comentarios C1-02..C1-07. Versao
+@@ -95,26 +98,21 @@
+ preciso para que uma plataforma de monitorização energética seja
+ fiável?}
+ 
+-Fiável não quer dizer infalível. Nenhum detetor estatístico garante que
+-cada alarme corresponde a um problema e que a ausência de alarme
+-corresponde à ausência de problema, e esta dissertação não mede tal
+-coisa. Fiável, neste trabalho, quer dizer quatro coisas
+-verificáveis, cada uma pedida por alguma das normas ou protocolos de
+-medição e verificação, nenhuma exigida em conjunto por nenhum deles.
+-Cada número é rastreável até à fonte e à regra que o produziu, no
+-sentido de transparência e de completude com que os princípios de
+-medição e verificação da ISO~50015 usam o termo~\cite{ISO50015_2014}. O
+-domínio em que a comparação é válida está declarado, e sabe-se quando se
+-está fora dele, que é o que a ISO~50006 pede ao mandar fixar as
+-condições de referência e as variáveis relevantes~\cite{ISO50006_2014}.
+-O desempenho da referência está quantificado --- contra que comparador,
+-com que erro, em que período ---, à maneira dos critérios quantitativos
+-de aceitação de modelo que o ASHRAE Guideline~14 e o IPMVP fixam e que a
+-família ISO cita sem adotar~\cite{ASHRAE14_2014,IPMVP_2022}. E a
+-incerteza acompanha o resultado, em vez de ficar implícita numa reta
+-desenhada sobre uma nuvem de pontos. A
+-definição é exigente por ser modesta: não promete alarmes certos, promete
+-que se sabe o que cada alarme vale.
++\alterado{Fiável, neste trabalho, designa quatro condições verificáveis,
++formuladas a partir das normas e dos protocolos analisados. Cada número
++é rastreável até à fonte e à regra que o produziu, em consonância com os
++princípios de transparência e completude da ISO~50015:2014~\cite{ISO50015_2014}.
++O domínio da comparação está declarado, a partir das condições de
++referência e das variáveis relevantes consideradas, seguindo a orientação
++da ISO~50006:2014~\cite{ISO50006_2014}. O desempenho da referência está
++quantificado --- contra que comparador, com que erro e em que período ---,
++adotando o princípio de critérios quantitativos explícitos presente nos
++protocolos de medição e verificação discutidos no
++Capítulo~\ref{cha:enquadramento}~\cite{ASHRAE14_2014,IPMVP_2022}.
++E a incerteza acompanha o resultado. Estas condições permitem avaliar
++os limites de utilização da referência; não garantem que cada alarme
++corresponda a um problema real nem que a ausência de alarme demonstre
++normalidade, o que exigiria validação com eventos operacionais.}
+ 
+ A fiabilidade assim definida tem duas camadas, que se
+ distinguem pela pergunta a que respondem. A primeira é a dos dados, e
+@@ -146,21 +144,14 @@
+ referência estiver errada, os dados podem estar certos e o alarme
+ continuar a não significar nada.
+ 
+-As duas camadas não são uma escolha de desenho; são as duas metades de
+-um requisito. A ISO~50001 obriga a organização a monitorizar, medir e
+-analisar o seu desempenho energético e a responder a desvios
+-significativos~\cite[\S9.1]{ISO50001_2018}; a ISO~50006 operacionaliza a
+-comparação através do par indicador--referência, os indicadores de
+-desempenho energético (EnPI) e os consumos energéticos de referência
+-(EnB, as \emph{baselines})~\cite{ISO50006_2014}. A infraestrutura de
+-medição é a primeira metade; a \emph{baseline} validada é a segunda. Uma organização pode ter as duas e não ter meio de saber
+-se a segunda funciona, e é o que se encontrou em Sines: um método de
+-\emph{baseline} aplicado, reproduzível ao
+-dígito, que normaliza o consumo por uma única variável, a carga ---
+-nenhuma covariável de processo, nenhum fator estático entra ---, com
+-bandas, alarmes e cartas de controlo já em uso, e cuja adequação ao fim
+-que a norma lhe atribui nunca tinha sido avaliada com um protocolo
+-declarado.
++\alterado{As duas camadas articulam o acompanhamento do desempenho energético
++exigido pela ISO~50001:2018~\cite[\S9.1]{ISO50001_2018} com a comparação
++entre indicadores e referências descrita na
++ISO~50006:2014~\cite{ISO50006_2014}.
++Designam-se os primeiros por EnPI e os consumos energéticos de referência
++por EnB, as \emph{baselines}. No caso de Sines, já existia um método de
++\emph{baseline} sobre a carga, com bandas, alarmes e cartas de controlo;
++faltava avaliá-lo mediante um protocolo declarado.}
+ 
+ A Figura~\ref{fig:duas-camadas} resume as duas camadas e o lugar de cada capítulo nelas.
+ 
+@@ -176,79 +167,69 @@
+ levantamento reconheceu a tensão: as métricas precisam de uma referência
+ robusta, e uma referência rígida não serve todas as situações, pelo que
+ se adapta a análise \enquote{caso a caso}, com \enquote{espírito
+-crítico}. Uma referência reestimada todos os anos resolve a mesma
+-tensão de outra maneira: cada nova reta acomoda o nível que a anterior
+-deixou, e um desvio lento e persistente, que é o que a gestão de energia
+-existe para apanhar, sai dos resíduos à medida que os parâmetros o
+-absorvem. Medir não basta.
++crítico}. \alterado{A reestimação anual pode acomodar parte de uma
++mudança persistente nos parâmetros da nova reta, reduzindo a sua
++visibilidade nos desvios face à referência atualizada. É necessário
++avaliar o que essa atualização preserva e o que absorve.} Medir não basta.
+ 
+ \section{Formulação do problema}
+ \label{sec:problema}
+ 
+-O levantamento descreve o problema sem rodeios, e é por aí que se
+-começa. Não há acompanhamento regular do desempenho energético: o ideal
+-seria diário, e o que existe concentra-se nos períodos que antecedem as
+-auditorias ou a elaboração dos relatórios trimestrais de consumos. Há decisões de melhoria que se tomam com atraso, por falta de
+-visibilidade atempada sobre os dados. A refinaria consegue demonstrar
+-melhoria com dados, mas o processo é descrito como pouco eficiente e
+-lento; quanto tempo ao certo custa a elaboração de cada relatório trimestral não foi
+-quantificado. A referência que julga cada dia normaliza o consumo por
+-uma única variável, a carga: nenhuma covariável de processo entra na
+-reta e nenhum fator estático é declarado. Não é que a refinaria ignore
+-que a carga não chega --- o índice de intensidade energética que
+-acompanha ao lado incorpora a densidade da carga, o rendimento em
+-resíduo e as condições de \emph{flash}
+-(Secção~\ref{sec:metricas}) ---, mas esse índice serve de contexto de
+-\emph{benchmarking} entre refinarias e não é a referência com que se
+-julgam dias. Em fevereiro de 2026, antes de qualquer resultado, a
+-leitura da norma contra o levantamento já apontava essa ausência como
+-lacuna face aos requisitos de determinação de variáveis relevantes e de
+-normalização~\cite[\S6.4--6.5]{ISO50001_2018}. Uma plataforma resolve a
+-parte do problema que é de acesso --- a periodicidade, a latência dos
+-relatórios, o trabalho manual em folhas de cálculo, a deteção tardia dos
+-problemas de qualidade ---, e o Capítulo~\ref{cha:plataforma} mostra
+-como. Não resolve a outra parte: determinar que variáveis são relevantes
+-e normalizar por elas não é um problema de infraestrutura, e é aí que
+-começa o resto da dissertação.
+-
+-Por trás dela há duas razões, e a segunda explica por que motivo a
+-primeira não se resolve com mais dados.
+-
+-A primeira é uma assimetria normativa. A ISO~50001 é uma norma de
+-requisitos: diz o que deve existir (indicadores, \emph{baselines},
+-normalização quando há variáveis relevantes, resposta a desvios) e é
+-certificável sobre isso. A ISO~50006 e a ISO~50015 são normas de
+-orientação: descrevem como construir uma \emph{baseline} e como medir e
+-verificar, sem carácter vinculativo~\cite{ISO50006_2014,ISO50015_2014}.
+-Nenhuma das três fixa um critério pelo qual uma \emph{baseline} é aceite
+-ou rejeitada. A organização é obrigada a comparar o desempenho com a
+-referência e a reagir ao que vê; não é obrigada a demonstrar que a
+-referência merece a comparação. O Capítulo~\ref{cha:enquadramento}
+-percorre esta assimetria cláusula a cláusula e mostra que o silêncio é
+-uma escolha de desenho normativo, não uma impossibilidade técnica:
+-protocolos de medição e verificação nascidos no setor dos edifícios
+-fixam critérios quantitativos, e a família ISO cita-os sem os adotar.
+-
+-A segunda é um pressuposto que as normas fazem sem o enunciar.
+-Normalizar o consumo pelas variáveis relevantes, comparar
+-períodos \enquote{em condições equivalentes} e alarmar sobre um desvio só faz sentido se a relação
+-entre consumo e variáveis relevantes for estável no tempo --- se o que
+-a unidade consumia a uma dada carga no período de referência for o que
+-consome a essa carga hoje. É um pressuposto de estacionariedade da
+-relação, não da série, e é razoável em muitos contextos: um edifício,
+-uma linha de montagem. Em processo contínuo não pode ser assumido; tem
+-de ser verificado. A relação consumo--carga move-se por razões que
+-convém distinguir, porque pedem respostas diferentes: a carga muda de
+-composição com cada crude; o equipamento degrada-se, como a bateria de
+-pré-aquecimento que incrusta e obriga o forno a compensar; a medição
+-altera-se quando um instrumento é recalibrado ou substituído; e as
+-intervenções --- uma limpeza, uma paragem --- repõem parte do que se
+-perdeu. Nem tudo isto é deriva estrutural e nem tudo é ineficiência: a
+-incrustação é, ao mesmo tempo, um mecanismo físico previsível e uma
+-perda de eficiência que a operação pode antecipar ou adiar. Um modelo
+-estático, ajustado sobre um período fixo, não distingue nenhuma destas
+-coisas: vê apenas resíduos. E se o modelo for reajustado todos os anos,
+-deixa de ver sequer os resíduos.
++\alterado{O levantamento identifica duas necessidades distintas. A primeira é
++operacional: tornar regular o acompanhamento do desempenho e reduzir
++o trabalho manual que antecede os relatórios e as auditorias. A
++segunda é analítica: avaliar a adequação de uma referência diária que
++normaliza apenas pela carga, sem covariáveis de processo nem fatores
++estáticos declarados. O índice de intensidade energética acompanhado
++pela equipa incorpora a densidade da carga, o rendimento em resíduo e
++as condições de \emph{flash} (Secção~\ref{sec:metricas}), mas serve de
++contexto de \emph{benchmarking}, e não de referência diária. No arranque
++do trabalho, em fevereiro de 2026, esta diferença motivou a avaliação
++da seleção de variáveis e da normalização à luz da
++ISO~50001:2018~\cite[\S6.4--6.5]{ISO50001_2018}. A construção da
++plataforma responde à necessidade de acesso; a adequação da referência
++exige uma avaliação própria.}
++
++\alterado{Essa avaliação tem duas dificuldades: a escolha dos critérios
++e a interpretação das mudanças observadas.}
++
++\alterado{A primeira decorre do enquadramento normativo. A ISO~50001:2018 é uma
++norma de requisitos certificável: exige indicadores e referências
++adequados, normalização quando variáveis relevantes afetam
++significativamente o desempenho e investigação de desvios
++significativos~\cite{ISO50001_2018}. A ISO~50006 e a ISO~50015 fornecem
++orientação para construir referências e medir e verificar o desempenho.
++Nas edições analisadas, não se fixa um procedimento quantitativo único,
++com limiares de aceitação, que demonstre a adequação da referência aos
++usos aqui avaliados; cabe à organização demonstrar essa
++adequação~\cite{ISO50006_2014,ISO50015_2014}. O
++Capítulo~\ref{cha:enquadramento} examina esta margem de implementação e
++compara-a com critérios explícitos de protocolos de medição e verificação.
++A análise usa a ISO~50006:2014 e a ISO~50015:2014. A edição de 2023 da
++ISO~50006 substituiu a de 2014, mas não foi consultada; as conclusões
++sobre o conteúdo da orientação não se estendem a essa edição sem
++verificação~\cite{ISO50006_2023}.}
++
++\alterado{A segunda é distinguir uma mudança de desempenho de uma alteração nas
++condições que compromete a comparação. Uma referência histórica deve
++permitir estimar o consumo nas condições de reporte mantendo o desempenho
++do período de referência. Isso não exige que a unidade consuma hoje o
++mesmo à mesma carga: uma melhoria ou degradação real pode alterar essa
++relação, e detetar a mudança é uma das finalidades da monitorização.
++Exige, porém, que se avalie se as variáveis consideradas, o domínio de
++aplicação e as condições de medição permitem interpretar o desvio.
++
++Em processo contínuo, a composição da carga muda com o crude, o
++equipamento degrada-se, as limpezas e paragens alteram o estado da
++instalação e a recalibração de instrumentos pode alterar a medição.
++A incrustação é simultaneamente um mecanismo físico previsível e uma
++perda de eficiência; incluí-la numa normalização pode absorver o efeito
++que se pretende acompanhar. A escolha depende, por isso, da função da
++referência. Um modelo estático sobre a carga, por si só, não separa estas
++origens: produz resíduos. A estabilidade dos parâmetros e o desempenho
++fora da amostra são diagnósticos da transportabilidade dessa relação;
++a sua alteração não identifica automaticamente ineficiência nem prova,
++isoladamente, que a referência deixou de ser útil para monitorizar.}
+ 
+ %% FIGURA 1.2 (sugestao, opcional): esboco conceptual, sem dados, de
+ %% consumo vs carga com a relacao a deslocar-se ano a ano e o refit anual
+@@ -258,52 +239,41 @@
+ %% ser explicitamente conceptual, para nao antecipar a Figura real do
+ %% Cap. 6 (sec:estabilidade). Alternativa: deixar so para o Cap. 2 §2.4.
+ 
+-O que está em jogo é operacional e normativo ao mesmo tempo.
+-Operacional, porque uma \emph{baseline} que não distingue deriva de
+-ineficiência produz alarmes que a operação aprende a ignorar e
+-silêncios que a gestão aprende a ler como normalidade. Normativo, porque
+-uma organização pode estar em conformidade formal com a ISO~50001 (tem
+-EnPI, tem EnB, normaliza, reporta) e não ter forma de saber se as
+-suas \emph{baselines} cumprem alguma das três funções que lhes são
+-pedidas: normalizar o consumo pelas variáveis relevantes,
+-sustentar comparações entre períodos e alimentar alarmes. No caso
+-estudado, a única variável relevante admitida é a carga. A norma pede indicadores e referências
+-adequados e deixa à organização a demonstração dessa adequação, sem fixar
+-um teste para a fazer.
+-
+-É este o problema: \emph{falta demonstrar, no caso estudado, que as
+-\emph{baselines} em produção são adequadas aos usos que a norma lhes
+-atribui, e falta um procedimento operacional para o fazer; sem ele, uma
+-organização não tem meio de saber se a sua plataforma de monitorização é
+-fiável na segunda camada, por mais fiável que seja na primeira.} A
+-revisão de âmbito do Capítulo~\ref{cha:revisao} delimita a lacuna nas
+-publicações em inglês posteriores a 1995 indexadas na Scopus e na Web of
+-Science até fevereiro de 2026. As peças existem: rácios e regressões sobre a
+-carga, a norma que os enquadra e casos em quase todos os setores de processo
+-contínuo. O que falta está nas condições em que esses modelos podem servir
+-de referência. Nos 140 modelos dos 39 estudos de processo contínuo
+-cartografados, 27 têm um regime de reestimação declarado, 22 um domínio de
+-validade e 13 uma validação fora da amostra; nenhum dos 13 estudos em
+-refinação ou petroquímica junta energia medida na fronteira do modelo,
+-regra de reestimação, domínio declarado e teste fora da amostra. Os estudos
+-relatam sobretudo sintomas no modelo e raramente a causa física: em 89 das
+-130 ocorrências de efeito extraídas não se nomeia nenhuma causa, e a
+-incrustação que a orientação industrial identificou de imediato não aparece
+-uma única vez como limitação de um modelo --- a única frase do corpus que a
+-nomeia usa-a como motivação para monitorizar. A contribuição não está, por isso,
+-em componentes novos, muitos dos quais existem na literatura estatística e
+-de medição e verificação, mas na sua integração numa unidade industrial
+-real, com a referência em produção replicada exatamente e avaliada contra um
+-protocolo fixado antes dos resultados. Os capítulos empíricos mostram o que
+-o problema custa numa refinaria real e o que poderá ser preciso para o tratar.
++\alterado{O risco operacional é interpretar como normalidade uma mudança absorvida
++pela referência, ou como degradação um desvio devido a condições não
++representadas no modelo. Importa, por isso, avaliar separadamente três
++usos: normalizar o consumo pelas variáveis relevantes, sustentar
++comparações entre períodos e alimentar alarmes. A existência de
++indicadores, referências e revisões documentadas não demonstra, por si,
++a adequação a esses usos. Este trabalho avalia o método aplicado em
++Sines; não avalia a conformidade do sistema de gestão nem o resultado
++das suas auditorias.}
++
++\alterado{É este o problema: \emph{falta demonstrar, no caso estudado, que as
++\emph{baselines} em produção são adequadas aos usos previstos e falta um
++procedimento operacional para o fazer.} A revisão de âmbito do
++Capítulo~\ref{cha:revisao} situa a questão nas publicações em inglês
++posteriores a 1995, indexadas na Scopus e na Web of Science até fevereiro
++de 2026. Nos 39 estudos de processo contínuo cartografados, a declaração
++do domínio de validade, das regras de reestimação e da validação fora da
++amostra é limitada. Nenhum dos 13 estudos com aplicação em refinação ou
++petroquímica reúne energia medida na fronteira do modelo, regra de
++reestimação, domínio declarado e teste fora da amostra. Esta lacuna de
++reporte delimita a evidência disponível; não demonstra que essas
++práticas estejam ausentes das instalações estudadas.
++
++O contributo consiste em integrar instrumentos de avaliação existentes
++num caso industrial real, replicando o método em produção e examinando
++as condições em que pode servir de referência. Os capítulos empíricos
++avaliam as suas limitações e demonstram um procedimento para julgar
++candidatos alternativos.}
+ 
+ \section{Objetivos e questões de investigação}
+ \label{sec:objetivos}
+ 
+-A pergunta central já foi enunciada: o que é preciso para que uma
+-plataforma de monitorização energética seja fiável, nas duas camadas.
+-Responde-se-lhe com três objetivos encadeados, em que cada um é a
+-condição do seguinte.
++\alterado{A pergunta central concretiza-se em três objetivos encadeados:
++construir o instrumento, diagnosticar o método em produção e formular
++linhas orientadoras a partir da evidência obtida.}
+ 
+ O primeiro é \emph{construir}: reunir as três fontes de dados da
+ refinaria num modelo dimensional único; validar que esse modelo
+@@ -314,18 +284,21 @@
+ 
+ O segundo é \emph{diagnosticar}: replicar exatamente, dentro desse
+ instrumento, o método de \emph{baseline} que a refinaria usa há seis
+-anos, e avaliá-lo com um protocolo estatístico especificado e selado
+-antes de qualquer resultado: desempenho preditivo contra
+-referências triviais, estabilidade dos parâmetros, calibração das bandas de alarme,
+-detetabilidade e suficiência da variável explicativa, com correção de
+-multiplicidade e análise de sensibilidade às convenções herdadas do
+-método. A replicação exata é o que garante que se critica o método real
++anos, e avaliá-lo com um protocolo estatístico \alterado{especificado
++antes da execução da avaliação aqui reportada, após exploração prévia
++dos dados. Avaliam-se o desempenho preditivo contra referências triviais,
++a estabilidade dos parâmetros, a calibração das bandas de alarme e o
++valor adicional de covariáveis de processo; explicita-se ainda o que é
++possível concluir sobre detetabilidade. A correção de multiplicidade
++aplica-se à família dos testes de estabilidade, e a análise de
++sensibilidade examina as convenções herdadas do método.} A replicação exata é o que garante que se critica o método real
+ e não uma reconstrução dele.
+ 
+ O terceiro é \emph{prescrever}: converter o diagnóstico numa proposta,
+ linhas orientadoras para construir, aceitar e manter \emph{baselines}
+-em processo contínuo, com um critério de aceitação declarado antes dos
+-resultados; demonstrá-la na própria unidade; e devolvê-la à plataforma
++em processo contínuo, com um critério de aceitação declarado
++\alterado{antes de obter os resultados da avaliação dos candidatos;
++demonstrá-la retrospetivamente na própria unidade;} e devolvê-la à plataforma
+ como especificação do que o \emph{dashboard} tem de mostrar para que uma
+ \emph{baseline} seja usada com conhecimento do seu estado.
+ 
+@@ -365,7 +338,7 @@
+ apenas pelo caso empírico, e a revisão não faz afirmações de
+ transferibilidade para a refinação. A Tabela~\ref{tab:objetivos-perguntas}
+ liga cada objetivo às perguntas que o concretizam, à evidência que as
+-responde e ao estado em que essa resposta se encontra.
++responde e \alterado{ao alcance da resposta obtida.}
+ 
+ {\small
+ \begin{xltabular}{\linewidth}{@{}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{3.1cm}@{}}
+@@ -393,14 +366,14 @@
+     Diagnosticar & A referência prevê melhor do que comparadores triviais, por vetor e por ano? & Contraste de perdas emparelhado com intervalos por blocos (Secção~\ref{sec:poder-preditivo}) & respondida nos quatro vetores diários; a eletricidade fica sem diagnóstico diário \\
+     Diagnosticar & A relação consumo--carga é estável entre anos? & Contrastes entre anos com covariância robusta à dependência (Secção~\ref{sec:estabilidade}) & respondida \\
+     Diagnosticar & A banda de alarme cobre o que promete, no conjunto e por estrato de carga? & Cobertura marginal e por estrato (Secção~\ref{sec:calibracao}) & respondida \\
+-    Diagnosticar & Que desvio o método consegue detetar, e a carga chega como variável explicativa? & Detetabilidade e modelos encaixados com covariáveis de processo (Secções~\ref{sec:detetabilidade} e~\ref{sec:suficiencia}) & respondida \\
++    Diagnosticar & \alterado{Que limites condicionam a deteção, e as covariáveis acrescentam valor à carga?} & Detetabilidade e modelos encaixados com covariáveis de processo (Secções~\ref{sec:detetabilidade} e~\ref{sec:suficiencia}) & \alterado{valor das covariáveis avaliado; detetabilidade real não estimada} \\
+     \addlinespace
+-    Prescrever & Um candidato construído pelas linhas orientadoras passa o critério de aceitação fixado antes dos resultados? & Demonstração nos mesmos pares anuais (Secção~\ref{sec:demonstracao}) & respondida; retrospetiva \\
++    Prescrever & Um candidato construído pelas linhas orientadoras passa o critério de aceitação \alterado{fixado antes da sua avaliação?} & Demonstração nos mesmos pares anuais (Secção~\ref{sec:demonstracao}) & respondida; retrospetiva \\
+     Prescrever & O que deteta um monitor sequencial, e com que atraso, quando a verdade é conhecida? & Simulação sobre referência congelada (Secção~\ref{sec:verdade-conhecida}) & respondida por simulação \\
+     Prescrever & O que tem o \emph{dashboard} de mostrar para que uma \emph{baseline} seja usada com conhecimento do seu estado? & Especificação do bloco de saúde (Secção~\ref{sec:implicacoes-plataforma}) & proposta; não implantada \\
+     \addlinespace
+     Revisão, SQ1 & Como se distribuem os modelos por setor, organização e enquadramento normativo? & Bibliometria do Corpus~A (Secção~\ref{sec:corpus-a}) & respondida \\
+-    Revisão, SQ2--SQ3 & Que mecanismos tornam os modelos inadequados, e que adaptações se propõem? & Síntese do Corpus~B (Secção~\ref{sec:corpus-b}) & respondida; verificação por modelo, decisões do autor fechadas \\
++    Revisão, SQ2--SQ3 & Que mecanismos tornam os modelos inadequados, e que adaptações se propõem? & Síntese do Corpus~B (Secção~\ref{sec:corpus-b}) & \alterado{síntese do corpus; limites da extração na Secção~\ref{sec:corpus-b}} \\
+     \addlinespace
+     Revisão, SQ4 & As recomendações são aplicáveis numa refinaria? & --- & retirada (Apêndice~\ref{app:protocolo-sr}, D8) \\
+ \end{xltabular}
+@@ -419,11 +392,15 @@
+ \section{Contribuições}
+ \label{sec:contribuicoes}
+ 
+-As contribuições dividem-se pelas duas metades do requisito. As
+-primeiras pertencem à refinaria. As segundas transferem-se para quem
+-opere \emph{baselines} lineares anuais sobre a carga, com série diária
+-de pelo menos um ano: é a classe em que foram demonstradas, e a única
+-sobre a qual se afirma alguma coisa.
++\alterado{As contribuições incluem entregas para a refinaria e procedimentos
++metodológicos potencialmente reutilizáveis na avaliação de
++\emph{baselines} lineares anuais sobre a carga. A demonstração empírica
++limita-se à unidade de destilação atmosférica e aos períodos estudados;
++não constitui validação da
++transferibilidade dos resultados a outras unidades. Um ano completo de
++histórico é o mínimo adotado para construir cada referência anual, mas a
++avaliação temporal aqui realizada usa seis anos e cinco transições entre
++anos consecutivos.}
+ 
+ Para a refinaria, entregaram-se duas coisas e especificou-se uma
+ terceira. Uma plataforma de monitorização energética em produção, sobre
+@@ -443,19 +420,23 @@
+ As contribuições metodológicas são quatro.
+ 
+ A primeira é um protocolo de avaliação de \emph{baselines} energéticas,
+-especificado antes dos resultados, com correção de multiplicidade e
+-grelha de sensibilidade. É reutilizável na classe acima
++\alterado{especificado antes da execução da avaliação aqui reportada,
++após exploração prévia dos dados, com correção de multiplicidade na
++família dos testes de estabilidade e grelha de sensibilidade. A sua
++aplicação noutras unidades exige adequar o domínio, os dados e as
++janelas de avaliação}
+ (Secção~\ref{sec:protocolo-baselines}).
+ 
+ A segunda é o diagnóstico do método em produção: quatro modos de falha
+ distintos nos vetores diários, uma limitação de medição na eletricidade
+-e o mecanismo que os liga --- a reestimação anual acomoda nos parâmetros
+-a deriva que o indicador devia mostrar
++\alterado{e a análise de como a reestimação anual pode acomodar nos
++parâmetros mudanças persistentes da relação consumo--carga}
+ (Capítulo~\ref{cha:diagnostico}).
+ 
+ A terceira são linhas orientadoras para \emph{baselines} em processo
+-contínuo, com um critério de aceitação fixado antes dos resultados e
+-demonstradas na própria unidade
++contínuo, com um critério de aceitação \alterado{fixado antes dos
++resultados da avaliação dos candidatos e demonstradas retrospetivamente
++na própria unidade}
+ (Capítulo~\ref{cha:discussao}).
+ 
+ A quarta é uma revisão de âmbito registada, com corpus fechado e
+@@ -464,10 +445,9 @@
+ Capítulo~\ref{cha:revisao} a documenta
+ (Apêndices~\ref{app:protocolo-sr} e~\ref{app:validacao}).
+ 
+-As quatro últimas não existiriam sem as três primeiras, e as três
+-primeiras ficariam por acabar sem as quatro últimas: o instrumento foi
+-construído para tornar o diagnóstico possível, e o diagnóstico
+-devolve-lhe a especificação de que ele precisava.
++\alterado{O diagnóstico devolve à plataforma requisitos para tornar visíveis o
++domínio, o desempenho e a incerteza de cada referência. A implantação
++desses requisitos permanece como trabalho futuro.}
+ 
+ \section{Âmbito e enquadramento do trabalho}
+ \label{sec:ambito}
+@@ -554,38 +534,15 @@
+ %Deixar a demonstração do mecanismo para os Caps. 6/7.}%
+ % [/REV-2026-09-13]
+ 
+-A dissertação lê-se em três andamentos, instrumento, diagnóstico e
+-prescrição, precedidos por dois capítulos que estabelecem o que as
+-normas exigem e o que a literatura oferece.
+-
+-O Capítulo~\ref{cha:enquadramento} reconstrói a cadeia de medição
+-implícita na família ISO~50001 e mostra, cláusula a cláusula, onde a
+-norma exige, onde deixa à organização e que pressuposto tácito cada elo
+-importa para funcionar; introduz a especificidade dos processos
+-contínuos e apresenta o caso de estudo. O Capítulo~\ref{cha:revisao}
+-pergunta à literatura se o problema está resolvido: protocolo e
+-registo, estratégia de pesquisa e seleção, análise bibliométrica do
+-Corpus~A, síntese narrativa do Corpus~B e a formulação do \emph{gap}
+-que o resto do documento trata.
+-
+-O Capítulo~\ref{cha:metodos} descreve como se construiu e como se
+-avaliou: fontes e ingestão, modelo dimensional e reconciliação, cálculo
+-de métricas, o protocolo de avaliação estatística das \emph{baselines}
+-e a cadeia de proveniência que torna cada número reproduzível. O
+-Capítulo~\ref{cha:plataforma} é o instrumento: a arquitetura entregue,
+-a prova de que a camada de dados reproduz os números
+-oficiais e declara a origem de cada valor, o \emph{dashboard} e o que
+-ficou de fora. O Capítulo~\ref{cha:diagnostico} executa-se sobre o
+-modelo de dados do capítulo anterior (é, literalmente, uma consulta a
+-ele) e audita a camada analítica: replicação exata, perfil dos dados e
+-domínio de validade, as quatro dimensões do protocolo e os diagnósticos
+-complementares, fechados numa síntese dos modos de falha. O
+-Capítulo~\ref{cha:discussao} lê o diagnóstico em conjunto, tira as
+-implicações para a conformidade normativa, propõe as linhas
+-orientadoras, demonstra-as na unidade, devolve-as à plataforma como
+-especificação e declara os limites do que afirma. O
+-Capítulo~\ref{cha:conclusoes} conclui e traça um roteiro de possíveis modelos
+-sucessores.
++\alterado{Os Capítulos~\ref{cha:enquadramento} e~\ref{cha:revisao} estabelecem o
++quadro normativo, o contexto industrial e a evidência da literatura.
++O Capítulo~\ref{cha:metodos} descreve as fontes, o tratamento dos dados,
++as métricas e os protocolos de avaliação. Seguem-se os três objetivos:
++a plataforma e a sua validação no Capítulo~\ref{cha:plataforma}; o
++diagnóstico das \emph{baselines} no Capítulo~\ref{cha:diagnostico}; e a
++discussão, as linhas orientadoras, a sua demonstração e as limitações no
++Capítulo~\ref{cha:discussao}. O Capítulo~\ref{cha:conclusoes} reúne as
++conclusões e o trabalho futuro.}
+ 
+ %% FIGURA 1.3 (sugestao): mapa de leitura. Tres colunas (instrumento /
+ %% diagnostico / prescricao) com os Caps. 5, 6 e 7; por cima, Caps. 2 e

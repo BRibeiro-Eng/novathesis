@@ -1,0 +1,414 @@
+--- cap1-antes-humanizer-narrativa.tex
++++ /Users/bernardoribeiro/Desktop/Tese/novathesis/2-MainMatter/chapter-1-introducao.tex
+@@ -1,6 +1,9 @@
+ %!TEX root = ../template.tex
+ %% ====================================================================
+ %% Capitulo 1 -- Introducao
++%% 2026-09-19d: humanizer pt-PT + narrativa, modo aplicar.
++%% Foco: equipa de monitorizacao; escala empresa-unidade-dia;
++%% pergunta inicial retomada sem anunciar o retorno; rigor preservado.
+ %% 2026-09-19c: marcas anteriores aceites; nova revisao de precisao
+ %% conceptual, alcance normativo, cronologia, transferibilidade e concisao.
+ %% Original: _revisao/2026-09-19c-cap1-antes-apreciacao.tex.
+@@ -53,11 +56,11 @@
+ \section{Contexto e motivação}
+ \label{sec:contexto}
+ 
+-A Refinaria de Sines mede a sua energia com um detalhe que poucas
+-organizações têm. Cada caudal de combustível e de vapor, cada temperatura
+-e cada poder calorífico ficam registados no historiador de processo; os balanços mensais de produção e de utilidades fecham-se e
+-arquivam-se; a eletricidade é medida, faturada e repartida pelas
+-unidades. A refinaria é certificada segundo a ISO~50001, tem um sistema
++Na Refinaria de Sines, o historiador de processo guarda os caudais de
++combustível e de vapor, as temperaturas e os poderes caloríficos usados
++no acompanhamento energético. Fecham-se e arquivam-se os balanços mensais
++de produção e de utilidades; a eletricidade é medida, faturada e
++repartida pelas unidades. A refinaria é certificada segundo a ISO~50001, tem um sistema
+ de gestão de energia implementado e quatro indicadores de desempenho
+ energético definidos: consumos específicos por unidade, índice de
+ intensidade energética, emissões de CO$_2$ associadas ao consumo, e as
+@@ -85,92 +88,81 @@
+ de cálculo das equipas --- e a monitorização vive na fronteira entre
+ eles, reconciliada caso a caso. O próprio levantamento descreve a gestão
+ de energia como orientada para o cumprimento dos requisitos de auditoria,
+-e não para a melhoria contínua. Mede-se tudo; sabe-se tarde.
+-
+-O pedido que deu origem a este trabalho foi, na sua formulação inicial,
+-um \emph{dashboard}: uma plataforma que juntasse as fontes, calculasse
+-os indicadores que a equipa já produzia e os mostrasse por unidade, por
+-vetor energético e por dia. É um pedido legítimo, e foi cumprido. Resolve
+-a primeira metade do problema: a informação passa a existir num modelo
+-único, validado contra os números oficiais, atualizado todas as noites.
+-Mas medir melhor, e mais depressa, pode ainda não ser suficiente. A pergunta que o
+-\emph{dashboard} esconde é outra, e é a desta dissertação: \emph{o que é
+-preciso para que uma plataforma de monitorização energética seja
+-fiável?}
+-
+-Fiável, neste trabalho, designa quatro condições verificáveis,
+-formuladas a partir das normas e dos protocolos analisados. Cada número
+-é rastreável até à fonte e à regra que o produziu, em consonância com os
+-princípios de transparência e completude da ISO~50015:2014~\cite{ISO50015_2014}.
+-O domínio da comparação está declarado, a partir das condições de
+-referência e das variáveis relevantes consideradas, seguindo a orientação
+-da ISO~50006:2014~\cite{ISO50006_2014}. O desempenho da referência está
+-quantificado --- contra que comparador, com que erro e em que período ---,
+-adotando o princípio de critérios quantitativos explícitos presente nos
++e não para a melhoria contínua. Mede-se muito; sabe-se tarde.
++
++O pedido inicial foi um \emph{dashboard} que juntasse as fontes e
++mostrasse os indicadores já produzidos pela equipa, por unidade, vetor
++energético e dia. A plataforma entregue reúne essa informação num modelo
++único, validado contra os números oficiais e atualizado todas as noites.
++Com os dados reunidos, a equipa consegue consultar o desvio; interpretá-lo
++exige saber se a referência é adequada à comparação. É dessa necessidade
++que nasce a pergunta da dissertação: \emph{o que é preciso para que uma
++plataforma de monitorização energética seja fiável?}
++
++A fiabilidade é aqui avaliada por quatro condições, formuladas a partir
++das normas e dos protocolos analisados. Deve ser possível seguir cada
++número até à fonte e à regra que o produziu, de acordo com os princípios
++de transparência e completude da ISO~50015:2014~\cite{ISO50015_2014}.
++A comparação deve ter um domínio declarado, definido a partir das condições
++de referência e das variáveis relevantes, seguindo a orientação da
++ISO~50006:2014~\cite{ISO50006_2014}. O desempenho da referência deve ser
++quantificado, indicando o comparador, o erro e o período de avaliação.
++Adota-se assim o princípio de critérios quantitativos explícitos dos
+ protocolos de medição e verificação discutidos no
+ Capítulo~\ref{cha:enquadramento}~\cite{ASHRAE14_2014,IPMVP_2022}.
+-E a incerteza acompanha o resultado. Estas condições permitem avaliar
+-os limites de utilização da referência; não garantem que cada alarme
+-corresponda a um problema real nem que a ausência de alarme demonstre
+-normalidade, o que exigiria validação com eventos operacionais.
+-
+-A fiabilidade assim definida tem duas camadas, que se
+-distinguem pela pergunta a que respondem. A primeira é a dos dados, e
+-responde a de onde vem cada número e ao que lhe foi feito antes de
+-chegar aqui. A tentação é dizer que a plataforma tem de dizer a verdade
+-sobre o que a unidade consumiu e processou, mas a formulação não resiste
+-ao caso. A fonte de verdade da refinaria é o balanço: é sobre os seus
+-valores que assentam os cálculos, e o historiador de processo entra
+-sobretudo para cobrir os dias em que o balanço ainda não fechou. Só que
+-o balanço não é uma leitura --- é, em boa parte, as mesmas medições do
+-historiador depois de um procedimento de ajuste que redistribui os
+-desajustes por certas correntes até as contas fecharem, segundo regras
+-que este trabalho não auditou. E os dois canais divergem de forma que
+-muda de ano para ano: no fuel gás, a mediana da diferença relativa entre
+-eles vai de $-11\%$ a $0\%$ consoante o ano, e nos vapores chega a
+-$\pm30\%$ (Secção~\ref{sec:modelo-dimensional}). A camada de dados não
+-pode, por isso, prometer verdade metrológica. O que pode prometer, e é o
+-que a plataforma entrega, é que cada valor chega com a sua origem, a sua
+-regra de escolha e a sua versão declaradas, e que as divergências entre
+-canais ficam à vista em vez de serem resolvidas caso a caso numa folha
+-de cálculo.
+-
+-A segunda camada é a da analítica, e responde a contra o que é julgado
+-cada número. A plataforma compara o consumo com uma referência --- uma
+-\emph{baseline} energética --- que diz quanto a unidade consumiria,
+-àquela carga, em condições de referência. Não é o consumo ótimo, nem o
+-que a unidade \enquote{devia} consumir: uma regressão sobre o histórico
+-estima o que foi habitual, não o que é termodinamicamente possível. Se a
+-referência estiver errada, os dados podem estar certos e o alarme
+-continuar a não significar nada.
+-
+-As duas camadas articulam o acompanhamento do desempenho energético
+-exigido pela ISO~50001:2018~\cite[\S9.1]{ISO50001_2018} com a comparação
+-entre indicadores e referências descrita na
+-ISO~50006:2014~\cite{ISO50006_2014}.
+-Designam-se os primeiros por EnPI e os consumos energéticos de referência
+-por EnB, as \emph{baselines}. No caso de Sines, já existia um método de
+-\emph{baseline} sobre a carga, com bandas, alarmes e cartas de controlo;
+-faltava avaliá-lo mediante um protocolo declarado.
++Por fim, a incerteza deve acompanhar o resultado. Com estas condições
++conhecem-se os limites de utilização da referência. Saber se os alarmes
++correspondem a problemas reais, ou se a sua ausência significa
++normalidade, exige ainda validação com eventos operacionais.
++
++Estas condições dizem respeito a duas camadas. Na camada de dados,
++procura-se saber de onde vem cada número e que tratamento recebeu.
++O balanço é a referência oficial da refinaria: os cálculos assentam nos
++seus valores, e o historiador cobre sobretudo os dias em que o balanço
++ainda não fechou. Esse balanço já incorpora ajustes. Em boa parte,
++contém as mesmas medições do historiador depois de redistribuídos os
++desajustes por certas correntes, segundo regras que este trabalho não
++auditou. Os dois canais divergem, e a diferença muda com o ano: a mediana
++da diferença relativa no fuel gás varia entre $-11\%$ e $0\%$ e, nos
++vapores, chega a $\pm30\%$ (Secção~\ref{sec:modelo-dimensional}).
++A concordância com o balanço não demonstra, portanto, exatidão metrológica.
++A plataforma regista a origem, a regra de escolha e a versão de cada
++valor, e conserva as divergências entre canais para consulta.
++
++Na camada analítica, procura-se saber contra que referência é avaliado
++o consumo. A \emph{baseline} energética estima quanto a unidade
++consumiria àquela carga, mantendo as condições de referência. Uma
++regressão sobre o histórico descreve o que foi habitual; não determina
++o consumo ótimo nem o limite termodinâmico da unidade. Mesmo com dados
++corretos, uma referência inadequada pode levar a interpretar mal um
++alarme.
++
++A ISO~50001:2018 exige o acompanhamento do desempenho
++energético~\cite[\S9.1]{ISO50001_2018}; a ISO~50006:2014 descreve a
++comparação entre os indicadores de desempenho energético (EnPI) e os
++consumos energéticos de referência (EnB, as
++\emph{baselines})~\cite{ISO50006_2014}. Em Sines, o método de
++\emph{baseline} sobre a carga já alimentava bandas, alarmes e cartas
++de controlo. A sua adequação a esses usos não tinha sido avaliada com
++um protocolo declarado.
+ 
+ A Figura~\ref{fig:duas-camadas} resume as duas camadas e o lugar de cada capítulo nelas.
+ 
+ \input{5-Figures/tikz/f01-duas-camadas}
+ 
+-Isto importa por uma razão que a própria orientação industrial
+-já havia reconhecido. Tomemos como exemplo a unidade de destilação atmosférica (unidade que servirá como caso de estudo e exemplo demonstrativo ao longo da dissertação). Os ciclos de limpeza dos permutadores da bateria de
+-pré-aquecimento (ou até do próprio forno) alteram de forma previsível o consumo específico do forno
+-a jusante: a incrustação acumula-se, o forno compensa, a limpeza repõe
+-parte do que se perdeu, e o ciclo recomeça. O estado de incrustação é uma
+-variável relevante no sentido da ISO~50006 --- afeta o consumo e muda
+-rotineiramente --- mas não é medido, e a referência não o vê. O
+-levantamento reconheceu a tensão: as métricas precisam de uma referência
+-robusta, e uma referência rígida não serve todas as situações, pelo que
+-se adapta a análise \enquote{caso a caso}, com \enquote{espírito
+-crítico}. A reestimação anual pode acomodar parte de uma
+-mudança persistente nos parâmetros da nova reta, reduzindo a sua
+-visibilidade nos desvios face à referência atualizada. É necessário
+-avaliar o que essa atualização preserva e o que absorve. Medir não basta.
++A orientação industrial deu um exemplo concreto: os permutadores da
++bateria de pré-aquecimento da unidade de destilação atmosférica, o caso
++de estudo desta dissertação. À medida que a incrustação se acumula, o
++forno a jusante compensa a perda de recuperação de calor; a limpeza
++repõe parte do que se perdeu e o ciclo recomeça. O estado de incrustação
++afeta o consumo e muda ao longo da operação, mas não é medido nem entra
++na referência. No levantamento, a equipa reconheceu que uma referência
++rígida não serve todas as situações e descreveu a análise como feita
++\enquote{caso a caso}, com \enquote{espírito crítico}.
++A reestimação anual pode acomodar parte de uma mudança persistente nos
++parâmetros da nova reta, tornando-a menos visível nos desvios face à
++referência atualizada. Para acompanhar esse ciclo, é preciso saber o
++que a atualização preserva e o que absorve.
+ 
+ \section{Formulação do problema}
+ \label{sec:problema}
+@@ -190,10 +182,10 @@
+ plataforma responde à necessidade de acesso; a adequação da referência
+ exige uma avaliação própria.
+ 
+-Essa avaliação tem duas dificuldades: a escolha dos critérios
+-e a interpretação das mudanças observadas.
+-
+-A primeira decorre do enquadramento normativo. A ISO~50001:2018 é uma
++Para avaliar a referência, é preciso escolher os critérios e
++definir como se interpretam as mudanças observadas.
++
++A escolha dos critérios começa no enquadramento normativo. A ISO~50001:2018 é uma
+ norma de requisitos certificável: exige indicadores e referências
+ adequados, normalização quando variáveis relevantes afetam
+ significativamente o desempenho e investigação de desvios
+@@ -210,14 +202,14 @@
+ sobre o conteúdo da orientação não se estendem a essa edição sem
+ verificação~\cite{ISO50006_2023}.
+ 
+-A segunda é distinguir uma mudança de desempenho de uma alteração nas
+-condições que compromete a comparação. Uma referência histórica deve
+-permitir estimar o consumo nas condições de reporte mantendo o desempenho
+-do período de referência. Isso não exige que a unidade consuma hoje o
+-mesmo à mesma carga: uma melhoria ou degradação real pode alterar essa
+-relação, e detetar a mudança é uma das finalidades da monitorização.
+-Exige, porém, que se avalie se as variáveis consideradas, o domínio de
+-aplicação e as condições de medição permitem interpretar o desvio.
++Mesmo com critérios definidos, é preciso distinguir uma mudança de
++desempenho de uma alteração nas condições que compromete a comparação.
++A referência histórica estima o consumo nas condições de reporte,
++mantendo o desempenho do período em que foi construída. Se a unidade
++melhorar ou se degradar, o consumo à mesma carga pode mudar: é uma das
++mudanças que se pretende detetar. Para interpretar o desvio, importa
++verificar se as variáveis consideradas, o domínio de aplicação e as
++condições de medição continuam a permitir a comparação.
+ 
+ Em processo contínuo, a composição da carga muda com o crude, o
+ equipamento degrada-se, as limpezas e paragens alteram o estado da
+@@ -249,7 +241,7 @@
+ Sines; não avalia a conformidade do sistema de gestão nem o resultado
+ das suas auditorias.
+ 
+-É este o problema: \emph{falta demonstrar, no caso estudado, que as
++\emph{Falta demonstrar, no caso estudado, que as
+ \emph{baselines} em produção são adequadas aos usos previstos e falta um
+ procedimento operacional para o fazer.} A revisão de âmbito do
+ Capítulo~\ref{cha:revisao} situa a questão nas publicações em inglês
+@@ -262,11 +254,11 @@
+ reporte delimita a evidência disponível; não demonstra que essas
+ práticas estejam ausentes das instalações estudadas.
+ 
+-O contributo consiste em integrar instrumentos de avaliação existentes
+-num caso industrial real, replicando o método em produção e examinando
+-as condições em que pode servir de referência. Os capítulos empíricos
+-avaliam as suas limitações e demonstram um procedimento para julgar
+-candidatos alternativos.
++Neste trabalho, replicou-se o método em produção e aplicaram-se
++instrumentos de avaliação existentes para examinar as condições em que
++pode servir de referência. Essa integração num caso industrial permite
++diagnosticar as limitações do método e demonstrar um procedimento para
++avaliar candidatos alternativos.
+ 
+ \section{Objetivos e questões de investigação}
+ \label{sec:objetivos}
+@@ -291,8 +283,8 @@
+ valor adicional de covariáveis de processo; explicita-se ainda o que é
+ possível concluir sobre detetabilidade. A correção de multiplicidade
+ aplica-se à família dos testes de estabilidade, e a análise de
+-sensibilidade examina as convenções herdadas do método. A replicação exata é o que garante que se critica o método real
+-e não uma reconstrução dele.
++sensibilidade examina as convenções herdadas do método. A replicação exata estabelece que o diagnóstico incide
++sobre o método efetivamente usado na refinaria.
+ 
+ O terceiro é \emph{prescrever}: converter o diagnóstico numa proposta,
+ linhas orientadoras para construir, aceitar e manter \emph{baselines}
+@@ -392,29 +384,28 @@
+ \section{Contribuições}
+ \label{sec:contribuicoes}
+ 
+-As contribuições incluem entregas para a refinaria e procedimentos
+-metodológicos potencialmente reutilizáveis na avaliação de
+-\emph{baselines} lineares anuais sobre a carga. A demonstração empírica
+-limita-se à unidade de destilação atmosférica e aos períodos estudados;
+-não constitui validação da
+-transferibilidade dos resultados a outras unidades. Um ano completo de
+-histórico é o mínimo adotado para construir cada referência anual, mas a
+-avaliação temporal aqui realizada usa seis anos e cinco transições entre
+-anos consecutivos.
+-
+-Para a refinaria, entregaram-se duas coisas e especificou-se uma
+-terceira. Uma plataforma de monitorização energética em produção, sobre
+-um modelo dimensional único que reconcilia os três tipos de fontes e cobre
+-dezasseis unidades processuais em três fábricas, validada contra os números oficiais célula a célula
+-na janela de janeiro a maio de 2026
+-(Capítulo~\ref{cha:plataforma}). Um
+-\emph{dashboard} desenhado como percurso de diagnóstico, da refinaria
+-para a unidade, da unidade para o vetor, do vetor para a \emph{baseline}
+-que o julga (Secção~\ref{sec:dashboard}). E a especificação de um bloco
+-de saúde das \emph{baselines}: domínio de
+-validade visível, calibração monitorizada em vez de assumida, uma ficha
+-por \emph{baseline} e políticas de estado registadas, formulada como
+-requisitos, cada um ancorado num resultado, e ainda por implantar
++O trabalho produziu uma ferramenta para a refinaria e procedimentos
++que podem ser reutilizados na avaliação de \emph{baselines} lineares
++anuais sobre a carga. Os resultados foram demonstrados apenas na unidade
++de destilação atmosférica e nos períodos estudados; a sua
++transferibilidade a outras unidades ficou por testar. Cada referência
++anual exige pelo menos um ano completo de histórico, enquanto a
++avaliação temporal aqui realizada usa seis anos e cinco transições
++entre anos consecutivos.
++
++A refinaria recebeu uma plataforma de monitorização energética em
++produção, com um modelo dimensional que reconcilia os três tipos de
++fontes e cobre dezasseis unidades processuais em três fábricas. Validou-se
++o modelo contra os números oficiais, célula a célula, na janela de
++janeiro a maio de 2026 (Capítulo~\ref{cha:plataforma}). O
++\emph{dashboard} permite partir da refinaria, escolher uma unidade e um
++vetor energético, e consultar a \emph{baseline} usada na comparação
++(Secção~\ref{sec:dashboard}).
++
++Ficou também especificado um bloco de saúde das \emph{baselines}, com
++o domínio de validade visível, a calibração monitorizada, uma ficha por
++referência e políticas de estado registadas. Cada requisito decorre de
++um resultado do diagnóstico; o bloco ainda não foi implantado
+ (Secção~\ref{sec:implicacoes-plataforma}).
+ 
+ As contribuições metodológicas são quatro.
+@@ -464,36 +455,31 @@
+ das unidades, os coeficientes e os valores absolutos mantêm-se, porque
+ são eles que tornam o trabalho verificável.
+ 
+-As fronteiras são quatro, todas escolhidas; a primeira foi escolhida em
+-conjunto com a orientação industrial.
+-
+-\emph{Uma unidade.} O caso é a unidade de destilação atmosférica (CDU;
+-na designação interna, CC), com os seus cinco vetores energéticos (fuel
+-gás, três níveis de vapor e eletricidade), quatro dos quais com
+-resolução diária; a eletricidade é uma alocação mensal e fica fora de
+-qualquer inferência diária. O âmbito foi acordado no arranque: uma
+-unidade primeiro, expansão às restantes depois de validado o piloto, que
+-não foi desenhado como prova de conceito descartável mas como base de
+-uma ferramenta a usar em produção. A expansão aconteceu na camada de
+-dados --- a plataforma cobre dezasseis unidades --- e não no diagnóstico,
+-que ficou na CDU. A escolha tem três razões. A unidade processa todo o
+-crude e é, pela sua dimensão, um uso significativo de energia por si
+-só. Foi para ela que a orientação industrial deu o exemplo dos
+-permutadores: se um método de \emph{baseline} estático falha, é aqui que
+-falha de forma legível. E a resolução acordada --- atualização diária,
+-sem requisito de tempo real, com pelo menos um ano completo de histórico
+-para qualquer referência --- é a resolução a que quatro dos seus cinco
+-vetores estão disponíveis.
++O âmbito do trabalho foi delimitado pela unidade estudada, pela
++classe de modelos e pelo uso dos resultados. A escolha da unidade foi
++acordada com a orientação industrial.
++
++\emph{Uma unidade.} Estudou-se a unidade de destilação atmosférica
++(CDU; na designação interna, CC), com cinco vetores energéticos: fuel
++gás, três níveis de vapor e eletricidade. Quatro têm resolução diária;
++a eletricidade é uma alocação mensal e fica fora da inferência diária.
++Acordou-se começar por uma unidade e expandir a ferramenta depois de
++validado o piloto. A plataforma chegou a dezasseis unidades na camada
++de dados; o diagnóstico ficou na CDU. Esta unidade processa todo o
++crude e, pela sua dimensão, é um uso significativo de energia. O ciclo
++de incrustação e limpeza dos permutadores, identificado pela orientação
++industrial, permite discutir nela os limites de uma referência estática.
++A atualização diária acordada, sem requisito de tempo real, acompanha
++a resolução disponível nos quatro vetores. Para construir cada
++referência, exigiu-se pelo menos um ano completo de histórico.
+ 
+ \emph{A classe linear estática como objeto.} O método de produção é uma
+-regressão linear anual do consumo sobre a carga, e é essa classe que se
+-diagnostica e que as linhas orientadoras levam ao máximo defensável:
+-domínio explícito, exclusões por causa, estimação robusta, bandas que
+-respeitam a dependência, critério de aceitação. Modelos com estado de
+-degradação, que poderiam ser uma resposta mais completa à não-estacionariedade,
+-ficam fora: o Capítulo~\ref{cha:conclusoes} traça o roteiro para eles e
+-explica por que razão os critérios de aceitação aqui construídos são a
+-condição para lá chegar.
++regressão linear anual do consumo sobre a carga. Avalia-se essa classe
++e demonstra-se a aplicação das linhas orientadoras: domínio explícito,
++exclusões por causa, estimação robusta, bandas que respeitam a
++dependência e critério de aceitação. Os modelos com estado de degradação
++ficam fora do âmbito. O Capítulo~\ref{cha:conclusoes} discute-os como
++trabalho futuro e identifica as condições necessárias à sua avaliação.
+ 
+ \emph{Sem inferência causal.} Nenhum desvio é classificado como
+ ineficiência e nenhum alarme como falso, porque isso exige o calendário
+@@ -506,8 +492,8 @@
+ aqui o objeto é a \emph{baseline} que julga cada dia de operação, um
+ problema distinto que partilha instrumentos com o primeiro.
+ 
+-Estas fronteiras têm um custo, e declara-se já. Uma unidade e um único
+-\emph{snapshot} de dados já explorados não permitem uma validação
++Com uma unidade e uma única extração de dados já explorados,
++não é possível obter uma validação
+ independente da seleção, e a demonstração das linhas orientadoras é
+ retrospetiva. A exploração feita ao construir a plataforma
+ antecedeu o protocolo de avaliação, e o Capítulo~\ref{cha:metodos} diz
+@@ -518,9 +504,7 @@
+ reconciliação e pelo diagnóstico que tornou possível, não contra
+ métricas acordadas com quem a usa. A articulação com o sistema integrado
+ de gestão da refinaria ficou fora de âmbito por decisão conjunta. A
+-Secção~\ref{sec:limitacoes} desenvolve cada uma destas limitações;
+-enunciam-se aqui para que se saiba desde o início o que este trabalho
+-não pode dizer.
++Secção~\ref{sec:limitacoes} desenvolve estas limitações.
+ 
+ \section{Estrutura do documento}
+ \label{sec:estrutura}
+@@ -560,9 +544,8 @@
+ (Apêndice~\ref{app:manual}). Por fim, as definições matemáticas dos
+ instrumentos de avaliação (Apêndice~\ref{app:matematica}).
+ 
+-A pergunta com que o capítulo abriu --- consome a unidade hoje mais do
+-que a referência prevê para a carga que tem? --- volta no fim do
+-documento com uma resposta diferente da que o \emph{dashboard} dá.
+-Não é outro número: é o mesmo número com o seu estado --- desde
+-quando vale a referência que o julga, contra que comparador foi medida e
+-em que domínio. É isso que separa medir de saber.
++Consome a unidade hoje mais do que a referência prevê para a carga
++que tem? A plataforma permite consultar o desvio. Para o interpretar,
++a equipa precisa também de saber desde quando vigora a referência,
++em que domínio se aplica, como foi avaliada e que incerteza acompanha
++a comparação.

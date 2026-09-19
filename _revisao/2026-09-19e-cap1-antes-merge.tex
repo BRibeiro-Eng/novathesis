@@ -1,13 +1,6 @@
 %!TEX root = ../template.tex
 %% ====================================================================
 %% Capitulo 1 -- Introducao
-%% 2026-09-19e: fusao. Mantida a reescrita 19d como base; repostas as
-%% afirmacoes que ela diluiu (numeros da revisao, achado da incrustacao,
-%% "Medir nao basta", estacionariedade da relacao, a assimetria normativa,
-%% a segunda metade da frase do problema, o custo das fronteiras e o fecho).
-%% Corrigido "completude" -> "reprodutibilidade" nos principios da ISO 50015.
-%% A camada \alterado foi despida e remarcada: a magenta assinala agora so
-%% o que foi reposto. Original em _revisao/2026-09-19e-cap1-antes-merge.tex.
 %% 2026-09-19d: humanizer pt-PT + narrativa, modo aplicar.
 %% Foco: equipa de monitorizacao; escala empresa-unidade-dia;
 %% pergunta inicial retomada sem anunciar o retorno; rigor preservado.
@@ -63,11 +56,11 @@
 \section{Contexto e motivação}
 \label{sec:contexto}
 
-Na Refinaria de Sines, o historiador de processo guarda os caudais de
+\alterado{Na Refinaria de Sines, o historiador de processo guarda os caudais de
 combustível e de vapor, as temperaturas e os poderes caloríficos usados
 no acompanhamento energético. Fecham-se e arquivam-se os balanços mensais
 de produção e de utilidades; a eletricidade é medida, faturada e
-repartida pelas unidades. A refinaria é certificada segundo a ISO~50001, tem um sistema
+repartida pelas unidades.} A refinaria é certificada segundo a ISO~50001, tem um sistema
 de gestão de energia implementado e quatro indicadores de desempenho
 energético definidos: consumos específicos por unidade, índice de
 intensidade energética, emissões de CO$_2$ associadas ao consumo, e as
@@ -95,36 +88,34 @@ que não se falam --- o historiador, os livros de balanço e os ficheiros
 de cálculo das equipas --- e a monitorização vive na fronteira entre
 eles, reconciliada caso a caso. O próprio levantamento descreve a gestão
 de energia como orientada para o cumprimento dos requisitos de auditoria,
-e não para a melhoria contínua. Mede-se muito; sabe-se tarde.
+e não para a melhoria contínua. \alterado{Mede-se muito; sabe-se tarde.}
 
-O pedido inicial foi um \emph{dashboard} que juntasse as fontes e
+\alterado{O pedido inicial foi um \emph{dashboard} que juntasse as fontes e
 mostrasse os indicadores já produzidos pela equipa, por unidade, vetor
 energético e dia. A plataforma entregue reúne essa informação num modelo
 único, validado contra os números oficiais e atualizado todas as noites.
 Com os dados reunidos, a equipa consegue consultar o desvio; interpretá-lo
 exige saber se a referência é adequada à comparação. É dessa necessidade
 que nasce a pergunta da dissertação: \emph{o que é preciso para que uma
-plataforma de monitorização energética seja fiável?}
+plataforma de monitorização energética seja fiável?}}
 
-A fiabilidade é aqui avaliada por quatro condições, \alterado{cada uma
-pedida por alguma das normas ou protocolos de medição e verificação,
-nenhuma exigida em conjunto por nenhum deles.} Deve ser possível seguir cada
+\alterado{A fiabilidade é aqui avaliada por quatro condições, formuladas a partir
+das normas e dos protocolos analisados. Deve ser possível seguir cada
 número até à fonte e à regra que o produziu, de acordo com os princípios
-de transparência e \alterado{reprodutibilidade} da ISO~50015:2014~\cite{ISO50015_2014}.
+de transparência e completude da ISO~50015:2014~\cite{ISO50015_2014}.
 A comparação deve ter um domínio declarado, definido a partir das condições
 de referência e das variáveis relevantes, seguindo a orientação da
 ISO~50006:2014~\cite{ISO50006_2014}. O desempenho da referência deve ser
 quantificado, indicando o comparador, o erro e o período de avaliação.
-Adota-se assim o princípio dos critérios quantitativos de aceitação de
-modelo que o ASHRAE Guideline~14 e o IPMVP fixam \alterado{e que a família
-ISO cita sem adotar}~\cite{ASHRAE14_2014,IPMVP_2022}, como o
-Capítulo~\ref{cha:enquadramento} documenta cláusula a cláusula.
+Adota-se assim o princípio de critérios quantitativos explícitos dos
+protocolos de medição e verificação discutidos no
+Capítulo~\ref{cha:enquadramento}~\cite{ASHRAE14_2014,IPMVP_2022}.
 Por fim, a incerteza deve acompanhar o resultado. Com estas condições
 conhecem-se os limites de utilização da referência. Saber se os alarmes
 correspondem a problemas reais, ou se a sua ausência significa
-normalidade, exige ainda validação com eventos operacionais.
+normalidade, exige ainda validação com eventos operacionais.}
 
-Estas condições dizem respeito a duas camadas. Na camada de dados,
+\alterado{Estas condições dizem respeito a duas camadas. Na camada de dados,
 procura-se saber de onde vem cada número e que tratamento recebeu.
 O balanço é a referência oficial da refinaria: os cálculos assentam nos
 seus valores, e o historiador cobre sobretudo os dias em que o balanço
@@ -144,40 +135,39 @@ consumiria àquela carga, mantendo as condições de referência. Uma
 regressão sobre o histórico descreve o que foi habitual; não determina
 o consumo ótimo nem o limite termodinâmico da unidade. Mesmo com dados
 corretos, uma referência inadequada pode levar a interpretar mal um
-alarme.
+alarme.}
 
-A ISO~50001:2018 obriga a monitorizar, medir e analisar o desempenho
-energético \alterado{e a responder a desvios
-significativos}~\cite[\S9.1]{ISO50001_2018}; a ISO~50006:2014 descreve a
+\alterado{A ISO~50001:2018 exige o acompanhamento do desempenho
+energético~\cite[\S9.1]{ISO50001_2018}; a ISO~50006:2014 descreve a
 comparação entre os indicadores de desempenho energético (EnPI) e os
 consumos energéticos de referência (EnB, as
 \emph{baselines})~\cite{ISO50006_2014}. Em Sines, o método de
 \emph{baseline} sobre a carga já alimentava bandas, alarmes e cartas
 de controlo. A sua adequação a esses usos não tinha sido avaliada com
-um protocolo declarado.
+um protocolo declarado.}
 
 A Figura~\ref{fig:duas-camadas} resume as duas camadas e o lugar de cada capítulo nelas.
 
 \input{5-Figures/tikz/f01-duas-camadas}
 
-A orientação industrial deu um exemplo concreto: os permutadores da
+\alterado{A orientação industrial deu um exemplo concreto: os permutadores da
 bateria de pré-aquecimento da unidade de destilação atmosférica, o caso
 de estudo desta dissertação. À medida que a incrustação se acumula, o
 forno a jusante compensa a perda de recuperação de calor; a limpeza
-repõe parte do que se perdeu e o ciclo recomeça. O estado de incrustação é \alterado{uma variável relevante no sentido da
-ISO~50006 --- afeta o consumo e muda rotineiramente ---}, mas não é medido
-nem entra na referência. No levantamento, a equipa reconheceu que uma referência
+repõe parte do que se perdeu e o ciclo recomeça. O estado de incrustação
+afeta o consumo e muda ao longo da operação, mas não é medido nem entra
+na referência. No levantamento, a equipa reconheceu que uma referência
 rígida não serve todas as situações e descreveu a análise como feita
 \enquote{caso a caso}, com \enquote{espírito crítico}.
 A reestimação anual pode acomodar parte de uma mudança persistente nos
 parâmetros da nova reta, tornando-a menos visível nos desvios face à
-referência atualizada. Para acompanhar esse ciclo, é preciso saber o que a atualização preserva
-e o que absorve. \alterado{Medir não basta.}
+referência atualizada. Para acompanhar esse ciclo, é preciso saber o
+que a atualização preserva e o que absorve.}
 
 \section{Formulação do problema}
 \label{sec:problema}
 
-O levantamento identifica duas necessidades distintas. A primeira é
+\alterado{O levantamento identifica duas necessidades distintas. A primeira é
 operacional: tornar regular o acompanhamento do desempenho e reduzir
 o trabalho manual que antecede os relatórios e as auditorias. A
 segunda é analítica: avaliar a adequação de uma referência diária que
@@ -190,38 +180,36 @@ do trabalho, em fevereiro de 2026, esta diferença motivou a avaliação
 da seleção de variáveis e da normalização à luz da
 ISO~50001:2018~\cite[\S6.4--6.5]{ISO50001_2018}. A construção da
 plataforma responde à necessidade de acesso; a adequação da referência
-exige uma avaliação própria.
+exige uma avaliação própria.}
 
-Para avaliar a referência, é preciso escolher os critérios e
-definir como se interpretam as mudanças observadas.
+\alterado{Para avaliar a referência, é preciso escolher os critérios e
+definir como se interpretam as mudanças observadas.}
 
-A escolha dos critérios começa no enquadramento normativo. A ISO~50001:2018 é uma
+\alterado{A escolha dos critérios começa no enquadramento normativo. A ISO~50001:2018 é uma
 norma de requisitos certificável: exige indicadores e referências
 adequados, normalização quando variáveis relevantes afetam
 significativamente o desempenho e investigação de desvios
 significativos~\cite{ISO50001_2018}. A ISO~50006 e a ISO~50015 fornecem
 orientação para construir referências e medir e verificar o desempenho.
-Nas edições analisadas, nenhuma das três fixa um critério pelo qual uma
-\emph{baseline} é aceite ou rejeitada~\cite{ISO50006_2014,ISO50015_2014}.
-\alterado{A organização é obrigada a comparar o desempenho com a referência
-e a reagir ao que vê; não é obrigada a demonstrar que a referência merece a
-comparação.} O Capítulo~\ref{cha:enquadramento} percorre esta margem
-cláusula a cláusula e mostra \alterado{que o silêncio é uma escolha de
-desenho normativo, não uma impossibilidade técnica: protocolos de medição e
-verificação nascidos no setor dos edifícios fixam critérios quantitativos, e
-a família ISO cita-os sem os adotar.}
+Nas edições analisadas, não se fixa um procedimento quantitativo único,
+com limiares de aceitação, que demonstre a adequação da referência aos
+usos aqui avaliados; cabe à organização demonstrar essa
+adequação~\cite{ISO50006_2014,ISO50015_2014}. O
+Capítulo~\ref{cha:enquadramento} examina esta margem de implementação e
+compara-a com critérios explícitos de protocolos de medição e verificação.
+A análise usa a ISO~50006:2014 e a ISO~50015:2014. A edição de 2023 da
+ISO~50006 substituiu a de 2014, mas não foi consultada; as conclusões
+sobre o conteúdo da orientação não se estendem a essa edição sem
+verificação~\cite{ISO50006_2023}.}
 
-Mesmo com critérios definidos, é preciso distinguir uma mudança de
+\alterado{Mesmo com critérios definidos, é preciso distinguir uma mudança de
 desempenho de uma alteração nas condições que compromete a comparação.
 A referência histórica estima o consumo nas condições de reporte,
 mantendo o desempenho do período em que foi construída. Se a unidade
 melhorar ou se degradar, o consumo à mesma carga pode mudar: é uma das
-mudanças que se pretende detetar. Para interpretar o desvio, importa verificar se as variáveis consideradas,
-o domínio de aplicação e as condições de medição continuam a permitir a
-comparação. \alterado{O que a comparação pressupõe é a estabilidade da
-relação entre consumo e variáveis relevantes: um pressuposto de
-estacionariedade da relação, não da série. Em muitos contextos é razoável;
-em processo contínuo não pode ser assumido, tem de ser verificado.}
+mudanças que se pretende detetar. Para interpretar o desvio, importa
+verificar se as variáveis consideradas, o domínio de aplicação e as
+condições de medição continuam a permitir a comparação.
 
 Em processo contínuo, a composição da carga muda com o crude, o
 equipamento degrada-se, as limpezas e paragens alteram o estado da
@@ -233,7 +221,7 @@ referência. Um modelo estático sobre a carga, por si só, não separa estas
 origens: produz resíduos. A estabilidade dos parâmetros e o desempenho
 fora da amostra são diagnósticos da transportabilidade dessa relação;
 a sua alteração não identifica automaticamente ineficiência nem prova,
-isoladamente, que a referência deixou de ser útil para monitorizar.
+isoladamente, que a referência deixou de ser útil para monitorizar.}
 
 %% FIGURA 1.2 (sugestao, opcional): esboco conceptual, sem dados, de
 %% consumo vs carga com a relacao a deslocar-se ano a ano e o refit anual
@@ -243,7 +231,7 @@ isoladamente, que a referência deixou de ser útil para monitorizar.
 %% ser explicitamente conceptual, para nao antecipar a Figura real do
 %% Cap. 6 (sec:estabilidade). Alternativa: deixar so para o Cap. 2 §2.4.
 
-O risco operacional é interpretar como normalidade uma mudança absorvida
+\alterado{O risco operacional é interpretar como normalidade uma mudança absorvida
 pela referência, ou como degradação um desvio devido a condições não
 representadas no modelo. Importa, por isso, avaliar separadamente três
 usos: normalizar o consumo pelas variáveis relevantes, sustentar
@@ -251,38 +239,33 @@ comparações entre períodos e alimentar alarmes. A existência de
 indicadores, referências e revisões documentadas não demonstra, por si,
 a adequação a esses usos. Este trabalho avalia o método aplicado em
 Sines; não avalia a conformidade do sistema de gestão nem o resultado
-das suas auditorias.
+das suas auditorias.}
 
-\emph{Falta demonstrar, no caso estudado, que as \emph{baselines} em
-produção são adequadas \alterado{aos usos que a norma lhes atribui}, e falta
-um procedimento operacional para o fazer\alterado{; sem ele, uma organização
-não tem meio de saber se a sua plataforma de monitorização é fiável na
-segunda camada, por mais fiável que seja na primeira}.} A revisão de âmbito do
+\alterado{\emph{Falta demonstrar, no caso estudado, que as
+\emph{baselines} em produção são adequadas aos usos previstos e falta um
+procedimento operacional para o fazer.} A revisão de âmbito do
 Capítulo~\ref{cha:revisao} situa a questão nas publicações em inglês
 posteriores a 1995, indexadas na Scopus e na Web of Science até fevereiro
-de 2026. \alterado{Nos 140 modelos dos 39 estudos de processo contínuo
-cartografados, 27 têm um regime de reestimação declarado, 22 um domínio de
-validade e 13 uma validação fora da amostra.} Nenhum dos 13 estudos com aplicação em refinação ou
+de 2026. Nos 39 estudos de processo contínuo cartografados, a declaração
+do domínio de validade, das regras de reestimação e da validação fora da
+amostra é limitada. Nenhum dos 13 estudos com aplicação em refinação ou
 petroquímica reúne energia medida na fronteira do modelo, regra de
-reestimação, domínio declarado e teste fora da amostra. \alterado{Os estudos relatam sobretudo sintomas no modelo e raramente a
-causa física: em 89 das 130 ocorrências de efeito extraídas não se nomeia
-nenhuma causa, e a incrustação que a orientação industrial identificou de
-imediato não aparece uma única vez como limitação de um modelo.} Esta lacuna
-de reporte delimita a evidência disponível; não demonstra que essas práticas
-estejam ausentes das instalações estudadas.
+reestimação, domínio declarado e teste fora da amostra. Esta lacuna de
+reporte delimita a evidência disponível; não demonstra que essas
+práticas estejam ausentes das instalações estudadas.
 
 Neste trabalho, replicou-se o método em produção e aplicaram-se
 instrumentos de avaliação existentes para examinar as condições em que
 pode servir de referência. Essa integração num caso industrial permite
 diagnosticar as limitações do método e demonstrar um procedimento para
-avaliar candidatos alternativos.
+avaliar candidatos alternativos.}
 
 \section{Objetivos e questões de investigação}
 \label{sec:objetivos}
 
-A pergunta central concretiza-se em três objetivos encadeados:
+\alterado{A pergunta central concretiza-se em três objetivos encadeados:
 construir o instrumento, diagnosticar o método em produção e formular
-linhas orientadoras a partir da evidência obtida.
+linhas orientadoras a partir da evidência obtida.}
 
 O primeiro é \emph{construir}: reunir as três fontes de dados da
 refinaria num modelo dimensional único; validar que esse modelo
@@ -293,21 +276,21 @@ responde ao pedido industrial e produz o instrumento.
 
 O segundo é \emph{diagnosticar}: replicar exatamente, dentro desse
 instrumento, o método de \emph{baseline} que a refinaria usa há seis
-anos, e avaliá-lo com um protocolo estatístico especificado
+anos, e avaliá-lo com um protocolo estatístico \alterado{especificado
 antes da execução da avaliação aqui reportada, após exploração prévia
 dos dados. Avaliam-se o desempenho preditivo contra referências triviais,
 a estabilidade dos parâmetros, a calibração das bandas de alarme e o
 valor adicional de covariáveis de processo; explicita-se ainda o que é
 possível concluir sobre detetabilidade. A correção de multiplicidade
 aplica-se à família dos testes de estabilidade, e a análise de
-sensibilidade examina as convenções herdadas do método. A replicação exata estabelece que o diagnóstico incide
-sobre o método efetivamente usado na refinaria.
+sensibilidade examina as convenções herdadas do método.} \alterado{A replicação exata estabelece que o diagnóstico incide
+sobre o método efetivamente usado na refinaria.}
 
 O terceiro é \emph{prescrever}: converter o diagnóstico numa proposta,
 linhas orientadoras para construir, aceitar e manter \emph{baselines}
 em processo contínuo, com um critério de aceitação declarado
-antes de obter os resultados da avaliação dos candidatos;
-demonstrá-la retrospetivamente na própria unidade; e devolvê-la à plataforma
+\alterado{antes de obter os resultados da avaliação dos candidatos;
+demonstrá-la retrospetivamente na própria unidade;} e devolvê-la à plataforma
 como especificação do que o \emph{dashboard} tem de mostrar para que uma
 \emph{baseline} seja usada com conhecimento do seu estado.
 
@@ -347,7 +330,7 @@ Apêndice~\ref{app:protocolo-sr} (desvio D8). A aplicabilidade é tratada
 apenas pelo caso empírico, e a revisão não faz afirmações de
 transferibilidade para a refinação. A Tabela~\ref{tab:objetivos-perguntas}
 liga cada objetivo às perguntas que o concretizam, à evidência que as
-responde e ao alcance da resposta obtida.
+responde e \alterado{ao alcance da resposta obtida.}
 
 {\small
 \begin{xltabular}{\linewidth}{@{}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{3.1cm}@{}}
@@ -375,14 +358,14 @@ Objetivo & Pergunta & Evidência e onde & Estado \\
     Diagnosticar & A referência prevê melhor do que comparadores triviais, por vetor e por ano? & Contraste de perdas emparelhado com intervalos por blocos (Secção~\ref{sec:poder-preditivo}) & respondida nos quatro vetores diários; a eletricidade fica sem diagnóstico diário \\
     Diagnosticar & A relação consumo--carga é estável entre anos? & Contrastes entre anos com covariância robusta à dependência (Secção~\ref{sec:estabilidade}) & respondida \\
     Diagnosticar & A banda de alarme cobre o que promete, no conjunto e por estrato de carga? & Cobertura marginal e por estrato (Secção~\ref{sec:calibracao}) & respondida \\
-    Diagnosticar & Que limites condicionam a deteção, e as covariáveis acrescentam valor à carga? & Detetabilidade e modelos encaixados com covariáveis de processo (Secções~\ref{sec:detetabilidade} e~\ref{sec:suficiencia}) & valor das covariáveis avaliado; detetabilidade real não estimada \\
+    Diagnosticar & \alterado{Que limites condicionam a deteção, e as covariáveis acrescentam valor à carga?} & Detetabilidade e modelos encaixados com covariáveis de processo (Secções~\ref{sec:detetabilidade} e~\ref{sec:suficiencia}) & \alterado{valor das covariáveis avaliado; detetabilidade real não estimada} \\
     \addlinespace
-    Prescrever & Um candidato construído pelas linhas orientadoras passa o critério de aceitação fixado antes da sua avaliação? & Demonstração nos mesmos pares anuais (Secção~\ref{sec:demonstracao}) & respondida; retrospetiva \\
+    Prescrever & Um candidato construído pelas linhas orientadoras passa o critério de aceitação \alterado{fixado antes da sua avaliação?} & Demonstração nos mesmos pares anuais (Secção~\ref{sec:demonstracao}) & respondida; retrospetiva \\
     Prescrever & O que deteta um monitor sequencial, e com que atraso, quando a verdade é conhecida? & Simulação sobre referência congelada (Secção~\ref{sec:verdade-conhecida}) & respondida por simulação \\
     Prescrever & O que tem o \emph{dashboard} de mostrar para que uma \emph{baseline} seja usada com conhecimento do seu estado? & Especificação do bloco de saúde (Secção~\ref{sec:implicacoes-plataforma}) & proposta; não implantada \\
     \addlinespace
     Revisão, SQ1 & Como se distribuem os modelos por setor, organização e enquadramento normativo? & Bibliometria do Corpus~A (Secção~\ref{sec:corpus-a}) & respondida \\
-    Revisão, SQ2--SQ3 & Que mecanismos tornam os modelos inadequados, e que adaptações se propõem? & Síntese do Corpus~B (Secção~\ref{sec:corpus-b}) & síntese do corpus; limites da extração na Secção~\ref{sec:corpus-b} \\
+    Revisão, SQ2--SQ3 & Que mecanismos tornam os modelos inadequados, e que adaptações se propõem? & Síntese do Corpus~B (Secção~\ref{sec:corpus-b}) & \alterado{síntese do corpus; limites da extração na Secção~\ref{sec:corpus-b}} \\
     \addlinespace
     Revisão, SQ4 & As recomendações são aplicáveis numa refinaria? & --- & retirada (Apêndice~\ref{app:protocolo-sr}, D8) \\
 \end{xltabular}
@@ -401,16 +384,16 @@ Objetivo & Pergunta & Evidência e onde & Estado \\
 \section{Contribuições}
 \label{sec:contribuicoes}
 
-O trabalho produziu uma ferramenta para a refinaria e procedimentos
+\alterado{O trabalho produziu uma ferramenta para a refinaria e procedimentos
 que podem ser reutilizados na avaliação de \emph{baselines} lineares
 anuais sobre a carga. Os resultados foram demonstrados apenas na unidade
 de destilação atmosférica e nos períodos estudados; a sua
 transferibilidade a outras unidades ficou por testar. Cada referência
 anual exige pelo menos um ano completo de histórico, enquanto a
 avaliação temporal aqui realizada usa seis anos e cinco transições
-entre anos consecutivos.
+entre anos consecutivos.}
 
-A refinaria recebeu uma plataforma de monitorização energética em
+\alterado{A refinaria recebeu uma plataforma de monitorização energética em
 produção, com um modelo dimensional que reconcilia os três tipos de
 fontes e cobre dezasseis unidades processuais em três fábricas. Validou-se
 o modelo contra os números oficiais, célula a célula, na janela de
@@ -423,28 +406,28 @@ Ficou também especificado um bloco de saúde das \emph{baselines}, com
 o domínio de validade visível, a calibração monitorizada, uma ficha por
 referência e políticas de estado registadas. Cada requisito decorre de
 um resultado do diagnóstico; o bloco ainda não foi implantado
-(Secção~\ref{sec:implicacoes-plataforma}).
+(Secção~\ref{sec:implicacoes-plataforma}).}
 
 As contribuições metodológicas são quatro.
 
 A primeira é um protocolo de avaliação de \emph{baselines} energéticas,
-especificado antes da execução da avaliação aqui reportada,
+\alterado{especificado antes da execução da avaliação aqui reportada,
 após exploração prévia dos dados, com correção de multiplicidade na
 família dos testes de estabilidade e grelha de sensibilidade. A sua
 aplicação noutras unidades exige adequar o domínio, os dados e as
-janelas de avaliação
+janelas de avaliação}
 (Secção~\ref{sec:protocolo-baselines}).
 
 A segunda é o diagnóstico do método em produção: quatro modos de falha
 distintos nos vetores diários, uma limitação de medição na eletricidade
-e a análise de como a reestimação anual pode acomodar nos
-parâmetros mudanças persistentes da relação consumo--carga
+\alterado{e a análise de como a reestimação anual pode acomodar nos
+parâmetros mudanças persistentes da relação consumo--carga}
 (Capítulo~\ref{cha:diagnostico}).
 
 A terceira são linhas orientadoras para \emph{baselines} em processo
-contínuo, com um critério de aceitação fixado antes dos
+contínuo, com um critério de aceitação \alterado{fixado antes dos
 resultados da avaliação dos candidatos e demonstradas retrospetivamente
-na própria unidade
+na própria unidade}
 (Capítulo~\ref{cha:discussao}).
 
 A quarta é uma revisão de âmbito registada, com corpus fechado e
@@ -453,12 +436,9 @@ congelado, que situa o caso na literatura no estado em que o
 Capítulo~\ref{cha:revisao} a documenta
 (Apêndices~\ref{app:protocolo-sr} e~\ref{app:validacao}).
 
-\alterado{As contribuições metodológicas não existiriam sem o instrumento,
-e o instrumento ficaria por acabar sem elas: a plataforma foi construída para
-tornar o diagnóstico possível, e o diagnóstico devolve-lhe a especificação de
-que precisava.} O diagnóstico devolve à plataforma requisitos para tornar
-visíveis o domínio, o desempenho e a incerteza de cada referência. A
-implantação desses requisitos permanece como trabalho futuro.
+\alterado{O diagnóstico devolve à plataforma requisitos para tornar visíveis o
+domínio, o desempenho e a incerteza de cada referência. A implantação
+desses requisitos permanece como trabalho futuro.}
 
 \section{Âmbito e enquadramento do trabalho}
 \label{sec:ambito}
@@ -475,11 +455,11 @@ setembro de 2029. Os nomes dos sistemas de informação, as designações
 das unidades, os coeficientes e os valores absolutos mantêm-se, porque
 são eles que tornam o trabalho verificável.
 
-O âmbito do trabalho foi delimitado pela unidade estudada, pela
+\alterado{O âmbito do trabalho foi delimitado pela unidade estudada, pela
 classe de modelos e pelo uso dos resultados. A escolha da unidade foi
-acordada com a orientação industrial.
+acordada com a orientação industrial.}
 
-\emph{Uma unidade.} Estudou-se a unidade de destilação atmosférica
+\alterado{\emph{Uma unidade.} Estudou-se a unidade de destilação atmosférica
 (CDU; na designação interna, CC), com cinco vetores energéticos: fuel
 gás, três níveis de vapor e eletricidade. Quatro têm resolução diária;
 a eletricidade é uma alocação mensal e fica fora da inferência diária.
@@ -491,15 +471,15 @@ de incrustação e limpeza dos permutadores, identificado pela orientação
 industrial, permite discutir nela os limites de uma referência estática.
 A atualização diária acordada, sem requisito de tempo real, acompanha
 a resolução disponível nos quatro vetores. Para construir cada
-referência, exigiu-se pelo menos um ano completo de histórico.
+referência, exigiu-se pelo menos um ano completo de histórico.}
 
-\emph{A classe linear estática como objeto.} O método de produção é uma
+\alterado{\emph{A classe linear estática como objeto.} O método de produção é uma
 regressão linear anual do consumo sobre a carga. Avalia-se essa classe
 e demonstra-se a aplicação das linhas orientadoras: domínio explícito,
 exclusões por causa, estimação robusta, bandas que respeitam a
 dependência e critério de aceitação. Os modelos com estado de degradação
 ficam fora do âmbito. O Capítulo~\ref{cha:conclusoes} discute-os como
-trabalho futuro e identifica as condições necessárias à sua avaliação.
+trabalho futuro e identifica as condições necessárias à sua avaliação.}
 
 \emph{Sem inferência causal.} Nenhum desvio é classificado como
 ineficiência e nenhum alarme como falso, porque isso exige o calendário
@@ -512,9 +492,9 @@ Os protocolos de M\&V tratam de provar as poupanças de uma intervenção;
 aqui o objeto é a \emph{baseline} que julga cada dia de operação, um
 problema distinto que partilha instrumentos com o primeiro.
 
-\alterado{Estas fronteiras têm um custo, e declara-se já.} Com uma unidade
-e uma única extração de dados já explorados, não é possível obter uma
-validação independente da seleção, e a demonstração das linhas orientadoras é
+\alterado{Com uma unidade e uma única extração de dados já explorados,
+não é possível obter uma validação}
+independente da seleção, e a demonstração das linhas orientadoras é
 retrospetiva. A exploração feita ao construir a plataforma
 antecedeu o protocolo de avaliação, e o Capítulo~\ref{cha:metodos} diz
 onde isso pesou. A
@@ -523,9 +503,8 @@ critérios de sucesso da ferramenta, que o levantamento deixou por
 definir, nunca chegaram a ser fixados: a plataforma foi avaliada pela
 reconciliação e pelo diagnóstico que tornou possível, não contra
 métricas acordadas com quem a usa. A articulação com o sistema integrado
-de gestão da refinaria ficou fora de âmbito por decisão conjunta. A Secção~\ref{sec:limitacoes} desenvolve estas limitações\alterado{;
-enunciam-se aqui para que se saiba desde o início o que este trabalho não
-pode dizer}.
+de gestão da refinaria ficou fora de âmbito por decisão conjunta. A
+Secção~\ref{sec:limitacoes} \alterado{desenvolve estas limitações.}
 
 \section{Estrutura do documento}
 \label{sec:estrutura}
@@ -539,19 +518,15 @@ pode dizer}.
 %Deixar a demonstração do mecanismo para os Caps. 6/7.}%
 % [/REV-2026-09-13]
 
-\alterado{O Capítulo~\ref{cha:enquadramento} reconstrói a cadeia de medição
-implícita na família ISO~50001 e mostra, cláusula a cláusula, onde a norma
-exige e onde deixa à organização; introduz a especificidade dos processos
-contínuos e apresenta o caso de estudo. O Capítulo~\ref{cha:revisao} pergunta
-à literatura se o problema está resolvido, com a análise bibliométrica do
-Corpus~A e a síntese narrativa do Corpus~B.}
+\alterado{Os Capítulos~\ref{cha:enquadramento} e~\ref{cha:revisao} estabelecem o
+quadro normativo, o contexto industrial e a evidência da literatura.
 O Capítulo~\ref{cha:metodos} descreve as fontes, o tratamento dos dados,
 as métricas e os protocolos de avaliação. Seguem-se os três objetivos:
 a plataforma e a sua validação no Capítulo~\ref{cha:plataforma}; o
 diagnóstico das \emph{baselines} no Capítulo~\ref{cha:diagnostico}; e a
 discussão, as linhas orientadoras, a sua demonstração e as limitações no
 Capítulo~\ref{cha:discussao}. O Capítulo~\ref{cha:conclusoes} reúne as
-conclusões e o trabalho futuro.
+conclusões e o trabalho futuro.}
 
 %% FIGURA 1.3 (sugestao): mapa de leitura. Tres colunas (instrumento /
 %% diagnostico / prescricao) com os Caps. 5, 6 e 7; por cima, Caps. 2 e
@@ -569,9 +544,8 @@ do \emph{dashboard}, que inclui o dicionário de dados e o mapeamento mestre
 (Apêndice~\ref{app:manual}). Por fim, as definições matemáticas dos
 instrumentos de avaliação (Apêndice~\ref{app:matematica}).
 
-Consome a unidade hoje mais do que a referência prevê para a carga
+\alterado{Consome a unidade hoje mais do que a referência prevê para a carga
 que tem? A plataforma permite consultar o desvio. Para o interpretar,
 a equipa precisa também de saber desde quando vigora a referência,
-em que domínio se aplica, como foi avaliada e que incerteza acompanha a
-comparação. \alterado{Não é outro número: é o mesmo número com o seu estado.
-É isso que separa medir de saber.}
+em que domínio se aplica, como foi avaliada e que incerteza acompanha
+a comparação.}
