@@ -4,10 +4,7 @@
 %% Esqueleto gerado 2026-08-13 a partir do indice v1
 %% Seccoes 2.1-2.3 preenchidas em 2026-08-28 (rascunho v0 -> LaTeX); 2.4-2.5 escritas em 2026-09-17
 %% Fonte do rascunho: dissertacao/cap2_rascunho_v0.md
-%% 2026-09-19: varredura previa a revisao integral -- \todo retirados (ver
-%% bloco de pendencias no fim), Tabela 2.1 e Figura 2.2 novas, caixa C2-05
-%% resolvida, nomenclatura fixada em EnPI/EnB (paragrafo "Nomenclatura e
-%% citacoes" na 2.1). Versoes anteriores em _revisao/2026-09-19*-cap2-antes.tex.
+%% Pendencias marcadas com \todo{...}; ver tambem notas no fim do ficheiro.
 %% ====================================================================
 
 \chapter{Enquadramento}
@@ -16,26 +13,9 @@
 \section{Gestão de energia e o quadro normativo}
 \label{sec:normas}
 
-A gestão de energia industrial encontra-se hoje codificada num corpo normativo estruturado em torno da ISO~50001, que especifica os requisitos de um sistema de gestão de energia (SGE), e de um conjunto de normas de suporte, desenvolvidas pelo comité técnico ISO/TC~301, que operacionalizam componentes específicos desse sistema. Para o presente trabalho relevam três documentos: a ISO~50001:2018~\cite{ISO50001_2018}, que estabelece os requisitos do sistema; a ISO~50006~\cite{ISO50006_2014}, que fornece princípios e orientações para a medição do desempenho energético através de indicadores de desempenho energético (EnPI) e consumos energéticos de referência (EnB); e a ISO~50015~\cite{ISO50015_2014}, que estabelece princípios gerais para a medição e verificação (M\&V) do desempenho energético de organizações. A distinção de estatuto entre estes documentos é essencial para a análise que se segue: a ISO~50001 é uma norma de requisitos, certificável, redigida na forma verbal \enquote{deve}; a ISO~50006 e a ISO~50015 são normas de orientação, redigidas na forma \enquote{deverá/poderá}, sem carácter vinculativo --- a própria ISO~50015 declara que os seus princípios não são exigidos pela ISO~50001~\cite[Introdução]{ISO50015_2014}. A ISO~50006 e a ISO~50015 são aqui lidas nas edições de 2014, as consultadas. A ISO~50006 tem desde 2023 uma segunda edição, que substituiu a de 2014 e não foi consultada; o que este capítulo diz sobre o texto da ISO~50006 vale para a edição de 2014 e não se estende, sem verificação, ao quadro atual (nota no fim da Secção~\ref{sec:assimetria-comparacao}).
+A gestão de energia industrial encontra-se hoje codificada num corpo normativo estruturado em torno da ISO~50001, que especifica os requisitos de um sistema de gestão de energia (SGE), e de um conjunto de normas de suporte, desenvolvidas pelo comité técnico ISO/TC~301, que operacionalizam componentes específicos desse sistema. Para o presente trabalho relevam três documentos: a ISO~50001:2018, adotada em Portugal como NP~EN~ISO~50001:2019~\cite{ISO50001_2018}, que estabelece os requisitos do sistema; a ISO~50006~\cite{ISO50006_2014}, que fornece princípios e orientações para a medição do desempenho energético através de indicadores de desempenho energético (EnPI, na sigla anglófona que a literatura consagrou; IDE na versão portuguesa da norma) e consumos energéticos de referência (EnB, ou CER); e a ISO~50015~\cite{ISO50015_2014}, que estabelece princípios gerais para a medição e verificação (M\&V) do desempenho energético de organizações. A distinção de estatuto entre estes documentos é essencial para a análise que se segue: a ISO~50001 é uma norma de requisitos, certificável, redigida na forma verbal \enquote{deve}; a ISO~50006 e a ISO~50015 são normas de orientação, redigidas na forma \enquote{deverá/poderá}, sem carácter vinculativo --- a própria ISO~50015 declara que os seus princípios não são exigidos pela ISO~50001~\cite[Introdução]{ISO50015_2014}. A ISO~50006 e a ISO~50015 são aqui lidas nas edições de 2014, as consultadas. A ISO~50006 tem desde 2023 uma segunda edição, que substituiu a de 2014 e não foi consultada; o que este capítulo diz sobre o texto da ISO~50006 vale para a edição de 2014 e não se estende, sem verificação, ao quadro atual (nota no fim da Secção~\ref{sec:assimetria-comparacao}).
 
-\alterado{\paragraph{Nomenclatura e citações.} A ISO~50001:2018 foi adotada
-em Portugal um ano depois, como NP~EN~ISO~50001:2019, que traduz
-\emph{energy performance indicator} por indicador de desempenho energético
-(IDE) e \emph{energy baseline} por consumo energético de referência (CER).
-Esta dissertação usa em todo o texto as siglas inglesas, EnPI e EnB: são as
-do original das três normas, as da literatura analisada no
-Capítulo~\ref{cha:revisao} --- cujo corpus é integralmente em inglês --- e
-as que a documentação técnica da plataforma usa. As passagens da ISO~50001
-citam-se pela versão portuguesa, que foi a consultada; as da ISO~50006 e da
-ISO~50015 são tradução do autor a partir do original inglês. Transcreve-se
-onde a formulação literal é objeto de análise --- tipicamente a distinção
-verbal entre \enquote{deve} e \enquote{deverá}; o resto é parafraseado com
-indicação da cláusula.}
-
-A ISO~50001 estrutura o SGE sobre o ciclo de melhoria contínua \emph{Plan-Do-Check-Act} (PDCA). Na fase de planeamento, a organização realiza uma avaliação energética (\S6.3), identifica os usos significativos de energia (USE), determina EnPI \enquote{adequados para medir e monitorizar o seu desempenho energético} e que \enquote{permitam demonstrar a melhoria do desempenho energético} (\S6.4), e estabelece EnB a partir da avaliação energética, \alterado{tendo em conta um período de tempo adequado (\S6.5).} Na fase de verificação, a organização monitoriza, mede, analisa e avalia o desempenho (\S9.1): \alterado{a melhoria do desempenho energético deve ser avaliada comparando
-os valores dos EnPI com os EnB correspondentes}, e a organização
-\enquote{deve investigar e responder a desvios significativos no desempenho
-energético} (\S9.1.1). O par EnPI--EnB é, portanto, o mecanismo central através do qual a norma torna o desempenho energético mensurável e a melhoria demonstrável --- e é sobre este par que incide toda a análise desta dissertação.
+A ISO~50001 estrutura o SGE sobre o ciclo de melhoria contínua \emph{Plan-Do-Check-Act} (PDCA). Na fase de planeamento, a organização realiza uma avaliação energética (\S6.3), identifica os usos significativos de energia (USE), determina EnPI \enquote{adequados para medir e monitorizar o seu desempenho energético} e que \enquote{permitam demonstrar a melhoria do desempenho energético} (\S6.4), e estabelece EnB a partir da avaliação energética, \enquote{tendo em conta um período de tempo adequado} (\S6.5). Na fase de verificação, a organização monitoriza, mede, analisa e avalia o desempenho (\S9.1): a melhoria do desempenho energético \enquote{deve ser avaliada comparando os valores de IDE [\ldots] com os correspondentes CER}, e a organização \enquote{deve investigar e responder a desvios significativos no desempenho energético} (\S9.1.1). O par EnPI--EnB é, portanto, o mecanismo central através do qual a norma torna o desempenho energético mensurável e a melhoria demonstrável --- e é sobre este par que incide toda a análise desta dissertação.
 \alterado{A Tabela~\ref{tab:pdca-50001} localiza as cláusulas no ciclo e
 assinala aquelas de que o par depende.}
 
@@ -49,7 +29,7 @@ assinala aquelas de que o par depende.}
 \begin{xltabular}{\linewidth}{@{}>{\raggedright\arraybackslash}p{1.15cm}>{\raggedright\arraybackslash}p{3.5cm}X>{\raggedright\arraybackslash}p{2.35cm}@{}}
 \caption[A ISO 50001:2018 pelo ciclo PDCA]{Estrutura da ISO~50001:2018
   pelo ciclo PDCA. A negrito, as quatro cláusulas de que depende o par
-  EnPI--EnB e que esta dissertação examina; entre parênteses, a norma de
+  IDE--CER e que esta dissertação examina; entre parênteses, a norma de
   orientação que cada uma convoca e que, por não ser certificável, não
   acrescenta requisito nenhum. A última coluna declara o âmbito: a maior
   parte do sistema de gestão fica fora deste trabalho. Elaboração própria a
@@ -75,9 +55,9 @@ Fase & Cláusula & O que a norma exige & Nesta dissertação \\
   \addlinespace
    & \textbf{6.3 Avaliação energética} & Identificar os usos significativos de energia e, para cada um, determinar as variáveis relevantes e o desempenho atual & Secção~\ref{sec:enb-cadeia}, elos 1--3 \\
   \addlinespace
-   & \textbf{6.4 Indicadores de desempenho energético} (ISO~50006) & Determinar EnPI adequados para medir e monitorizar o desempenho e que permitam demonstrar a melhoria & Secção~\ref{sec:enb-cadeia}, elo 4 \\
+   & \textbf{6.4 Indicadores de desempenho energético} (ISO~50006) & Determinar IDE adequados para medir e monitorizar o desempenho e que permitam demonstrar a melhoria & Secção~\ref{sec:enb-cadeia}, elo 4 \\
   \addlinespace
-   & \textbf{6.5 Consumo energético de referência} (ISO~50006) & Estabelecer o EnB; normalizar quando as variáveis relevantes afetam significativamente o desempenho; rever o EnB em três casos & Secção~\ref{sec:enb-cadeia}, elos 5 e 7 \\
+   & \textbf{6.5 Consumo energético de referência} (ISO~50006) & Estabelecer o CER; normalizar quando as variáveis relevantes afetam significativamente o desempenho; rever o CER em três casos & Secção~\ref{sec:enb-cadeia}, elos 5 e 7 \\
   \addlinespace
    & 6.6 Planeamento da recolha de dados & Especificar que dados recolher, com que frequência e com que qualidade & Capítulo~\ref{cha:metodos} \\
   \midrule
@@ -85,7 +65,7 @@ Fase & Cláusula & O que a norma exige & Nesta dissertação \\
   \addlinespace
    & 8.1--8.3 Operação & Planeamento e controlo operacional, conceção, aquisição & --- \\
   \midrule
-  \emph{Check} & \textbf{9.1 Monitorização, medição, análise e avaliação} (ISO~50015) & Comparar os valores dos EnPI com os EnB correspondentes; investigar e responder a desvios significativos & Secção~\ref{sec:enb-cadeia}, elo 7; Capítulo~\ref{cha:diagnostico} \\
+  \emph{Check} & \textbf{9.1 Monitorização, medição, análise e avaliação} (ISO~50015) & Comparar os valores dos IDE com os CER correspondentes; investigar e responder a desvios significativos & Secção~\ref{sec:enb-cadeia}, elo 7; Capítulo~\ref{cha:diagnostico} \\
   \addlinespace
    & 9.2--9.3 Auditoria interna e revisão pela gestão & Verificar a conformidade e a adequação do sistema & --- \\
   \midrule
@@ -103,7 +83,7 @@ A ISO~50015, por fim, enquadra a M\&V como processo: plano de M\&V documentado, 
 \subsection{O par EnPI--EnB}
 \label{sec:enb-par}
 
-O conceito central é simples: um EnPI é uma \enquote{medida ou unidade do desempenho energético, conforme definido pela organização} (ISO~50001, \S3.4.4); o EnB é \enquote{referência(s) quantitativa(s) que fornecem uma referência para comparação do desempenho energético} (\S3.4.7), construída com dados \enquote{obtidos de um período específico de tempo e/ou condições, conforme definido pela organização} (\S3.4.7, Nota~1). A melhoria do desempenho energético demonstra-se comparando o valor do EnPI no período de reporte com o valor de referência do período de \emph{baseline}~\cite[Figuras~1 e~3]{ISO50006_2014}. Quando variáveis relevantes afetam significativamente o desempenho, a comparação direta deixa de ser válida e a organização \alterado{\enquote{deve realizar a normalização} dos valores do EnPI e do EnB correspondente} (ISO~50001, \S6.5) --- tipicamente através de um modelo que descreve a relação entre consumo e variáveis relevantes no período de \emph{baseline}~\cite[\S4.5.1 e Anexo~D]{ISO50006_2014}.
+O conceito central é simples: um EnPI é uma \enquote{medida ou unidade do desempenho energético, conforme definido pela organização} (ISO~50001, \S3.4.4); o EnB é \enquote{referência(s) quantitativa(s) que fornecem uma referência para comparação do desempenho energético} (\S3.4.7), construída com dados \enquote{obtidos de um período específico de tempo e/ou condições, conforme definido pela organização} (\S3.4.7, Nota~1). A melhoria do desempenho energético demonstra-se comparando o valor do EnPI no período de reporte com o valor de referência do período de \emph{baseline}~\cite[Figuras~1 e~3]{ISO50006_2014}. Quando variáveis relevantes afetam significativamente o desempenho, a comparação direta deixa de ser válida e a organização \enquote{deve realizar a normalização do(s) valor(es) do IDE e do correspondente CER} (ISO~50001, \S6.5) --- tipicamente através de um modelo que descreve a relação entre consumo e variáveis relevantes no período de \emph{baseline}~\cite[\S4.5.1 e Anexo~D]{ISO50006_2014}.
 
 Repare-se, desde já, em duas expressões que a redação normativa usa com naturalidade e que carregam todo o peso estatístico do edifício: a comparação deve fazer-se \emph{em condições equivalentes} (ISO~50006, \S3.13), e o período de \emph{baseline} deve \emph{capturar a variabilidade dos padrões operacionais} (\S4.4.2). Ambas pressupõem que as condições operacionais são descritíveis pelas variáveis escolhidas e que a variabilidade observada num período --- tipicamente doze meses (\S4.4.2) --- é representativa da variabilidade futura. São pressupostos de estacionariedade: não da série de consumo, mas da \emph{relação} entre consumo e variáveis relevantes. Não são enunciados como pressupostos em parte alguma do texto normativo.
 
@@ -182,16 +162,7 @@ Percorramos os elos onde o texto normativo é mais revelador.
 
 A análise anterior obriga a uma distinção de três camadas, que atravessa toda a dissertação e sem a qual a crítica seria imprecisa. Primeira camada, \textbf{o que as normas exigem} (ISO~50001, \enquote{deve}): que existam EnPI e EnB, que a melhoria se demonstre por comparação entre ambos, que se normalize quando as variáveis relevantes afetam significativamente o desempenho, que os desvios significativos sejam investigados, e que o EnB seja revisto nos três gatilhos. Segunda camada, \textbf{o que as normas sugerem} (ISO~50006/50015, \enquote{deverá}, anexos informativos): a tipologia de EnPI, testes de validade nomeados sem limiares, o período de \emph{baseline} de doze meses, a gestão da incerteza \enquote{ao nível apropriado} (ISO~50015, \S4.2) e os diagnósticos possíveis da incerteza de modelo --- \enquote{estatísticas~$t$, valores de $R^2$, valores-$p$, níveis de confiança, limites de predição do modelo} (ISO~50015, \S7, Nota) --- \enquote{na medida do praticável} (\S7). Terceira camada, \textbf{o que a implementação escolhe} --- e que nenhuma norma prescreve nem proíbe: no caso em estudo, a forma $E = a \cdot Q + b$ com uma única variável explicativa; a estimação por mínimos quadrados ordinários; as bandas de alarme em $\pm 2\sigma$, com $\sigma$ estimado a partir dos resíduos de treino; e a recalibração anual por calendário.
 
-\alterado{Esta atribuição precisa é essencial, e delimita o que se critica.
-O objeto da crítica do Capítulo~\ref{cha:diagnostico} não é a conformidade:
-a forma do modelo e a revisão periódica não são, por si, excluídas por
-nenhuma das cláusulas analisadas; a demonstração de que os EnPI e as EnB são
-adequados cabe à organização (ISO~50001, \S6.4 e \S6.5); e saber se uma
-auditoria aceitaria um método sem essa demonstração é questão que esta
-dissertação não avalia. O que se examina é o que a terceira camada permite,
-e é da forma desse espaço que trata a secção seguinte. A
-Figura~\ref{fig:enpi-enb-meta} mostra onde passa a fronteira entre o que a
-norma desenha e o que a implementação acrescenta.}
+Esta atribuição precisa é essencial: o objeto da crítica do Capítulo~\ref{cha:diagnostico} não é a conformidade. A forma do modelo e a revisão periódica não são, por si, excluídas por nenhuma das cláusulas analisadas. Três coisas ficam separadas: as normas não prescrevem nenhum teste quantitativo de adequação; a demonstração de que os EnPI e as EnB são adequados cabe à organização (ISO~50001, \S6.4 e \S6.5); e saber se uma auditoria aceitaria um método sem essa demonstração é uma questão que esta dissertação não avalia. O objeto da crítica é o facto de o espaço permitido conter, sem qualquer barreira normativa, implementações cujos pressupostos estatísticos são sistematicamente violados pelos dados a que se aplicam --- e de as normas não fornecerem ao operador nenhum instrumento que o alerte para isso. Dito de outro modo: a ausência de uma barreira normativa não é evidência de validade estatística, e as normas analisadas não contêm o mecanismo que permitiria distinguir uma da outra. \alterado{A Figura~\ref{fig:enpi-enb-meta} mostra onde passa essa fronteira.}
 
 %% 2026-09-19: o \missingfigure "FIG 2.3" foi substituido por um desenho
 %% proprio em TikZ, sem dados e sem reproducao de arte da ISO.
@@ -199,43 +170,23 @@ norma desenha e o que a implementação acrescenta.}
 
 \section{A assimetria normativa}
 \label{sec:assimetria}
-%% 2026-09-19: caixa C2-05 resolvida e retirada. A repeticao entre 2.2.2,
-%% 2.2.3 e 2.3.1 foi cortada (2.2.3 fica com a delimitacao do que se critica,
-%% 2.3.1 nomeia a assimetria sem refazer o percurso e herda a frase de
-%% remate); a matriz da Tabela 2.3 e agora a unica lista clausula a clausula
-%% e a sua legenda declara que a coluna dos pressupostos e reconstrucao desta
-%% dissertacao; a 2.3.1 di-lo tambem no corpo; e a politica de citacao passou
-%% a estar declarada no paragrafo "Nomenclatura e citacoes" da 2.1, com duas
-%% transcricoes decorativas convertidas em parafrase. Versao anterior em
-%% _revisao/2026-09-19b-cap2-antes.tex.
+% [REV-2026-09-13][C2-05][P2][ESTRUTURA]
+\revisaotese{C2-05}{P2}{ESTRUTURA}
+{Fundir passagens repetidas e separar texto normativo de interpretação}
+{As Secs. 2.2.2, 2.2.3 e 2.3.1 repetem a mesma crítica. Manter uma
+explicação curta e uma única matriz requisito/orientação/escolha local,
+com edição e cláusula. Assinalar "interpretação desta dissertação" para
+pressupostos reconstruídos: a norma não declara literalmente todos os
+elos do diagrama. Nas citações, preferir paráfrases com cláusula e
+reservar transcrições breves para a distinção verbal realmente analisada.}%
+% [/REV-2026-09-13]
 
 \subsection{Formulação}
 \label{sec:assimetria-formulacao}
 
-\alterado{Chamamos assimetria normativa ao desequilíbrio entre a densidade
-prescritiva das normas quanto à \emph{existência} dos instrumentos de
-medição do desempenho energético e o seu silêncio quanto à \emph{validade}
-desses instrumentos. A Secção~\ref{sec:enb-cadeia} percorreu-o elo a elo e a
-Tabela~\ref{tab:matriz-rastreabilidade} fixa-o cláusula a cláusula; não se
-refaz aqui o percurso. O que interessa reter é a forma: a família nomeia os
-instrumentos estatísticos com que a validade poderia ser aferida e em nenhum
-ponto converte a aferição em requisito, fixa limiares de aceitação, exige a
-verificação dos pressupostos dos modelos ou fornece critérios operacionais
-para detetar que uma referência deixou de ser válida. Daqui vem a
-consequência que o resto do capítulo persegue: a ausência de uma barreira
-normativa não é evidência de validade estatística, e as normas analisadas
-não contêm o mecanismo que permitiria distinguir uma coisa da outra. O
-Capítulo~\ref{cha:diagnostico} examina essa situação nos vetores energéticos
-da unidade em estudo (Secção~\ref{sec:caso-estudo}).}
+Chamamos assimetria normativa ao desequilíbrio, documentado cláusula a cláusula na secção anterior, entre a densidade prescritiva das normas quanto à \emph{existência} dos instrumentos de medição do desempenho energético e o seu silêncio quanto à \emph{validade} desses instrumentos. A família ISO~50001 obriga a que haja EnPI, EnB, normalização, investigação de desvios e revisão da referência; nomeia, inclusive, os instrumentos estatísticos com que a validade poderia ser aferida; mas em nenhum ponto converte a aferição em requisito, fixa limiares de aceitação, exige a verificação dos pressupostos dos modelos ou fornece critérios operacionais para detetar que uma referência deixou de ser válida. O resultado prático é que nenhuma das cláusulas analisadas fixa um teste que impeça um sistema de gestão certificado de operar sobre \emph{baselines} cujos pressupostos os dados violam: a adequação fica por demonstrar pela organização e por julgar pela auditoria, o que aqui não se avalia. O Capítulo~\ref{cha:diagnostico} examina essa situação nos vetores energéticos da unidade em estudo (Secção~\ref{sec:caso-estudo}).
 
-A assimetria tem uma segunda face, menos evidente: as normas embutem pressupostos estatísticos que nunca enunciam. A comparação \enquote{em condições equivalentes} pressupõe a suficiência das variáveis relevantes; a extrapolação do modelo de \emph{baseline} para o período de reporte pressupõe a estabilidade estrutural da relação; o período de referência de doze meses pressupõe que um ciclo anual é representativo; os gatilhos de revisão pressupõem que a mudança é observável por quem opera. \alterado{O Anexo~D da ISO~50006 é o lugar onde o pressuposto da transportabilidade mais trabalha e menos se declara: o modelo estimado no período de referência é usado para prever o período de reporte, e a diferença entre o previsto e o observado \enquote{indicará se ocorreu uma melhoria de desempenho energético} (\S D.1). O anexo ressalva que os valores previstos e os observados não coincidem exatamente; não ressalva que a relação estimada à esquerda possa ter deixado de valer à direita.} Nenhum destes pressupostos é neutro num processo contínuo sujeito a
-\emph{fouling}, desativação de catalisador e deslocamento gradual do espaço
-operacional --- a especificidade desenvolvida na
-Secção~\ref{sec:processos-continuos}. \alterado{Diga-se com clareza: os
-pressupostos são leitura desta dissertação, não texto normativo. Nenhuma das
-três normas os enuncia como pressupostos, e a cadeia de medição da
-Figura~\ref{fig:cadeia-normativa} é um instrumento de análise construído
-aqui, não uma paráfrase das cláusulas.}
+A assimetria tem uma segunda face, menos evidente: as normas embutem pressupostos estatísticos que nunca enunciam. A comparação \enquote{em condições equivalentes} pressupõe a suficiência das variáveis relevantes; a extrapolação do modelo de \emph{baseline} para o período de reporte pressupõe a estabilidade estrutural da relação; o período de referência de doze meses pressupõe que um ciclo anual é representativo; os gatilhos de revisão pressupõem que a mudança é observável por quem opera. \alterado{O Anexo~D da ISO~50006 é o lugar onde o pressuposto da transportabilidade mais trabalha e menos se declara: o modelo estimado no período de referência é usado para prever o período de reporte, e a diferença entre o previsto e o observado \enquote{indicará se ocorreu uma melhoria de desempenho energético} (\S D.1). O anexo ressalva que os valores previstos e os observados não coincidem exatamente; não ressalva que a relação estimada à esquerda possa ter deixado de valer à direita.} Nenhum destes pressupostos é neutro num processo contínuo sujeito a \emph{fouling}, desativação de catalisador e deslocamento gradual do espaço operacional --- a especificidade desenvolvida na Secção~\ref{sec:processos-continuos}.
 
 \subsection{Matriz de rastreabilidade: cláusula, silêncio, pressuposto, teste}
 \label{sec:assimetria-matriz}
@@ -244,11 +195,7 @@ A Tabela~\ref{tab:matriz-rastreabilidade} formaliza a análise: para cada cláus
 
 \begin{table}[htbp]
   \centering\footnotesize
-  \caption[Matriz de rastreabilidade cláusula--silêncio--pressuposto--teste]{Matriz de rastreabilidade: cláusula normativa, silêncio, pressuposto tácito
-  e \emph{endpoint} de diagnóstico que o testa (E1--E6 e bateria descritiva D;
-  ver Secção~\ref{sec:protocolo-baselines}). As duas primeiras colunas
-  reportam o texto das normas; a coluna dos pressupostos é reconstrução desta
-  dissertação, que nenhuma das normas enuncia.}
+  \caption[Matriz de rastreabilidade cláusula--silêncio--pressuposto--teste]{Matriz de rastreabilidade: cláusula normativa, silêncio, pressuposto tácito e \emph{endpoint} de diagnóstico que o testa (E1--E6 e bateria descritiva D; ver Secção~\ref{sec:protocolo-baselines}).}
   \label{tab:matriz-rastreabilidade}
   \begin{tabularx}{\textwidth}{@{}c >{\raggedright\arraybackslash}p{2.1cm} X X X c@{}}
     \toprule
