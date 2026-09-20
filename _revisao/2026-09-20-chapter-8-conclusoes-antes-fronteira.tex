@@ -159,32 +159,21 @@ atual. O roteiro organiza-se por isso a partir das falhas observadas, e começa
 pelas condições que tornam qualquer modelo avaliável
 (Tabela~\ref{tab:roteiro}).
 
-% 2026-09-20: com a linha nova sobre a fronteira do indicador a tabela
-% deixou de caber numa pagina e transbordava. Passa a xltabular, como as
-% Tabelas 1.1, 2.1 e 2.4--2.6: parte-se com cabecalho repetido.
-{\footnotesize
-\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}X@{}}
-\caption[Roteiro a partir das falhas observadas]{Roteiro de trabalho futuro organizado pelas falhas observadas. As três primeiras linhas são pré-condições das seguintes.}\label{tab:roteiro}\\
-\toprule
-Falha observada & Opção & Dados adicionais & Comparador & Critério de sucesso \\
-\midrule
-\endfirsthead
-\toprule
-Falha observada & Opção & Dados adicionais & Comparador & Critério de sucesso \\
-\midrule
-\endhead
-\midrule
-\multicolumn{5}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
+\begin{table}[htbp]
+  \centering\footnotesize
+  \caption[Roteiro a partir das falhas observadas]{Roteiro de trabalho futuro
+  organizado pelas falhas observadas. As três primeiras linhas são
+  pré-condições das seguintes.}
+  \label{tab:roteiro}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    Falha observada & Opção & Dados adicionais & Comparador & Critério de sucesso \\
+    \midrule
     Detetabilidade real não estimável; nenhum desvio classificável & Integrar o calendário operacional e rótulos de eventos na plataforma & Paragens, arranques, limpezas, mudanças de crude, intervenções de instrumentação & Situação atual, sem eventos & Taxa de deteção e atraso medidos sobre eventos reais; alarmes classificados \\
     \addlinespace
     Critério de aceitação sem margens materiais & Elicitar com a operação a menor mudança que importa e a precisão mínima & Margens por vetor; custo de um falso alarme e de um desvio não visto & Regra de 4 em 5 atual & Critério de equivalência ou não inferioridade fixado antes de avaliar qualquer candidato novo \\
     \addlinespace
     Fronteira e resolução: vapor de 10~bar líquido, eletricidade mensal, definição de carga pendente & Separar produção e consumo de vapor; medir ou submedir a eletricidade diária; fechar a definição de carga & Medidores de produção e consumo por nível; potência elétrica por unidade & Série atual & Séries diárias validadas contra o fecho mensal, como na Secção~\ref{sec:validacao-dados} \\
-    \addlinespace
-    \novo{Fronteira do indicador: o bloco agrega à coluna secções auxiliares cujo consumo não responde à carga de crude} & \novo{Quantificar a fração do consumo do bloco que vem das secções auxiliares, separando os canais que o mapeamento já distingue; avaliar uma variável de atividade própria para essas secções, ou uma referência por secção} & \novo{Canais já separados no mapeamento mestre; variável de atividade das secções auxiliares (produção de gases, carga de enxofre)} & \novo{Reta única sobre a carga de crude do bloco} & \novo{Fração estimada com intervalo; um desenho alternativo só entra se reduzir a variância residual fora da amostra sem degradar a banda} \\
     \addlinespace
     Fuel gás: conteúdo preditivo com deriva do declive & Piloto prospetivo de referência congelada com soma acumulada, contra um modelo com estado (nível e declive variáveis) e contra uma regressão com um indicador de incrustação calculado da bateria & Temperaturas e caudais dos permutadores; datas de limpeza & Referência anual em produção; referência congelada de 2020 & Passar o critério revisto num ano não usado; não se promete ganho \\
     \addlinespace
@@ -192,9 +181,10 @@ Falha observada & Opção & Dados adicionais & Comparador & Critério de sucesso
     \addlinespace
     Vapor de 3~bar: relação provavelmente não linear, covariáveis úteis & Modelo aditivo com covariáveis de processo, validado para a frente no tempo & Caudais de vapor de \emph{stripping}, temperaturas de corte & Regressão linear com as mesmas covariáveis; média & Valor incremental com intervalo a excluir zero em anos não usados na afinação \\
     \addlinespace
-    Expansão a outras unidades & Modelos hierárquicos com partilha parcial entre unidades semelhantes, depois de o procedimento passar numa unidade & Unidades com catalisador: dias desde a regeneração, temperatura de reação & Modelos independentes por unidade & Mesmo critério de aceitação; análise de custo e benefício da expansão \\ \\
-\end{xltabular}
-}
+    Expansão a outras unidades & Modelos hierárquicos com partilha parcial entre unidades semelhantes, depois de o procedimento passar numa unidade & Unidades com catalisador: dias desde a regeneração, temperatura de reação & Modelos independentes por unidade & Mesmo critério de aceitação; análise de custo e benefício da expansão \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
 Duas linhas de trabalho ficam fora da tabela por não dependerem de modelos.
 A primeira é implantar o bloco de saúde das referências na plataforma, com

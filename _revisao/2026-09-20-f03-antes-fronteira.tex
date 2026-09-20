@@ -11,7 +11,7 @@
             rounded corners=3pt] (0,-1.35) rectangle (11.85,1.55);
     \end{scope}
     \node[ntrot, anchor=north west, text=corTinta] at (0.15,1.45)
-      {\textbf{Fronteira da coluna}};
+      {\textbf{Fronteira do indicador}};
 
     % ---------------------------------------------- cadeia processual --
     \node[eq] (pa1) at (1.75,0.30) {Pré-aquecimento};
@@ -80,8 +80,8 @@
     \node[ntmini, anchor=west] at (8.2,-3.20) {produção creditada (abate ao bruto)};
   \end{tikzpicture}
   \caption[Fronteira energética da unidade de destilação atmosférica]%
-  {Esquema funcional da unidade de destilação atmosférica e da
-   \novo{fronteira de medição da coluna}. O desenho não tem escala nem caudais:
+  {Esquema funcional da unidade de destilação atmosférica e da fronteira
+   que o indicador de desempenho usa. O desenho não tem escala nem caudais:
    representa a sequência de operações e os pontos onde entra e sai energia.
    Três noções de consumo convivem e não devem ser confundidas: o
    \emph{consumo bruto} é tudo o que atravessa a fronteira para dentro; o
@@ -90,9 +90,6 @@
    aquilo que é medido num ponto comum, segundo uma regra declarada --- é
    o caso da eletricidade, medida ao mês para um conjunto de equipamentos e
    repartida por dia. Por isso, um desvio medido nesta fronteira pode ter
-   origem no processo ou na regra de repartição. \novo{O esquema é o da
-   coluna; a fronteira do indicador é mais larga, e inclui as secções
-   auxiliares declaradas na composição da unidade
-   (Secção~\ref{sec:caso-estudo}).}}
+   origem no processo ou na regra de repartição.}
   \label{fig:fronteira-cdu}
 \end{figure}
