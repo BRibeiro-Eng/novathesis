@@ -534,31 +534,17 @@ observa, o que se pode confundir com ele e o pressuposto da
 Secção~\ref{sec:assimetria-matriz} que viola. A última coluna é a ligação
 entre a física desta secção e os testes do Capítulo~\ref{cha:diagnostico}.
 
-A Secção~\ref{sec:corpus-b} \alterado{mostra que a literatura sobre indicadores e referências raramente
-nomeia a causa física do que corre mal ao modelo: em 89 das 130 ocorrências
-de efeito extraídas do Corpus~B não se nomeia nenhuma.} É uma razão adicional para as fixar
-aqui, antes dos dados.
-
-% 2026-09-20: passou de float ([htbp]) a xltabular, como as Tabelas 1.1,
-% 2.1, 2.4 e 2.5, e mudou de sitio: fecha agora mesmo a seccao, a seguir ao
-% ultimo paragrafo e antes da 2.5, como o texto anuncia. Nao flutua e
-% parte-se entre paginas com cabecalho repetido.
-{\footnotesize
-\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{2.1cm}@{}}
-\caption[Mecanismos de processo contínuo e pressupostos que violam]{Mecanismos de não estacionariedade em processo contínuo, o que deles se observa e o pressuposto tácito que violam. CDU: presente na unidade estudada. Os pressupostos são os da Secção~\ref{sec:assimetria-matriz}.}\label{tab:mecanismos-pressupostos}\\
-\toprule
-\textbf{Mecanismo} & \textbf{Efeito na relação consumo--carga} & \textbf{O que se observa} & \textbf{Com que se confunde} & \textbf{Pressuposto violado} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Mecanismo} & \textbf{Efeito na relação consumo--carga} & \textbf{O que se observa} & \textbf{Com que se confunde} & \textbf{Pressuposto violado} \\
-\midrule
-\endhead
-\midrule
-\multicolumn{5}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
+\begin{table}[htbp]
+  \centering\footnotesize
+  \caption[Mecanismos de processo contínuo e pressupostos que violam]{Mecanismos
+  de não estacionariedade em processo contínuo, o que deles se observa e o
+  pressuposto tácito que violam. CDU: presente na unidade estudada. Os
+  pressupostos são os da Secção~\ref{sec:assimetria-matriz}.}
+  \label{tab:mecanismos-pressupostos}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{2.1cm}@{}}
+    \toprule
+    \textbf{Mecanismo} & \textbf{Efeito na relação consumo--carga} & \textbf{O que se observa} & \textbf{Com que se confunde} & \textbf{Pressuposto violado} \\
+    \midrule
     Incrustação da bateria de pré-aquecimento (CDU) & Mais combustível no forno para a mesma carga; subida gradual e queda na limpeza & Temperaturas e caudais dos permutadores, a partir dos quais se pode estimar a resistência de incrustação; o estado não é medido & Mudança de crude; excesso de ar no forno; ineficiência operacional & Suficiência; transportabilidade \\
     \addlinespace
     Composição do crude (CDU) & Energia por tonelada diferente de crude para crude; muda também a tendência para incrustar & Densidade, condições de \emph{flash}, rendimento em resíduo; plano de crudes & Incrustação; mudança de modo de operação & Suficiência; forma \\
@@ -570,8 +556,14 @@ aqui, antes dos dados.
     Desativação de catalisador (outras unidades) & Mais energia por tonelada ao longo do ciclo, até à regeneração & Temperatura de reação; dias desde a regeneração & Mudança de carga ou de severidade & Transportabilidade; representatividade \\
     \addlinespace
     Limpezas, paragens, recalibrações & Degraus na relação ou na escala da medição & Registos de manutenção e de instrumentação, fora dos dados analisados & Melhoria real do desempenho & Transportabilidade; detetabilidade \\
-\end{xltabular}
-}
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+A Secção~\ref{sec:corpus-b} \alterado{mostra que a literatura sobre indicadores e referências raramente
+nomeia a causa física do que corre mal ao modelo: em 89 das 130 ocorrências
+de efeito extraídas do Corpus~B não se nomeia nenhuma.} É uma razão adicional para as fixar
+aqui, antes dos dados.
 
 \section{O caso de estudo: a refinaria de Sines e a unidade de destilação atmosférica}
 \label{sec:caso-estudo}
