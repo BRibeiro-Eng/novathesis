@@ -59,7 +59,8 @@ Tudo o que se seguiu mostra que um método pode ser reproduzível, documentado
 e aplicado com disciplina há seis anos, e ainda assim não servir de forma
 uniforme as três funções que lhe são pedidas. Como preditor da relação com a
 carga, tem conteúdo demonstrado no fuel gás e nenhum ganho demonstrado nos
-vapores; para comparar períodos, \revisto{a igualdade dos declives anuais é rejeitada no vapor de 3~bar sob BH e BY, mas não na sensibilidade com blocos de 60 dias} e, nos outros vetores, de forma que depende do método e de
+vapores; para comparar períodos, a relação anual muda de forma robusta no
+vapor de 3~bar e, nos outros vetores, de forma que depende do método e de
 onde começa o ano; para alarmes, a banda cobre entre $38\%$ e $99{,}7\%$ dos
 dias consoante o vetor e o par de anos, e a deteção real não foi medida. Na
 energia elétrica o problema é de medição, não do modelo nem da
@@ -72,8 +73,12 @@ o vapor de 24~bar por uma reta anual que se comporta como uma média; o de
 compatível com uma relação que não é linear nem estática --- e a energia
 elétrica tem uma limitação de medição, não um modo de falha. A diversidade
 importa porque afasta a receita única: um remédio para a deriva do fuel gás
-não serve ao 24~bar, onde não há relação com a carga a estabilizar. Mas \revisto{os quatro vetores diários partilham um desenho, sobre o qual se constrói a proposta deste capítulo:} um modelo linear estático, reestimado
-anualmente sobre janelas convencionais, aplicado a \revisto{um processo cujo comportamento difere entre anos sem que se tenham identificado as datas, a duração ou as causas dessas diferenças.} O mecanismo é o da Secção~\ref{sec:sintese-modos-falha}:
+não serve ao 24~bar, onde não há relação com a carga a estabilizar. Mas os
+quatro vetores diários partilham um desenho, e é sobre ela que a
+proposta deste capítulo se constrói: um modelo linear estático, reestimado
+anualmente sobre janelas convencionais, aplicado a um processo cujo
+comportamento muda mais devagar do que um ano e mais depressa do que a
+recalibração o assinala. O mecanismo é o da Secção~\ref{sec:sintese-modos-falha}:
 a reta estimada num ano acomoda nos parâmetros a parte da deriva que se
 projeta na carga e na constante, e quando se muda de reta a nova acomoda o
 nível que o ano anterior atingiu.
@@ -127,11 +132,13 @@ desempenho energético; a ISO~50006~\cite{ISO50006_2014} operacionaliza-o em
 indicadores e \emph{baselines}, com variáveis relevantes, fatores estáticos
 e normalização; a ISO~50015 e o IPMVP~\cite{ISO50015_2014,IPMVP_2022} tratam
 da medição e verificação de poupanças. Como o Capítulo~\ref{cha:enquadramento}
-mostrou, \revisto{os referenciais estabelecem objetivos e orientações de validação, mas não especificam um protocolo completo para avaliar a transportabilidade temporal e a deteção sob a dependência observada neste caso} --- e carregam o pressuposto tácito de que a
+mostrou, as três dizem \emph{o que} deve existir e são quase omissas sobre
+\emph{como validar} o que existe --- e carregam o pressuposto tácito de que a
 relação entre consumo e variáveis relevantes é estável no período de
 referência e transportável para o de reporte. O Capítulo~\ref{cha:diagnostico}
 é, em rigor, um teste desse pressuposto num processo contínuo, e o resultado
-é que ele não se sustenta de forma uniforme: \revisto{a igualdade dos declives é rejeitada sob BH e BY no vapor de 3~bar, mas não com blocos de 60 dias; no fuel gás e no de 10~bar, a rejeição também depende do método,}
+é que ele não se sustenta de forma uniforme: falha de forma robusta no vapor
+de 3~bar, falha de forma dependente do método no fuel gás e no de 10~bar,
 não é conclusivo no de 24~bar, e na energia elétrica não é testável à
 resolução diária.
 
@@ -165,7 +172,8 @@ refazer a referência quando o consumo cai três desvios-padrão abaixo dela,
 regra que dispara igualmente perante uma melhoria real e perante um modelo
 caducado; a linha orientadora de recalibração por evidência separa a
 deteção da decisão de recalibrar e certifica o modelo novo só com dados
-posteriores. \revisto{\textcite{Hamedi2019} e \textcite{Moghadasi2025} validam fora da amostra: no primeiro, a ordem temporal da partição não está descrita; no segundo, a partição é aleatória,} e
+posteriores. \textcite{Hamedi2019} e \textcite{Moghadasi2025} validam fora
+da amostra, com partições que não respeitam a ordem do tempo, e
 \textcite{Velazquez2013} usam a referência horária de uma unidade de
 reformação para alertas sem reportarem o desempenho no conjunto de
 validação que separaram. O que esta dissertação acrescenta não é um
@@ -186,7 +194,9 @@ falha do Capítulo~\ref{cha:diagnostico} ou a um defeito apontado na revisão;
 nenhuma foi ajustada depois de conhecidos os resultados da
 Secção~\ref{sec:demonstracao}. Apresentam-se por ordem de aplicação.
 
-\paragraph{Dados reconciliados como pré-condição.} \revisto{Para aplicação em produção, exige-se a validação de fontes descrita no Capítulo~\ref{cha:plataforma} para o período usado; nesta demonstração, a validação documental cobre apenas janeiro a maio de 2026:} imputações sinalizadas e contadas,
+\paragraph{Dados reconciliados como pré-condição.} Nenhuma \emph{baseline} se
+estima sobre dados que não passaram a validação de fontes do
+Capítulo~\ref{cha:plataforma}: imputações sinalizadas e contadas,
 proveniência com \emph{hashes}, e um perfil dos dados --- cobertura,
 mecanismo de falta, efeito de qualquer filtro de seleção --- lido e aceite
 por uma pessoa antes de qualquer análise. O erro de seleção que invalidou a
@@ -496,7 +506,9 @@ as razões separam-se limpamente por vetor. O fuel gás cai só pela banda:
 tem conteúdo preditivo em quatro dos cinco pares, mas nenhuma construção o
 acompanha com cobertura compatível em mais de três. Os vapores caem pelo
 conteúdo preditivo --- um, zero e dois pares em cinco --- e a única célula
-em que uma banda passa, a de produção do 24~bar, \revisto{acompanha uma reta sem ganho preditivo consistente sobre a média. O contraste com o fuel gás separa os dois critérios, sem retirar à média o estatuto de modelo.}
+em que uma banda passa, a de produção do 24~bar, protege um modelo sem
+relação a proteger: é o espelho do fuel gás, uma banda suportada sem modelo
+por trás.
 
 Os candidatos robustos completos --- Huber e Theil--Sen, cada um com a banda
 marginal sobre a sua escala robusta e com a rota autorregressiva sobre os
@@ -517,7 +529,9 @@ escrito com o mesmo cuidado. Significa que nenhuma das combinações avaliadas
 o critério declarado sob a regra de quatro em cinco. Não demonstra a
 impossibilidade da classe linear, nem a necessidade de modelos com estado
 --- essa frase chegou a constar das fichas e foi retirada. E o resultado é
-sensível ao limiar: \revisto{com uma regra de três em cinco, quatro dos dezasseis candidatos de mínimos quadrados passariam o critério de conteúdo preditivo e seis dos dezasseis robustos, mas nenhum dos dez seria aceite, por nenhum ter banda suportada;} a regra de quatro em cinco estava pré-registada e não
+sensível ao limiar: com uma regra de três em cinco seriam três dos dezasseis
+candidatos de mínimos quadrados aceites (os robustos não foram recontados
+com essa regra); a regra de quatro em cinco estava pré-registada e não
 se altera depois de conhecido o resultado, mas o leitor deve saber que a
 decisão assenta em cinco pares anuais, e que a potência de uma regra binária
 sobre cinco observações dependentes nunca foi calculada (Secção~\ref{sec:limitacoes}).
@@ -759,7 +773,9 @@ fuel gás, $9{,}4\%$ no vapor de 3~bar e $14{,}7\%$ no de 24~bar; o vapor de
 10~bar é um fluxo líquido com sinal e não admite percentagem. Trinta e duas
 das oitenta curvas estão censuradas à direita --- todas nos canais de carga e
 de escala, que não existem para ver um degrau de nível --- e são publicadas
-como limite aberto, nunca como número. \revisto{Estes valores são propriedades do gerador a $\rho = 0{,}6$; o parágrafo anterior mostra a sua sensibilidade à dependência, sem estimar a detetabilidade real na refinaria.}
+como limite aberto, nunca como número. Estes valores são propriedades do
+gerador a $\rho = 0{,}6$; na refinaria, e nos vapores, o parágrafo anterior
+diz o que se pode esperar.
 
 \paragraph{Três sinais falsos, demonstrados.} O mesmo aparelho serviu para
 demonstrar, com verdade conhecida, três leituras sedutoras que a prática de
@@ -820,7 +836,8 @@ normalizar e para alarmar. A plataforma deve manter duas pistas visíveis
 lado a lado: o modelo anual em vigor, para reporte normalizado e comparação
 entre períodos, como a ISO~50006 pede; e uma referência congelada, com o
 desvio padronizado face a ela e um monitor sequencial sobre esse desvio,
-para deteção. \revisto{A Secção~\ref{sec:referencia-fixa} mostrou que a segunda conserva um termo de comparação fixo entre anos;} a Secção~\ref{sec:verdade-conhecida} mostrou que o monitor
+para deteção. A Secção~\ref{sec:referencia-fixa} mostrou que só a segunda
+mede o desvio; a Secção~\ref{sec:verdade-conhecida} mostrou que o monitor
 sobre ela é o que mais pesa na deteção. A data e a razão de cada mudança de
 referência são registadas.
 
@@ -898,7 +915,8 @@ alterações de medição ou de contabilização no próprio balanço.
 \paragraph{Da inferência.} Todos os veredictos assentam em cinco pares
 anuais e em regras binárias sobre eles; a potência dessas regras sob a
 dependência observada não foi calculada, e com uma regra de três em cinco
-três dos dezasseis candidatos de mínimos quadrados passariam. \revisto{O intervalo de confiança por \emph{bootstrap} de blocos usa um bloco base de sete ou oito dias}
+três dos dezasseis candidatos de mínimos quadrados passariam. O intervalo de
+confiança por \emph{bootstrap} de blocos usa um bloco base de sete dias
 sobre resíduos com autocorrelação até $0{,}90$; a sua cobertura nominal não
 está demonstrada. A validação por simulação foi feita a $\rho = 0{,}90$ com
 blocos de 60 dias, e não com o bloco base, e deu $357/400 = 0{,}8925$

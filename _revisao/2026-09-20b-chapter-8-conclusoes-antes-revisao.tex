@@ -27,7 +27,8 @@ dezasseis unidades e é atualizado diariamente. A validação a três leituras,
 em 400 células unidade--vetor--mês de janeiro a maio de 2026, explicou as 94
 divergências iniciais por sete causas, com a última correção na versão~15.1
 do mapeamento; a atualização seguinte correu sem erros e sem divergências
-detetadas. \revisto{As causas distribuíam-se pelo motor de ingestão, pelo mapeamento e pelo próprio relatório oficial.} O fuel gás
+detetadas. As causas estavam nas três fontes: no
+motor de ingestão, no mapeamento e no próprio relatório oficial. O fuel gás
 ficou validado apenas contra duas fontes que leem o mesmo balanço, o que é
 consistência e não verificação (Secção~\ref{sec:validacao-dados}). A
 primeira camada da fiabilidade, a dos dados, ficou resolvida no âmbito
@@ -45,14 +46,19 @@ quatro vetores diários. O fuel gás tem conteúdo preditivo: aplicado ao ano
 seguinte, reduz o erro absoluto médio em 30 a 40\% face à média do ano de
 treino em quatro de cinco transições. Mas o declive desce cerca de 30\% em
 cinco anos, e a banda de alarme perde cobertura nos pares que atravessam
-essa deriva. \revisto{Nos três níveis de vapor, não se demonstrou um ganho preditivo consistente da reta anual sobre a média do treino:} o \emph{skill} do vapor de 24 e de
-10~bar fica próximo de zero, e o do vapor de 3~bar muda de sinal. \revisto{No vapor de 24~bar, não se rejeita a igualdade dos declives e a cobertura é compatível com a nominal; estes resultados não demonstram estabilidade nem ausência de relação com a carga;} o de 10~bar tem um nível que sobe de ano para ano; o
+essa deriva. Nos três níveis de vapor, a carga não traz informação
+utilizável de um ano para o seguinte: o \emph{skill} do vapor de 24 e de
+10~bar fica próximo de zero, e o do vapor de 3~bar muda de sinal. O vapor de
+24~bar passa os testes de estabilidade e de calibração precisamente por não
+haver relação a mudar; o de 10~bar tem um nível que sobe de ano para ano; o
 de 3~bar tem a pior calibração, com coberturas entre 0,38 e 0,997. A
 eletricidade é uma alocação mensal repartida pelos dias, e o alarme diário
 sobre ela não tem resolução para ver um desvio intramensal. Três observações
 atravessam os vetores: o limiar de carga de $18\,600$~t/d exclui 10,4\% dos
 dias, que pertencem a outro regime operatório e definem um domínio de
-validade nunca declarado; \revisto{os resíduos têm autocorrelação de primeira ordem entre 0,46 e 0,90, o que compromete a inferência sob independência e aumenta a incerteza da cobertura estimada da banda;} e a reestimação anual acomoda nos parâmetros a deriva que o
+validade nunca declarado; os resíduos têm autocorrelação de primeira ordem
+entre 0,46 e 0,90, o que invalida os erros-padrão clássicos em que a banda
+se apoia; e a reestimação anual acomoda nos parâmetros a deriva que o
 indicador devia mostrar. As covariáveis de processo disponíveis (densidade e condições de
 \emph{flash}) não são um remédio geral: acrescentam valor em quatro de cinco
 pares no vapor de 10~bar, com um ganho frágil à análise de sensibilidade,
@@ -73,7 +79,7 @@ tempo e recalibração por evidência e não por calendário
 critério de aceitação fixado antes dos resultados não aceitou nenhum: o fuel
 gás cai pela banda, os vapores pelo conteúdo preditivo. O resultado depende
 da regra de quatro pares em cinco, que estava registada e não foi alterada;
-\revisto{com três em cinco, quatro dos 16 candidatos de mínimos quadrados passariam o critério de conteúdo preditivo, e nenhum seria aceite, por nenhum deles ter banda suportada.}
+com três em cinco, três dos 16 candidatos de mínimos quadrados passariam.
 Não demonstra que a classe seja impossível; demonstra um procedimento que
 publica um resultado negativo em vez de o ajustar. A simulação com verdade
 conhecida acrescenta uma conclusão com consequência prática: sob o gerador
@@ -87,12 +93,14 @@ plataforma --- duas pistas, domínio visível, calibração monitorizada, ficha
 por referência e políticas separadas --- está proposta e não implantada
 (Secção~\ref{sec:implicacoes-plataforma}).
 
-\paragraph{A revisão.} \revisto{Entre as 162 publicações com classificação concordante das famílias de modelos, de um total de 331 elegíveis, o rácio de intensidade é a família mais frequente,} embora a regressão apareça
+\paragraph{A revisão.} Nas 331 publicações elegíveis, o rácio de
+intensidade é a família de modelo mais frequente, embora a regressão apareça
 em quase metade das que têm classificação concordante; a ISO~50001 é citada
 em 185 de 258 e a ISO~50006 em 48. Nos 39 estudos de processo contínuo dos
 setores pré-registados, a energia raramente é descrita como medida na
 fronteira do modelo, o domínio de validade quase nunca é declarado e a
-validação fora da amostra aparece em quatro. \revisto{Na extração dos mecanismos, 89 das 130 ocorrências não nomeiam uma causa física ou operacional}
+validação fora da amostra aparece em quatro. Os estudos relatam o efeito
+sobre o modelo e quase nunca a causa física no processo
 (Secção~\ref{sec:gap}). Nenhum dos 13 estudos com aplicação em refinaria ou
 petroquímica junta medição na fronteira, regra de reestimação, domínio
 declarado e teste fora da amostra. O caso de Sines não é, portanto, uma
@@ -145,7 +153,9 @@ degradação, filtros de nível e declive, modelos aditivos com covariáveis de
 processo, modelos hierárquicos entre unidades, modelos físicos da bateria de
 pré-aquecimento --- não formam uma escada em que o mais complexo é melhor. A
 simulação mostrou que, sob o gerador usado, a escolha do monitor pesa mais do
-que a da referência, e \revisto{o critério de aceitação recusou as combinações avaliadas; a aceitação de modelos mais complexos continua a exigir uma avaliação própria segundo critérios previamente declarados.} O roteiro organiza-se por isso a partir das falhas observadas, e começa
+que a da referência, e o critério de aceitação mostrou que um modelo mais
+complexo sem as condições de avaliação não seria mais aceitável do que o
+atual. O roteiro organiza-se por isso a partir das falhas observadas, e começa
 pelas condições que tornam qualquer modelo avaliável
 (Tabela~\ref{tab:roteiro}).
 
@@ -180,7 +190,7 @@ Falha observada & Opção & Dados adicionais & Comparador & Critério de sucesso
     \addlinespace
     Vapores de 24 e 10~bar: sem relação utilizável com a carga & Tratar uma referência constante bem avaliada como comparador obrigatório; procurar explicação no estado da rede de vapor & Balanço de vapor da refinaria por nível & Média do ano de treino & Um modelo só entra se prever melhor do que a média fora da amostra e mantiver a banda suportada \\
     \addlinespace
-    \revisto{Vapor de 3~bar: ganhos das covariáveis dependentes do período; não linearidade por testar} & Modelo aditivo com covariáveis de processo, validado para a frente no tempo & Caudais de vapor de \emph{stripping}, temperaturas de corte & Regressão linear com as mesmas covariáveis; média & Valor incremental com intervalo a excluir zero em anos não usados na afinação \\
+    Vapor de 3~bar: relação provavelmente não linear, covariáveis úteis & Modelo aditivo com covariáveis de processo, validado para a frente no tempo & Caudais de vapor de \emph{stripping}, temperaturas de corte & Regressão linear com as mesmas covariáveis; média & Valor incremental com intervalo a excluir zero em anos não usados na afinação \\
     \addlinespace
     Expansão a outras unidades & Modelos hierárquicos com partilha parcial entre unidades semelhantes, depois de o procedimento passar numa unidade & Unidades com catalisador: dias desde a regeneração, temperatura de reação & Modelos independentes por unidade & Mesmo critério de aceitação; análise de custo e benefício da expansão \\ \\
 \end{xltabular}

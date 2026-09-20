@@ -119,14 +119,15 @@ A Figura~\ref{fig:validacao-mapeamento} acompanha essa progressão versão a ver
   \centering
   \includegraphics[width=0.86\textwidth]{gerado/cap5-validacao-progressao}
   \caption[Progressão da validação do mapeamento]%
-  {Progressão da validação do mapeamento, versão a versão. Cada barra reparte as mesmas 400 células unidade--vetor--mês da amostra de validação em coincidentes, divergentes e sem consumo, para que os vazios não sejam lidos como sucessos. \revisto{As barras distinguem os estados da validação; a última representa o fecho esperado após a correção das cinco divergências que restavam, nas referências de fuel gás dos enxofres.} As causas de cada divergência e o número de casos que explicam estão descritas no texto que se segue.}
+  {Progressão da validação do mapeamento, versão a versão. Cada barra reparte as mesmas 400 células unidade--vetor--mês da amostra de validação em coincidentes, divergentes e sem consumo, para que os vazios não sejam lidos como sucessos. Cada barra é um estado verificado célula a célula; a última corresponde à correção das cinco divergências que restavam, nas referências de fuel gás dos enxofres. As causas de cada divergência e o número de casos que explicam estão descritas no texto que se segue.}
   \label{fig:validacao-mapeamento}
 \end{figure}
 \paragraph{O ponto de partida.} Na versão 13 do mapeamento, 242 células
 coincidiam, 64 estavam vazias (combinações unidade--vetor sem consumo) e
 94 divergiam. O trabalho de julho de 2026 foi explicar as 94, uma a uma,
 até nenhuma ficar classificada como inconsistente. Ficaram explicadas por
-\revisto{sete causas, e o resultado mais instrutivo da validação é onde essas causas estavam: no motor de ingestão, no mapeamento e no relatório oficial.}
+sete causas, e o resultado mais instrutivo da validação é onde essas
+causas estavam: em todas as três fontes.
 
 \paragraph{Erros no motor.} O canal de balanço não tinha mecanismo de
 inclusão: a coluna de factor do mapeamento aplicava-se só ao canal de
@@ -228,11 +229,13 @@ replicá-la não diz se é a fisicamente correta.
 \paragraph{O que a validação ensinou.} Quatro lições passaram a regras
 da plataforma. Uma tolerância relativa em números grandes esconde termos
 pequenos e sistemáticos: o segundo teste obrigatório é a consistência do
-resíduo --- \revisto{se a diferença mantém o mesmo sinal e nunca é nula, investiga-se a possibilidade de um desvio sistemático, mesmo que esteja abaixo da tolerância.} Um filtro de ficheiros por prefixo
+resíduo --- se a diferença tem sempre o mesmo sinal e nunca é nula, é
+estrutural, por mais pequena que seja. Um filtro de ficheiros por prefixo
 é uma armadilha (``fábrica I'' é prefixo de ``fábrica II''); os filtros
 passaram a exigir o nome canónico completo e a recusar duplicados em vez
 de os somar. Os ficheiros de segurança nunca ficam na pasta de leitura. E
-a validação a três fontes não é um passo de projeto: \revisto{deve constituir um teste de aceitação a repetir em cada fecho mensal,} porque
+a validação a três fontes não é um passo de projeto: é um teste de
+aceitação permanente, que a plataforma repete a cada fecho mensal, porque
 apanhou erros nas três fontes e nenhuma delas, isolada, era fiável.
 
 \section{O \emph{dashboard}}
@@ -335,7 +338,8 @@ referência e no período, o desvio-padrão residual, a fração de dias acima
 e abaixo da banda; um painel com as oito regras de carta de controlo e o
 número de ocorrências de cada uma, o total de dias limpos e com violação e
 a regra dominante; a soma acumulada dos resíduos desde o início do
-período, com o ritmo a 7 e a 30 dias, \revisto{que permite acompanhar a acumulação de desvios persistentes, sem que tenha sido medida a sua antecedência face ao alarme diário;} e os resíduos padronizados no tempo
+período, com o ritmo a 7 e a 30 dias, que mostra um desvio persistente
+antes de a banda diária o assinalar; e os resíduos padronizados no tempo
 com as bandas de 1, 2 e 3 desvios-padrão, ou, por alternância, o consumo
 observado contra o previsto. No estado de julho de 2026, para o fuel gás
 da destilação atmosférica com referência em 2024, o painel mostrava sete
@@ -359,7 +363,8 @@ com inferência adequada.
   período), e a fração de dias fora da banda.
   \textcircled{\footnotesize 3}~as oito regras de carta de controlo, com seis
   violadas e 178 dos 185 dias analisados com pelo menos uma.
-  \textcircled{\footnotesize 4}~\revisto{soma acumulada dos resíduos, que permite acompanhar a persistência dos desvios; não foi medida a sua antecedência face ao alarme diário.}
+  \textcircled{\footnotesize 4}~soma acumulada dos resíduos, que revela o
+  desvio persistente antes de a banda diária o assinalar.
   \textcircled{\footnotesize 5}~consumo observado contra o previsto, ou, por
   alternância, os resíduos padronizados. A leitura desta página é o objeto do
   Capítulo~\ref{cha:diagnostico}.}

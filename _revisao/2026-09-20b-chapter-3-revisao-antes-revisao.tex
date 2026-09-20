@@ -14,11 +14,13 @@
 Um gestor de energia que abra a literatura à procura de um método para
 decidir se a referência de uma unidade ainda serve encontra muitos
 indicadores e poucas respostas a essa pergunta. É esse o resultado deste
-capítulo. \revisto{Das 331 publicações elegíveis, 162 têm classificação concordante das famílias de modelos; nesse subconjunto, o rácio de intensidade energética é a família mais frequente.} Nas 39 que aplicam
+capítulo. Nas 331 publicações elegíveis, o rácio de intensidade
+energética é a família de modelo mais frequente. Nas 39 que aplicam
 um modelo num processo contínuo dos setores pré-registados, a quantidade
 de energia raramente é descrita como medida na fronteira que o modelo
 estuda, o domínio de validade quase nunca é declarado e a validação fora
-da amostra aparece em quatro artigos. \revisto{Das 130 ocorrências extraídas sobre o que corre mal ao modelo, 89 não nomeiam uma causa física ou operacional.}
+da amostra aparece em quatro artigos. Os estudos relatam o que corre mal
+ao modelo, mas quase nunca a causa física no processo.
 
 O capítulo responde a duas perguntas da revisão. A SQ1, sobre a
 distribuição dos modelos por setor, tipo de organização e enquadramento
@@ -434,7 +436,8 @@ ou médias, sem nenhum modelo ajustado. A presença de duas famílias no mesmo
 artigo não quer dizer que tenham sido comparadas nem combinadas.
 
 A diferença entre as duas primeiras famílias é o que interessa a esta
-dissertação. \revisto{Um rácio divide o consumo pela produção. Usá-lo como normalizador invariável à carga pressupõe proporcionalidade entre as duas grandezas, sem termo constante relevante; a mera divisão não testa esse pressuposto.} Uma regressão
+dissertação. Um rácio divide o consumo pela produção e assume, sem o testar,
+que a relação passa pela origem e não tem termo constante. Uma regressão
 estima esse termo e o declive a partir dos dados, e com isso pode ser
 avaliada. A categoria de deteção de mudança e controlo estatístico junta
 procedimentos com funções distintas; a sua presença não mostra que uma
@@ -449,7 +452,9 @@ referência seja atualizada nem que a não estacionariedade seja tratada.
   não é uma família: são as 169 publicações cujo campo ficou por resolver ou
   sem extração, e está no mesmo eixo para que a ordem das restantes se leia
   contra o que não se sabe. Entre as 162 classificadas, o rácio de
-  intensidade simples é a família mais frequente, e \revisto{as três primeiras --- rácio, regressão linear e regressão múltipla --- enquadram o caso real; o Capítulo~\ref{cha:diagnostico} compara as regressões simples e múltipla, além dos comparadores triviais.}}
+  intensidade simples é a família mais frequente, e as três primeiras ---
+  rácio, regressão linear e regressão múltipla --- são as que o
+  Capítulo~\ref{cha:diagnostico} avalia no caso real.}
   \label{fig:familias-modelos}
 \end{figure}
 
@@ -895,7 +900,8 @@ resultado mais útil desta secção. Das 88 adaptações, 35 são propostas para
 trabalho futuro e 47 foram implementadas no próprio estudo; só seis foram
 comparadas com uma alternativa. \textcite{Velazquez2013} são dos poucos que
 o fazem numa refinaria: ajustar a referência de uma unidade de reformação às
-variáveis de influência dá uma poupança de \revisto{2,82~GWh, contra 2,03~GWh com uma referência constante; este último valor é 28\% inferior ao primeiro.} Os outros cinco comparam uma
+variáveis de influência dá uma poupança de 2,82~GWh, contra 2,03~GWh com uma
+referência constante, uma diferença de 28\%. Os outros cinco comparam uma
 rede neuronal com a regressão~\cite{Hamedi2019}, a fronteira estocástica com
 os mínimos quadrados~\cite{Boyd2017}, a referência atualizada com a
 original~\cite{Boyd2013}, um indicador com preços ponderados com o
@@ -908,7 +914,8 @@ antigo aos dados novos.
 As adaptações que tocam a primeira lacuna quase não saem do papel: melhorar
 a medição é proposto seis vezes e feito uma. As que tocam a validade
 temporal são raras: dois casos de reestimação contínua e um de janela
-móvel, \revisto{contra dez exclusões de valores atípicos, uma das adaptações implementadas mais frequentes, embora retirar observações possa alterar o ajuste sem alterar a sua forma funcional.}
+móvel, contra dez exclusões de valores atípicos, que são a adaptação
+implementada mais comum e a que menos muda o modelo.
 
 O enquadramento normativo explícito é raro, como o protocolo previa: sete
 das 88 adaptações, em cinco artigos, justificam-se citando a ISO~50001 ou a
@@ -977,11 +984,11 @@ diretos do caso e é contra eles que o contributo da dissertação se mede
     \textcite{Moghadasi2025}: descarbonatação de etano, refinaria de gás & Árvores de decisão (GBM), dados do DCS; modo & n.r. & não mencionada & não declarado & reportada \\
     \textcite{Beisheim2019}: processos de um complexo químico & Modelo substituto não linear; ambiente & exata & por evento & qualitativo & n.r. \\
     \textcite{Hamedi2019}: complexo petroquímico & RL e rede neuronal; ambiente, modo, produtos & n.r. & não declarada & não declarado & reportada \\
-    \textcite{Beisheim2020}: complexo integrado (dados modificados) & Rácios e regressões agregados; ambiente, utilização, produtos & exata em parte & por evento & \revisto{n.r.} & n.r. \\
+    \textcite{Beisheim2020}: complexo integrado (dados modificados) & Rácios e regressões agregados; ambiente, utilização, produtos & exata em parte & por evento & qualitativo & n.r. \\
     \textcite{Ochoa2017}: instalação petroquímica & RL de produção equivalente; só carga & n.r. & não mencionada & não declarado & n.r. \\
     \textcite{Morales2018}: caldeira de vapor & Índice, RL, carta de controlo & n.r. & não mencionada & não declarado & n.r. \\
     \textcite{Almanza2025}: central de cogeração de refinaria & Simulação termodinâmica & exata & não mencionada & não declarado & reportada \\
-    \textcite{Ikeyama2017}: instalação da Saudi Aramco (caso de fornecedor) & Modelos ajustados a modos e crude & n.r. & \revisto{n.r.} & não declarado & n.r. \\
+    \textcite{Ikeyama2017}: instalação da Saudi Aramco (caso de fornecedor) & Modelos ajustados a modos e crude & n.r. & contínua & não declarado & n.r. \\
     \textcite{Hashim2019}: empresa de petróleo e gás, várias divisões & Índice de implementação do SGE & n.r. & não declarada & não declarado & n.a. \\
     \textcite{Maggiore2020}: auditorias em vários setores & Rácio & n.r. & não mencionada & não declarado & n.a. \\
     \textcite{Hashim2022}: empresa petrolífera & Rácio; só carga & n.r. & não mencionada & não declarado & n.a. \\
@@ -1040,7 +1047,8 @@ Os resultados desta secção descrevem o que 39 artigos dizem, lidos por um
 modelo de linguagem e relidos por outro da mesma família, com os casos
 duvidosos decididos pelo autor. Não são propriedades verificadas da
 literatura. As ausências não foram confirmadas por leitura das secções
-relevantes, \revisto{pelo que as ocorrências identificadas podem subcontar o que os artigos contêm, enquanto as classificações ``não reportado'' podem sobrestimar as ausências.} O rastreio de referências não foi feito, e a
+relevantes, e por isso todos os ``não reportado'' são limites inferiores do
+que os artigos contêm. O rastreio de referências não foi feito, e a
 literatura de \emph{benchmarking} que os estudos citam ficou fora
 (Secção~\ref{sec:pesquisa}). Faltam 137 textos integrais não recuperados, com
 perda desigual. As listas de tipos são curtas: 35 das 88 adaptações, 16 das
@@ -1065,11 +1073,14 @@ referência, e concentra-se em três lacunas documentadas no Corpus~B
 A primeira é a medição. A energia que o modelo explica raramente é descrita
 como medida na fronteira que o modelo estuda: 35 das 163 entradas de medição
 têm correspondência exata e 89 não dizem nada. A grandeza não medida é o
-único efeito que os estudos descrevem sempre sobre o próprio caso, e \revisto{melhorar a medição é proposto seis vezes e implementado uma vez.} Um modelo cuja
+único efeito que os estudos descrevem sempre sobre o próprio caso, e melhorar
+a medição é a adaptação mais proposta e menos feita. Um modelo cuja
 variável dependente é um cálculo, numa fronteira que não coincide com a do
 contador, pode ajustar bem e medir outra coisa.
 
-A segunda é a validade no tempo. \revisto{Só 23 de 140 modelos têm um regime de reestimação declarado, 19 um domínio de validade e 13 uma validação fora da amostra;} das 88 adaptações, seis foram avaliadas contra uma alternativa e
+A segunda é a validade no tempo. Só 27 de 140 modelos têm um regime de
+reestimação declarado, 22 um domínio de validade e 13 uma validação fora da
+amostra; das 88 adaptações, seis foram avaliadas contra uma alternativa e
 duas com dados que não serviram para ajustar. A literatura constrói
 referências e raramente as põe à prova depois. Onde propõe uma regra para as
 refazer, a regra pode confundir uma melhoria real com um modelo caducado.
@@ -1082,7 +1093,8 @@ que se identifiquem as variáveis relevantes; os estudos quase nunca mostram
 que a carga chega.
 
 Há ainda uma falha transversal. Nenhum dos 39 registos declara código
-disponível e três disponibilizam os dados, \revisto{o que limita a reprodução independente e exige verificar, caso a caso, se a informação publicada permite reconstruir a referência.}
+disponível e três disponibilizam os dados, o que impede, na prática, que
+outro autor reproduza uma referência a partir de um artigo.
 
 \begin{table}[htbp]
   \centering
@@ -1107,7 +1119,8 @@ disponível e três disponibilizam os dados, \revisto{o que limita a reproduçã
     (Secção~\ref{sec:perfil-dados}) \\
     \addlinespace
     Validade da referência no tempo &
-    \revisto{Regime de reestimação em 23 de 140 modelos (8 artigos); domínio de validade em 19 (numérico em 11, 3 artigos);} validação fora da amostra em
+    Regime de reestimação em 27 de 140 modelos (9 artigos); domínio de
+    validade em 22 (numérico em 11, 3 artigos); validação fora da amostra em
     13 (4 artigos); 6 de 88 adaptações avaliadas &
     Protocolo pré-registado com replicação e comparadores triviais
     (Secção~\ref{sec:protocolo-baselines}); desempenho preditivo, estabilidade,

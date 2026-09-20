@@ -73,7 +73,8 @@ subcontado sem marca, e um dia sem nenhum valor passa a zero no canal de
 \emph{tags}. Nos combustíveis com poder calorífico medido, a energia diária
 é a massa diária multiplicada pela média simples do poder calorífico nesse
 dia, e não a soma dos produtos horários, apesar de a regra se chamar assim
-na tabela de parâmetros. \revisto{A diferença entre os dois cálculos é proporcional à covariância intradiária entre caudal e poder calorífico}
+na tabela de parâmetros. A diferença entre os dois cálculos é a covariância
+intradiária entre caudal e poder calorífico
 (Equação~\eqref{eq:mat-covariancia-agregacao}); os dados horários não fazem
 parte da extração congelada e a sua dimensão ficou por quantificar. Na
 destilação atmosférica os quatro vetores diários avaliados no
@@ -479,7 +480,7 @@ Instrumento & Estimando ou $H_0$ & Unidade; amostra & Comparador & Incerteza; mu
 \endfoot
 \bottomrule
 \endlastfoot
-    Desempenho preditivo (E2) & \revisto{média das diferenças diárias de perda absoluta, nulo $-$ modelo, no ano de aplicação} & dia; 5 pares & média do ano de treino (primário); mesmo dia do ano anterior e média móvel de 30 dias (secundários) & MBB sobre a série de diferenças; sensibilidade a blocos de 7, 14, 30, 60 e 90 dias; por contraste, sem correção & confirmatório; critério C1 do gate \\
+    Desempenho preditivo (E2) & média das diferenças diárias de perda absoluta, modelo $-$ nulo, no ano de aplicação & dia; 5 pares & média do ano de treino (primário); mesmo dia do ano anterior e média móvel de 30 dias (secundários) & MBB sobre a série de diferenças; sensibilidade a blocos de 7, 14, 30, 60 e 90 dias; por contraste, sem correção & confirmatório; critério C1 do gate \\
     \addlinespace
     Estabilidade (E3) & $H_0$: declives anuais iguais na regressão empilhada com interações ano$\times$carga & dia; 6 anos & nenhum (teste de igualdade) & Wald com covariância HAC (\emph{kernel} quadrático-espectral, largura de Andrews); família de quatro hipóteses, uma por vetor, BH; BY como verificação & confirmatório \\
     \addlinespace
@@ -509,7 +510,8 @@ reamostrada, sobre pares de dias consecutivos, e classifica o domínio ---
 abaixo de $0{,}90$ o intervalo é reportado como está, entre $0{,}90$ e
 $0{,}95$ a sensibilidade aos blocos longos torna-se obrigatória, e acima de
 $0{,}95$ o intervalo é despromovido a diagnóstico e não sustenta conclusão. A segunda é a quebra: se a relação
-muda a meio do ano de aplicação, \revisto{a média pode variar no tempo, comprometendo a justificação estacionária do intervalo, embora continue definida uma média para o período avaliado;} é o
+muda a meio do ano de aplicação, a série reamostrada já não tem um valor
+esperado único e o intervalo deixa de apontar a uma quantidade fixa; é o
 que a cobertura condicional por semestre (Secção~\ref{sec:calibracao})
 existe para apanhar, e é a razão por que um contraste cujo intervalo exclui
 o valor de referência por pouco é apresentado como fronteiriço.
@@ -526,7 +528,8 @@ réplica sorteia janelas com reposição e concatena as suas observações até
 atingir o número de dias da amostra, truncando a última; não há reinício
 em fronteira de lacuna, e a dependência entre o fim de uma janela e o início
 da seguinte é quebrada, como em qualquer \emph{bootstrap} de blocos. O
-\revisto{comprimento base é $\lceil n^{1/3}\rceil$ dias civis, sete ou oito nas amostras anuais avaliadas,} e um comprimento declarado que exceda a extensão civil da amostra é
+comprimento base é $\lceil n^{1/3}\rceil$ observações, sete dias nas amostras
+anuais, e um comprimento declarado que exceda a extensão civil da amostra é
 reportado como inexequível, não substituído. As contagens de janelas
 candidatas e a distribuição do seu número de observações acompanham cada
 intervalo no Apêndice~\ref{app:tabelas}.
@@ -550,7 +553,9 @@ Andrews~\cite{Andrews1991}) para os testes de igualdade, e intervalos percentil~
 \emph{bootstrap} de blocos móveis~\cite{Kunsch1989,Lahiri2003} --- bloco
 base de $\lceil n^{1/3}\rceil$ dias~\cite{HallHorowitzJing1995} com
 desfasamentos civis exatos, 2\,000 réplicas, semente fixa, sensibilidade a blocos de 7, 14,
-30 e 60 dias --- para todos os contrastes de perdas e coberturas. \revisto{Uma conclusão de diferença estatística exige que o intervalo exclua o valor de referência; a compatibilidade usada na aceitação é uma decisão distinta, não uma prova de equivalência.} A multiplicidade é corrigida dentro da
+30 e 60 dias --- para todos os contrastes de perdas e coberturas. Uma
+conclusão existe apenas quando o intervalo exclui o valor de referência;
+nunca por comparação de pontos. A multiplicidade é corrigida dentro da
 família dos testes de igualdade de declives (Benjamini--Hochberg~\cite{BenjaminiHochberg1995}, com
 Benjamini--Yekutieli~\cite{BenjaminiYekutieli2001} como verificação); os restantes resultados são por
 contraste e são apresentados como tal. A validação do \emph{bootstrap} por
@@ -668,7 +673,8 @@ cinco pares anuais, com três em cinco como sensibilidade declarada. A
 adjudicação é pura: lê os valores de corridas identificadas e verificadas por
 \emph{hash} e não recalcula nada. O que o critério aceita é um par formado
 por um preditor da relação com a carga, sob a hipótese de que ela se
-transporta para o ano seguinte, \revisto{e uma banda cuja cobertura não se mostrou incompatível com a nominal pelo critério adotado.} A referência congelada lê a mesma perda de cobertura no ano
+transporta para o ano seguinte, e uma banda calibrada sob a hipótese de que
+nada mudou. A referência congelada lê a mesma perda de cobertura no ano
 seguinte como um sinal a preservar, e sem eventos rotulados os dados não
 separam as duas leituras: aceitar um candidato não o certificaria como
 detetor, e rejeitar todos não retira utilidade a uma referência usada para
@@ -692,7 +698,9 @@ dimensional que a avaliação consome foram exportadas em 2026-07-31 e
 copiadas para o repositório de análise como ficheiros de texto só de
 leitura; o \emph{hash} SHA-256 de cada um está registado num ficheiro de
 fontes, e uma corrida cujo \emph{hash} de entrada não coincida falha em vez
-de produzir números diferentes em silêncio. \revisto{A identidade das observações selecionadas pela replicação do método de produção é guardada como \emph{fingerprints} de referência; não foi comparada com uma lista independente de dias exportada do Power BI.}
+de produzir números diferentes em silêncio. A identidade das observações
+selecionadas pela \emph{baseline} de produção é guardada como
+\emph{fingerprints} de referência.
 
 \paragraph{Corridas write-once com manifesto.} Cada execução de um
 instrumento é uma corrida: prepara-se numa área de \emph{staging},

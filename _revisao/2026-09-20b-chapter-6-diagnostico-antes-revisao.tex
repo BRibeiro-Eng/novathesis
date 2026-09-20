@@ -171,13 +171,15 @@ teria de estar registada na tabela de mapeamento, com datas de vigência,
 e não está. O facto não contamina os resultados deste capítulo, porque a
 energia elétrica está excluída de toda a análise diária, mas invalida
 qualquer leitura plurianual do vetor elétrico desta unidade no
-\emph{dashboard} e é, por si, um caso de teste para a camada de dados: \revisto{a plataforma apresentou o valor da série exportada sem assinalar esta anomalia}, o que é exatamente
+\emph{dashboard} e é, por si, um caso de teste para a camada de dados: a
+plataforma reproduziu o valor oficial sem o assinalar, o que é exatamente
 a diferença entre rastreabilidade e exatidão que o
 Capítulo~\ref{cha:introducao} anunciou. Fica registado como achado, não
 como diagnóstico fechado. A verificação que o fecharia está identificada e
 é estreita: os relatórios cumulativos de dezembro trazem os doze meses do
 ano, e comparar o dos anos afetados com o de um ano normal separa as duas
-hipóteses --- \revisto{se o relatório oficial também traz o valor baixo, a anomalia já está presente a montante da ingestão, sem que isso identifique a sua causa;} se traz o valor esperado, a falha é da ingestão. Não foi
+hipóteses --- se o relatório oficial também traz o valor baixo, a repartição
+mudou na fonte; se traz o valor esperado, a falha é da ingestão. Não foi
 feita porque exige o acesso que terminou com o estágio.
 
 
@@ -210,7 +212,9 @@ vetor a vetor e ano a ano.
    independência ao nível de 5\,\%, dado o número de pares disponíveis em
    cada desfasamento. Nenhum vetor, em nenhum ano, tem resíduos compatíveis
    com independência à escala do dia, e nos vapores a dependência estende-se
-   a duas e três semanas. É esta a razão pela qual \revisto{os erros-padrão e os $p$-values clássicos não sustentam a inferência neste capítulo; usam-se covariâncias HAC nos testes de estabilidade e reamostragem em blocos nos contrastes de perdas e coberturas.}}
+   a duas e três semanas. É esta a razão pela qual os erros-padrão e os
+   $p$-values clássicos não são usados neste capítulo e toda a incerteza é
+   estimada por reamostragem em blocos.}
   \label{fig:dependencia-residuos}
 \end{figure}
 
@@ -313,7 +317,9 @@ A Figura~\ref{fig:predicoes-carga-comum} compara as predições em cargas dentro
 \end{figure}
 %% FIGURAS: E3_1_<vector>_reference_predictions.svg (bundle E3, 4 figuras)
 
-\revisto{Na avaliação encadeada, testa-se se as retas anuais do método de produção reestimam \emph{a mesma} relação entre energia e carga, a menos de ruído amostral.} Este pressuposto foi testado diretamente: uma regressão
+A recalibração anual do método de produção pressupõe que cada ano de dados
+reestima \emph{a mesma} relação física entre energia e carga, a menos de ruído
+amostral. Este pressuposto foi testado diretamente: uma regressão
 empilhada 2020--2025 com interações ano$\times$carga, e um teste de Wald de
 igualdade dos declives com covariância HAC (\emph{kernel} quadrático-espectral,
 largura de banda de Andrews), cuja validade sob a dependência residual
@@ -373,7 +379,8 @@ de ajustamento --- as rejeições dependem da resolução temporal assumida para
 a dependência, e essa discordância entre rotas é reportada como parte do
 resultado, não escondida escolhendo a rota conveniente. O que fica
 estabelecido é mais estreito do que uma lista de vetores ``instáveis''. A
-variação pontual dos declives é grande nos quatro vetores; \revisto{a rejeição da igualdade dos declives resiste a BY no vapor de 3~bar, mas não à sensibilidade com blocos de 60 dias} e, no fuel gás
+variação pontual dos declives é grande nos quatro vetores; a evidência
+inferencial de que a relação muda é robusta no vapor de 3~bar e, no fuel gás
 e no vapor de 10~bar, depende da correção de multiplicidade e de como se
 modela a dependência --- e, como a Secção~\ref{sec:sintese-modos-falha}
 mostra, de onde se faz começar o ano.
@@ -414,7 +421,9 @@ $0{,}64$). Em três pares é excluída por cima (sobre-cobertura, poucos
 alarmes): fuel gás 2021${\to}$2022 ($0{,}98$), vapor de 10~bar e vapor de
 3~bar 2023${\to}$2024 ($362/364 = 0{,}995$ e $363/364 = 0{,}997$ --- dois e
 um alarme em 364 dias, respetivamente). O vapor de 24~bar fica dentro do intervalo nos cinco pares,
-em coerência com a Secção~\ref{sec:estabilidade}: \revisto{uma banda em torno de uma relação fraca pode apresentar cobertura compatível com a nominal, sem que isso demonstre calibração ou ausência de relação.}
+em coerência com a Secção~\ref{sec:estabilidade}: a banda de um modelo sem
+relação a proteger é uma banda em torno de uma média, e essa calibra
+razoavelmente.
 
 Os casos extremos merecem tradução operacional. No vapor de 3~bar
 2021${\to}$2022, cobertura $0{,}38$ significa que $62\%$ dos dias do ano
@@ -592,7 +601,9 @@ suporte das covariáveis (Secção~\ref{sec:diagnosticos-desc}) e variáveis
 omitidas são explicações concorrentes que estes dados não separam.
 \novo{Entre as variáveis omitidas há uma de natureza estrutural: a fronteira
 do indicador agrega à coluna as secções auxiliares declaradas na composição
-da unidade (Secção~\ref{sec:caso-estudo}), \revisto{cujo consumo responde apenas em parte à tonelagem de crude, e sobretudo a outras variáveis de atividade.} \revisto{A parte aproximadamente constante dessa contribuição é absorvida pela ordenada na origem; o que não é absorvido é a parte que varia com motores de atividade próprios das secções auxiliares, e essa não se recupera reestimando uma reta na carga de crude.}} Segundo,
+da unidade (Secção~\ref{sec:caso-estudo}), cujo consumo não responde à
+tonelagem de crude. Nenhuma covariável de processo da coluna a corrige,
+porque a omissão não está no modelo --- está na definição do indicador.} Segundo,
 melhor MAE não é melhor monitorização: no caso mais favorável, o vapor de
 10~bar em 2024${\to}$2025, o modelo aumentado reduz o erro médio em $6\%$ mas
 a cobertura da respetiva banda \emph{desce} de $53\%$ para $48\%$ --- a
@@ -859,7 +870,8 @@ de 10~bar deixa de a rejeitar; no mesmo esquema, o valor incremental do
 população e noutro período. A conclusão suportada é que o veredicto sobre uma
 baseline anual depende de forma mensurável da partição temporal escolhida ---
 onde começa a janela e que meses cobre --- e não apenas da física do
-processo. \revisto{A ISO 50006 orienta a escolha do período pela variabilidade operacional; a sensibilidade aqui observada torna essa escolha um resultado central:} a escolha da janela é uma decisão de modelação com consequências, e
+processo. Para um método que a ISO 50006 trata como neutro, é um resultado
+central: a escolha da janela é uma decisão de modelação com consequências, e
 as guidelines do Capítulo~\ref{cha:discussao} tratam-na como tal.
 
 \paragraph{Resposta ao objetivo de diagnóstico.} As baselines em produção na
