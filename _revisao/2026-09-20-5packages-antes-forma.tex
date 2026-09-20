@@ -130,30 +130,6 @@
 \usetikzlibrary{arrows.meta, positioning}  % tikz ja e carregado pela classe
 \input{5-Figures/tikz/estilo}  % 2026-09-17: estilos e paleta das figuras TikZ
 
-%%============================================================
-%%  Forma das legendas e das tabelas (2026-09-20)
-%%============================================================
-%% Legendas um ponto abaixo do corpo (corpo a 11pt, legendas a 10pt).
-%% A classe nao define tamanho de legenda para a NOVA FCT, pelo que ate
-%% aqui herdavam os 11pt do corpo.
-\captionnamefont{\fontsize{10}{12.5}\selectfont}
-\captiontitlefont{\fontsize{10}{12.5}\selectfont}
-
-%% A legenda das tabelas longtable/xltabular tinha 4in (omissao do
-%% \LTcapwidth) e ficava mais estreita do que a propria tabela. Passa a
-%% ocupar a largura do texto, como nas tabelas flutuantes.
-\setlength{\LTcapwidth}{\textwidth}
-
-%% Sombreado alternado do corpo das tabelas: branco e um cinzento muito
-%% claro, so para distinguir linhas. \ntzebra abre a alternancia na linha 2
-%% (a 1 e o cabecalho) e da um pouco de folga vertical, que substitui os
-%% \addlinespace. Usar dentro do grupo da tabela, para nao vazar.
-\definecolor{corLinha}{gray}{0.955}
-\newcommand{\ntzebra}{%
-  \setlength{\extrarowheight}{2pt}%
-  \rowcolors{2}{white}{corLinha}%
-}
-
 % 2026-09-19: desencorajar a divisao de notas de rodape por duas paginas.
 % A nota da Sec. 2.3.3 sobre a ISO 50047 caia na ultima linha da pagina e
 % escorria quase toda para a seguinte. 10000 e a penalizacao maxima: o TeX

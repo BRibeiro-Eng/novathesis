@@ -44,7 +44,6 @@ assinala aquelas de que o par depende.
 %% orientacao -- e que se pode citar. Versao anterior em
 %% _revisao/2026-09-19-cap2-antes.tex.
 {\footnotesize
-\ntzebra
 \begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.15cm}>{\raggedright\arraybackslash}p{3.5cm}X>{\raggedright\arraybackslash}p{2.35cm}@{}}
 \caption[A ISO 50001:2018 pelo ciclo PDCA]{Estrutura da ISO~50001:2018
   pelo ciclo PDCA. A negrito, as quatro cláusulas de que depende o par
@@ -53,7 +52,6 @@ assinala aquelas de que o par depende.
   acrescenta requisito nenhum. A última coluna declara o âmbito: a maior
   parte do sistema de gestão fica fora deste trabalho. Elaboração própria a
   partir de \cite{ISO50001_2018,ISO50006_2014,ISO50015_2014}.}\label{tab:pdca-50001}\\
-\hiderowcolors
 \toprule
 \textbf{Fase} & \textbf{Cláusula} & \textbf{O que a norma exige} & \textbf{Nesta dissertação} \\
 \midrule
@@ -63,23 +61,30 @@ assinala aquelas de que o par depende.
 \midrule
 \endhead
 \midrule
-\rowcolor{white}\multicolumn{4}{r}{\emph{continua na página seguinte}}\\
+\multicolumn{4}{r}{\emph{continua na página seguinte}}\\
 \endfoot
 \bottomrule
 \endlastfoot
-\showrowcolors
   \emph{Plan} & 4.1--4.4 Contexto da organização & Determinar o âmbito e as fronteiras do sistema de gestão de energia & --- \\
+  \addlinespace
    & 5.1--5.3 Liderança & Política energética; papéis, responsabilidades e autoridades & --- \\
+  \addlinespace
    & 6.1--6.2 Riscos, objetivos e metas & Ações face a riscos e oportunidades; objetivos e metas energéticas & --- \\
+  \addlinespace
    & \textbf{6.3 Avaliação energética} & Identificar os usos significativos de energia e, para cada um, determinar as variáveis relevantes e o desempenho atual & Secção~\ref{sec:enb-cadeia}, elos 1--3 \\
+  \addlinespace
    & \textbf{6.4 Indicadores de desempenho energético} (ISO~50006) & Determinar EnPI adequados para medir e monitorizar o desempenho e que permitam demonstrar a melhoria & Secção~\ref{sec:enb-cadeia}, elo 4 \\
+  \addlinespace
    & \textbf{6.5 Consumo energético de referência} (ISO~50006) & Estabelecer o EnB; normalizar quando as variáveis relevantes afetam significativamente o desempenho; rever o EnB em três casos & Secção~\ref{sec:enb-cadeia}, elos 5 e 7 \\
+  \addlinespace
    & 6.6 Planeamento da recolha de dados & Especificar que dados recolher, com que frequência e com que qualidade & Capítulo~\ref{cha:metodos} \\
   \midrule
   \emph{Do} & 7.1--7.5 Suporte & Recursos, competência, sensibilização, comunicação, informação documentada & --- \\
+  \addlinespace
    & 8.1--8.3 Operação & Planeamento e controlo operacional, conceção, aquisição & --- \\
   \midrule
   \emph{Check} & \textbf{9.1 Monitorização, medição, análise e avaliação} (ISO~50015) & Comparar os valores dos EnPI com os EnB correspondentes; investigar e responder a desvios significativos & Secção~\ref{sec:enb-cadeia}, elo 7; Capítulo~\ref{cha:diagnostico} \\
+  \addlinespace
    & 9.2--9.3 Auditoria interna e revisão pela gestão & Verificar a conformidade e a adequação do sistema & --- \\
   \midrule
   \emph{Act} & 10.1--10.2 Não conformidades e melhoria contínua & Corrigir desvios do sistema e melhorar continuamente o desempenho energético & --- \\
@@ -132,14 +137,16 @@ declarado.} A Tabela~\ref{tab:tipologia-enpi} condensa esta tipologia e localiza
   \centering\footnotesize
   \caption[Tipologia de EnPI da ISO 50006 e localização do método em produção]{Tipologia de EnPI da ISO~50006 (\S4.3.3, Tabela~2, condensada; traduções do autor) e localização do método de \emph{baseline} em produção na unidade em estudo.}
   \label{tab:tipologia-enpi}
-  \ntzebra
   \begin{tabularx}{\textwidth}{@{}l X X@{}}
     \toprule
     \textbf{Tipo de EnPI} & \textbf{Aplicação típica (norma)} & \textbf{Fragilidades enunciadas pela própria norma} \\
     \midrule
     Valor medido & Reduções absolutas; monitorização de custos & Ignora variáveis relevantes; \enquote{resultados enganadores na maioria das aplicações} \\
+    \addlinespace
     Rácio de valores medidos & Eficiência com uma só variável e carga de base pequena; \emph{benchmarking} & Ignora carga de base e efeitos não lineares \\
+    \addlinespace
     \textbf{Modelo estatístico} $\leftarrow$ \emph{método em produção} & Várias variáveis relevantes; carga de base; normalização & Impreciso se não confirmado por testes estatísticos; pode não ser claro se o erro residual vem do modelo ou da falta de controlo do consumo; exige manutenção para assegurar validade \\
+    \addlinespace
     Modelo de engenharia & Variáveis numerosas ou interdependentes; fase de projeto & Exige manutenção para assegurar validade \\
     \bottomrule
   \end{tabularx}
@@ -232,20 +239,29 @@ a examina no} Capítulo~\ref{cha:diagnostico}.
   reportam o texto das normas; a coluna dos pressupostos é reconstrução desta
   dissertação, que nenhuma das normas enuncia.}
   \label{tab:matriz-rastreabilidade}
-  \ntzebra
   \begin{tabularx}{\textwidth}{@{}c >{\raggedright\arraybackslash}p{2.1cm} X X X c@{}}
     \toprule
     \# & \textbf{Cláusula} & \textbf{Exige/sugere} & \textbf{Deixa por especificar} & \textbf{Pressuposto tácito} & \textbf{Teste} \\
+    \addlinespace
     \midrule
     1 & 50001 \S6.4; 50006 \S4.3 & EnPI \enquote{adequados para medir e monitorizar} & Critério de adequação; teste de conteúdo preditivo & O EnPI mede desempenho, não ruído & E2 \\
+    \addlinespace
     2 & 50001 \S6.3~c)\,1), \S3.4.9~N1; 50006 \S4.2.4 & Determinar variáveis relevantes (métodos gráficos) & Limiar de significância; teste de \emph{suficiência} do conjunto & As variáveis descrevem o estado operacional & E6 \\
+    \addlinespace
     3 & 50006 \S4.4.2 & Período que \enquote{capture a variabilidade} (tip.\ 12 meses) & Verificação de representatividade & Um ciclo anual antecipa o futuro & E3, E4 \\
+    \addlinespace
     4 & 50006 \S4.4.3 & \enquote{Testar a validade} do EnB ($p$, $F$, $R^2$ nomeados) & \enquote{Se apropriado}; sem limiares; sem verificação das condições dos testes & O ajuste no treino indica desempenho fora dele; condições da inferência clássica cumpridas & E1, E2, D \\
+    \addlinespace
     5 & 50001 \S6.5; 50006 \S4.5, An.~D & Normalizar por variáveis relevantes via modelo & Validação do modelo de normalização; incerteza & A relação transporta-se do treino para o reporte & E3 \\
+    \addlinespace
     6 & 50001 \S9.1.1 & Investigar \enquote{desvios significativos} & Definição de significativo (remetida para a organização) & Existe calibração conhecida do desvio & E4 \\
+    \addlinespace
     7 & 50001 \S6.5~a)--c); 50006 \S4.6, \S3.1~N3 & Rever o EnB (3 gatilhos; \emph{reset} periódico sancionado) & \alterado{Critério de desempenho da deteção}; gatilho~a) circular & Mudanças invalidantes são conhecidas ou visíveis & E5 \\
+    \addlinespace
     8 & 50015 \S7 + Nota & Identificar e quantificar incerteza ($t$, $R^2$, $p$, limites de predição nomeados) & \alterado{Obrigatoriedade; limiares de aceitação} & A incerteza declarada é gerível caso a caso & E4 \\
+    \addlinespace
     9 & 50015 \S4.1, Introd. & Princípios de M\&V (exatidão, reprodutibilidade) & \enquote{Princípios, não requisitos}; não exigidos pela 50001 & A boa prática é adotada voluntariamente & --- \\
+    \addlinespace
     10 & 50006 \S4.2.6.4 & Rever qualidade dos dados; examinar \emph{outliers} & \alterado{Número de desvios-padrão que exclui}; efeito sobre $\sigma$ & \emph{Outliers} são raros e identificáveis & D \\
     \bottomrule
   \end{tabularx}
@@ -336,10 +352,8 @@ processo contínuo}.
 \newpage
 
 {\footnotesize
-\ntzebra
 \begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.2cm} X X X X@{}}
 \caption[Comparação de quadros normativos quanto a requisitos de validação]{Comparação de quadros normativos e protocolos de M\&V quanto a requisitos de validação de modelos de \emph{baseline}. ASHRAE Guideline~14 na edição de 2014; o conteúdo da coluna IPMVP é relatado por \textcite{RuizBandera2017}, sem consulta da edição corrente do protocolo.}\label{tab:comparacao-frameworks}\\
-\hiderowcolors
 \toprule
 \textbf{Dimensão} & \textbf{ISO 50001:2018} & \textbf{ISO 50006:2014 / 50015:2014} & \textbf{IPMVP} & \textbf{ASHRAE G14} \\
 \midrule
@@ -349,18 +363,23 @@ processo contínuo}.
 \midrule
 \endhead
 \midrule
-\rowcolor{white}\multicolumn{5}{r}{\emph{continua na página seguinte}}\\
+\multicolumn{5}{r}{\emph{continua na página seguinte}}\\
 \endfoot
 \bottomrule
 \endlastfoot
-\showrowcolors
     Estatuto & Requisitos (certificável) & Orientação & Protocolo voluntário & \emph{Guideline} \\
+    \addlinespace
     Validação do modelo de \emph{baseline} & --- & \enquote{deverá, se apropriado} (50006 \S4.4.3) & Sim, por adesão ao protocolo & Sim (requisito de conformidade) \\
+    \addlinespace
     Limiares quantitativos & Nenhum & Nenhum (testes/diagnósticos apenas nomeados) & $R^2 \geq 0{,}75$ (recomendação relatada, simulação calibrada); detalhe remetido para a G14 & NMBE $\pm5/\pm10\,\%$, CV(RMSE) $15/30\,\%$ (calibração, \S4.3.2.4); CV(RMSE) $\leq 20$--$30\,\%$ no modelo de regressão de base (\S4.3.2.1) \\
+    \addlinespace
     Tratamento de exclusões e \emph{outliers} & --- & \alterado{Investigar, justificar e evitar viés, sem limiar} (50006 \S4.2.6.4) & Justificação exigida & Proibidas na via prescritiva; $\leq 25\,\%$, documentadas, na simulação \\
+    \addlinespace
     Verificação dos pressupostos dos testes & --- & --- & Parcial & Parcial \\
+    \addlinespace
     Incerteza reportada com o resultado & --- & \alterado{Reporte recomendado (50015 \S4.2); quantificação}
     \enquote{na medida do praticável} (\S7) & Sim (Apêndice~B) & Sim, com teto: $<50\,\%$ das poupanças a $68\,\%$ de confiança \\
+    \addlinespace
     Deteção de invalidação da \emph{baseline} & 3 gatilhos qualitativos (\S6.5) & Qualitativa (50006 \S4.6; 50015 \S5.10.2) & Ajustes não-rotineiros & --- \\
 \end{xltabular}
 }
@@ -369,10 +388,8 @@ processo contínuo}.
 % espaco antes apertado (local a este grupo): a 2.5 arranca na mesma pagina da
 % 2.4 e parte-se para a seguinte, em vez de deixar um vazio no fundo da pagina.
 \setlength{\LTpre}{\smallskipamount}
-\ntzebra
 \begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.1cm} X X X@{}}
 \caption[Quadros aplicáveis a processo contínuo quanto a critérios quantitativos]{\novo{Quadros aplicáveis a processo contínuo, quanto a critérios quantitativos. Nenhum é um protocolo de validação de modelos de \emph{baseline} energética.}}\label{tab:comparadores-industriais}\\
-\hiderowcolors
 \toprule
 \textbf{Quadro} & \textbf{Objeto do critério} & \textbf{Critério quantitativo} & \textbf{Estatuto} \\
 \midrule
@@ -382,14 +399,16 @@ processo contínuo}.
 \midrule
 \endhead
 \midrule
-\rowcolor{white}\multicolumn{4}{r}{\emph{continua na página seguinte}}\\
+\multicolumn{4}{r}{\emph{continua na página seguinte}}\\
 \endfoot
 \bottomrule
 \endlastfoot
-\showrowcolors
     \novo{Reg. (UE) 2018/2066 e 2018/2067 (CELE)} & \novo{Incerteza da medição de fluxos-fonte de GEE} & \novo{Incertezas máximas por nível ($\pm1{,}5$ a $\pm10\,\%$) a $95\,\%$ de confiança; materialidade de $5\,\%$ ou $2\,\%$} & \novo{Direito da União, vinculativo; aplica-se à instalação em estudo} \\
+    \addlinespace
     \novo{SEP M\&V Protocol (DOE)} & \novo{Validade estatística do modelo de ajuste de uma instalação industrial} & \novo{$F$ do modelo com $p \leq 0{,}10$; variáveis com $p \leq 0{,}20$, uma delas com $p \leq 0{,}10$; $R^2 \geq 0{,}50$} & \novo{Programa voluntário de certificação, construído sobre a ISO~50001} \\
+    \addlinespace
     \novo{\emph{Benchmarking} energético setorial} & \novo{Desempenho relativo face a pares, contra energia padrão de coeficientes fixos} & \novo{Nenhum sobre o modelo; quartil de desempenho no uso certificativo} & \novo{Estudo comercial; coeficientes proprietários, não reestimados pela instalação} \\
+    \addlinespace
     \novo{ISO 50001 / 50006 / 50015} & \novo{EnB e EnPI definidos pela organização} & \novo{Nenhum} & \novo{Requisitos (50001) e orientação (50006 e 50015)} \\
 \end{xltabular}
 }
@@ -525,10 +544,8 @@ aqui, antes dos dados.
 % ultimo paragrafo e antes da 2.5, como o texto anuncia. Nao flutua e
 % parte-se entre paginas com cabecalho repetido.
 {\footnotesize
-\ntzebra
 \begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{2.1cm}@{}}
 \caption[Mecanismos de processo contínuo e pressupostos que violam]{Mecanismos de não estacionariedade em processo contínuo, o que deles se observa e o pressuposto tácito que violam. CDU: presente na unidade estudada. Os pressupostos são os da Secção~\ref{sec:assimetria-matriz}.}\label{tab:mecanismos-pressupostos}\\
-\hiderowcolors
 \toprule
 \textbf{Mecanismo} & \textbf{Efeito na relação consumo--carga} & \textbf{O que se observa} & \textbf{Com que se confunde} & \textbf{Pressuposto violado} \\
 \midrule
@@ -538,16 +555,20 @@ aqui, antes dos dados.
 \midrule
 \endhead
 \midrule
-\rowcolor{white}\multicolumn{5}{r}{\emph{continua na página seguinte}}\\
+\multicolumn{5}{r}{\emph{continua na página seguinte}}\\
 \endfoot
 \bottomrule
 \endlastfoot
-\showrowcolors
     Incrustação da bateria de pré-aquecimento (CDU) & Mais combustível no forno para a mesma carga; subida gradual e queda na limpeza & Temperaturas e caudais dos permutadores, a partir dos quais se pode estimar a resistência de incrustação; o estado não é medido & Mudança de crude; excesso de ar no forno; ineficiência operacional & Suficiência; transportabilidade \\
+    \addlinespace
     Composição do crude (CDU) & Energia por tonelada diferente de crude para crude; muda também a tendência para incrustar & Densidade, condições de \emph{flash}, rendimento em resíduo; plano de crudes & Incrustação; mudança de modo de operação & Suficiência; forma \\
+    \addlinespace
     Modo de operação e carga reduzida (CDU) & Refluxos e vapor de \emph{stripping} diferentes; parte do consumo deixa de acompanhar a carga & Temperaturas de corte, vapor de \emph{stripping}, carga & Dias atípicos; ineficiência & Forma; representatividade \\
+    \addlinespace
     Estado da rede de vapor e integração térmica (CDU e refinaria) & O consumo líquido de um nível de vapor muda de sinal sem mudança na unidade & Balanço de utilidades por nível de pressão & Variação real de consumo & Suficiência; calibração \\
+    \addlinespace
     Desativação de catalisador (outras unidades) & Mais energia por tonelada ao longo do ciclo, até à regeneração & Temperatura de reação; dias desde a regeneração & Mudança de carga ou de severidade & Transportabilidade; representatividade \\
+    \addlinespace
     Limpezas, paragens, recalibrações & Degraus na relação ou na escala da medição & Registos de manutenção e de instrumentação, fora dos dados analisados & Melhoria real do desempenho & Transportabilidade; detetabilidade \\
 \end{xltabular}
 }
