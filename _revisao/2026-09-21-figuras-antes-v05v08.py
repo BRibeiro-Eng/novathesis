@@ -753,15 +753,9 @@ def v06_modelos():
               "SEC mean": "Média do consumo específico", "other": "Outra",
               "composite index": "Índice composto", "process integration": "Integração de processo"}
     d = d.sort_values("n")
-    # Coerencia com a Figura 3.3: o que esta classificado leva barra cheia, o
-    # que esta por resolver leva um carril mais fino. E a mesma convencao nas
-    # duas figuras -- solido e o que se sabe, carril e o que falta saber.
-    pend = [i.startswith("Por resolver") for i in d.index]
-    cores = [A3["ausente"] if p else A3["forte"] for p in pend]
-    alturas = [0.40 if p else 0.68 for p in pend]
+    cores = [A3["ausente"] if i.startswith("Por resolver") else A3["forte"] for i in d.index]
     fig, ax = plt.subplots(figsize=(13.0 * CM, 6.6 * CM))
-    b = ax.barh(range(len(d)), d.n, color=cores, height=alturas,
-                edgecolor="white", linewidth=0.6)
+    b = ax.barh(range(len(d)), d.n, color=cores, height=0.68)
     ax.set_yticks(range(len(d))); ax.set_yticklabels([rotulo.get(i, i) for i in d.index])
     for r, n in zip(b, d.n):
         ax.annotate(pt(n), (r.get_width() + 2.5, r.get_y() + r.get_height() / 2),
@@ -772,130 +766,10 @@ def v06_modelos():
     fig.tight_layout()
     grava(fig, "cap3-familias-modelos")
 
-def _dataset():
-    return pd.read_csv(os.path.join(BIB, "tables", "analysis_dataset.csv"),
-                       encoding="utf-8-sig")
-
-def _lst(v):
-    """Celulas escalares vem como texto simples; as multi-valor como lista."""
-    import ast
-    if v is None or (isinstance(v, float) and np.isnan(v)): return []
-    t = str(v).strip()
-    if t == "" or t.lower() == "nan": return []
-    try:
-        x = ast.literal_eval(t); return x if isinstance(x, list) else [x]
-    except Exception:
-        return [t]
-
-PENDENTE = "Por resolver / sem extração"
-
-def v05_estudos():
-    """Grafico de unidades: cada quadrado e uma publicacao.
-
-    Escolhido em vez das barras empilhadas porque o que a subseccao afirma --
-    que a literatura e uma coleccao de casos isolados -- e uma afirmacao sobre
-    quantas das 331 publicacoes sao o que, e um quadrado por publicacao torna
-    isso literal. O por resolver e quadrado vazio e nao um tom da rampa:
-    ausencia le-se melhor como vazio, e um cinzento claro ficaria a dE 5,4 do
-    ultimo passo da rampa, indistinguivel em visao normal.
-    """
-    from matplotlib.patches import Rectangle
-    papers = _dataset(); n = len(papers)
-    campos = [
-        ("Tipo de estudo", "paper_type", {
-            "single applied case": "Caso aplicado único", "multi-case study": "Estudo multi-caso",
-            "review/synthesis": "Revisão ou síntese", "tool/software design": "Ferramenta ou software",
-            "methodological/theoretical": "Metodológico ou teórico",
-            "maturity model or framework": "Modelo de maturidade"}),
-        ("Tipo de organização", "type_of_organisation", {
-            "discrete manufacturing": "Manufatura discreta", "continuous process": "Processo contínuo",
-            "buildings": "Edifícios", "mixed": "Contextos mistos", "services": "Serviços",
-            "not specified": "Não especificado"}),
-    ]
-    COLS, rampa = 19, ["#1F4E6E", "#2F6D96", "#4E8FB5", "#7DB3CF", "#A9CDE0", "#CFE3EE"]
-    fig, axs = plt.subplots(1, 2, figsize=(15.5 * CM, 9.2 * CM))
-    for ax, (titulo, campo, rot) in zip(axs, campos):
-        import collections
-        c = collections.Counter()
-        for v in papers[campo]:
-            vals = _lst(v)
-            c[rot.get(vals[0], vals[0]) if vals else PENDENTE] += 1
-        assert sum(c.values()) == n
-        ordem = [k for k, _ in c.most_common() if k != PENDENTE] + [PENDENTE]
-        cor = {k: ("none" if k == PENDENTE else rampa[i % len(rampa)]) for i, k in enumerate(ordem)}
-        bordo = {k: ("#A9A9A9" if k == PENDENTE else "white") for k in ordem}
-        seq = [k for k in ordem for _ in range(c[k])]
-        for i, k in enumerate(seq):
-            ax.add_patch(Rectangle((i % COLS, -(i // COLS)), .84, .84,
-                                   facecolor=cor[k], edgecolor=bordo[k], linewidth=.45))
-        linhas = int(np.ceil(n / COLS))
-        ax.set_xlim(-.4, COLS + .2); ax.set_ylim(-linhas + .2, 1.4)
-        ax.set_aspect("equal"); ax.axis("off")
-        ax.set_title(titulo, loc="left", fontsize=8.5, color=TINTA, pad=6)
-        for j, k in enumerate(ordem):
-            yy = -linhas - .8 - j * 1.25
-            ax.add_patch(Rectangle((0, yy), .84, .84, facecolor=cor[k],
-                                   edgecolor=bordo[k], linewidth=.45, clip_on=False))
-            ax.text(1.25, yy + .42, "%s \u2014 %s" % (k, pt(c[k])), va="center", fontsize=7,
-                    color=TINTA if k != PENDENTE else CINZA, clip_on=False)
-    fig.tight_layout()
-    grava(fig, "cap3-estudos-contextos")
-
-
-def v08_norma():
-    """Cruzamento norma x protocolo, em vez de duas marginais separadas.
-
-    Duas marginais diriam quantos artigos invocam a norma e quantos invocam um
-    protocolo. A pergunta do capitulo e outra: entre os que invocam a norma,
-    quantos invocam tambem um protocolo. Isso so se ve no cruzamento. Uma
-    publicacao entra em cada coluna que nomeia, pelo que as linhas nao somam --
-    as colunas batem certo com as marginais do texto (12, 9, 7).
-    """
-    papers = _dataset(); n = len(papers)
-    def gn(v):
-        x = _lst(v)
-        if not x: return PENDENTE
-        if any(str(i).startswith("ISO 5000") for i in x): return "Família ISO 50001"
-        if "none" in x: return "Nenhuma norma"
-        return "Outra norma nomeada"
-    def gp(v):
-        x = _lst(v)
-        if not x: return [PENDENTE]
-        nomes = [i for i in x if i != "none"]
-        if not nomes: return ["Nenhum"]
-        conhecidos = {"IPMVP", "ASHRAE 14", "SEP M&V"}
-        saida = [i for i in nomes if i in conhecidos]
-        if len(saida) < len(nomes): saida.append("Outro nomeado")
-        return saida or ["Outro nomeado"]
-    linhas = ["Família ISO 50001", "Outra norma nomeada", "Nenhuma norma", PENDENTE]
-    cols = ["Nenhum", "IPMVP", "ASHRAE 14", "SEP M&V", "Outro nomeado", PENDENTE]
-    M = pd.DataFrame(0, index=linhas, columns=cols)
-    for _, r in papers.iterrows():
-        for g in gp(r.mv_protocol): M.loc[gn(r.ems_standard), g] += 1
-    fig, ax = plt.subplots(figsize=(15.0 * CM, 6.4 * CM))
-    v = M.values.astype(float)
-    ax.imshow(np.sqrt(v), cmap="Blues", vmin=0, vmax=np.sqrt(v.max()), aspect="auto")
-    for i in range(v.shape[0]):
-        for j in range(v.shape[1]):
-            if v[i, j] == 0: continue
-            ax.text(j, i, pt(v[i, j]), ha="center", va="center", fontsize=8.5,
-                    color="white" if np.sqrt(v[i, j]) > .55 * np.sqrt(v.max()) else TINTA)
-    ax.set_xticks(range(len(cols)), [c.replace(" / sem extração", "\n/ sem extração") for c in cols],
-                  fontsize=7.5)
-    ax.set_yticks(range(len(linhas)), linhas, fontsize=7.5)
-    ax.set_xlabel("protocolo de medição e verificação invocado", labelpad=8)
-    ax.set_ylabel("norma de gestão invocada")
-    for sp in ax.spines.values(): sp.set_visible(False)
-    ax.tick_params(length=0)
-    fig.tight_layout()
-    grava(fig, "cap3-norma-protocolo")
-
-
 FIGS = {"f08": f08_validacao, "f10": f10_amostra, "f11": f11_dispersao, "f12": f12_ganho,
         "f13": f13_predicoes, "f14": f14_cobertura, "f15": f15_acoplamento,
         "f16": f16_sensibilidade, "f18": f18_matriz, "fdep": fdep_dependencia, "f14b": f14b_rajadas, "f19": f19_injeccao, "f20": f20_deteccao,
-        "v02": v02_cobertura, "v03": v03_evolucao, "v06": v06_modelos,
-        "v05": v05_estudos, "v08": v08_norma}
+        "v02": v02_cobertura, "v03": v03_evolucao, "v06": v06_modelos}
 if __name__ == "__main__":
     alvos = sys.argv[1:] or list(FIGS)
     for a in alvos: FIGS[a]()
