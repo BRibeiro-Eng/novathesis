@@ -256,17 +256,14 @@ passar sem sinal.
 A análise combina bibliometria descritiva (produção, fontes, autoria,
 citações) com a distribuição de características extraídas do texto integral,
 segundo famílias de análise habituais no mapeamento
-científico~\cite{Aria2017Bibliometrix,VanEck2010VOSviewer}. \novo{A produção,
-as fontes e a geografia estão na Secção~\ref{sec:evolucao}; a autoria, a
-coautoria e as referências, na Secção~\ref{sec:temas-colaboracao}.}
+científico~\cite{Aria2017Bibliometrix,VanEck2010VOSviewer}.
 
 A unidade de contagem é a publicação. Uma publicação pode descrever vários
 modelos ou várias instalações, e publicações diferentes podem descrever o
 mesmo estudo, pelo que o número de publicações não é o número de casos nem
 de validações independentes. Nas variáveis que admitem várias categorias,
 cada publicação conta uma vez em cada categoria que lhe foi atribuída, e as
-percentagens podem somar mais de 100\%. \novo{Ao longo do capítulo, «campo»
-designa uma variável do formulário de extração.} A localização dos casos é mantida
+percentagens podem somar mais de 100\%. A localização dos casos é mantida
 separada do país de afiliação dos autores.
 
 Os metadados do ficheiro exportado foram completados com o OpenAlex e a
@@ -295,9 +292,7 @@ distribuições que se seguem: dá, campo a campo, o estado de extração nas
   \caption[Estado de extração campo a campo no Corpus A]{Estado de extração
   de cada campo nas 331 publicações do Corpus~A. Concordância entre modelos
   significa que duas extrações independentes deram o mesmo valor --- não é
-  validação humana nem classificação adjudicada. \novo{Divergência é haver dois
-  valores diferentes; extração única, só uma das extrações ter produzido valor;
-  sem extração, nenhuma o ter feito.} As famílias de modelos, o
+  validação humana nem classificação adjudicada. As famílias de modelos, o
   setor e o país são os campos com menos cobertura, e é por isso que os
   resultados dessas secções se leem sobre denominadores menores do que 331.}
   \label{fig:cobertura-campos}
@@ -309,11 +304,10 @@ Nos campos lidos do texto integral, a análise usa os valores concordantes
 entre as duas extrações (Secção~\ref{sec:extracao-verificacao}). A cobertura
 varia muito de campo para campo. Há concordância no tipo de estudo em 258
 publicações, no enquadramento normativo em 258, no protocolo de medição e
-verificação em 271 e no tipo de organização em 238, \novo{no setor em 201 e
-no país em 178}. As famílias de modelos,
+verificação em 271 e no tipo de organização em 238. As famílias de modelos,
 o campo mais próximo da SQ1, só têm valor concordante em 162: em 118 as duas
 extrações divergem e em 51 só uma produziu valor utilizável. Os 169 casos por
-resolver \novo{neste campo} são 51,1\% do corpus.
+resolver são 51,1\% do corpus.
 
 \novo{A concordância é avaliada sobre a forma normalizada e não sobre a
 resposta em bruto: nos campos em texto livre, as respostas passam primeiro
@@ -340,8 +334,7 @@ campos não foi realizada (Apêndice~\ref{app:protocolo-sr}), e um
 contexto pouco representado descreve a cobertura deste corpus, não a
 inexistência de métodos nesse contexto.
 
-\subsection{Evolução temporal, \novo{geográfica} e fontes}
-\label{sec:evolucao}
+\subsection{Evolução temporal e fontes}
 
 As 331 publicações vão de 1997 a 2026. São de 2015 ou posteriores 281
 (84,9\%) e de 2020 ou posteriores 168 (50,8\%); o máximo anual é 35, em 2020,
@@ -376,28 +369,6 @@ cinco artigos reúnem 83 (38,8\%). A \emph{Energies} tem 24 artigos, o
 \emph{Sustainability} nove cada. A distribuição é dispersa, sem uma revista
 dominante.}
 
-\novo{O país do caso está atribuído em 154 das 331 publicações (46,5\%), em
-161 atribuições por 50 países, já que uma publicação pode estudar casos em mais
-do que um. A Figura~\ref{fig:mapa-casos} mostra-as. A Itália reúne 21
-atribuições e a Colômbia 15; nenhum outro país passa de sete. O que a figura
-descreve é a cobertura deste corpus e não a distribuição da literatura: as 177
-publicações sem país atribuído não estão no mapa, e uma região sem pontos é
-ausência de localização atribuída, não ausência de estudos. Catorze dos 50
-países têm pelo menos um caso no Corpus~B.}
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=\textwidth]{gerado/cap3-mapa-casos}
-  \caption[País atribuído aos casos do Corpus A]{\novo{País atribuído aos casos
-  do Corpus~A. O tamanho do marcador é o número de atribuições ao país e o tom
-  distingue os países com pelo menos um caso no Corpus~B. O marcador está no
-  ponto de etiqueta do país, não na instalação estudada. Uma região sem
-  marcadores significa que nenhuma publicação com localização atribuída a
-  refere, e não que não exista literatura sobre ela: 177 das 331 publicações
-  não têm país do caso atribuído e não estão representadas.}}
-  \label{fig:mapa-casos}
-\end{figure}
-
 \subsection{Estudos e contextos}
 
 Das 258 publicações com tipo de estudo concordante, 153 são um caso aplicado
@@ -415,10 +386,8 @@ contínuo'' é mais larga do que a pertença ao Corpus~B, que exige também um
 dos setores pré-registados e uma aplicação empírica. O setor e o país dos
 casos, em texto livre, não permitem ainda uma distribuição fiável: \novo{130
 e 153} publicações, respetivamente, ficam por classificar depois da
-normalização. \novo{A distribuição por país está na
-Secção~\ref{sec:evolucao}; nenhuma das duas sustenta uma conclusão sobre
-concentração setorial ou geográfica da literatura, porque em ambas a categoria
-mais frequente é a ausência de classificação.}
+normalização. Não se tira daqui nenhuma conclusão sobre concentração
+geográfica.
 
 % [REV-2026-09-14][C3-V05][P2][FIGURA]
 \revisaotese{C3-V05}{P2}{FIGURA}
@@ -496,7 +465,6 @@ quando só foi extraída a sua presença no artigo.}%
 % [/REV-2026-09-14]
 
 \subsection{Estrutura temática, colaboração e referências}
-\label{sec:temas-colaboracao}
 
 A rede de palavras-chave usa os termos normalizados com pelo menos três
 ocorrências; mostram-se 65, ligados quando coocorrem numa publicação, e as

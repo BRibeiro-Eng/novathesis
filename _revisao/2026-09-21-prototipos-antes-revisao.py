@@ -46,11 +46,7 @@ def data():
                 by_country[country].append(int(row.year))
                 by_period[period(int(row.year))][country] += 1
     assert len(papers) == 331
-    # Tripwire de deriva dos dados. Subiu de 45/126 para 50/161 a 2026-09-21,
-    # quando a concordancia passou a ser avaliada sobre a forma normalizada.
-    # Se voltar a falhar, os denominadores mudaram: rever antes de gerar.
-    assert len(by_country) == 50 and sum(map(len, by_country.values())) == 161, (
-        len(by_country), sum(map(len, by_country.values())))
+    assert len(by_country) == 45 and sum(map(len, by_country.values())) == 126
     assert len(set(by_country).difference(points.country)) == 0
     return annual, papers, points, by_country, by_period
 
@@ -130,89 +126,73 @@ def marker_sizes(n):
 
 
 def map_overview(papers, points, by_country):
-    """Mapa agregado. Revisto a 2026-09-21.
-
-    O tom deixou de codificar o primeiro ano localizavel. Esse ano e um
-    artefacto da cobertura do corpus, nao a data em que a investigacao
-    comecou no pais, e gastava o canal da cor com ruido. Passa a marcar os
-    paises com pelo menos um caso no Corpus B, que e o subconjunto sobre o
-    qual a sintese trabalha. Os denominadores passaram a ser calculados e nao
-    escritos a mao. A latitude foi cortada para dispensar a Antartida.
-    """
     p = points.copy()
     p["n"] = p.country.map(lambda c: len(by_country[c]))
     p["first"] = p.country.map(lambda c: min(by_country[c]))
     p["last"] = p.country.map(lambda c: max(by_country[c]))
     p["median"] = p.country.map(lambda c: float(np.median(by_country[c])))
     b_count = Counter()
-    localizaveis = 0
-    atribuicoes = 0
     for row in papers.itertuples():
-        paises = [c for c in ast.literal_eval(row.countries_case) if c not in EXCLUDE]
-        if paises:
-            localizaveis += 1
-            atribuicoes += len(paises)
         if row.in_corpus_b:
-            for country in paises:
-                b_count[country] += 1
+            for country in ast.literal_eval(row.countries_case):
+                if country not in EXCLUDE:
+                    b_count[country] += 1
     p["b"] = p.country.map(lambda c: b_count[c])
-    total = len(papers)
     windows = [(1997, 2010), (2011, 2015), (2016, 2020), (2021, 2025)]
 
     def hover(row):
         counts = [sum(a <= y <= b for y in by_country[row.country])
                   for a, b in windows]
-        breakdown = (f"1997\u20132010: {counts[0]} \u00b7 2011\u20132015: {counts[1]}"
-                     f"<br>2016\u20132020: {counts[2]} \u00b7 2021\u20132025: {counts[3]}")
-        return (f"<b>{row.country_pt}</b><br>Corpus A: {row.n} publica\u00e7\u00e3o(\u00f5es)"
+        breakdown = (f"1997–2010: {counts[0]} · 2011–2015: {counts[1]}"
+                     f"<br>2016–2020: {counts[2]} · 2021–2025: {counts[3]}")
+        return (f"<b>{row.country_pt}</b><br>Corpus A: {row.n} publicação(ões)"
                 f"<br>Corpus B: {row.b}"
-                f"<br>Primeiro / \u00faltimo registo: {row['first']} / {row['last']}"
+                f"<br>Primeiro / último registo: {row['first']} / {row['last']}"
                 f"<br>Ano mediano: {row['median']:g}"
-                f"<br>Publica\u00e7\u00f5es por per\u00edodo:<br>{breakdown}<extra></extra>")
+                f"<br>Publicações por período:<br>{breakdown}<extra></extra>")
 
     p["hover"] = p.apply(hover, axis=1)
-    COM_B, SO_A = BLUE, "#A8CCE0"
     fig = go.Figure()
-    for tem_b, cor, nome in [(False, SO_A, "s\u00f3 Corpus A"),
-                             (True, COM_B, "com caso do Corpus B")]:
-        q = p[(p.b > 0) == tem_b]
-        if q.empty:
-            continue
-        fig.add_trace(go.Scattergeo(
-            lon=q.lon, lat=q.lat, mode="markers", text=q.hover,
-            hovertemplate="%{text}", name=nome, legendgroup="corpus",
-            legendgrouptitle=dict(text="Pertença"),
-            marker=dict(size=marker_sizes(q.n), color=cor, opacity=.92,
-                        line=dict(color="#2B5670", width=.55))))
-    for n in (1, 5, 20):
+    fig.add_trace(go.Scattergeo(
+        lon=p.lon, lat=p.lat, mode="markers", text=p.hover,
+        hovertemplate="%{text}", showlegend=False,
+        marker=dict(size=marker_sizes(p.n), color=p["first"],
+                    colorscale=[[0, "#B9E4EC"], [.32, "#78BBD1"],
+                                [.68, "#2F6D96"], [1, "#163D62"]],
+                    cmin=1997, cmax=2025, opacity=.92,
+                    line=dict(color="#2B5670", width=.55),
+                    colorbar=dict(title=dict(text="Primeiro registo localizável", side="top",
+                                             font=dict(size=12, color=MUTED)),
+                                  orientation="h", x=.43, xanchor="center", y=-.055,
+                                  len=.42, thickness=11, outlinewidth=0,
+                                  tickvals=[1997, 2005, 2013, 2020, 2025],
+                                  tickfont=dict(size=12, color=MUTED)))))
+    for n in (1, 5, 15):
         fig.add_trace(go.Scattergeo(
             lon=[None], lat=[None], mode="markers", name=str(n),
-            showlegend=True, hoverinfo="skip", legendgroup="tamanho",
-            legendgrouptitle=dict(text="Publica\u00e7\u00f5es"),
-            marker=dict(size=marker_sizes([n])[0], color=MUTED,
+            showlegend=True, hoverinfo="skip",
+            marker=dict(size=marker_sizes([n])[0], color=BLUE,
                         line=dict(color="#2B5670", width=.55))))
     geo_style(fig)
-    fig.update_geos(lataxis_range=[-56, 84])
     fig.update_layout(
-        width=800, height=392, margin=dict(l=16, r=16, t=52, b=40),
+        width=1200, height=630, margin=dict(l=24, r=24, t=95, b=76),
         paper_bgcolor="white", font=dict(family="STIXGeneral, Georgia, serif", size=14, color=INK),
         showlegend=True,
-        legend=dict(x=.875, xanchor="left", y=1.0, yanchor="top",
-                    bgcolor="rgba(255,255,255,.75)", groupclick="toggleitem",
-                    font=dict(size=12.5, color=MUTED), borderwidth=0),
+        legend=dict(title=dict(text="Publicações", font=dict(size=13, color=MUTED)),
+                    x=.89, xanchor="left",
+                    y=.97, yanchor="top", bgcolor="rgba(255,255,255,.75)",
+                    font=dict(size=13, color=MUTED),
+                    borderwidth=0),
+        title=dict(text="Países atribuídos aos casos — Corpus A", x=.03, y=.975, font=dict(size=24)),
     )
-    pct_pt = ("%.1f" % (100 * localizaveis / total)).replace(".", ",")
     fig.add_annotation(
-        x=.01, y=1.10, xref="paper", yref="paper", showarrow=False, xanchor="left",
-        font=dict(size=15, color=INK),
-        text=(f"<b>{localizaveis} de {total} publica\u00e7\u00f5es ({pct_pt}%) t\u00eam pa\u00eds "
-              f"do caso atribu\u00eddo</b>; as restantes {total - localizaveis} n\u00e3o aparecem no mapa"))
+        x=.03, y=1.025, xref="paper", yref="paper", showarrow=False,
+        text="Tamanho do ponto = publicações no país  ·  Tom = primeiro ano localizável neste corpus",
+        xanchor="left", font=dict(size=14, color=MUTED))
     fig.add_annotation(
-        x=.01, y=-.115, xref="paper", yref="paper", showarrow=False, xanchor="left",
-        font=dict(size=12, color=MUTED),
-        text=(f"{atribuicoes} atribui\u00e7\u00f5es em {len(p)} pa\u00edses \u00b7 o ponto marca o pa\u00eds, "
-              f"n\u00e3o a instala\u00e7\u00e3o \u00b7 a \u00e1rea sem pontos \u00e9 aus\u00eancia de "
-              f"localiza\u00e7\u00e3o atribu\u00edda, n\u00e3o aus\u00eancia de literatura"))
+        x=.03, y=-.08, xref="paper", yref="paper", showarrow=False,
+        text="120/331 publicações (36,3%) com país localizável · 126 atribuições em 45 países · Ponto = país, não instalação",
+        xanchor="left", font=dict(size=12, color=MUTED))
     fig.write_image(HERE / "02_mapa_marcadores.pdf")
     fig.write_image(HERE / "02_mapa_marcadores.png", scale=2)
     fig.write_html(HERE / "02_mapa_interativo.html", include_plotlyjs=True,
