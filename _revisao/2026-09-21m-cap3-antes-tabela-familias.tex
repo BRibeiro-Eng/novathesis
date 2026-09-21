@@ -485,14 +485,17 @@ publicação, com a categoria por resolver à vista.}
 
 \subsection{Famílias de modelos e enquadramento normativo}
 
-\fecho{A Tabela~\ref{tab:a-familias} dá as famílias declaradas pelas 162
-publicações com o campo concordante e, ao lado, a combinação entre as duas que
-esta dissertação distingue.} O rácio simples de intensidade energética é a
-família mais frequente: um rácio ou uma média de consumos específicos aparece
-em 90 das 162 publicações e uma regressão em 80. \fecho{São 82 as que não
-ajustam nenhuma regressão, e 59 dessas usam um rácio ou uma média.} As
-categorias não são exclusivas, e a presença de duas famílias no mesmo artigo
-não quer dizer que tenham sido comparadas nem combinadas.
+Nas 162 publicações com famílias de modelos concordantes, o rácio simples de
+intensidade energética aparece em 74, a regressão com uma variável
+explicativa em 48 e a regressão múltipla em 41. Seguem-se os modelos físicos
+(21), a deteção de mudança ou o controlo estatístico de processo (20), a
+aprendizagem automática (19) e a média de consumos específicos (17). As
+categorias não são exclusivas. Um rácio ou uma média de consumos específicos
+aparece em 90 das 162 publicações e uma regressão em 80; 47 usam só rácios
+ou médias, sem nenhum modelo ajustado. A presença de duas famílias no mesmo
+artigo não quer dizer que tenham sido comparadas nem combinadas.
+\alterado{A Figura~\ref{fig:familias-modelos} ordena as famílias e põe na
+mesma escala as publicações cujo campo ficou por resolver.}
 
 A diferença entre as duas primeiras famílias é o que interessa a esta
 dissertação. \revisto{Um rácio divide o consumo pela produção. Usá-lo como normalizador invariável à carga pressupõe proporcionalidade entre as duas grandezas, sem termo constante relevante; a mera divisão não testa esse pressuposto.} Uma regressão
@@ -500,54 +503,19 @@ estima esse termo e o declive a partir dos dados, e com isso pode ser
 avaliada. A categoria de deteção de mudança e controlo estatístico junta
 procedimentos com funções distintas; a sua presença não mostra que uma
 referência seja atualizada nem que a não estacionariedade seja tratada.
-\fecho{São as três primeiras famílias da tabela --- rácio, regressão linear e
-regressão múltipla --- que enquadram o caso real; o
-Capítulo~\ref{cha:diagnostico} compara as regressões simples e múltipla, além
-dos comparadores triviais.}
 
-%% 2026-09-21: a Figura 3.7 era um ranking de dez categorias que o paragrafo
-%% acima ja dava por extenso, e nao mostrava a distincao que a subseccao
-%% argumenta. Passa a tabela: os mesmos numeros lem-se melhor em coluna, e o
-%% bloco da direita da a particao exclusiva, que a figura nao dava. A
-%% v06_modelos() fica em _gerador/figuras.py, sem uso.
-{\footnotesize
-\ntzebra
-\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}X r@{\hspace{2.2em}}>{\raggedright\arraybackslash}X r@{}}
-\caption[Famílias de modelos no Corpus A]{\fecho{Famílias de modelos de
-desempenho energético declaradas pelas 162 publicações do Corpus~A com o campo
-concordante; 169 ficaram por resolver ou sem extração. As famílias não são
-exclusivas e a coluna da esquerda não soma 162: 84 publicações declaram uma só
-família, 62 declaram duas e 16 declaram três ou mais. O bloco da direita é
-exclusivo e soma 162; a última linha são as publicações que não declaram
-rácio, média nem regressão.}}\label{tab:a-familias}\\
-\hiderowcolors
-\toprule
-\textbf{Família} & \textbf{Publ.} & \textbf{Combinação (exclusiva)} & \textbf{Publ.} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Família} & \textbf{Publ.} & \textbf{Combinação (exclusiva)} & \textbf{Publ.} \\
-\midrule
-\endhead
-\midrule
-\rowcolor{white}\multicolumn{4}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
-\showrowcolors
-    Rácio de intensidade & 74 & Rácio ou média, sem regressão & 59 \\
-    Regressão linear & 48 & Regressão, sem rácio nem média & 49 \\
-    Regressão múltipla & 41 & Rácio ou média e regressão & 31 \\
-    Modelo físico & 21 & Só outras famílias & 23 \\
-    \cmidrule(l){3-4}
-    Ponto de mudança ou CEP & 20 & \emph{Total} & \emph{162} \\
-    Aprendizagem automática & 19 & & \\
-    Média do consumo específico & 17 & & \\
-    Outra & 15 & & \\
-    Índice composto & 2 & & \\
-    Integração de processo & 2 & & \\
-\end{xltabular}
-}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{gerado/cap3-familias-modelos}
+  \caption[Famílias de modelos no Corpus A]{Famílias de modelos de
+  desempenho energético no Corpus~A. Uma publicação pode declarar mais de uma
+  família, pelo que as barras não somam 331. A primeira barra, a cinzento,
+  não é uma família: são as 169 publicações cujo campo ficou por resolver ou
+  sem extração, e está no mesmo eixo para que a ordem das restantes se leia
+  contra o que não se sabe. Entre as 162 classificadas, o rácio de
+  intensidade simples é a família mais frequente, e \revisto{as três primeiras --- rácio, regressão linear e regressão múltipla --- enquadram o caso real; o Capítulo~\ref{cha:diagnostico} compara as regressões simples e múltipla, além dos comparadores triviais.}}
+  \label{fig:familias-modelos}
+\end{figure}
 
 %% 2026-09-21: fecha a caixa C3-V07. A normalizacao do setor foi revista e
 %% ainda assim a matriz nao sustenta leitura por setor; dito no texto.
