@@ -1,11 +1,8 @@
 {
-  // 2026-09-17: a pasta da tese vive no Desktop, que esta em iCloud Drive.
-  // O agente de sincronizacao (bird) mexe nos auxiliares a meio das passagens
-  // do latexmk, o que corrompe o .bcf e faz o biber devolver um .bbl vazio.
-  // Solucao: manter o .tex aqui e mandar todos os auxiliares para fora do
-  // iCloud. A mesma pasta que o _gerador/build.sh usa, para haver uma so
-  // arvore de build.
-  "latex-workshop.latex.outDir": "/tmp/tese-build",
+  // Ambas as receitas copiam o PDF final para a pasta da tese; a
+  // pré-visualização deve abrir esse mesmo ficheiro. Os auxiliares de cada
+  // receita continuam em diretórios temporários separados.
+  "latex-workshop.latex.outDir": ".",
 
   // 2026-09-18: as duas receitas passam por scripts. A receita que chamava
   // "latexmk" directamente falhava sempre que o VS Code era aberto pelo Dock,
