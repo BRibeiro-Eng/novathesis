@@ -573,25 +573,23 @@ protocolo não quer dizer ausência de medição: quer dizer que o artigo não
 se apoia num protocolo reconhecido para a dizer.
 
 %% 2026-09-21: resolve a caixa C3-V08. A caixa pedia as duas marginais; o
-%% cruzamento responde a pergunta que as marginais nao respondem, e vai por
-%% inteiro para a Tabela B.4, no Apendice B, onde as celulas pequenas nao
-%% custam nada. A figura que o dava em heatmap foi retirada: tinha 24
-%% celulas, seis a zero e doze com menos de cinco publicacoes, e a cor nao
-%% codificava nada que os numeros impressos nas celulas nao dissessem. Um
-%% prototipo alternativo -- as duas taxas com intervalo de Wilson -- foi
-%% tambem posto de lado: o elemento dominante da imagem eram os intervalos
-%% sobrepostos, e isso da peso visual a um nao-resultado. O par de taxas fica
-%% em texto, com o travao. A v08_norma() fica em _gerador/figuras.py, sem uso.
-\novo{O cruzamento entre os dois campos responde à pergunta que as duas
-distribuições separadas não respondem: das 191 publicações que invocam a
-família ISO~50001, 173 não invocam protocolo algum de medição e
-verificação.} \fecho{A proporção que invoca um protocolo é de 7,5\% entre
-essas 191 --- 14 em 187 com o campo do protocolo resolvido, intervalo de
-Wilson a 95\% de 4,5\% a 12,2\% --- e de 7,8\% entre as 66 que declaram não
-invocar norma nenhuma, 5 em 64, de 3,4\% a 17,0\%. Invocar a norma não traz
-consigo um procedimento de verificação. Com catorze e cinco casos,
-isto descreve o corpus e não testa uma diferença. O cruzamento completo está
-na Tabela~\ref{tab:apB-norma-protocolo}.}
+%% cruzamento responde a pergunta que as marginais nao respondem.
+\novo{A Figura~\ref{fig:norma-protocolo} cruza os dois campos: das 191
+publicações que invocam a família ISO~50001, 173 não invocam protocolo algum de
+medição e verificação.}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap3-norma-protocolo}
+  \caption[Norma de gestão e protocolo de medição e verificação]{\novo{Norma de
+  gestão e protocolo de medição e verificação invocados nas 331 publicações do
+  Corpus~A. A figura cruza os dois campos em vez de os dar separadamente,
+  porque a pergunta é quantas das publicações que invocam a norma invocam
+  também um protocolo: das 191 da primeira linha, 173 não invocam nenhum. Uma
+  publicação pode nomear mais do que um protocolo, pelo que as linhas não
+  somam; as colunas correspondem às contagens do texto.}}
+  \label{fig:norma-protocolo}
+\end{figure}
 
 %% 2026-09-21: a antiga 3.3.7 ("Estrutura tematica, colaboracao e
 %% referencias") foi dissolvida. Descrevia o metodo de redes que o capitulo
