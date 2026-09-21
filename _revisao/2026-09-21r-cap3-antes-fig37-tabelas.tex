@@ -711,29 +711,17 @@ evidência sobre mecanismos está, portanto, fora da refinação, e um número
 tirado só dos estudos de refinação é um número sobre esses estudos, não
 sobre a literatura.
 
-{\footnotesize
-\ntzebra
-\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}X r r r@{}}
-\caption[Composição do Corpus B por setor]{Composição do Corpus~B por
-setor registado. Um artigo pode ter aplicações em mais do que um setor.
-A última coluna conta as aplicações com modelo aplicado empiricamente numa
-refinaria ou instalação petroquímica.}
-\label{tab:b-composicao}\\
-\hiderowcolors
-\toprule
-\textbf{Setor} & \textbf{Aplicações} & \textbf{Artigos} & \textbf{Refinaria ou petroquímica} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Setor} & \textbf{Aplicações} & \textbf{Artigos} & \textbf{Refinaria ou petroquímica} \\
-\midrule
-\endhead
-\midrule
-\rowcolor{white}\multicolumn{4}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
-\showrowcolors
+\begin{table}[htbp]
+  \centering
+  \caption[Composição do Corpus B por setor]{Composição do Corpus~B por
+  setor registado. Um artigo pode ter aplicações em mais do que um setor.
+  A última coluna conta as aplicações com modelo aplicado empiricamente numa
+  refinaria ou instalação petroquímica.}
+  \label{tab:b-composicao}
+  \begin{tabular}{lrrr}
+    \toprule
+    Setor & Aplicações & Artigos & Refinaria ou petroquímica \\
+    \midrule
     Cimento e cal & 10 & 9 & 0 \\
     Siderurgia e metais primários & 10 & 7 & 0 \\
     Petroquímica & 7 & 7 & 7 \\
@@ -745,8 +733,9 @@ refinaria ou instalação petroquímica.}
     Gases industriais & 1 & 1 & 0 \\
     \midrule
     Total & 46 & 39 & 14 \\
-\end{xltabular}
-}
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \subsection{Os modelos e o que os alimenta}
 
@@ -776,29 +765,18 @@ ponto por instalação ou por ano. Nos modelos que o declaram, a série de
 ajuste tem uma mediana de 14 meses (57 modelos) e 29 observações (52).
 É pouco para distinguir uma mudança da relação de um ano atípico.
 
-{\footnotesize
-\ntzebra
-\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}X r r@{\hspace{2.2em}}>{\raggedright\arraybackslash}X r r@{}}
-\caption[Modelos e variáveis explicativas no Corpus B]{Famílias de modelos
-e tipos de variável explicativa no Corpus~B. Um modelo pode ter mais do que
-uma família. Variáveis: ocorrências com papel de preditor, denominador,
-segmentação ou condição de referência.}
-\label{tab:b-modelos}\\
-\hiderowcolors
-\toprule
-\textbf{Família} & \textbf{Mod.} & \textbf{Art.} & \textbf{Tipo de variável} & \textbf{Ocorr.} & \textbf{Art.} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Família} & \textbf{Mod.} & \textbf{Art.} & \textbf{Tipo de variável} & \textbf{Ocorr.} & \textbf{Art.} \\
-\midrule
-\endhead
-\midrule
-\rowcolor{white}\multicolumn{6}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
-\showrowcolors
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption[Modelos e variáveis explicativas no Corpus B]{Famílias de modelos
+  e tipos de variável explicativa no Corpus~B. Um modelo pode ter mais do que
+  uma família. Variáveis: ocorrências com papel de preditor, denominador,
+  segmentação ou condição de referência.}
+  \label{tab:b-modelos}
+  \begin{tabular}{lrr@{\hspace{2.5em}}lrr}
+    \toprule
+    Família & Modelos & Artigos & Tipo de variável & Ocorr. & Artigos \\
+    \midrule
     Rácio de intensidade & 51 & 19 & Carga ou produção & 120 & 35 \\
     Regressão linear & 46 & 19 & Modo de operação & 60 & 9 \\
     Média de consumo específico & 10 & 4 & Outra & 54 & 18 \\
@@ -813,8 +791,9 @@ segmentação ou condição de referência.}
     Árvores de decisão & 1 & 1 & & & \\
     Híbrido físico-estatístico & 1 & 1 & & & \\
     Fronteira estocástica & 1 & 1 & & & \\
-\end{xltabular}
-}
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \subsection{Fronteira, validade temporal e validação}
 \label{sec:b-fronteira-validade}
@@ -827,31 +806,34 @@ foram implementadas ou avaliadas e se dados ou código estão disponíveis.
 Cada artigo aparece com o nível mais forte entre os seus modelos, o que
 favorece os artigos com vários modelos.
 
-%% 2026-09-21: dois paineis lado a lado. A versao de uma coluna media
-%% 6,3 x 10,6 pol; com height=0.86\textheight e keepaspectratio o limite era
-%% a altura, a figura ficava com 60% da largura da mancha e o texto interno
-%% caia para ~4 pt -- era o que a caixa F05 perguntava. Sai o height, sai o
-%% [p], e a legenda passa de dez linhas para cinco: era a legenda que
-%% empurrava o folio para cima da ultima linha.
-\begin{figure}[htbp]
+\begin{figure}[p]
   \centering
-  \includegraphics[width=\textwidth]{cap3/mapa-evidencia-corpus-b}
-  \caption[Mapa de evidência do Corpus B]{\ajuste{Mapa de evidência do
-  Corpus~B: 39 artigos por sete condições de uso de uma referência, cada
-  célula no nível mais forte declarado entre os modelos do artigo, o que
-  favorece os artigos com vários modelos. Cinzento é não reportado no texto
-  extraído e o tracejado é não aplicável; as definições de cada nível estão no
-  Apêndice~\ref{app:validacao}. $\blacklozenge$ aplicação empírica em
-  refinaria ou petroquímica.}}
+  \includegraphics[width=\textwidth,height=0.86\textheight,keepaspectratio]{cap3/mapa-evidencia-corpus-b}
+  \caption[Mapa de evidência do Corpus B]{Mapa de evidência do Corpus~B
+  (39 artigos). Cada célula dá o nível mais forte declarado entre os modelos
+  do artigo. Fronteira medida (C5): exata (escuro), alocada por regra ou por
+  estimativa, desvio reconhecido (claro). Reestimação (C6): regime declarado
+  e executado (escuro) ou só declarado. Domínio de validade (C7): numérico
+  (escuro) ou qualitativo. Ajuste no treino e validação fora da amostra
+  (C8): reportado; tracejado quando nenhum modelo do artigo o permite.
+  Adaptação: avaliada contra uma alternativa (escuro), implementada, proposta
+  (claro). Dados ou código (C13): código disponível (escuro), dados, dados
+  parciais. Cinzento: não reportado no texto extraído. $\blacklozenge$
+  aplicação empírica em refinaria ou petroquímica. Extração assistida com
+  verificação por modelo (Secção~\ref{sec:extracao-verificacao}).}
   \label{fig:mapa-evidencia}
 \end{figure}
 
-%% 2026-09-21: fecha a caixa F05. As etiquetas nao se liam porque a figura
-%% era escalada pela altura; resolvido com os dois paineis. A figura foi
-%% regerada COM --decisoes: a que estava impressa tinha sido gerada sem elas
-%% e dava 11/39 na reestimacao e 10/39 no dominio, contra os oito e os sete
-%% artigos que o texto desta seccao afirma. Versao antiga arquivada em
-%% _revisao/2026-09-21r-mapa-evidencia-sem-decisoes.pdf.
+% [REV-2026-09-13][F05][P2][FIGURA]
+\revisaotese{F05}{P2}{FIGURA}
+{Mapa de evidência: versão final depois das decisões pendentes}
+{Regenerada a 2026-09-18 com as decisões do autor
+(\texttt{5-Figures/cap3/mapa-evidencia-corpus-b.pdf}, gerada por
+\texttt{stage\_c/figuras\_cap3/mapa\_evidencia.py --decisoes}). Falta rever
+na página impressa se as etiquetas das colunas se leem a 100\%; se não,
+passar a figura a orientação horizontal ou cortar a coluna ``Ajuste no
+treino''.}%
+% [/REV-2026-09-13]
 
 A medição na fronteira é a primeira falha. As 140 descrições de modelo têm
 163 entradas de medição, uma por vetor energético. Só 35 descrevem uma
@@ -891,31 +873,20 @@ Os artigos descrevem 130 ocorrências de mecanismos, em 36 dos 39. A
 Tabela~\ref{tab:b-mecanismos} cruza o efeito sobre o modelo com o estatuto
 da afirmação, e é esse cruzamento que muda a leitura.
 
-{\footnotesize
-\ntzebra
-\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}X r r r r r@{}}
-\caption[Mecanismos por efeito e estatuto da afirmação]{Mecanismos no
-Corpus~B por efeito sobre o modelo e estatuto da afirmação (ocorrências;
-artigos entre parênteses). \emph{General}: afirmação sobre métodos em
-princípio. Aplicada: dita sobre o modelo do estudo. Demonstrada: mostrada
-com os dados do estudo. A última coluna conta os artigos com pelo menos uma
-ocorrência não \emph{general}.}
-\label{tab:b-mecanismos}\\
-\hiderowcolors
-\toprule
-\textbf{Efeito sobre o modelo} & \textbf{Todas} & \textbf{\emph{General}} & \textbf{Aplicada} & \textbf{Demonstr.} & \textbf{Art. sem \emph{general}} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Efeito sobre o modelo} & \textbf{Todas} & \textbf{\emph{General}} & \textbf{Aplicada} & \textbf{Demonstr.} & \textbf{Art. sem \emph{general}} \\
-\midrule
-\endhead
-\midrule
-\rowcolor{white}\multicolumn{6}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
-\showrowcolors
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption[Mecanismos por efeito e estatuto da afirmação]{Mecanismos no
+  Corpus~B por efeito sobre o modelo e estatuto da afirmação (ocorrências;
+  artigos entre parênteses). \emph{General}: afirmação sobre métodos em
+  princípio. Aplicada: dita sobre o modelo do estudo. Demonstrada: mostrada
+  com os dados do estudo. A última coluna conta os artigos com pelo menos uma
+  ocorrência não \emph{general}.}
+  \label{tab:b-mecanismos}
+  \begin{tabular}{lrrrrr}
+    \toprule
+    Efeito sobre o modelo & Todas & \emph{General} & Aplicada & Demonstrada & Artigos sem \emph{general} \\
+    \midrule
     Indicador sem significado tal como definido & 24 (18) & 10 & 8 & 6 & 13 \\
     Má especificação estatística & 21 (13) & 13 & 3 & 5 & 7 \\
     Comparabilidade entre instalações & 15 (11) & 6 & 7 & 2 & 8 \\
@@ -930,8 +901,9 @@ ocorrência não \emph{general}.}
     Série demasiado curta & 1 (1) & 1 & 0 & 0 & 0 \\
     \midrule
     Total & 130 (36) & 50 (19) & 52 (28) & 28 (15) & 34 \\
-\end{xltabular}
-}
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 Trinta e oito por cento das ocorrências (50 em 130) são afirmações \emph{general}:
 uma definição de heteroscedasticidade, a cautela de que os processos não são
@@ -1015,34 +987,22 @@ agrupamento prévio de empresas antes de comparar indicadores~\cite{Bonfa2017}
 e a atualização periódica de um indicador de referência
 setorial~\cite{Boyd2013,Boyd2017}.
 
-\needspace{20\baselineskip}
-{\footnotesize
-\ntzebra
-\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}X r r r r r r r r@{}}
-\caption[Adaptações por tipo, estado e enquadramento]{Adaptações no
-Corpus~B por tipo, estado e enquadramento normativo (ocorrências; artigos
-entre parênteses). Ligadas: o artigo liga explicitamente a adaptação a um
-mecanismo que descreveu. \emph{Implícito} exige que a adaptação corresponda
-a um conceito da norma --- variável relevante, fator estático, revisão da
-referência, fronteira ---, e não que o parágrafo use vocabulário da norma.}
-\label{tab:b-adaptacoes}\\
-\hiderowcolors
-\toprule
-& & \multicolumn{3}{c}{\textbf{Estado}} & \multicolumn{3}{c}{\textbf{Enquadramento}} & \\
-\cmidrule(lr){3-5}\cmidrule(lr){6-8}
-\textbf{Tipo} & \textbf{Total} & \textbf{Prop.} & \textbf{Impl.} & \textbf{Aval.} & \textbf{ISO expl.} & \textbf{Implíc.} & \textbf{Ausente} & \textbf{Ligadas} \\
-\midrule
-\endfirsthead
-\toprule
-& & \multicolumn{3}{c}{\textbf{Estado}} & \multicolumn{3}{c}{\textbf{Enquadramento}} & \\
-\cmidrule(lr){3-5}\cmidrule(lr){6-8}
-\textbf{Tipo} & \textbf{Total} & \textbf{Prop.} & \textbf{Impl.} & \textbf{Aval.} & \textbf{ISO expl.} & \textbf{Implíc.} & \textbf{Ausente} & \textbf{Ligadas} \\
-\midrule
-\endhead
-%% sem rodape de continuacao: o \needspace acima garante que nao parte
-\bottomrule
-\endlastfoot
-\showrowcolors
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption[Adaptações por tipo, estado e enquadramento]{Adaptações no
+  Corpus~B por tipo, estado e enquadramento normativo (ocorrências; artigos
+  entre parênteses). Ligadas: o artigo liga explicitamente a adaptação a um
+  mecanismo que descreveu. \emph{Implícito} exige que a adaptação corresponda
+  a um conceito da norma --- variável relevante, fator estático, revisão da
+  referência, fronteira ---, e não que o parágrafo use vocabulário da norma.}
+  \label{tab:b-adaptacoes}
+  \begin{tabular}{lrrrrrrrr}
+    \toprule
+    & & \multicolumn{3}{c}{Estado} & \multicolumn{3}{c}{Enquadramento} & \\
+    \cmidrule(lr){3-5}\cmidrule(lr){6-8}
+    Tipo & Total & Prop. & Impl. & Aval. & ISO expl. & Implíc. & Ausente & Ligadas \\
+    \midrule
     Outra & 35 (23) & 20 & 11 & 4 & 3 & 13 & 19 & 16 \\
     Variável de normalização adicional & 17 (15) & 4 & 11 & 2 & 4 & 8 & 5 & 13 \\
     Exclusão de valores atípicos & 10 (10) & 0 & 10 & 0 & 0 & 3 & 7 & 4 \\
@@ -1054,8 +1014,9 @@ referência, fronteira ---, e não que o parágrafo use vocabulário da norma.}
     Janela móvel & 1 (1) & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
     \midrule
     Total & 88 (36) & 35 & 47 & 6 & 7 & 40 & 41 & 43 \\
-\end{xltabular}
-}
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 Propor e testar são coisas diferentes, e a distância entre as duas é o
 resultado mais útil desta secção. Das 88 adaptações, 35 são propostas para
@@ -1126,30 +1087,19 @@ aplicação empírica em refinaria ou petroquímica, porque são os vizinhos
 diretos do caso e é contra eles que o contributo da dissertação se mede
 (Tabela~\ref{tab:b-proximos}).
 
-{\scriptsize
-\ntzebra
-\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{3.3cm}>{\raggedright\arraybackslash}p{1.15cm}>{\raggedright\arraybackslash}p{1.75cm}>{\raggedright\arraybackslash}p{1.55cm}>{\raggedright\arraybackslash}p{1.3cm}@{}}
-\caption[Estudos do Corpus B com aplicação em refinaria ou petroquímica]{Os
-13 estudos do Corpus~B com aplicação empírica em refinaria ou petroquímica.
-Fronteira (C5), reestimação (C6), domínio de validade (C7) e validação fora
-da amostra (C8), no modelo mais forte de cada estudo. RL: regressão linear;
-n.r.: não reportado; n.a.: não aplicável.}
-\label{tab:b-proximos}\\
-\hiderowcolors
-\toprule
-\textbf{Estudo e objeto} & \textbf{Modelo e variáveis além da carga} & \textbf{Fronteira} & \textbf{Reestimação} & \textbf{Domínio} & \textbf{Fora da amostra} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Estudo e objeto} & \textbf{Modelo e variáveis além da carga} & \textbf{Fronteira} & \textbf{Reestimação} & \textbf{Domínio} & \textbf{Fora da amostra} \\
-\midrule
-\endhead
-\midrule
-\rowcolor{white}\multicolumn{6}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
-\showrowcolors
+\begin{table}[htbp]
+  \centering
+  \scriptsize
+  \caption[Estudos do Corpus B com aplicação em refinaria ou petroquímica]{Os
+  13 estudos do Corpus~B com aplicação empírica em refinaria ou petroquímica.
+  Fronteira (C5), reestimação (C6), domínio de validade (C7) e validação fora
+  da amostra (C8), no modelo mais forte de cada estudo. RL: regressão linear;
+  n.r.: não reportado; n.a.: não aplicável.}
+  \label{tab:b-proximos}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{3.3cm}>{\raggedright\arraybackslash}p{1.15cm}>{\raggedright\arraybackslash}p{1.75cm}>{\raggedright\arraybackslash}p{1.55cm}>{\raggedright\arraybackslash}p{1.3cm}@{}}
+    \toprule
+    Estudo e objeto & Modelo e variáveis além da carga & Fronteira & Reestimação & Domínio & Fora da amostra \\
+    \midrule
     \textcite{Velazquez2013}: unidade de reformação catalítica & RL horária; ambiente, alimentação, modo & n.r. & não mencionada & não declarado & n.r. \\
     \textcite{Yao2016}: compressão de gás de \emph{cracking} & RL; modo & n.r. & por evento & qualitativo & n.r. \\
     \textcite{Moghadasi2025}: descarbonatação de etano, refinaria de gás & Árvores de decisão (GBM), dados do DCS; modo & n.r. & não mencionada & não declarado & reportada \\
@@ -1163,8 +1113,9 @@ n.r.: não reportado; n.a.: não aplicável.}
     \textcite{Hashim2019}: empresa de petróleo e gás, várias divisões & Índice de implementação do SGE & n.r. & não declarada & não declarado & n.a. \\
     \textcite{Maggiore2020}: auditorias em vários setores & Rácio & n.r. & não mencionada & não declarado & n.a. \\
     \textcite{Hashim2022}: empresa petrolífera & Rácio; só carga & n.r. & não mencionada & não declarado & n.a. \\
-\end{xltabular}
-}
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
 Os 13 dividem-se em três grupos. O primeiro modela uma unidade de processo
 com dados do historiador ou do sistema de controlo: \textcite{Velazquez2013},
@@ -1278,29 +1229,19 @@ anteriores, esta não é uma lacuna dos modelos de desempenho energético; é um
 condição de acesso, e a dissertação responde-lhe publicando o que usou, não
 resolvendo-a na literatura.}
 
-\needspace{24\baselineskip}
-{\footnotesize
-\ntzebra
-\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4.6cm}@{}}
-\caption[Lacunas documentadas e resposta da dissertação]{Lacunas documentadas
-no Corpus~B e onde a dissertação lhes responde. \ajuste{As decisões dos
-Capítulos~\ref{cha:metodos} a~\ref{cha:diagnostico} antecedem a extração do
-Corpus~B, de 12 a 15 de setembro de 2026. A última linha é de outra natureza:
-não é uma lacuna dos modelos, é uma condição de acesso à literatura.}}
-\label{tab:gap}\\
-\hiderowcolors
-\toprule
-\textbf{Lacuna} & \textbf{Evidência no Corpus~B} & \textbf{Resposta nesta dissertação} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Lacuna} & \textbf{Evidência no Corpus~B} & \textbf{Resposta nesta dissertação} \\
-\midrule
-\endhead
-%% sem rodape de continuacao: o \needspace acima garante que nao parte
-\bottomrule
-\endlastfoot
-\showrowcolors
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption[Lacunas documentadas e resposta da dissertação]{Lacunas documentadas
+  no Corpus~B e onde a dissertação lhes responde. \ajuste{As decisões dos
+  Capítulos~\ref{cha:metodos} a~\ref{cha:diagnostico} antecedem a extração do
+  Corpus~B, de 12 a 15 de setembro de 2026. A última linha é de outra natureza:
+  não é uma lacuna dos modelos, é uma condição de acesso à literatura.}}
+  \label{tab:gap}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4.6cm}@{}}
+    \toprule
+    Lacuna & Evidência no Corpus~B & Resposta nesta dissertação \\
+    \midrule
     Energia medida na fronteira do modelo &
     \ajuste{35 de 163 descrições de medição com correspondência exata, 89 sem
     informação; grandeza não medida descrita sempre sobre o próprio caso
@@ -1328,8 +1269,9 @@ não é uma lacuna dos modelos, é uma condição de acesso à literatura.}}
     \ajuste{Reprodutibilidade (transversal)} &
     \ajuste{Código declarado disponível em 0 de 39 estudos; dados em 3} &
     Reprodutibilidade e proveniência (Secção~\ref{sec:reprodutibilidade}) \\
-\end{xltabular}
-}
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
 \ajuste{A coluna da direita não é uma justificação a posteriori. A
 plataforma, o modelo de dados e o protocolo de avaliação foram decididos e
