@@ -34,12 +34,9 @@ def draw(destino=None):
         "xtick.labelsize": 7.5, "ytick.labelsize": 7.5,
         "axes.linewidth": .6, "pdf.fonttype": 42,
     })
-    # 2026-09-21: 12,8cm punha a figura a 437pt com legenda, 64% da mancha, e
-    # era a cabeca de uma fila em que as seis figuras da 3.3 saiam todas uma
-    # subseccao atrasada. Os paineis mantem a altura; encolhem os intervalos.
-    fig = plt.figure(figsize=(15.5 * CM, 10.6 * CM))
-    ax_time = fig.add_axes((.085, .595, .88, .345))
-    ax_journal = fig.add_axes((.43, .135, .535, .345))
+    fig = plt.figure(figsize=(15.5 * CM, 12.8 * CM))
+    ax_time = fig.add_axes((.085, .585, .88, .315))
+    ax_journal = fig.add_axes((.43, .15, .535, .315))
 
     years = annual.index.to_numpy()
     bars = ax_time.bar(years, journal_year, width=.78, color=BLUE, zorder=3,
@@ -62,9 +59,9 @@ def draw(destino=None):
     ax_time.legend(frameon=False, loc="upper left", bbox_to_anchor=(.015, .93),
                    fontsize=7.3, borderaxespad=0, labelspacing=.4,
                    handlelength=1.5)
-    fig.text(.085, .972, "A  ·  Evolução anual por tipo de documento",
+    fig.text(.085, .948, "A  ·  Evolução anual por tipo de documento",
              ha="left", va="center", fontsize=9, color=INK)
-    fig.text(.965, .972, "2026: pesquisa até fevereiro; ano incompleto",
+    fig.text(.965, .948, "2026: pesquisa até fevereiro; ano incompleto",
              ha="right", va="center", fontsize=7.2, color=MUTED)
 
     values = frequent.artigos.to_numpy()
@@ -79,9 +76,9 @@ def draw(destino=None):
     for yi, n in zip(y, values):
         ax_journal.text(n + .35, yi, str(n), ha="left", va="center",
                         fontsize=7.5, color=INK)
-    fig.text(.085, .525, "B  ·  Revistas com pelo menos cinco artigos",
+    fig.text(.085, .52, "B  ·  Revistas com pelo menos cinco artigos",
              ha="left", va="center", fontsize=9, color=INK)
-    fig.text(.965, .525,
+    fig.text(.965, .52,
              "9 revistas: 83/214 artigos (38,8%)\n83 das 112 revistas surgem uma só vez",
              ha="right", va="center", fontsize=7.2, color=MUTED)
 
@@ -90,7 +87,7 @@ def draw(destino=None):
         ax.spines["right"].set_visible(False)
         ax.tick_params(axis="x", length=2.5, width=.6, color=MUTED)
     ax_journal.tick_params(axis="y", length=0, pad=7)
-    fig.text(.085, .035,
+    fig.text(.085, .055,
              "Corpus A, n=331 · Revistas harmonizadas por ISSN quando verificável",
              ha="left", va="center", fontsize=7, color=MUTED)
     alvo = destino or (HERE / "figura34_vertical.pdf")
