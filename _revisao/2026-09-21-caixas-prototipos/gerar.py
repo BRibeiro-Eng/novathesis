@@ -108,21 +108,31 @@ def v08():
         if any(str(i).startswith("ISO 5000") for i in x): return "Família ISO 50001"
         if "none" in x: return "Nenhuma norma"
         return "Outra norma nomeada"
-    def grupo_prot(v):
+    def grupos_prot(v):
+        """Devolve TODOS os protocolos nomeados, nao so o primeiro.
+
+        A versao anterior escolhia um por ordem de prioridade e por isso as
+        colunas da ASHRAE 14 e do SEP M&V ficavam abaixo das marginais do
+        texto (5 e 3 contra 9 e 7): sete publicacoes nomeiam mais do que um
+        protocolo. Agora uma publicacao entra em cada coluna que nomeia, as
+        linhas nao somam, e a legenda tem de o dizer.
+        """
         x = lst(v)
-        if not x: return PENDENTE
+        if not x: return [PENDENTE]
         nomes = [i for i in x if i != "none"]
-        if not nomes: return "Nenhum"
-        ordem = ["IPMVP", "ASHRAE 14", "SEP M&V"]
-        for o in ordem:
-            if o in nomes: return o
-        return "Outro nomeado"
+        if not nomes: return ["Nenhum"]
+        conhecidos = {"IPMVP", "ASHRAE 14", "SEP M&V"}
+        saida = [n for n in nomes if n in conhecidos]
+        if len(saida) < len(nomes): saida.append("Outro nomeado")
+        return saida or ["Outro nomeado"]
     linhas = ["Família ISO 50001", "Outra norma nomeada", "Nenhuma norma", PENDENTE]
     cols = ["Nenhum", "IPMVP", "ASHRAE 14", "SEP M&V", "Outro nomeado", PENDENTE]
     M = pd.DataFrame(0, index=linhas, columns=cols)
     for _, r in papers.iterrows():
-        M.loc[grupo_norma(r.ems_standard), grupo_prot(r.mv_protocol)] += 1
-    assert M.values.sum() == N
+        for g in grupos_prot(r.mv_protocol):
+            M.loc[grupo_norma(r.ems_standard), g] += 1
+    # As linhas nao somam 331: uma publicacao pode nomear mais de um protocolo.
+    assert M["Nenhum"].sum() + M[PENDENTE].sum() <= N
     fig, ax = plt.subplots(figsize=(15.0*CM, 6.4*CM))
     v = M.values.astype(float)
     ax.imshow(np.sqrt(v), cmap="Blues", vmin=0, vmax=np.sqrt(v.max()), aspect="auto")
@@ -139,10 +149,13 @@ def v08():
     ax.set_ylabel("Norma de gestão invocada", fontsize=8)
     for s in ax.spines.values(): s.set_visible(False)
     ax.tick_params(length=0)
-    invoca = M.loc["Família ISO 50001"].sum()
-    sem = M.loc["Família ISO 50001", "Nenhum"]
+    linha = M.loc["Família ISO 50001"]
+    invoca = int(linha.sum() - linha[PENDENTE] + linha[PENDENTE])  # publicacoes da linha
+    invoca = int(papers.apply(lambda r: grupo_norma(r.ems_standard) == "Família ISO 50001", axis=1).sum())
+    sem = int(M.loc["Família ISO 50001", "Nenhum"])
     fig.text(.5, -.155, "Das %d publicações que invocam a família ISO 50001, %d (%.0f%%) "
-             "não invocam protocolo algum de medição e verificação."
+             "não invocam protocolo algum de medição e verificação. Uma publicação "
+             "pode nomear mais de um protocolo, pelo que as linhas não somam."
              % (invoca, sem, 100*sem/invoca), ha="center", fontsize=7.5, color=CINZA)
     fig.savefig(HERE/"v08_norma_protocolo.pdf"); fig.savefig(HERE/"v08_norma_protocolo.png", dpi=260)
     plt.close(fig); print("v08 ok — ISO 50001 sem protocolo: %d/%d" % (sem, invoca))
