@@ -330,17 +330,16 @@ pelo vocabulário controlado que serve a derivação --- os quinze setores de
 atividade, os nomes de país da ISO~3166 --- e só depois se comparam. É assim
 que \emph{automotive sector} e \emph{automotive manufacturing sector}, ou
 \emph{Ecuador} e \emph{coast of Ecuador}, contam como o mesmo valor. Exige-se
-igualdade exata da forma normalizada.}
+igualdade exata da forma normalizada. O balde residual do mapeador de
+setores não estabelece equivalência: dois textos que o mapeador não cobre
+caem ambos nesse balde sem que isso signifique que dizem o mesmo, e aí
+compara-se a resposta em bruto.}
 
 \novo{Nos campos que admitem vários valores, a exigência de igualdade
 exata é conservadora noutro sentido: em 91 das 118 divergências do campo das
-famílias de modelos as duas extrações partilham pelo menos uma família.}
-\corr{Em 64 dessas 91 uma das listas está contida na outra e a diferença é só
-de extensão; nas restantes 27 cada extração declara uma família que a outra
-não declara, e aí a divergência é de substituição, não de grau. A análise
-trata todas como não resolvidas, o que nas 64 subestima a cobertura do campo
-em vez de a inflacionar, mas nas outras 27 esconde um desacordo real sobre que
-modelo o artigo usa.}
+famílias de modelos as duas extrações partilham pelo menos uma família e
+diferem apenas na extensão da lista. A análise trata-as como não resolvidas,
+o que subestima a cobertura do campo em vez de a inflacionar.}
 
 As distribuições seguintes descrevem o subconjunto concordante de cada campo,
 com o denominador explícito, e não tratam um valor em falta como ausência da
@@ -351,14 +350,11 @@ contexto pouco representado descreve a cobertura deste corpus, não a
 inexistência de métodos nesse contexto.
 
 \fecho{Três observações sobre o instrumento ajudam a ler os números acima. A
-primeira: a extração única não está dispersa pelos campos. \corr{Há 81
-publicações com pelo menos uma célula nesse estado, mas o grosso} concentra-se
-em 51 publicações em que uma das duas superfícies não devolveu praticamente
-nada do formulário --- 38 com o campo por preencher em nove dos dez campos e
-13 em oito. É por isso que essa categoria vale exatamente 51 em oito dos dez
-campos da Figura~\ref{fig:cobertura-campos}\corr{; as restantes 30 têm uma só
-célula em extração única, quase todas no país, e é isso que levanta esse campo
-aos 68 da figura}. O que ela mede é uma falha de
+primeira: a extração única não está dispersa pelos campos, concentra-se em 51
+publicações em que uma das duas superfícies não devolveu praticamente nada do
+formulário --- 38 com o campo por preencher em nove dos dez campos e 13 em
+oito. É por isso que essa categoria vale exatamente 51 em oito dos dez campos
+da Figura~\ref{fig:cobertura-campos}, e o que ela mede é uma falha de
 instrumento e não uma característica das publicações.}
 
 \fecho{A segunda: a análise de palavras-chave não produz temas legíveis. Os
@@ -385,7 +381,10 @@ As 331 publicações vão de 1997 a 2026. São de 2015 ou posteriores 281
 seguido de 34 em 2025. O único registo de 2026 pertence a um ano coberto
 apenas até fevereiro. \alterado{A Figura~\ref{fig:evolucao-anual} mostra a
 distribuição anual por tipo de documento e as revistas mais frequentes.}
-
+\alterado{A forma da série descreve a literatura recuperada pelas expressões
+de pesquisa nas duas bases consultadas. Os marcos das normas ISO~50001:2011
+e ISO~50006:2014 contextualizam o período, mas a figura não permite atribuir   
+às normas a evolução observada.}
 
 \begin{figure}[htbp]
   \centering
@@ -449,10 +448,8 @@ publicações, não grupos de investigação independentes.}
 Das 258 publicações com tipo de estudo concordante, 153 são um caso aplicado
 único e 53 estudos com vários casos; há 18 revisões, 16 descrições de
 ferramentas, 14 trabalhos metodológicos ou teóricos e quatro modelos de
-maturidade. \corr{A aplicação em mais do que uma instalação
-é um campo distinto, com valor concordante em 268 publicações; em 17 dessas a
-pergunta não se aplica e, das 251 restantes, só 27 aplicam o modelo em mais do
-que uma instalação.} A literatura é, em larga medida, uma
+maturidade. Só 27 das 268 publicações com o campo concordante aplicam o
+modelo em mais do que uma instalação. A literatura é, em larga medida, uma
 coleção de casos isolados, e o trabalho sobre o método propriamente dito é
 uma fração pequena.
 
@@ -464,10 +461,7 @@ dos setores pré-registados e uma aplicação empírica. O setor e o país dos
 casos, em texto livre, não permitem ainda uma distribuição fiável: \novo{130
 e 153} publicações, respetivamente, ficam por classificar depois da
 normalização. \novo{A distribuição por país está na
-Secção~\ref{sec:geografia}.} \corr{Os dois números do país não são o mesmo: as
-153 são as que não têm valor concordante, ao passo que as 177 sem país
-atribuído dessa secção incluem ainda 24 em que as duas extrações concordam em
-não haver localização a atribuir.} \novo{Nenhuma das duas sustenta uma conclusão sobre
+Secção~\ref{sec:geografia}; nenhuma das duas sustenta uma conclusão sobre
 concentração setorial ou geográfica da literatura, porque em ambas a categoria
 mais frequente é a ausência de classificação.}
 
@@ -490,16 +484,18 @@ publicação, com a categoria por resolver à vista.}
 \end{figure}
 
 \subsection{Famílias de modelos e enquadramento normativo}
-\label{sec:familias-normas}
 
-\fecho{A Tabela~\ref{tab:a-familias} dá as famílias declaradas pelas 162
-publicações com o campo concordante e, ao lado, a combinação entre as duas que
-esta dissertação distingue.} O rácio simples de intensidade energética é a
-família mais frequente: um rácio ou uma média de consumos específicos aparece
-em 90 das 162 publicações e uma regressão em 80. \fecho{São 82 as que não
-ajustam nenhuma regressão, e 59 dessas usam um rácio ou uma média.} As
-categorias não são exclusivas, e a presença de duas famílias no mesmo artigo
-não quer dizer que tenham sido comparadas nem combinadas.
+Nas 162 publicações com famílias de modelos concordantes, o rácio simples de
+intensidade energética aparece em 74, a regressão com uma variável
+explicativa em 48 e a regressão múltipla em 41. Seguem-se os modelos físicos
+(21), a deteção de mudança ou o controlo estatístico de processo (20), a
+aprendizagem automática (19) e a média de consumos específicos (17). As
+categorias não são exclusivas. Um rácio ou uma média de consumos específicos
+aparece em 90 das 162 publicações e uma regressão em 80; 47 usam só rácios
+ou médias, sem nenhum modelo ajustado. A presença de duas famílias no mesmo
+artigo não quer dizer que tenham sido comparadas nem combinadas.
+\alterado{A Figura~\ref{fig:familias-modelos} ordena as famílias e põe na
+mesma escala as publicações cujo campo ficou por resolver.}
 
 A diferença entre as duas primeiras famílias é o que interessa a esta
 dissertação. \revisto{Um rácio divide o consumo pela produção. Usá-lo como normalizador invariável à carga pressupõe proporcionalidade entre as duas grandezas, sem termo constante relevante; a mera divisão não testa esse pressuposto.} Uma regressão
@@ -507,68 +503,28 @@ estima esse termo e o declive a partir dos dados, e com isso pode ser
 avaliada. A categoria de deteção de mudança e controlo estatístico junta
 procedimentos com funções distintas; a sua presença não mostra que uma
 referência seja atualizada nem que a não estacionariedade seja tratada.
-\fecho{São as três primeiras famílias da tabela --- rácio, regressão linear e
-regressão múltipla --- que enquadram o caso real; o
-Capítulo~\ref{cha:diagnostico} compara as regressões simples e múltipla, além
-dos comparadores triviais.}
 
-%% 2026-09-21: a Figura 3.7 era um ranking de dez categorias que o paragrafo
-%% acima ja dava por extenso, e nao mostrava a distincao que a subseccao
-%% argumenta. Passa a tabela: os mesmos numeros lem-se melhor em coluna, e o
-%% bloco da direita da a particao exclusiva, que a figura nao dava. A
-%% v06_modelos() fica em _gerador/figuras.py, sem uso.
-{\footnotesize
-\ntzebra
-\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}X r@{\hspace{2.2em}}>{\raggedright\arraybackslash}X r@{}}
-\caption[Famílias de modelos no Corpus A]{\fecho{Famílias de modelos de
-desempenho energético declaradas pelas 162 publicações do Corpus~A com o campo
-concordante; 169 ficaram por resolver ou sem extração. As famílias não são
-exclusivas e a coluna da esquerda não soma 162: 84 publicações declaram uma só
-família, 62 declaram duas e 16 declaram três ou mais. O bloco da direita é
-exclusivo e soma 162; a última linha são as publicações que não declaram
-rácio, média nem regressão.}}\label{tab:a-familias}\\
-\hiderowcolors
-\toprule
-\textbf{Família} & \textbf{Publ.} & \textbf{Combinação (exclusiva)} & \textbf{Publ.} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Família} & \textbf{Publ.} & \textbf{Combinação (exclusiva)} & \textbf{Publ.} \\
-\midrule
-\endhead
-\midrule
-\rowcolor{white}\multicolumn{4}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
-\showrowcolors
-    Rácio de intensidade & 74 & Rácio ou média, sem regressão & 59 \\
-    Regressão linear & 48 & Regressão, sem rácio nem média & 49 \\
-    Regressão múltipla & 41 & Rácio ou média e regressão & 31 \\
-    Modelo físico & 21 & Só outras famílias & 23 \\
-    \cmidrule(l){3-4}
-    Ponto de mudança ou CEP & 20 & \emph{Total} & \emph{162} \\
-    Aprendizagem automática & 19 & & \\
-    Média do consumo específico & 17 & & \\
-    Outra & 15 & & \\
-    Índice composto & 2 & & \\
-    Integração de processo & 2 & & \\
-\end{xltabular}
-}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{gerado/cap3-familias-modelos}
+  \caption[Famílias de modelos no Corpus A]{Famílias de modelos de
+  desempenho energético no Corpus~A. Uma publicação pode declarar mais de uma
+  família, pelo que as barras não somam 331. A primeira barra, a cinzento,
+  não é uma família: são as 169 publicações cujo campo ficou por resolver ou
+  sem extração, e está no mesmo eixo para que a ordem das restantes se leia
+  contra o que não se sabe. Entre as 162 classificadas, o rácio de
+  intensidade simples é a família mais frequente, e \revisto{as três primeiras --- rácio, regressão linear e regressão múltipla --- enquadram o caso real; o Capítulo~\ref{cha:diagnostico} compara as regressões simples e múltipla, além dos comparadores triviais.}}
+  \label{fig:familias-modelos}
+\end{figure}
 
 %% 2026-09-21: fecha a caixa C3-V07. A normalizacao do setor foi revista e
 %% ainda assim a matriz nao sustenta leitura por setor; dito no texto.
 \fecho{O cruzamento entre setor e família de modelos não sustenta leitura por
-setor. Mesmo depois de revista a normalização, 58 das \corr{120} células do
-cruzamento \corr{(doze setores por dez famílias)} têm pelo menos uma
-publicação, o máximo é dezasseis e a mediana das células não vazias é dois; a
-única linha com substância é a dos edifícios e serviços públicos.}
-\corr{Nas etiquetas setoriais que correspondem aos setores de processo
-contínuo pré-registados, as contagens vão de uma publicação na refinação de
-petróleo e duas na pasta e papel a oito no cimento e cal, oito no vidro e
-cerâmica, onze na petroquímica, treze na química e farmacêutica e dezasseis
-nos metais; repartidas por dez famílias, nenhuma dessas linhas chega para uma
-distribuição.} \fecho{A matriz não se reproduz.}
+setor. Mesmo depois de revista a normalização, 58 das 100 células do
+cruzamento têm pelo menos uma publicação, o máximo é dezasseis e a mediana das
+células não vazias é dois; a única linha com substância é a dos edifícios e
+serviços públicos, e os setores de processo contínuo que interessam a esta
+dissertação ficam em uma e duas publicações. A matriz não se reproduz.}
 
 O enquadramento normativo tem classificação concordante em 258 publicações.
 A ISO~50001 aparece em 185 (71,7\%) e a ISO~50006, a norma que trata
@@ -585,28 +541,23 @@ protocolo não quer dizer ausência de medição: quer dizer que o artigo não
 se apoia num protocolo reconhecido para a dizer.
 
 %% 2026-09-21: resolve a caixa C3-V08. A caixa pedia as duas marginais; o
-%% cruzamento responde a pergunta que as marginais nao respondem, e vai por
-%% inteiro para a Tabela B.4, no Apendice B, onde as celulas pequenas nao
-%% custam nada. A figura que o dava em heatmap foi retirada: tinha 24
-%% celulas, seis a zero e doze com menos de cinco publicacoes, e a cor nao
-%% codificava nada que os numeros impressos nas celulas nao dissessem. Um
-%% prototipo alternativo -- as duas taxas com intervalo de Wilson -- foi
-%% tambem posto de lado: o elemento dominante da imagem eram os intervalos
-%% sobrepostos, e isso da peso visual a um nao-resultado. O par de taxas fica
-%% em texto, com o travao. A v08_norma() fica em _gerador/figuras.py, sem uso.
-\novo{O cruzamento entre os dois campos responde à pergunta que as duas
-distribuições separadas não respondem.} \corr{Invocam alguma norma da família
-ISO~50001 --- a 50001, a 50002 ou a 50006 --- 191 publicações, mais do que as
-185 que nomeiam a ISO~50001 propriamente dita. Dessas 191, 187 têm o campo do
-protocolo resolvido; nessas 187, 173 não invocam protocolo algum de medição e
-verificação e 14 invocam. As quatro restantes ficam por resolver e não contam
-para nenhum dos lados.} \fecho{A proporção que invoca um protocolo é de 7,5\%
---- 14 em 187, intervalo de
-Wilson a 95\% de 4,5\% a 12,2\% --- e de 7,8\% entre as 66 que declaram não
-invocar norma nenhuma, 5 em 64, de 3,4\% a 17,0\%. Invocar a norma não traz
-consigo um procedimento de verificação. Com catorze e cinco casos,
-isto descreve o corpus e não testa uma diferença. O cruzamento completo está
-na Tabela~\ref{tab:apB-norma-protocolo}.}
+%% cruzamento responde a pergunta que as marginais nao respondem.
+\novo{A Figura~\ref{fig:norma-protocolo} cruza os dois campos: das 191
+publicações que invocam a família ISO~50001, 173 não invocam protocolo algum de
+medição e verificação.}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/cap3-norma-protocolo}
+  \caption[Norma de gestão e protocolo de medição e verificação]{\novo{Norma de
+  gestão e protocolo de medição e verificação invocados nas 331 publicações do
+  Corpus~A. A figura cruza os dois campos em vez de os dar separadamente,
+  porque a pergunta é quantas das publicações que invocam a norma invocam
+  também um protocolo: das 191 da primeira linha, 173 não invocam nenhum. Uma
+  publicação pode nomear mais do que um protocolo, pelo que as linhas não
+  somam; as colunas correspondem às contagens do texto.}}
+  \label{fig:norma-protocolo}
+\end{figure}
 
 %% 2026-09-21: a antiga 3.3.7 ("Estrutura tematica, colaboracao e
 %% referencias") foi dissolvida. Descrevia o metodo de redes que o capitulo
@@ -627,13 +578,9 @@ A primeira dizia que o indicador dominante é um rácio sem ajuste e que as
 referências ajustadas são minoria. A primeira metade confirma-se: o rácio é
 a família mais frequente. A segunda não: no subconjunto concordante, uma
 regressão aparece em 80 de 162 publicações, praticamente tantas como os
-rácios. \corr{Quantas dependem apenas de rácios ou médias depende de como se
-define a dependência: 59 não ajustam regressão nenhuma e, dessas, 47 não
-declaram mais nenhuma família (Tabela~\ref{tab:a-familias}). Em qualquer das
-leituras é menos de metade das 162.} \fecho{É o único ponto em
-que os dados contrariam uma expectativa registada antes da extração}\corr{; mas
-é também o campo com menos cobertura do corpus, pelo que a contradição assenta
-em evidência mais fina do que as confirmações, e não mais robusta}. Com metade das
+rácios, e só 47 dependem apenas de rácios ou médias. \fecho{É o único ponto em
+que os dados contrariam uma expectativa registada antes da extração, e por
+isso vale mais do que as confirmações.} Com metade das
 publicações por classificar neste campo, não se pode dizer mais do que isto.
 
 A segunda dizia que a ISO~50001 é quase universal como referência e que a
@@ -641,9 +588,8 @@ ISO~50006 e os protocolos de medição e verificação não são. Confirma-se, c
 a ressalva de que ``quase universal'' é forte para 185 em 258: é a norma de
 gestão que dá nome ao campo, e a norma que diz como construir e manter um
 indicador aparece num artigo em cada cinco. \fecho{O contraste mais forte do
-capítulo está aqui: \corr{das 187 publicações que invocam a família ISO~50001
-e têm o campo do protocolo resolvido, 173 --- mais de nove em cada dez ---}
-não invocam protocolo algum de medição e verificação.
+capítulo está aqui: das 191 publicações que invocam a família ISO~50001, 173
+--- nove em cada dez --- não invocam protocolo algum de medição e verificação.
 A literatura que adota o vocabulário da norma de gestão não adota, na mesma
 proporção, nenhum quadro reconhecido para verificar o que mede. É, dentro
 deste corpus, a contrapartida empírica do que a Secção~\ref{sec:assimetria-comparacao}
@@ -657,25 +603,7 @@ extraída no Corpus~A\novo{. Quanto à concentração geográfica, a Secção~\r
 mostra que as atribuições disponíveis se repartem por 50 países e que as duas
 maiores se concentram em poucos grupos de autores; com 177 publicações sem
 país atribuído, isso descreve a cobertura do corpus e não permite confirmar
-nem infirmar a expectativa}. \corr{O que essa concentração mostra não é, em
-rigor, geográfico: dez das 21 publicações com caso em Itália e cinco das
-quinze colombianas saem de um autor cada, pelo que o número de casos
-independentes é menor do que o número de publicações. É a expectativa dos
-casos únicos a confirmar-se por outra via.}
-
-\corr{Das quatro dimensões que a SQ1 enuncia, a distribuição por ano está na
-Secção~\ref{sec:evolucao} e não se repete aqui; a do setor fica por responder.
-O campo tem valor concordante em 201 das 331 publicações, mas entre as
-classificadas a categoria mais frequente é o balde residual, e o cruzamento
-com as famílias distribui 58 células não vazias com mediana dois
-(Secção~\ref{sec:familias-normas}). Não é que a literatura não varie com o
-setor: é que este corpus, extraído deste modo, não permite saber se varia. A
-dimensão setorial da SQ1 não é respondível aqui, e isso é um resultado sobre o
-instrumento --- a distribuição por setor depende de um campo em texto livre
-que a extração assistida não normaliza de forma fiável --- e não uma omissão
-da revisão. É também a razão por que o Capítulo~\ref{cha:diagnostico} não pode
-apoiar-se em precedentes setoriais e tem de estabelecer os seus comparadores a
-partir do caso.}
+nem infirmar a expectativa}.
 
 Para a pergunta que abre o capítulo, \novo{esta cartografia da literatura} diz
 sobretudo onde procurar.
@@ -1186,19 +1114,13 @@ energia um método para decidir se a referência de uma unidade ainda serve.
 A resposta, nos limites desta revisão, é que dá peças e não o método. Os
 rácios e as regressões sobre a carga estão bem descritos, a norma que os
 enquadra é citada e há casos em quase todos os setores de processo contínuo.
-\ajuste{Citar a norma não traz, porém, um procedimento de verificação: no
-Corpus~A, 173 das 187 publicações que invocam a família ISO~50001 e têm o
-campo resolvido não invocam protocolo algum de medição e verificação
-(Secção~\ref{sec:sq1-sintese}). O vocabulário da norma está adotado; o quadro
-para confirmar o que se mede, não.} O que falta está nas condições em que
-esses modelos se podem usar como referência, e concentra-se em três lacunas
-documentadas no Corpus~B (Tabela~\ref{tab:gap}).
+O que falta está nas condições em que esses modelos se podem usar como
+referência, e concentra-se em três lacunas documentadas no Corpus~B
+(Tabela~\ref{tab:gap}).
 
 A primeira é a medição. A energia que o modelo explica raramente é descrita
-como medida na fronteira que o modelo estuda. \ajuste{Os 39 estudos dizem 163
-vezes de onde vem a energia que os seus modelos usam, uma vez por vetor
-energético; em 35 dessas vezes o que se mede coincide com a fronteira que o
-modelo estuda, e em 89 o artigo não diz nada sobre isso.} A grandeza não medida é o
+como medida na fronteira que o modelo estuda: 35 das 163 entradas de medição
+têm correspondência exata e 89 não dizem nada. A grandeza não medida é o
 único efeito que os estudos descrevem sempre sobre o próprio caso, e \revisto{melhorar a medição é proposto seis vezes e implementado uma vez.} Um modelo cuja
 variável dependente é um cálculo, numa fronteira que não coincide com a do
 contador, pode ajustar bem e medir outra coisa.
@@ -1210,42 +1132,31 @@ refazer, a regra pode confundir uma melhoria real com um modelo caducado.
 
 A terceira é a normalização. Em 78 dos 140 modelos a carga é a única
 variável que normaliza o consumo, e a qualidade da alimentação aparece em
-quatro artigos. \ajuste{Numa unidade de processo contínuo a simplificação tem
-consequência direta: mudar de crude, de severidade ou de gama de produtos
-altera a energia necessária sem alterar a carga, e um modelo que só conhece a
-carga lê essa mudança como perda de desempenho. É o mesmo mecanismo que o
-Capítulo~\ref{cha:diagnostico} tem de separar em Sines.} O efeito mais citado
-nos estudos é, precisamente, um indicador que não significa o que devia tal
-como está definido. A norma pede
+quatro artigos. O efeito mais citado nos estudos é, precisamente, um
+indicador que não significa o que devia tal como está definido. A norma pede
 que se identifiquem as variáveis relevantes; os estudos quase nunca mostram
 que a carga chega.
 
-Há ainda uma falha de outra natureza. \ajuste{Nenhum dos 39 estudos declara
-código disponível e três disponibilizam os dados, pelo que nenhuma das
-referências publicadas se reaplica a outra instalação sem ser reconstruída a
-partir do texto: reescrever as equações, reestimar os coeficientes e repetir
-escolhas de fronteira que o artigo não declara. Ao contrário das três
-anteriores, esta não é uma lacuna dos modelos de desempenho energético; é uma
-condição de acesso, e a dissertação responde-lhe publicando o que usou, não
-resolvendo-a na literatura.}
+Há ainda uma falha transversal. Nenhum dos 39 registos declara código
+disponível e três disponibilizam os dados, \revisto{o que limita a reprodução independente e exige verificar, caso a caso, se a informação publicada permite reconstruir a referência.}
 
 \begin{table}[htbp]
   \centering
   \footnotesize
   \caption[Lacunas documentadas e resposta da dissertação]{Lacunas documentadas
-  no Corpus~B e onde a dissertação lhes responde. \ajuste{As decisões dos
-  Capítulos~\ref{cha:metodos} a~\ref{cha:diagnostico} antecedem a extração do
-  Corpus~B, de 12 a 15 de setembro de 2026. A última linha é de outra natureza:
-  não é uma lacuna dos modelos, é uma condição de acesso à literatura.}}
+  no Corpus~B e onde a dissertação lhes responde. As decisões dos
+  Capítulos~\ref{cha:metodos} a~\ref{cha:diagnostico} antecedem a extração
+  do Corpus~B (12 a 15 de setembro de 2026): a revisão não as motivou; mostra
+  que os problemas que o caso expôs são os que a literatura deixa em aberto.}
   \label{tab:gap}
   \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4.6cm}@{}}
     \toprule
     Lacuna & Evidência no Corpus~B & Resposta nesta dissertação \\
     \midrule
     Energia medida na fronteira do modelo &
-    \ajuste{35 de 163 descrições de medição com correspondência exata, 89 sem
-    informação; grandeza não medida descrita sempre sobre o próprio caso
-    (9 artigos); medição melhorada proposta 6 vezes, feita 1} &
+    35 de 163 entradas com correspondência exata, 89 sem informação; grandeza
+    não medida descrita sempre sobre o caso (10 ocorrências, 9 artigos);
+    medição melhorada proposta 6 vezes, feita 1 &
     Reconciliação das fontes e tabela de mapeamento como contrato
     (Secções~\ref{sec:fontes} e~\ref{sec:modelo-dimensional}); cobertura por
     unidade e vetor (Secção~\ref{sec:cobertura}); perfil dos dados
@@ -1261,25 +1172,26 @@ resolvendo-a na literatura.}
     \addlinespace
     Normalização só pela carga &
     Carga como única variável em 78 de 140 modelos; qualidade da alimentação
-    em 4 artigos; \ajuste{indicador sem significado tal como definido é o efeito
-    mais citado (24 casos, e 13 artigos descrevem-no sobre o próprio caso)} &
+    em 4 artigos; indicador sem significado tal como definido é o efeito mais
+    citado (24 ocorrências, 13 artigos sem afirmações \emph{general}) &
     Métricas e referência em produção (Secção~\ref{sec:metricas});
     suficiência da variável explicativa (Secção~\ref{sec:suficiencia}) \\
     \addlinespace
-    \ajuste{Reprodutibilidade (transversal)} &
-    \ajuste{Código declarado disponível em 0 de 39 estudos; dados em 3} &
+    Reprodutibilidade &
+    Código declarado disponível em 0 de 39 registos; dados em 3 &
     Reprodutibilidade e proveniência (Secção~\ref{sec:reprodutibilidade}) \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
-\ajuste{A coluna da direita não é uma justificação a posteriori. A
-plataforma, o modelo de dados e o protocolo de avaliação foram decididos e
-congelados antes de o Corpus~B ser extraído, com as datas registadas nos
-repositórios (Apêndice~\ref{app:protocolo-sr}). O que a revisão mostra não é
-que essas decisões estejam certas, mas que os problemas encontrados em Sines
-não são uma particularidade do caso: são os mesmos que a literatura descreve
-e não resolve.}
+A ordem das datas importa para ler esta tabela. A plataforma, o modelo de
+dados e o protocolo de avaliação foram decididos antes de o Corpus~B ser
+extraído, e as datas estão nos repositórios: a tabela de mapeamento foi
+congelada na extração de 31 de julho de 2026, o protocolo de avaliação das
+\emph{baselines} foi fixado a 17 de agosto e alterado pela última vez a 3 de
+setembro, e a extração do Corpus~B decorreu entre 12 e 15 de setembro. A revisão não justifica essas decisões a posteriori; mostra que os
+problemas encontrados em Sines não são uma particularidade do caso, porque
+são os mesmos que a literatura descreve e não resolve.
 
 O Capítulo~\ref{cha:introducao} resumia o problema numa frase: mede-se tudo e
 sabe-se tarde. A literatura revista repete o padrão. Mede, com rácios e

@@ -1186,19 +1186,13 @@ energia um método para decidir se a referência de uma unidade ainda serve.
 A resposta, nos limites desta revisão, é que dá peças e não o método. Os
 rácios e as regressões sobre a carga estão bem descritos, a norma que os
 enquadra é citada e há casos em quase todos os setores de processo contínuo.
-\ajuste{Citar a norma não traz, porém, um procedimento de verificação: no
-Corpus~A, 173 das 187 publicações que invocam a família ISO~50001 e têm o
-campo resolvido não invocam protocolo algum de medição e verificação
-(Secção~\ref{sec:sq1-sintese}). O vocabulário da norma está adotado; o quadro
-para confirmar o que se mede, não.} O que falta está nas condições em que
-esses modelos se podem usar como referência, e concentra-se em três lacunas
-documentadas no Corpus~B (Tabela~\ref{tab:gap}).
+O que falta está nas condições em que esses modelos se podem usar como
+referência, e concentra-se em três lacunas documentadas no Corpus~B
+(Tabela~\ref{tab:gap}).
 
 A primeira é a medição. A energia que o modelo explica raramente é descrita
-como medida na fronteira que o modelo estuda. \ajuste{Os 39 estudos dizem 163
-vezes de onde vem a energia que os seus modelos usam, uma vez por vetor
-energético; em 35 dessas vezes o que se mede coincide com a fronteira que o
-modelo estuda, e em 89 o artigo não diz nada sobre isso.} A grandeza não medida é o
+como medida na fronteira que o modelo estuda: 35 das 163 entradas de medição
+têm correspondência exata e 89 não dizem nada. A grandeza não medida é o
 único efeito que os estudos descrevem sempre sobre o próprio caso, e \revisto{melhorar a medição é proposto seis vezes e implementado uma vez.} Um modelo cuja
 variável dependente é um cálculo, numa fronteira que não coincide com a do
 contador, pode ajustar bem e medir outra coisa.
@@ -1210,42 +1204,31 @@ refazer, a regra pode confundir uma melhoria real com um modelo caducado.
 
 A terceira é a normalização. Em 78 dos 140 modelos a carga é a única
 variável que normaliza o consumo, e a qualidade da alimentação aparece em
-quatro artigos. \ajuste{Numa unidade de processo contínuo a simplificação tem
-consequência direta: mudar de crude, de severidade ou de gama de produtos
-altera a energia necessária sem alterar a carga, e um modelo que só conhece a
-carga lê essa mudança como perda de desempenho. É o mesmo mecanismo que o
-Capítulo~\ref{cha:diagnostico} tem de separar em Sines.} O efeito mais citado
-nos estudos é, precisamente, um indicador que não significa o que devia tal
-como está definido. A norma pede
+quatro artigos. O efeito mais citado nos estudos é, precisamente, um
+indicador que não significa o que devia tal como está definido. A norma pede
 que se identifiquem as variáveis relevantes; os estudos quase nunca mostram
 que a carga chega.
 
-Há ainda uma falha de outra natureza. \ajuste{Nenhum dos 39 estudos declara
-código disponível e três disponibilizam os dados, pelo que nenhuma das
-referências publicadas se reaplica a outra instalação sem ser reconstruída a
-partir do texto: reescrever as equações, reestimar os coeficientes e repetir
-escolhas de fronteira que o artigo não declara. Ao contrário das três
-anteriores, esta não é uma lacuna dos modelos de desempenho energético; é uma
-condição de acesso, e a dissertação responde-lhe publicando o que usou, não
-resolvendo-a na literatura.}
+Há ainda uma falha transversal. Nenhum dos 39 registos declara código
+disponível e três disponibilizam os dados, \revisto{o que limita a reprodução independente e exige verificar, caso a caso, se a informação publicada permite reconstruir a referência.}
 
 \begin{table}[htbp]
   \centering
   \footnotesize
   \caption[Lacunas documentadas e resposta da dissertação]{Lacunas documentadas
-  no Corpus~B e onde a dissertação lhes responde. \ajuste{As decisões dos
-  Capítulos~\ref{cha:metodos} a~\ref{cha:diagnostico} antecedem a extração do
-  Corpus~B, de 12 a 15 de setembro de 2026. A última linha é de outra natureza:
-  não é uma lacuna dos modelos, é uma condição de acesso à literatura.}}
+  no Corpus~B e onde a dissertação lhes responde. As decisões dos
+  Capítulos~\ref{cha:metodos} a~\ref{cha:diagnostico} antecedem a extração
+  do Corpus~B (12 a 15 de setembro de 2026): a revisão não as motivou; mostra
+  que os problemas que o caso expôs são os que a literatura deixa em aberto.}
   \label{tab:gap}
   \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4.6cm}@{}}
     \toprule
     Lacuna & Evidência no Corpus~B & Resposta nesta dissertação \\
     \midrule
     Energia medida na fronteira do modelo &
-    \ajuste{35 de 163 descrições de medição com correspondência exata, 89 sem
-    informação; grandeza não medida descrita sempre sobre o próprio caso
-    (9 artigos); medição melhorada proposta 6 vezes, feita 1} &
+    35 de 163 entradas com correspondência exata, 89 sem informação; grandeza
+    não medida descrita sempre sobre o caso (10 ocorrências, 9 artigos);
+    medição melhorada proposta 6 vezes, feita 1 &
     Reconciliação das fontes e tabela de mapeamento como contrato
     (Secções~\ref{sec:fontes} e~\ref{sec:modelo-dimensional}); cobertura por
     unidade e vetor (Secção~\ref{sec:cobertura}); perfil dos dados
@@ -1261,25 +1244,26 @@ resolvendo-a na literatura.}
     \addlinespace
     Normalização só pela carga &
     Carga como única variável em 78 de 140 modelos; qualidade da alimentação
-    em 4 artigos; \ajuste{indicador sem significado tal como definido é o efeito
-    mais citado (24 casos, e 13 artigos descrevem-no sobre o próprio caso)} &
+    em 4 artigos; indicador sem significado tal como definido é o efeito mais
+    citado (24 ocorrências, 13 artigos sem afirmações \emph{general}) &
     Métricas e referência em produção (Secção~\ref{sec:metricas});
     suficiência da variável explicativa (Secção~\ref{sec:suficiencia}) \\
     \addlinespace
-    \ajuste{Reprodutibilidade (transversal)} &
-    \ajuste{Código declarado disponível em 0 de 39 estudos; dados em 3} &
+    Reprodutibilidade &
+    Código declarado disponível em 0 de 39 registos; dados em 3 &
     Reprodutibilidade e proveniência (Secção~\ref{sec:reprodutibilidade}) \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
-\ajuste{A coluna da direita não é uma justificação a posteriori. A
-plataforma, o modelo de dados e o protocolo de avaliação foram decididos e
-congelados antes de o Corpus~B ser extraído, com as datas registadas nos
-repositórios (Apêndice~\ref{app:protocolo-sr}). O que a revisão mostra não é
-que essas decisões estejam certas, mas que os problemas encontrados em Sines
-não são uma particularidade do caso: são os mesmos que a literatura descreve
-e não resolve.}
+A ordem das datas importa para ler esta tabela. A plataforma, o modelo de
+dados e o protocolo de avaliação foram decididos antes de o Corpus~B ser
+extraído, e as datas estão nos repositórios: a tabela de mapeamento foi
+congelada na extração de 31 de julho de 2026, o protocolo de avaliação das
+\emph{baselines} foi fixado a 17 de agosto e alterado pela última vez a 3 de
+setembro, e a extração do Corpus~B decorreu entre 12 e 15 de setembro. A revisão não justifica essas decisões a posteriori; mostra que os
+problemas encontrados em Sines não são uma particularidade do caso, porque
+são os mesmos que a literatura descreve e não resolve.
 
 O Capítulo~\ref{cha:introducao} resumia o problema numa frase: mede-se tudo e
 sabe-se tarde. A literatura revista repete o padrão. Mede, com rácios e
