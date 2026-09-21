@@ -698,20 +698,12 @@ def v02_cobertura():
     cores = [A3["forte"], A3["areia"], A3["claro"], A3["ausente"]]
     d = d.loc[d[cols[0]].sort_values().index]
     fig, ax = plt.subplots(figsize=(14.0 * CM, 7.4 * CM))
-    # O concordante e o assunto da figura -- e o denominador das distribuicoes
-    # que se seguem. Fica em barra cheia e com o valor escrito; os tres estados
-    # por resolver ficam num carril mais fino, visiveis mas subordinados.
-    ALTA, BAIXA = 0.68, 0.40
     esq = np.zeros(len(d))
-    for j, (c, lab, cor) in enumerate(zip(cols, curto, cores)):
+    for c, lab, cor in zip(cols, curto, cores):
         v = d[c].values
-        ax.barh(range(len(d)), v, left=esq, color=cor, label=lab,
-                height=ALTA if j == 0 else BAIXA,
+        ax.barh(range(len(d)), v, left=esq, color=cor, label=lab, height=0.68,
                 edgecolor="white", linewidth=0.6)
         esq = esq + v
-    for i, n in enumerate(d[cols[0]].values):
-        ax.annotate(pt(n), (n, i), xytext=(-4, 0), textcoords="offset points",
-                    va="center", ha="right", fontsize=6.8, color="white", zorder=5)
     ax.set_yticks(range(len(d)))
     ax.set_yticklabels([rotulo.get(i, i) for i in d.index])
     ax.set_xlabel("publicações")
@@ -723,25 +715,101 @@ def v02_cobertura():
     grava(fig, "cap3-cobertura-campos")
 
 def v03_evolucao():
-    """Dois paineis: evolucao anual por tipo de documento e revistas mais
-    frequentes.
+    """Publicacoes anuais por tipo e distribuicao das revistas mais frequentes."""
+    annual = tab_a("annual.csv"); annual.index = annual.index.astype(int)
+    papers = pd.read_csv(os.path.join(BIB, "tables", "analysis_dataset.csv"),
+                         encoding="utf-8-sig")
+    by_year = pd.crosstab(papers.year, papers.document_type).reindex(
+        annual.index, fill_value=0)
+    journal_year = by_year["journal article"].to_numpy()
+    conference_year = by_year["conference proceedings"].to_numpy()
+    assert len(papers) == 331 and journal_year.sum() == 214 and conference_year.sum() == 117
+    assert np.array_equal(journal_year + conference_year, annual.n.to_numpy())
 
-    Substitui a versao de dois painteis com acumulado em eixo duplo. O
-    acumulado de uma serie crescente e uma curva em S por construcao e nao
-    acrescentava facto nenhum; o eixo duplo convidava a ler o cruzamento da
-    linha com as barras, que e um artefacto da escolha das duas escalas.
+    # Fusoes verificadas por ISSN dos DOI: ver
+    # _revisao/2026-09-21-fontes-prototipo/README.md.
+    aliases = {
+        "sustainability (switzerland)": "Sustainability",
+        "sustainability": "Sustainability",
+        "applied sciences (switzerland)": "Applied Sciences",
+        "applied sciences-basel": "Applied Sciences",
+        "proceedings of the institution of mechanical engineers, part b: journal of engineering manufacture":
+            "Proceedings of the Institution of Mechanical Engineers, Part B: Journal of Engineering Manufacture",
+        "proceedings of the institution of mechanical engineers part b-journal of engineering manufacture":
+            "Proceedings of the Institution of Mechanical Engineers, Part B: Journal of Engineering Manufacture",
+    }
+    journal_sources = papers.loc[papers.document_type.eq("journal article"), "source"]
+    sources = journal_sources.map(lambda title: aliases.get(title, title)).value_counts()
+    frequent = (sources[sources >= 5].rename_axis("source").reset_index(name="n")
+                .sort_values(["n", "source"], ascending=[False, True]))
+    assert len(sources) == 112 and int((sources == 1).sum()) == 83
+    assert len(frequent) == 9 and int(frequent.n.sum()) == 83
+    labels = {
+        "energies": "Energies",
+        "journal of cleaner production": "Journal of Cleaner Production",
+        "energy": "Energy",
+        "Sustainability": "Sustainability",
+        "international journal of energy economics and policy":
+            "International Journal of Energy Economics and Policy",
+        "energy and buildings": "Energy and Buildings",
+        "energy efficiency": "Energy Efficiency",
+        "Applied Sciences": "Applied Sciences",
+        "applied energy": "Applied Energy",
+    }
 
-    O gerador vive em _gerador/fig34/ (portado do prototipo de 2026-09-21).
-    A harmonizacao das revistas por ISSN e a razao para o painel B usar so os
-    214 artigos de revista estao documentadas nesse README.
-    """
-    import sys
-    d = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fig34")
-    if d not in sys.path: sys.path.insert(0, d)
-    import gerar_vertical
-    gerar_vertical.draw(destino=os.path.join(OUT, "cap3-evolucao-anual.pdf"))
-    print("cap3-evolucao-anual ->", os.path.join(OUT, "cap3-evolucao-anual.pdf"))
+    fig = plt.figure(figsize=(15.5 * CM, 12.8 * CM))
+    ax_time = fig.add_axes((.085, .585, .88, .315))
+    ax_journal = fig.add_axes((.43, .15, .535, .315))
+    years = annual.index.to_numpy()
+    bars = ax_time.bar(years, journal_year, width=.78, color=A3["forte"],
+                       label="Artigos de revista (214)", zorder=3)
+    ax_time.bar(years, conference_year, bottom=journal_year, width=.78,
+                color="#B87932", label="Conferências (117)", zorder=3)
+    bars[-1].set_facecolor(A3["ausente"])
+    ax_time.set(xlim=(1996.3, 2027.7), ylim=(0, 40), ylabel="Publicações")
+    ax_time.set_xticks([1997, 2001, 2005, 2009, 2013, 2017, 2021, 2025])
+    ax_time.set_yticks([0, 10, 20, 30, 40])
+    ax_time.yaxis.grid(True, color="#E7E7E7", linewidth=.45)
+    ax_time.set_axisbelow(True)
+    # Cada marco fica na fronteira entre as barras dos anos civis.
+    for x, label in [(2011.5, "ISO 50001:2011"), (2014.5, "ISO 50006:2014")]:
+        ax_time.axvline(x, color="#777777", linewidth=.8,
+                        linestyle=(0, (4, 3)), zorder=2)
+        ax_time.text(x + .16, 38.8, label, rotation=90, ha="left", va="top",
+                     fontsize=7, color=CINZA)
+    ax_time.legend(frameon=False, loc="upper left", bbox_to_anchor=(.015, .93),
+                   fontsize=7.3, borderaxespad=0, labelspacing=.4, handlelength=1.5)
+    fig.text(.085, .948, "A  ·  Evolução anual por tipo de documento",
+             ha="left", va="center", fontsize=9)
+    fig.text(.965, .948, "2026: pesquisa até fevereiro; ano incompleto",
+             ha="right", va="center", fontsize=7.2, color=CINZA)
 
+    y = np.arange(len(frequent))
+    ax_journal.barh(y, frequent.n.to_numpy(), height=.65,
+                    color=A3["forte"], zorder=3)
+    ax_journal.set_yticks(y, [labels.get(source, source) for source in frequent.source])
+    ax_journal.invert_yaxis()
+    ax_journal.set(xlim=(0, 27), xlabel="Artigos de revista")
+    ax_journal.set_xticks([0, 5, 10, 15, 20, 25])
+    ax_journal.xaxis.grid(True, color="#E7E7E7", linewidth=.45)
+    ax_journal.set_axisbelow(True)
+    for yi, n in zip(y, frequent.n):
+        ax_journal.text(n + .35, yi, str(n), ha="left", va="center",
+                        fontsize=7.5, color=TINTA)
+    fig.text(.085, .52, "B  ·  Revistas com pelo menos cinco artigos",
+             ha="left", va="center", fontsize=9)
+    fig.text(.965, .52,
+             "9 revistas: 83/214 artigos (38,8%)\n83 das 112 revistas surgem uma só vez",
+             ha="right", va="center", fontsize=7.2, color=CINZA)
+    for ax in (ax_time, ax_journal):
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.tick_params(axis="x", length=2.5, width=.6, color=CINZA)
+    ax_journal.tick_params(axis="y", length=0, pad=7)
+    fig.text(.085, .055,
+             "Corpus A, n=331 · Revistas harmonizadas por ISSN quando verificável",
+             ha="left", va="center", fontsize=7, color=CINZA)
+    grava(fig, "cap3-evolucao-anual")
 
 def v06_modelos():
     """Familias de modelos, com o nao extraido a vista e nao escondido."""

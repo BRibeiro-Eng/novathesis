@@ -309,22 +309,24 @@ o campo mais próximo da SQ1, só têm valor concordante em 162: em 118 as duas
 extrações divergem e em 51 só uma produziu valor utilizável. Os 169 casos por
 resolver são 51,1\% do corpus.
 
-\novo{A concordância é avaliada sobre a forma normalizada e não sobre a
-resposta em bruto: nos campos em texto livre, as respostas passam primeiro
-pelo vocabulário controlado que serve a derivação --- os quinze setores de
-atividade, os nomes de país da ISO~3166 --- e só depois se comparam. É assim
-que \emph{automotive sector} e \emph{automotive manufacturing sector}, ou
-\emph{Ecuador} e \emph{coast of Ecuador}, contam como o mesmo valor. Exige-se
-igualdade exata da forma normalizada. O balde residual do mapeador de
-setores não estabelece equivalência: dois textos que o mapeador não cobre
-caem ambos nesse balde sem que isso signifique que dizem o mesmo, e aí
-compara-se a resposta em bruto.}
+\novo{Parte do que estava por resolver era um artefacto do instrumento e não
+falta de informação. Nos campos em texto livre, a concordância era avaliada
+sobre a resposta em bruto, antes da normalização, pelo que duas escritas da
+mesma coisa --- \emph{automotive sector} e \emph{automotive manufacturing
+sector}, \emph{Ecuador} e \emph{coast of Ecuador} --- ficavam registadas como
+divergência e eram descartadas antes de chegarem ao vocabulário controlado
+que as teria unificado. A comparação passou a fazer-se sobre a forma
+normalizada, com as mesmas funções que já serviam a derivação: recuperaram-se
+56 classificações de setor e 34 de país, sem vocabulário novo nem adjudicação
+humana. Exige-se igualdade exata da forma normalizada, e o balde residual do
+mapeador de setores não estabelece equivalência, para que dois textos
+distintos que o mapeador não cobre não sejam dados como concordantes.}
 
-\novo{Nas variáveis que admitem vários valores, a exigência de igualdade
-exata é conservadora noutro sentido: em 91 das 118 divergências do campo das
-famílias de modelos as duas extrações partilham pelo menos uma família e
-diferem apenas na extensão da lista. A análise trata-as como não resolvidas,
-o que subestima a cobertura do campo em vez de a inflacionar.}
+\novo{Nas variáveis que admitem vários valores a mesma exigência é
+conservadora ao contrário: em 91 das 118 divergências do campo das famílias
+de modelos as duas extrações partilham pelo menos uma família e diferem
+apenas na extensão da lista. A análise continua a tratá-las como não
+resolvidas, o que subestima a cobertura do campo em vez de a inflacionar.}
 
 As distribuições seguintes descrevem o subconjunto concordante de cada campo,
 com o denominador explícito, e não tratam um valor em falta como ausência da
@@ -340,34 +342,41 @@ As 331 publicações vão de 1997 a 2026. São de 2015 ou posteriores 281
 (84,9\%) e de 2020 ou posteriores 168 (50,8\%); o máximo anual é 35, em 2020,
 seguido de 34 em 2025. O único registo de 2026 pertence a um ano coberto
 apenas até fevereiro. \alterado{A Figura~\ref{fig:evolucao-anual} mostra a
-distribuição anual por tipo de documento e as revistas mais frequentes.}
-\alterado{A forma da série descreve a literatura recuperada pelas expressões
-de pesquisa nas duas bases consultadas. Os marcos das normas ISO~50001:2011
-e ISO~50006:2014 contextualizam o período, mas a figura não permite atribuir
-às normas a evolução observada.}
+distribuição anual e o acumulado.} A forma da série descreve a literatura que estas
+expressões recuperam nestas duas bases: depende do vocabulário ISO, que só
+existe desde 2011, e da recuperação dos textos. Não mede, sozinha, o
+interesse do campo.
+
+São artigos de revista 214 publicações (64,7\%) e comunicações em
+conferência 117 (35,3\%). O peso das conferências descreve o conjunto e não
+diz nada sobre a qualidade de cada estudo. As 331 publicações repartem-se por
+194 designações de fonte. As dez mais frequentes reúnem 27,8\%: a
+\emph{Energies} tem 24, o \emph{Journal of Cleaner Production} 12 e a
+\emph{Energy} e a \emph{Energy Procedia} nove cada. É uma literatura
+dispersa, sem uma revista de referência.
 
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\textwidth]{gerado/cap3-evolucao-anual}
-  \caption[Evolução anual e revistas do Corpus A]{Publicações do Corpus~A,
-  1997--2026. (A) Distribuição anual por tipo de documento; a barra cinzenta
-  indica 2026, coberto apenas até fevereiro. As linhas tracejadas assinalam
-  as publicações da ISO~50001:2011 e da ISO~50006:2014 como marcos temporais,
-  sem estabelecer uma relação causal com a evolução observada. (B) Revistas
-  com pelo menos cinco artigos entre os 214 artigos de revista, após
-  harmonização das variantes verificadas por ISSN.}
+  \caption[Evolução anual das publicações do Corpus A]{Publicações do
+  Corpus~A por ano e acumuladas, 1997--2026. A barra de 2026 está a cinzento
+  porque a cobertura do ano é parcial: a pesquisa foi executada em fevereiro
+  de 2026 e o ano não pode ser lido como completo. A linha vertical marca a
+  publicação da ISO~50001:2011; o crescimento que se segue é consistente com
+  ela, mas a figura não estabelece a relação, porque a expressão de pesquisa
+  privilegia o vocabulário da norma.}
   \label{fig:evolucao-anual}
 \end{figure}
 
-São artigos de revista 214 publicações (64,7\%) e comunicações em
-conferência 117 (35,3\%). O peso das conferências descreve o conjunto e não
-diz nada sobre a qualidade de cada estudo. \alterado{Entre os 214 artigos de
-revista, contam-se 112 revistas depois de harmonizar as variantes verificadas
-por ISSN. Oitenta e três revistas surgem uma única vez; as nove com pelo menos
-cinco artigos reúnem 83 (38,8\%). A \emph{Energies} tem 24 artigos, o
-\emph{Journal of Cleaner Production} 12 e a \emph{Energy} e a
-\emph{Sustainability} nove cada. A distribuição é dispersa, sem uma revista
-dominante.}
+% [REV-2026-09-14][C3-V04][P2][FIGURA]
+\revisaotese{C3-V04}{P2}{FIGURA}
+{Fontes principais e dispersão da literatura}
+{Combinar \texttt{source.pdf} e \texttt{source\_concentration.pdf}
+numa figura de dois painéis: fontes mais frequentes e percentagem
+acumulada. Manter a tabela completa no Apêndice~C. Resolver variantes por
+ISSN quando possível; não apresentar a curva como demonstração da lei de
+Bradford.}%
+% [/REV-2026-09-14]
 
 \subsection{Estudos e contextos}
 
@@ -437,8 +446,8 @@ referência seja atualizada nem que a não estacionariedade seja tratada.
 \revisaotese{C3-V07}{P2}{FIGURA}
 {Matriz setor--modelo só com setores normalizados}
 {\nolinkurl{cross_sectors_derived__enpi_enb_model_types.pdf} tem hoje
-\novo{130} publicações sem setor derivado. Só inserir se a normalização do
-setor for revista; caso contrário, deixar no Apêndice~C e dizer no texto que a
+\novo{130} publicações sem setor derivado \novo{depois da normalização
+revista em \ref{sec:corpus-a}}. Só inserir se isso chegar; caso contrário, deixar no Apêndice~C e dizer no texto que a
 matriz não sustenta leitura por setor. O diagrama \texttt{alluvial.pdf}
 fica no apêndice.}%
 % [/REV-2026-09-14]
@@ -1123,3 +1132,4 @@ regressões sobre a carga e coeficientes de determinação calculados nos dados
 de ajuste. Saber se a referência ainda vale, onde foi medida, até onde se
 estende e se prevê o ano seguinte, é o que quase nenhum dos 39 estudos mostra.
 É esse o espaço que os capítulos seguintes ocupam.
+
