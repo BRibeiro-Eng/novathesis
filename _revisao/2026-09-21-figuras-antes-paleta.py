@@ -673,36 +673,26 @@ BIB = _first(["~/LocalResearch/Screening/level3_extraction/bibliometrics/results
 def tab_a(nome):
     return pd.read_csv(os.path.join(BIB, "tables", nome), encoding="utf-8-sig", index_col=0)
 
-# Paleta das figuras bibliometricas do Cap. 3 (2026-09-21). Rampa de azul
-# ardosia a ciano com um acento areia, na familia de tom do corFG usado nas
-# figuras 3.1 e 3.2 em TikZ, mas dessaturada para nao pesar ao lado delas.
-# Separacao verificada em todos os pares: pior caso dE 16,4 em visao normal e
-# 11,9 em protanopia, melhor do que a paleta anterior (15,3 e 10,7). O
-# cinzento e neutro de proposito: marca ausencia, nao e mais uma categoria.
-A3 = {"forte": "#2F6D96", "areia": "#C8964A",
-      "claro": "#5FB0D0", "ausente": "#CFCFCF"}
-
 def v02_cobertura():
     """Estado de extracao campo a campo: o denominador antes das distribuicoes."""
     d = tab_a("field_status.csv")
     rotulo = {"paper_type": "Tipo de documento", "multi_site": "Multi-instalação",
               "country_region": "País ou região", "sector_of_activity": "Setor",
               "type_of_organisation": "Tipo de organização", "ems_standard": "Norma de gestão",
-              "mv_protocol": "Protocolo de M&V", "regulatory_driver": "Motivação regulamentar",
+              "mv_protocol": "Protocolo de M\\&V", "regulatory_driver": "Motivação regulamentar",
               "enpi_enb_model_types": "Famílias de modelos",
               "complementary_methodologies": "Metodologias complementares"}
     cols = ["concordância IA; sem validação humana integral", "divergência IA por resolver",
             "uma única extração IA", "sem extração"]
     curto = ["concordância entre modelos", "divergência por resolver",
              "extração única", "sem extração"]
-    cores = [A3["forte"], A3["areia"], A3["claro"], A3["ausente"]]
+    cores = [COR["fuel_gas"], COR["vapor_24bar"], COR["energia_eletrica"], CINZA_C]
     d = d.loc[d[cols[0]].sort_values().index]
     fig, ax = plt.subplots(figsize=(14.0 * CM, 7.4 * CM))
     esq = np.zeros(len(d))
     for c, lab, cor in zip(cols, curto, cores):
         v = d[c].values
-        ax.barh(range(len(d)), v, left=esq, color=cor, label=lab, height=0.68,
-                edgecolor="white", linewidth=0.6)
+        ax.barh(range(len(d)), v, left=esq, color=cor, label=lab, height=0.68)
         esq = esq + v
     ax.set_yticks(range(len(d)))
     ax.set_yticklabels([rotulo.get(i, i) for i in d.index])
@@ -719,7 +709,7 @@ def v03_evolucao():
     d = tab_a("annual.csv"); d.index = d.index.astype(int)
     fig, axs = plt.subplots(1, 2, figsize=(15.0 * CM, 5.6 * CM))
     ax = axs[0]
-    cores = [A3["ausente"] if a == 2026 else A3["forte"] for a in d.index]
+    cores = [CINZA_C if a == 2026 else COR["fuel_gas"] for a in d.index]
     ax.bar(d.index, d.n, color=cores, width=0.75)
     ax.axvline(2011, color=CINZA, lw=0.8, ls=(0, (4, 2)), zorder=1)
     ax.annotate("ISO 50001", (2011, ax.get_ylim()[1] * 0.96), rotation=90,
@@ -727,9 +717,9 @@ def v03_evolucao():
     ax.set_title("Publicações por ano", loc="left")
     ax.set_xlabel("ano de publicação"); ax.set_ylabel("publicações")
     ax = axs[1]
-    ax.plot(d.index, d.cumulative, color=A3["forte"], marker="o", ms=2.2)
+    ax.plot(d.index, d.cumulative, color=COR["fuel_gas"], marker="o", ms=2.2)
     ax.scatter([d.index[-1]], [d.cumulative.iloc[-1]], s=14, facecolor="white",
-               edgecolor=A3["forte"], lw=0.9, zorder=4)
+               edgecolor=COR["fuel_gas"], lw=0.9, zorder=4)
     ax.set_title("Acumulado", loc="left")
     ax.set_xlabel("ano de publicação"); ax.set_ylabel("publicações")
     for a in axs:
@@ -748,7 +738,7 @@ def v06_modelos():
               "SEC mean": "Média do consumo específico", "other": "Outra",
               "composite index": "Índice composto", "process integration": "Integração de processo"}
     d = d.sort_values("n")
-    cores = [A3["ausente"] if i.startswith("Por resolver") else A3["forte"] for i in d.index]
+    cores = [CINZA_C if i.startswith("Por resolver") else COR["fuel_gas"] for i in d.index]
     fig, ax = plt.subplots(figsize=(13.0 * CM, 6.6 * CM))
     b = ax.barh(range(len(d)), d.n, color=cores, height=0.68)
     ax.set_yticks(range(len(d))); ax.set_yticklabels([rotulo.get(i, i) for i in d.index])

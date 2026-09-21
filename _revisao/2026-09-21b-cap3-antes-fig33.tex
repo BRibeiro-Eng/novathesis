@@ -276,28 +276,6 @@ A falta de metadados externos não exclui ninguém: publicações sem DOI ou
 sem correspondência ficam no conjunto. As contagens de citações das duas
 fontes não se fundem.
 
-\alterado{A Figura~\ref{fig:cobertura-campos} fixa o denominador das
-distribuições que se seguem: dá, campo a campo, o estado de extração nas
-331 publicações do Corpus~A.}
-
-%% 2026-09-21: a figura passou para o fim da 3.3.1, antes da 3.3.2, para
-%% imprimir na mesma pagina em que e anunciada e antes das distribuicoes.
-%% Com [tbp] e declarada depois do texto da 3.3.2, caia no topo da pagina
-%% seguinte, ja depois de a 3.3.3 ter comecado -- e a legenda afirmava uma
-%% ordem que a paginacao contradizia. A frase que a legenda tinha sobre isso
-%% passou para o corpo, onde a referencia cruzada tem de estar.
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.93\textwidth]{gerado/cap3-cobertura-campos}
-  \caption[Estado de extração campo a campo no Corpus A]{Estado de extração
-  de cada campo nas 331 publicações do Corpus~A. Concordância entre modelos
-  significa que duas extrações independentes deram o mesmo valor --- não é
-  validação humana nem classificação adjudicada. As famílias de modelos, o
-  setor e o país são os campos com menos cobertura, e é por isso que os
-  resultados dessas secções se leem sobre denominadores menores do que 331.}
-  \label{fig:cobertura-campos}
-\end{figure}
-
 \subsection{Cobertura dos campos extraídos}
 
 Nos campos lidos do texto integral, a análise usa os valores concordantes
@@ -315,13 +293,26 @@ campos não foi realizada (Apêndice~\ref{app:protocolo-sr}), e um
 contexto pouco representado descreve a cobertura deste corpus, não a
 inexistência de métodos nesse contexto.
 
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.93\textwidth]{gerado/cap3-cobertura-campos}
+  \caption[Estado de extração campo a campo no Corpus A]{Estado de extração
+  de cada campo nas 331 publicações do Corpus~A. A figura vem antes das
+  distribuições de propósito: é ela que fixa o denominador de cada uma.
+  Concordância entre modelos significa que duas extrações independentes deram
+  o mesmo valor --- não é validação humana nem classificação adjudicada. As
+  famílias de modelos, o setor e o país são os campos com menos cobertura, e
+  é por isso que os resultados dessas secções se leem sobre denominadores
+  menores do que 331.}
+  \label{fig:cobertura-campos}
+\end{figure}
+
 \subsection{Evolução temporal e fontes}
 
 As 331 publicações vão de 1997 a 2026. São de 2015 ou posteriores 281
 (84,9\%) e de 2020 ou posteriores 168 (50,8\%); o máximo anual é 35, em 2020,
 seguido de 34 em 2025. O único registo de 2026 pertence a um ano coberto
-apenas até fevereiro. \alterado{A Figura~\ref{fig:evolucao-anual} mostra a
-distribuição anual e o acumulado.} A forma da série descreve a literatura que estas
+apenas até fevereiro. A forma da série descreve a literatura que estas
 expressões recuperam nestas duas bases: depende do vocabulário ISO, que só
 existe desde 2011, e da recuperação dos textos. Não mede, sozinha, o
 interesse do campo.
@@ -398,8 +389,6 @@ categorias não são exclusivas. Um rácio ou uma média de consumos específico
 aparece em 90 das 162 publicações e uma regressão em 80; 47 usam só rácios
 ou médias, sem nenhum modelo ajustado. A presença de duas famílias no mesmo
 artigo não quer dizer que tenham sido comparadas nem combinadas.
-\alterado{A Figura~\ref{fig:familias-modelos} ordena as famílias e põe na
-mesma escala as publicações cujo campo ficou por resolver.}
 
 A diferença entre as duas primeiras famílias é o que interessa a esta
 dissertação. \revisto{Um rácio divide o consumo pela produção. Usá-lo como normalizador invariável à carga pressupõe proporcionalidade entre as duas grandezas, sem termo constante relevante; a mera divisão não testa esse pressuposto.} Uma regressão
