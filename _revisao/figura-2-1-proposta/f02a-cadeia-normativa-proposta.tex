@@ -1,0 +1,100 @@
+%% Proposta visual: alteracao da composicao, sem revisao do conteudo.
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[x=1cm,y=1cm,
+    elo/.style={ntcaixa,minimum width=6.15cm,minimum height=1.0cm,inner sep=0pt},
+    foco/.style={elo,draw=corFG,line width=.7pt,fill=corFG!6},
+    titulo/.style={anchor=west,align=left,text=corTinta,font=\fontsize{8.5}{10}\selectfont,inner sep=0pt,text width=4.85cm},
+    clausula/.style={anchor=west,align=left,text=corCinza,font=\fontsize{6.7}{8}\selectfont,inner sep=0pt},
+    numero/.style={circle,minimum size=5.1mm,inner sep=0pt,draw=corCinzaC,line width=.4pt,fill=white,text=corCinza,font=\fontsize{8}{9}\selectfont},
+    hipotese/.style={anchor=west,align=left,text=corTinta,font=\fontsize{8.2}{10.5}\selectfont,inner sep=0pt,text width=5.15cm}]
+
+    % A mesma paleta e os mesmos contornos da Figura 1.1.
+    \begin{scope}[on background layer]
+      \fill[corFundo,rounded corners=2pt] (.70,-7.92) rectangle (7.12,1.13);
+      \draw[corCinzaC,line width=.5pt,rounded corners=2pt]
+        (7.48,-7.92) rectangle (13.95,1.13);
+    \end{scope}
+    \node[titulo,font=\scriptsize\bfseries,text width=5.5cm] at (.99,.79)
+      {Elos da cadeia};
+    \node[titulo,font=\scriptsize\bfseries,text width=5.85cm] at (7.78,.79)
+      {Pressuposto tácito que o elo importa};
+    \draw[corCinzaC,line width=.35pt] (.99,.51) -- (6.82,.51);
+    \draw[corCinzaC,line width=.35pt] (7.78,.51) -- (13.65,.51);
+
+    % Sete passos; numeros separados dos titulos e alturas constantes.
+    \foreach \i/\y in {1/-.17,2/-1.34,3/-2.51,4/-3.68,6/-6.02}
+      \node[elo] (n\i) at (3.91,\y) {};
+    \foreach \i/\y in {5/-4.85,7/-7.19}
+      \node[foco] (n\i) at (3.91,\y) {};
+
+    \foreach \i in {1,2,3,4,5,6,7}
+      \node[numero] at ([xshift=4.5mm]n\i.west) {\i};
+    \foreach \i in {5,7}
+      \node[numero,draw=corFG,text=corFG] at ([xshift=4.5mm]n\i.west) {\i};
+
+    \node[titulo] at ([xshift=9mm,yshift=1.45mm]n1.west)
+      {Avaliação energética};
+    \node[clausula] at ([xshift=9mm,yshift=-2.20mm]n1.west)
+      {50001 \S6.3};
+    \node[titulo] at ([xshift=9mm,yshift=1.45mm]n2.west)
+      {USE e fronteiras};
+    \node[clausula] at ([xshift=9mm,yshift=-2.20mm]n2.west)
+      {50001 \S6.3 · 50006 \S4.2.2};
+    \node[titulo,font=\fontsize{8.5}{9}\selectfont] at ([xshift=9mm,yshift=1.65mm]n3.west)
+      {Variáveis relevantes\\e fatores estáticos};
+    \node[clausula] at ([xshift=9mm,yshift=-3.55mm]n3.west)
+      {50001 \S6.3 · 50006 \S4.2.4--4.2.5};
+    \node[titulo] at ([xshift=9mm,yshift=1.45mm]n4.west)
+      {EnPI: tipo e forma};
+    \node[clausula] at ([xshift=9mm,yshift=-2.20mm]n4.west)
+      {50001 \S6.4 · 50006 \S4.3};
+    \node[titulo] at ([xshift=9mm,yshift=1.45mm]n5.west)
+      {EnB: período e modelo};
+    \node[clausula] at ([xshift=9mm,yshift=-2.20mm]n5.west)
+      {50001 \S6.5 · 50006 \S4.4};
+    \node[titulo] at ([xshift=9mm,yshift=1.45mm]n6.west)
+      {Comparação normalizada};
+    \node[clausula] at ([xshift=9mm,yshift=-2.20mm]n6.west)
+      {50001 \S6.5 · 50006 \S4.5, Anexo~D};
+    \node[titulo] at ([xshift=9mm,yshift=1.45mm]n7.west)
+      {Desvio significativo $\to$ ação};
+    \node[clausula] at ([xshift=9mm,yshift=-2.20mm]n7.west)
+      {50001 \S9.1, \S10};
+
+    \foreach \a/\b in {1/2,2/3,3/4,4/5,5/6,6/7}
+      \draw[ntseta] (n\a.south) -- (n\b.north);
+
+    % Os dois primeiros elos nao tinham pressuposto atribuido no original.
+    \foreach \i in {1,2}
+      \node[hipotese,text=corCinzaC] at (7.96,0 |- n\i.center) {---};
+    \foreach \i/\txt in {
+      3/{suficiência das variáveis},
+      4/{forma funcional adequada},
+      5/{representatividade do período},
+      6/{transportabilidade:\\estacionariedade da relação},
+      7/{calibração e detetabilidade}}
+    {
+      \draw[corCinzaC,line width=.45pt] (n\i.east) -- (7.80,0 |- n\i.center);
+      \fill[corCinza] (7.80,0 |- n\i.center) circle (1.0pt);
+      \node[hipotese] at (7.96,0 |- n\i.center) {\txt};
+    }
+
+    % Retroacao mais afastada das caixas e com rotulo legivel.
+    \draw[ntsetat,rounded corners=2pt] (n7.west) -- (.22,0 |- n7.west)
+      -- (.22,0 |- n5.west) -- (n5.west);
+    \node[ntrot,rotate=90,anchor=south,font=\fontsize{7}{8}\selectfont]
+      at (.05,-6.02) {revisão do EnB};
+  \end{tikzpicture}
+  \caption[A cadeia de medição normativa e os seus pressupostos tácitos]{A
+   cadeia de medição implícita na família ISO~50001 e, à direita, o
+   pressuposto tácito que cada elo importa para funcionar. Os elos e as
+   cláusulas são texto normativo; a cadeia e os pressupostos são reconstrução
+   desta dissertação, que nenhuma das normas enuncia. A azul, os dois elos
+   sobre que incide o diagnóstico do Capítulo~\ref{cha:diagnostico}. À
+   esquerda, a tracejado, a retroação: a revisão da referência (ISO~50001,
+   \S6.5; ISO~50006, \S4.6), que a norma prevê sem fornecer um mecanismo de
+   deteção. Reconstrução própria a partir
+   de \cite{ISO50001_2018,ISO50006_2014,ISO50015_2014}.}
+  \label{fig:cadeia-normativa}
+\end{figure}

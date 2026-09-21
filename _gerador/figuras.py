@@ -682,6 +682,29 @@ def tab_a(nome):
 A3 = {"forte": "#2F6D96", "areia": "#C8964A",
       "claro": "#5FB0D0", "ausente": "#CFCFCF"}
 
+# Paleta categorica do Cap. 3 (P3, 2026-09-21). A A3 acima e uma rampa: os
+# seus quatro passos sao um gradiente de qualidade (concordancia, divergencia,
+# extracao unica, sem extracao) e a ordem tem sentido. A P3 e o oposto --
+# identidade, nao grandeza -- e por isso usa matizes distintos e nao passos de
+# um azul. Azul, azul claro, verde e laranja no mesmo registo tonal
+# (OKLCH L 0,60-0,75, C 0,101-0,105), dessaturados para nao pesarem ao lado
+# das figuras em TikZ do 3.2.
+#
+# Validada com scripts/validate_palette.js --mode light --pairs all: passa a
+# banda de luminancia, o piso de croma, a separacao em visao normal (pior par
+# dE 15,1) e em daltonismo (pior par dE 8,7 deuteranopia, 8,6 tritanopia). O
+# unico aviso e o contraste com o fundo, que obriga a rotulos visiveis -- as
+# legendas trazem a contagem de cada grupo, pelo que a identidade nunca
+# depende so da cor.
+#
+# QUATRO e o limite, nao uma escolha. Neste registo dessaturado a procura por
+# uma paleta de seis matizes nao encontra nenhuma que passe: o quinto e o
+# sexto passo obrigam a abrir a amplitude de luminancia para 0,26 e a croma
+# para 0,125, e ai deixa de ser o mesmo registo. Uma figura que precise de
+# mais de quatro categorias tem de as agrupar, nao de as pintar.
+P3 = ["#278CB1", "#65B9E7", "#6FAC74", "#AF6F43"]
+P3_VAZIO = "#A9A9A9"   # bordo do quadrado oco: ausencia le-se como vazio
+
 def v02_cobertura():
     """Estado de extracao campo a campo: o denominador antes das distribuicoes."""
     d = tab_a("field_status.csv")
@@ -795,50 +818,67 @@ def v05_estudos():
     Escolhido em vez das barras empilhadas porque o que a subseccao afirma --
     que a literatura e uma coleccao de casos isolados -- e uma afirmacao sobre
     quantas das 331 publicacoes sao o que, e um quadrado por publicacao torna
-    isso literal. O por resolver e quadrado vazio e nao um tom da rampa:
-    ausencia le-se melhor como vazio, e um cinzento claro ficaria a dE 5,4 do
-    ultimo passo da rampa, indistinguivel em visao normal.
+    isso literal. O por resolver e quadrado vazio e nao mais uma cor: ausencia
+    le-se melhor como vazio, e nao e uma categoria a par das outras.
+
+    Revisao 2026-09-21. As categorias passam de seis para quatro por painel,
+    agrupadas por sentido e nao por contagem, e a paleta passa da rampa A3
+    para a P3. Tres razoes, todas a mesma: seis matizes nao se distinguem no
+    registo dessaturado do capitulo (ver a nota da P3), quatro das seis
+    categorias valiam menos de 6% do corpus cada uma, e a legenda de sete
+    entradas ocupava mais altura do que a propria grelha. As seis categorias
+    originais continuam todas no texto corrido, com as contagens exactas.
     """
     from matplotlib.patches import Rectangle
     papers = _dataset(); n = len(papers)
     campos = [
-        ("Tipo de estudo", "paper_type", {
-            "single applied case": "Caso aplicado único", "multi-case study": "Estudo multi-caso",
-            "review/synthesis": "Revisão ou síntese", "tool/software design": "Ferramenta ou software",
-            "methodological/theoretical": "Metodológico ou teórico",
-            "maturity model or framework": "Modelo de maturidade"}),
-        ("Tipo de organização", "type_of_organisation", {
-            "discrete manufacturing": "Manufatura discreta", "continuous process": "Processo contínuo",
-            "buildings": "Edifícios", "mixed": "Contextos mistos", "services": "Serviços",
-            "not specified": "Não especificado"}),
+        ("Tipo de estudo", "paper_type", [
+            ("Caso aplicado \u00fanico", ["single applied case"]),
+            ("Estudo multi-caso", ["multi-case study"]),
+            ("Revis\u00e3o ou ferramenta", ["review/synthesis", "tool/software design"]),
+            ("M\u00e9todo ou maturidade", ["methodological/theoretical",
+                                       "maturity model or framework"])]),
+        ("Tipo de organiza\u00e7\u00e3o", "type_of_organisation", [
+            ("Manufatura discreta", ["discrete manufacturing"]),
+            ("Processo cont\u00ednuo", ["continuous process"]),
+            ("Edif\u00edcios", ["buildings"]),
+            ("Servi\u00e7os e outros", ["services", "mixed", "not specified"])]),
     ]
-    COLS, rampa = 19, ["#1F4E6E", "#2F6D96", "#4E8FB5", "#7DB3CF", "#A9CDE0", "#CFE3EE"]
-    fig, axs = plt.subplots(1, 2, figsize=(15.5 * CM, 9.2 * CM))
-    for ax, (titulo, campo, rot) in zip(axs, campos):
-        import collections
-        c = collections.Counter()
+    COLS, PASSO, LADO = 26, 1.30, .82
+    VAZIO = "Por resolver"
+    fig, axs = plt.subplots(1, 2, figsize=(15.5 * CM, 6.0 * CM))
+    for ax, (titulo, campo, grupos) in zip(axs, campos):
+        idx = {v: r for r, vs in grupos for v in vs}
+        c = dict([(r, 0) for r, _ in grupos] + [(VAZIO, 0)])
         for v in papers[campo]:
             vals = _lst(v)
-            c[rot.get(vals[0], vals[0]) if vals else PENDENTE] += 1
-        assert sum(c.values()) == n
-        ordem = [k for k, _ in c.most_common() if k != PENDENTE] + [PENDENTE]
-        cor = {k: ("none" if k == PENDENTE else rampa[i % len(rampa)]) for i, k in enumerate(ordem)}
-        bordo = {k: ("#A9A9A9" if k == PENDENTE else "white") for k in ordem}
+            c[idx.get(vals[0], VAZIO) if vals else VAZIO] += 1
+        assert sum(c.values()) == n, c
+        ordem = [r for r, _ in grupos] + [VAZIO]
+        cor = dict([(r, P3[i]) for i, (r, _) in enumerate(grupos)] + [(VAZIO, "none")])
+        bordo = dict([(r, "white") for r, _ in grupos] + [(VAZIO, P3_VAZIO)])
         seq = [k for k in ordem for _ in range(c[k])]
         for i, k in enumerate(seq):
-            ax.add_patch(Rectangle((i % COLS, -(i // COLS)), .84, .84,
-                                   facecolor=cor[k], edgecolor=bordo[k], linewidth=.45))
+            ax.add_patch(Rectangle((i % COLS, -(i // COLS)), LADO, LADO,
+                                   facecolor=cor[k], edgecolor=bordo[k], linewidth=.4))
         linhas = int(np.ceil(n / COLS))
-        ax.set_xlim(-.4, COLS + .2); ax.set_ylim(-linhas + .2, 1.4)
-        ax.set_aspect("equal"); ax.axis("off")
-        ax.set_title(titulo, loc="left", fontsize=8.5, color=TINTA, pad=6)
+        # Legenda em duas colunas por baixo da grelha e dentro dos limites do
+        # eixo: em coluna unica sao cinco linhas e a legenda passa a valer um
+        # terco da altura da figura.
+        topo = -linhas - .9
         for j, k in enumerate(ordem):
-            yy = -linhas - .8 - j * 1.25
-            ax.add_patch(Rectangle((0, yy), .84, .84, facecolor=cor[k],
-                                   edgecolor=bordo[k], linewidth=.45, clip_on=False))
-            ax.text(1.25, yy + .42, "%s \u2014 %s" % (k, pt(c[k])), va="center", fontsize=7,
-                    color=TINTA if k != PENDENTE else CINZA, clip_on=False)
-    fig.tight_layout()
+            xx = (j % 2) * (COLS / 2. + .4)
+            yy = topo - (j // 2) * PASSO
+            ax.add_patch(Rectangle((xx, yy), LADO, LADO, facecolor=cor[k],
+                                   edgecolor=bordo[k], linewidth=.4))
+            ax.text(xx + 1.15, yy + LADO / 2., u"%s \u2014 %s" % (k, pt(c[k])),
+                    va="center", fontsize=6.6,
+                    color=TINTA if k != VAZIO else CINZA)
+        fundo = topo - ((len(ordem) - 1) // 2) * PASSO
+        ax.set_xlim(-.4, COLS + .4); ax.set_ylim(fundo - .5, 1.4)
+        ax.set_aspect("equal"); ax.axis("off")
+        ax.set_title(titulo, loc="left", fontsize=8.5, color=TINTA, pad=3)
+    fig.tight_layout(pad=.35, w_pad=.6)
     grava(fig, "cap3-estudos-contextos")
 
 

@@ -1,0 +1,39 @@
+% Esquema de pertença e função; as áreas não são proporcionais às contagens.
+\begin{tikzpicture}[x=1cm,y=1cm,
+ titulo/.style={anchor=west,align=left,text=corTinta,font=\fontsize{8.5}{10}\selectfont,inner sep=0pt},
+ detalhe/.style={titulo,text=corCinza,font=\fontsize{7.5}{10}\selectfont},
+ pergunta/.style={titulo,font=\fontsize{8.2}{11}\selectfont,text width=6.6cm}]
+ \begin{scope}[on background layer]
+  \fill[corFundo,rounded corners=2pt] (0,0) rectangle (8.6,7.35);
+  \draw[corCinzaC,line width=.5pt,rounded corners=2pt] (9.0,0) rectangle (13.4,7.35);
+ \end{scope}
+ \node[titulo,font=\scriptsize\bfseries] at (.3,7.00) {Revisão da literatura};
+ \node[titulo,font=\scriptsize\bfseries] at (9.3,7.00) {Avaliação em Sines};
+ \draw[corCinzaC,line width=.35pt] (.3,6.72) -- (8.3,6.72);
+ \draw[corCinzaC,line width=.35pt] (9.3,6.72) -- (13.1,6.72);
+ \draw[corCinza,line width=.5pt,rounded corners=1.2pt,fill=white] (.3,.32) rectangle (8.3,6.47);
+ \node[titulo,font=\fontsize{10}{12}\selectfont\bfseries] at (.65,6.03) {Corpus A};
+ \node[titulo,text=corFG,font=\fontsize{10}{12}\selectfont,anchor=east] at (7.96,6.03) {$n=331$};
+ \node[detalhe] at (.65,5.56) {Publicações elegíveis, qualquer setor};
+ \node[pergunta] at (.65,4.99) {\textbf{SQ1}\enspace Distribuição dos modelos por contexto\\e enquadramento normativo};
+
+ \draw[corFG,line width=.7pt,rounded corners=1.2pt,fill=corFG!6] (.65,2.14) rectangle (7.95,4.44);
+ \node[titulo,text=corFG,font=\fontsize{9}{11}\selectfont\bfseries] at (1.00,4.02) {Corpus B};
+ \node[titulo,text=corFG,font=\fontsize{9}{11}\selectfont,anchor=east] at (7.60,4.02) {$n=40$};
+ \node[detalhe,text width=6.6cm] at (1.00,3.53) {Processos contínuos dos setores pré-registados};
+ \node[pergunta] at (1.00,3.02) {\textbf{SQ2--SQ3}\enspace Mecanismos de inadequação\\e adaptações propostas};
+ \node[detalhe] at (1.00,2.40) {39 publicações cartografadas};
+
+ \draw[corCinzaC,line width=.45pt,dash pattern=on 2pt off 1.4pt,rounded corners=1.2pt,fill=corFundo] (.65,.68) rectangle (7.95,1.75);
+ \node[titulo] at (1.00,1.38) {Casos exploratórios \enspace $n=13$};
+ \node[detalhe] at (1.00,.96) {Setores fora da lista; não entram nas contagens de B};
+
+ \node[titulo,font=\fontsize{9}{11}\selectfont\bfseries,text width=3.6cm] at (9.4,5.94) {Caso de estudo\\industrial};
+ \node[detalhe,text width=3.55cm] at (9.4,5.25) {Componente empírica\\separada da revisão};
+ \foreach \i/\y/\a/\b in {1/4.18/Construir/Plataforma e dados,2/2.87/Diagnosticar/Baselines em produção,3/1.56/Prescrever/Linhas orientadoras}
+ {
+  \node[circle,minimum size=5.1mm,inner sep=0pt,draw=corCinzaC,line width=.4pt,fill=white,text=corCinza,font=\fontsize{8}{9}\selectfont] at (9.65,\y) {\i};
+  \node[titulo,font=\fontsize{8.5}{10}\selectfont\bfseries] at (10.10,\y+.12) {\a};
+  \node[detalhe,text width=2.8cm] at (10.10,\y-.30) {\b};
+ }
+\end{tikzpicture}

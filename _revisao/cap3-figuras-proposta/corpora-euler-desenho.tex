@@ -1,0 +1,41 @@
+% Diagrama de Euler: B e casos exploratórios contidos em A, sem interseção.
+% Áreas esquemáticas, não proporcionais ao número de publicações.
+\begin{tikzpicture}[x=1cm,y=1cm,
+  rot/.style={align=center,text=corTinta,inner sep=0pt,font=\fontsize{8.5}{11}\selectfont},
+  detalhe/.style={rot,text=corCinza,font=\fontsize{7.5}{10}\selectfont}]
+  \node[rot,font=\fontsize{8}{10}\selectfont\bfseries] at (4.2,8.12) {Revisão da literatura};
+  \draw[fill=corFundo,draw=corCinza,line width=.6pt] (4.2,4.22) circle[radius=3.75];
+  \node[rot,font=\fontsize{11}{13}\selectfont\bfseries] at (4.2,7.08) {Corpus A};
+  \node[rot,font=\fontsize{10}{12}\selectfont] at (4.2,6.60) {$n=331$};
+  \node[detalhe] at (4.2,6.13) {Publicações elegíveis, qualquer setor};
+
+  \draw[draw=corFG,fill=corFG!6,line width=.8pt] (3.05,3.85) circle[radius=1.84];
+  \node[rot,text=corFG,font=\fontsize{10}{12}\selectfont\bfseries] at (3.05,5.18) {Corpus B};
+  \node[rot,text=corFG,font=\fontsize{10}{12}\selectfont] at (3.05,4.75) {$n=40$};
+  \node[detalhe] at (3.05,4.23) {Processos contínuos\\dos setores pré-registados};
+  \node[rot,font=\fontsize{8.5}{11}\selectfont\bfseries] at (3.05,3.65) {SQ2--SQ3};
+  \node[rot,font=\fontsize{7.3}{9}\selectfont] at (3.05,2.93) {Mecanismos de inadequação\\e adaptações\\propostas};
+  \node[detalhe,font=\fontsize{6.5}{8}\selectfont] at (3.05,2.26) {39 cartografadas};
+
+  \draw[draw=corCinza,fill=white,line width=.5pt,dash pattern=on 2pt off 1.5pt] (6.12,3.69) circle[radius=1.03];
+  \node[rot,font=\fontsize{7.8}{10}\selectfont] at (6.12,4.10) {Casos\\exploratórios};
+  \node[rot,font=\fontsize{10}{12}\selectfont] at (6.12,3.52) {$n=13$};
+  \node[detalhe,font=\fontsize{6.7}{8}\selectfont] at (6.12,3.08) {Fora de B};
+
+  \node[rot,font=\fontsize{8.5}{11}\selectfont\bfseries] at (4.2,1.99) {SQ1};
+  \node[rot,font=\fontsize{7.3}{9}\selectfont] at (4.2,1.30) {Distribuição dos modelos\\por contexto e\\enquadramento normativo};
+
+  \draw[corCinzaC,line width=.4pt] (8.40,1.0) -- (8.40,7.46);
+  \node[rot,font=\fontsize{8}{10}\selectfont\bfseries] at (10.7,8.12) {Avaliação em Sines};
+  \draw[draw=corCinzaC,fill=white,line width=.5pt,rounded corners=3pt] (8.88,2.05) rectangle (12.55,6.55);
+  \node[rot,font=\fontsize{9}{11}\selectfont\bfseries] at (10.715,6.02) {Caso de estudo\\industrial};
+  \node[detalhe] at (10.715,5.27) {Componente empírica\\distinta da revisão};
+  \draw[corCinzaC,line width=.35pt] (9.25,4.78) -- (12.18,4.78);
+  \node[rot,font=\fontsize{8.5}{10}\selectfont\bfseries] at (10.715,4.39) {Construir};
+  \node[detalhe] at (10.715,4.04) {Plataforma e dados};
+  \node[rot,font=\fontsize{8.5}{10}\selectfont\bfseries] at (10.715,3.58) {Diagnosticar};
+  \node[detalhe] at (10.715,3.23) {Baselines em produção};
+  \node[rot,font=\fontsize{8.5}{10}\selectfont\bfseries] at (10.715,2.77) {Prescrever};
+  \node[detalhe] at (10.715,2.42) {Linhas orientadoras};
+  \node[detalhe,font=\fontsize{6.5}{8}\selectfont,anchor=west] at (.55,.03) {Áreas esquemáticas, não proporcionais às contagens.};
+\end{tikzpicture}

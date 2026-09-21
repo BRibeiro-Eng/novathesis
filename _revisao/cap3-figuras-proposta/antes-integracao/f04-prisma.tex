@@ -1,0 +1,65 @@
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm, font=\scriptsize,
+      pb/.style={ntcaixa, text width=6.2cm, align=left, minimum height=10mm},
+      px/.style={ntcaixa, text width=5.2cm, align=left, minimum height=10mm,
+                 fill=corFundo},
+      fase/.style={font=\scriptsize\bfseries, text=corTinta, rotate=90,
+                   align=center}]
+    \node[pb] (i1) at (4.05,0)
+      {Registos identificados nas bases ($n=1\,478$)\\[1pt]
+       {\tiny Scopus $n=954$ \quad Web of Science $n=524$}};
+    \node[px] (x1) at (11.15,0)
+      {Registos removidos antes da triagem\\[1pt]
+       {\tiny duplicados $n=553$}};
+    \draw[ntseta] (i1) -- (x1);
+
+    \node[pb] (i2) at (4.05,-1.85)
+      {Registos triados por título e resumo\\ ($n=925$)};
+    \node[px] (x2) at (11.15,-1.85)
+      {Registos excluídos ($n=326$)\\[1pt]
+       {\tiny fora de âmbito na triagem}};
+    \draw[ntsetaf] (i1) -- (i2);
+    \draw[ntseta] (i2) -- (x2);
+
+    \node[pb] (i3) at (4.05,-3.55)
+      {Relatórios procurados para recuperação\\ ($n=599$)};
+    \node[px] (x3) at (11.15,-3.55)
+      {Relatórios não recuperados ($n=137$)\\[1pt]
+       {\tiny duplicados detetados tardiamente $n=3$}};
+    \draw[ntsetaf] (i2) -- (i3);
+    \draw[ntseta] (i3) -- (x3);
+
+    \node[pb] (i4) at (4.05,-5.35)
+      {Relatórios avaliados para elegibilidade\\ ($n=459$)};
+    \node[px, minimum height=14mm] (x4) at (11.15,-5.35)
+      {Relatórios excluídos ($n=128$)\\[1pt]
+       {\tiny sem modelo de \emph{baseline} $n=117$}\\
+       {\tiny idioma não elegível $n=10$ \quad retratação $n=1$}};
+    \draw[ntsetaf] (i3) -- (i4);
+    \draw[ntseta] (i4) -- (x4);
+
+    \node[pb, draw=corFG, line width=.7pt, fill=corFG!7, minimum height=14mm] (i5)
+      at (4.05,-7.35)
+      {\textbf{Estudos incluídos --- Corpus~A ($n=331$)}\\[1pt]
+       {\tiny Corpus~B, cartografia detalhada: $n=40$ ($39$ cartografados)}\\
+       {\tiny casos exploratórios tratados à parte: $n=13$}};
+    \draw[ntsetaf] (i4) -- (i5);
+
+    \node[fase] at (0.35,0) {Identificação};
+    \node[fase] at (0.35,-3.60) {Triagem};
+    \node[fase] at (0.35,-7.35) {Inclusão};
+    \draw[corCinzaC, line width=.5pt] (0.80,0.55) -- (0.80,-0.55);
+    \draw[corCinzaC, line width=.5pt] (0.80,-1.30) -- (0.80,-5.95);
+    \draw[corCinzaC, line width=.5pt] (0.80,-6.65) -- (0.80,-8.05);
+  \end{tikzpicture}
+  \caption[Fluxograma PRISMA 2020 da seleção de estudos]%
+  {Fluxograma PRISMA~2020 da identificação, triagem e inclusão de estudos.
+   Não há caixa de rastreio de referências: a pesquisa em bola de neve foi
+   registada no protocolo mas não executada (decisão~D9,
+   Apêndice~\ref{app:protocolo-sr}). O Corpus~B é um subconjunto do
+   Corpus~A, escolhido para cartografia detalhada; os treze casos
+   exploratórios são tratados à parte e não entram nas contagens do
+   Corpus~A.}
+  \label{fig:prisma}
+\end{figure}
