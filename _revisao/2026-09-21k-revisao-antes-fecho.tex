@@ -47,8 +47,8 @@
 % marcas de uma vez, trocar a definicao activa pela neutra, logo abaixo.
 % (Nao se usa soul/\hl: rebenta com acentos, \ref e \cite em pdflatex.)
 \definecolor{corAlterado}{RGB}{176,0,132}
-%\newcommand{\alterado}[1]{{\color{corAlterado}#1}}
-\newcommand{\alterado}[1]{#1}   %% 2026-09-21: camada fechada, sem marcas
+\newcommand{\alterado}[1]{{\color{corAlterado}#1}}
+%\newcommand{\alterado}[1]{#1}   %% <- versao final, sem marcas
 % ---------------------------------------------------------------------
 
 % ---------------------------------------------------------------------
@@ -56,8 +56,8 @@
 % de correccoes (Secao 2.3.3, comparadores industriais e legais). Ciano,
 % para se distinguir do magenta das correccoes. Mesma logica de remocao.
 \definecolor{corNovo}{RGB}{0,122,163}
-%\newcommand{\novo}[1]{{\color{corNovo}#1}}
-\newcommand{\novo}[1]{#1}   %% 2026-09-21: camada fechada, sem marcas
+\newcommand{\novo}[1]{{\color{corNovo}#1}}
+%\newcommand{\novo}[1]{#1}   %% <- versao final, sem marcas
 % ---------------------------------------------------------------------
 
 % ---------------------------------------------------------------------
@@ -66,15 +66,6 @@
 % Roxo, para se distinguir do magenta (correccoes do Cap. 2) e do ciano
 % (material novo). Mesma logica de remocao.
 \definecolor{corRevisto}{RGB}{126,47,186}
-%\newcommand{\revisto}[1]{{\color{corRevisto}#1}}
-\newcommand{\revisto}[1]{#1}   %% 2026-09-21: camada fechada, sem marcas
+\newcommand{\revisto}[1]{{\color{corRevisto}#1}}
+%\newcommand{\revisto}[1]{#1}   %% <- versao final, sem marcas
 % ---------------------------------------------------------------------
-
-%% ---------------------------------------------------------------------
-%% Camada de fecho (2026-09-21). Laranja queimado: e a unica marca quente
-%% do documento, distinta das tres camadas anteriores (magenta, ciano,
-%% roxo) e da cor das referencias cruzadas. Para a versao final, trocar
-%% as duas linhas abaixo.
-\definecolor{corFecho}{RGB}{181,69,11}
-\newcommand{\fecho}[1]{{\color{corFecho}#1}}
-%\newcommand{\fecho}[1]{#1}   %% <- versao final, sem marcas

@@ -39,17 +39,6 @@ proporção indica o denominador e o nível de verificação, e as
 ausências são apresentadas como resultados de pesquisa no texto extraído,
 não como propriedades da literatura.
 
-\fecho{Importa precisar o que a concordância entre extrações é e não é. É uma
-regra de seleção do que entra na análise, não uma medida de fiabilidade: o
-protocolo registado usa-a para encaminhar a atenção humana e adverte
-expressamente que não seja tomada como evidência de correção, e é assim que
-aqui se usa. Daqui decorre um limite distinto do da cobertura. O subconjunto
-concordante não é uma amostra aleatória do corpus: os campos em que os dois
-modelos coincidem tendem a ser os que os artigos reportam com mais clareza,
-pelo que as distribuições do Capítulo descrevem a parte melhor reportada da
-literatura recuperada. Por isso, todas elas trazem o denominador e a categoria
-por resolver aparece desenhada em vez de omitida.}
-
 % A abertura do capítulo termina aqui. O espaço livre deve ficar no rodapé,
 % sem esticar os intervalos entre os três parágrafos desta página.
 \vfill
@@ -267,8 +256,10 @@ passar sem sinal.
 A análise combina bibliometria descritiva (produção, fontes, autoria,
 citações) com a distribuição de características extraídas do texto integral,
 segundo famílias de análise habituais no mapeamento
-científico~\cite{Aria2017Bibliometrix,VanEck2010VOSviewer}. \fecho{A produção e as fontes estão na Secção~\ref{sec:evolucao} e a
-geografia na Secção~\ref{sec:geografia}.}
+científico~\cite{Aria2017Bibliometrix,VanEck2010VOSviewer}. \novo{A produção e
+as fontes estão na Secção~\ref{sec:evolucao}, a geografia na
+Secção~\ref{sec:geografia}, e a autoria, a coautoria e as referências na
+Secção~\ref{sec:temas-colaboracao}.}
 
 A unidade de contagem é a publicação. Uma publicação pode descrever vários
 modelos ou várias instalações, e publicações diferentes podem descrever o
@@ -276,7 +267,8 @@ mesmo estudo, pelo que o número de publicações não é o número de casos nem
 de validações independentes. Nas variáveis que admitem várias categorias,
 cada publicação conta uma vez em cada categoria que lhe foi atribuída, e as
 percentagens podem somar mais de 100\%. \novo{Ao longo do capítulo, «campo»
-designa uma variável do formulário de extração.}
+designa uma variável do formulário de extração.} A localização dos casos é mantida
+separada do país de afiliação dos autores.
 
 Os metadados do ficheiro exportado foram completados com o OpenAlex e a
 Crossref a 13 de setembro de 2026~\cite{Priem2022OpenAlex,Crossref2026API},
@@ -349,35 +341,6 @@ campos não foi realizada (Apêndice~\ref{app:protocolo-sr}), e um
 contexto pouco representado descreve a cobertura deste corpus, não a
 inexistência de métodos nesse contexto.
 
-\fecho{Três observações sobre o instrumento ajudam a ler os números acima. A
-primeira: a extração única não está dispersa pelos campos, concentra-se em 51
-publicações em que uma das duas superfícies não devolveu praticamente nada do
-formulário --- 38 com o campo por preencher em nove dos dez campos e 13 em
-oito. É por isso que essa categoria vale exatamente 51 em oito dos dez campos
-da Figura~\ref{fig:cobertura-campos}, e o que ela mede é uma falha de
-instrumento e não uma característica das publicações.}
-
-\fecho{A segunda: a análise de palavras-chave não produz temas legíveis. Os
-grupos obtidos por otimização de modularidade reúnem, em dois casos, o
-vocabulário com que o corpus foi recuperado --- eficiência energética,
-indicador de desempenho energético, sistema de gestão de energia, ISO~50001
---- e encontrá-lo agrupado é consequência da expressão de pesquisa e não um
-resultado sobre a literatura; num terceiro caso reúnem variantes morfológicas
-do mesmo termo. Os rótulos automáticos também não são estáveis: numa
-reexecução de controlo a 17 de setembro de 2026, um dos grupos trocou de
-rótulo por um empate na quinta palavra-chave. Por isso não se nomeiam aqui
-grupos temáticos.}
-
-\fecho{A terceira: as redes bibliográficas cobrem pouco. O acoplamento, que
-liga publicações com pelo menos duas referências em comum, resolve-se em 65
-das 331 publicações, 19,6\%; as restantes não partilham referências
-suficientes com nenhuma outra depois da resolução de metadados. Uma figura
-desta rede mostraria um quinto do corpus ligado entre si sem ter onde declarar
-os quatro quintos ausentes. As redes foram calculadas e ficam nos resultados
-da análise bibliométrica, fora desta dissertação, como auxiliar de seleção de
-leitura e não como evidência; nenhuma delas estabelece equivalência entre
-modelos nem transferibilidade entre setores.}
-
 \subsection{Evolução temporal e fontes}
 \label{sec:evolucao}
 
@@ -419,9 +382,7 @@ dominante.}
 \subsection{\novo{Geografia dos casos}}
 \label{sec:geografia}
 
-\fecho{O país registado é o do caso estudado e não o da afiliação dos autores,
-que são coisas distintas e frequentemente confundidas na bibliometria.} \novo{O
-país do caso está atribuído em 154 das 331 publicações (46,5\%), em
+\novo{O país do caso está atribuído em 154 das 331 publicações (46,5\%), em
 161 atribuições por 50 países, já que uma publicação pode estudar casos em mais
 do que um. A Figura~\ref{fig:mapa-casos} mostra-as. A Itália reúne 21
 atribuições e a Colômbia 15; nenhum outro país passa de sete. O que a figura
@@ -521,14 +482,15 @@ referência seja atualizada nem que a não estacionariedade seja tratada.
   \label{fig:familias-modelos}
 \end{figure}
 
-%% 2026-09-21: fecha a caixa C3-V07. A normalizacao do setor foi revista e
-%% ainda assim a matriz nao sustenta leitura por setor; dito no texto.
-\fecho{O cruzamento entre setor e família de modelos não sustenta leitura por
-setor. Mesmo depois de revista a normalização, 58 das 100 células do
-cruzamento têm pelo menos uma publicação, o máximo é dezasseis e a mediana das
-células não vazias é dois; a única linha com substância é a dos edifícios e
-serviços públicos, e os setores de processo contínuo que interessam a esta
-dissertação ficam em uma e duas publicações. A matriz não se reproduz.}
+% [REV-2026-09-14][C3-V07][P2][FIGURA]
+\revisaotese{C3-V07}{P2}{FIGURA}
+{Matriz setor--modelo só com setores normalizados}
+{\nolinkurl{cross_sectors_derived__enpi_enb_model_types.pdf} tem hoje
+\novo{130} publicações sem setor derivado. Só inserir se a normalização do
+setor for revista; caso contrário, deixar no Apêndice~C e dizer no texto que a
+matriz não sustenta leitura por setor. O diagrama \texttt{alluvial.pdf}
+fica no apêndice.}%
+% [/REV-2026-09-14]
 
 O enquadramento normativo tem classificação concordante em 258 publicações.
 A ISO~50001 aparece em 185 (71,7\%) e a ISO~50006, a norma que trata
@@ -563,13 +525,50 @@ medição e verificação.}
   \label{fig:norma-protocolo}
 \end{figure}
 
-%% 2026-09-21: a antiga 3.3.7 ("Estrutura tematica, colaboracao e
-%% referencias") foi dissolvida. Descrevia o metodo de redes que o capitulo
-%% nao mostra e cujos resultados nao alimentam a SQ1 nem a sintese do Corpus
-%% B. Os dois achados que valiam -- a circularidade dos grupos tematicos e a
-%% cobertura de 19,6% do acoplamento -- sao sobre o instrumento e passaram
-%% para o fim da 3.3.2, junto dos outros limites do instrumento. Fecha
-%% tambem as caixas C3-V09 e C3-V10.
+\subsection{Estrutura temática, colaboração e referências}
+\label{sec:temas-colaboracao}
+
+A rede de palavras-chave usa os termos normalizados com pelo menos três
+ocorrências; mostram-se 65, ligados quando coocorrem numa publicação, e as
+comunidades são obtidas por otimização gulosa da modularidade. O ficheiro
+exportado não separa palavras-chave de autor e termos de indexação, e essa
+mistura limita a leitura. Os grupos servem para escolher artigos a ler, não
+substituem essa leitura.
+
+\novo{Os grupos obtidos não se leem como temas, e vale a pena dizer porquê.
+Dois deles reúnem o vocabulário com que o corpus foi recuperado --- eficiência
+energética, indicador de desempenho energético, sistema de gestão de energia,
+ISO~50001 --- e encontrá-lo agrupado é consequência da expressão de pesquisa e
+não um resultado sobre a literatura. Um terceiro junta variantes morfológicas
+do mesmo termo, o que é uma limitação da normalização e não um tema. Os
+rótulos automáticos também não são estáveis: numa reexecução de controlo a
+17 de setembro de 2026, um dos grupos trocou de rótulo por um empate na quinta
+palavra-chave. Por isso não se nomeiam aqui grupos temáticos nem se reproduz o
+mapa.}
+
+As redes de coautoria e de afiliação usam nomes não integralmente
+desambiguados, e as afiliações não são os locais de aplicação dos modelos.
+O acoplamento bibliográfico liga duas publicações que partilham pelo menos
+duas referências; a cocitação liga referências citadas em conjunto. \novo{O
+acoplamento resolve-se em 65 das 331 publicações, 19,6\%: as restantes não
+partilham referências suficientes com nenhuma outra depois da resolução de
+metadados e não entram na rede. Uma figura desta rede mostraria um quinto do
+corpus ligado entre si sem ter onde declarar os quatro quintos ausentes, pelo
+que também não se reproduz.} Nas
+projeções por autor e fonte citados, a resolução de metadados cobriu as 80
+referências mais frequentes, com 79 correspondências. Nas 282 publicações
+com dados do OpenAlex, a mediana é de sete citações à data da consulta.
+Nenhuma destas redes estabelece equivalência entre modelos nem
+transferibilidade entre setores. \novo{Foram calculadas e ficam nos resultados
+da análise bibliométrica, fora desta dissertação, como auxiliar de seleção de
+leitura e não como evidência.}
+
+%% 2026-09-21: caixas C3-V09 e C3-V10 fechadas sem figura. As razoes
+%% estao no texto acima: os grupos tematicos devolvem a expressao de pesquisa
+%% e um artefacto de normalizacao, com rotulos instaveis entre execucoes; a
+%% rede de acoplamento cobre 19,6% das publicacoes e nao tem onde declarar as
+%% ausentes. Nota: as caixas remetiam para o Apendice C, que nao contem nada
+%% disto -- e todo sobre a parte empirica.
 
 \subsection{O que a SQ1 permite dizer}
 \label{sec:sq1-sintese}
@@ -582,22 +581,14 @@ A primeira dizia que o indicador dominante é um rácio sem ajuste e que as
 referências ajustadas são minoria. A primeira metade confirma-se: o rácio é
 a família mais frequente. A segunda não: no subconjunto concordante, uma
 regressão aparece em 80 de 162 publicações, praticamente tantas como os
-rácios, e só 47 dependem apenas de rácios ou médias. \fecho{É o único ponto em
-que os dados contrariam uma expectativa registada antes da extração, e por
-isso vale mais do que as confirmações.} Com metade das
+rácios, e só 47 dependem apenas de rácios ou médias. Com metade das
 publicações por classificar neste campo, não se pode dizer mais do que isto.
 
 A segunda dizia que a ISO~50001 é quase universal como referência e que a
 ISO~50006 e os protocolos de medição e verificação não são. Confirma-se, com
 a ressalva de que ``quase universal'' é forte para 185 em 258: é a norma de
 gestão que dá nome ao campo, e a norma que diz como construir e manter um
-indicador aparece num artigo em cada cinco. \fecho{O contraste mais forte do
-capítulo está aqui: das 191 publicações que invocam a família ISO~50001, 173
---- nove em cada dez --- não invocam protocolo algum de medição e verificação.
-A literatura que adota o vocabulário da norma de gestão não adota, na mesma
-proporção, nenhum quadro reconhecido para verificar o que mede. É, dentro
-deste corpus, a contrapartida empírica do que a Secção~\ref{sec:assimetria-comparacao}
-estabelece a partir do texto das próprias normas.}
+indicador aparece num artigo em cada cinco.
 
 A terceira dizia que a evidência é feita de casos únicos, em escala de
 instalação, geograficamente concentrada, e que o trabalho metodológico é uma
