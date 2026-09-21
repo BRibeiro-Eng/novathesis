@@ -1,20 +1,8 @@
 {
-  // 2026-09-21: voltou a apontar para a árvore onde o wrapper compila.
-  // Com outDir em ".", o LaTeX Workshop passava a compilar TAMBÉM na raiz,
-  // e como o wrapper copia o PDF acabado para a raiz, o latexmk da raiz
-  // encontrava um template.pdf mais recente do que as fontes e declarava
-  // "All targets are up-to-date" sem recompilar nada. Resultado: gravar uma
-  // alteração e mandar compilar não mudava o PDF. Duas árvores de compilação
-  // a disputar o mesmo ficheiro de saída.
-  //
-  // Além disso, a pasta da tese está no Desktop, que está em iCloud Drive: os
-  // auxiliares na raiz voltavam a ficar expostos ao agente de sincronização,
-  // que é o problema que a nota de 2026-09-17 abaixo descreve. Os auxiliares
-  // anteriores foram arquivados em _revisao/2026-09-21-auxiliares-raiz/.
-  //
-  // O wrapper continua a copiar o PDF para a raiz, para o git e para partilha;
-  // simplesmente já não se compila lá.
-  "latex-workshop.latex.outDir": "/tmp/tese-build-code",
+  // Ambas as receitas copiam o PDF final para a pasta da tese; a
+  // pré-visualização deve abrir esse mesmo ficheiro. Os auxiliares de cada
+  // receita continuam em diretórios temporários separados.
+  "latex-workshop.latex.outDir": ".",
 
   // 2026-09-18: as duas receitas passam por scripts. A receita que chamava
   // "latexmk" directamente falhava sempre que o VS Code era aberto pelo Dock,
