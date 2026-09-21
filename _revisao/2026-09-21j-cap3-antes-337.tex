@@ -535,40 +535,35 @@ exportado não separa palavras-chave de autor e termos de indexação, e essa
 mistura limita a leitura. Os grupos servem para escolher artigos a ler, não
 substituem essa leitura.
 
-\novo{Os grupos obtidos não se leem como temas, e vale a pena dizer porquê.
-Dois deles reúnem o vocabulário com que o corpus foi recuperado --- eficiência
-energética, indicador de desempenho energético, sistema de gestão de energia,
-ISO~50001 --- e encontrá-lo agrupado é consequência da expressão de pesquisa e
-não um resultado sobre a literatura. Um terceiro junta variantes morfológicas
-do mesmo termo, o que é uma limitação da normalização e não um tema. Os
-rótulos automáticos também não são estáveis: numa reexecução de controlo a
-17 de setembro de 2026, um dos grupos trocou de rótulo por um empate na quinta
-palavra-chave. Por isso não se nomeiam aqui grupos temáticos nem se reproduz o
-mapa.}
-
 As redes de coautoria e de afiliação usam nomes não integralmente
 desambiguados, e as afiliações não são os locais de aplicação dos modelos.
 O acoplamento bibliográfico liga duas publicações que partilham pelo menos
-duas referências; a cocitação liga referências citadas em conjunto. \novo{O
-acoplamento resolve-se em 65 das 331 publicações, 19,6\%: as restantes não
-partilham referências suficientes com nenhuma outra depois da resolução de
-metadados e não entram na rede. Uma figura desta rede mostraria um quinto do
-corpus ligado entre si sem ter onde declarar os quatro quintos ausentes, pelo
-que também não se reproduz.} Nas
+duas referências; a cocitação liga referências citadas em conjunto. Nas
 projeções por autor e fonte citados, a resolução de metadados cobriu as 80
 referências mais frequentes, com 79 correspondências. Nas 282 publicações
 com dados do OpenAlex, a mediana é de sete citações à data da consulta.
 Nenhuma destas redes estabelece equivalência entre modelos nem
-transferibilidade entre setores. \novo{Foram calculadas e ficam nos resultados
-da análise bibliométrica, fora desta dissertação, como auxiliar de seleção de
-leitura e não como evidência.}
+transferibilidade entre setores.
 
-%% 2026-09-21: caixas C3-V09 e C3-V10 fechadas sem figura. As razoes
-%% estao no texto acima: os grupos tematicos devolvem a expressao de pesquisa
-%% e um artefacto de normalizacao, com rotulos instaveis entre execucoes; a
-%% rede de acoplamento cobre 19,6% das publicacoes e nao tem onde declarar as
-%% ausentes. Nota: as caixas remetiam para o Apendice C, que nao contem nada
-%% disto -- e todo sobre a parte empirica.
+% [REV-2026-09-14][C3-V09][P2][FIGURA]
+\revisaotese{C3-V09}{P2}{FIGURA}
+{Mapa temático com interpretação apoiada em artigos}
+{Usar \texttt{keyword\_network.pdf} só depois de nomear os grupos pela
+leitura dos artigos. Atenção: na re-execução de controlo de 2026-09-17 o
+rótulo do cluster C4 de \texttt{thematic\_map.csv} trocou ``alternative
+energy'' por ``carbon'' (empate na quinta palavra-chave); não citar
+rótulos automáticos sem desempate. As restantes redes e os tópicos ficam
+no Apêndice~C.}%
+% [/REV-2026-09-14]
+
+% [REV-2026-09-14][C3-V10][P2][FIGURA]
+\revisaotese{C3-V10}{P2}{FIGURA}
+{Escolher uma rede bibliográfica com função na síntese}
+{Preferir \texttt{bibliographic\_coupling.pdf} para mostrar grupos de
+publicações com referências comuns; \texttt{cocitation.pdf} para bases
+intelectuais. Não confundir as duas relações. Redes de coautoria,
+instituições e rankings de citações ficam no apêndice.}%
+% [/REV-2026-09-14]
 
 \subsection{O que a SQ1 permite dizer}
 \label{sec:sq1-sintese}
