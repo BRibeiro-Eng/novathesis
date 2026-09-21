@@ -23,9 +23,9 @@ from plotly.subplots import make_subplots
 
 HERE = Path(__file__).resolve().parent
 TABLES = Path.home() / "LocalResearch/Screening/level3_extraction/bibliometrics/results/corpus_a_registado/tables"
-BLUE = "#278CB1"   # P3[0]
-CYAN = "#65B9E7"   # P3[1]
-SAND = "#AF6F43"   # P3[3]
+BLUE = "#2F6D96"
+CYAN = "#5FB0D0"
+SAND = "#B87932"
 GRAY = "#CFCFCF"
 INK = "#1A1A1A"
 MUTED = "#666666"
@@ -171,7 +171,7 @@ def map_overview(papers, points, by_country):
                 f"<br>Publica\u00e7\u00f5es por per\u00edodo:<br>{breakdown}<extra></extra>")
 
     p["hover"] = p.apply(hover, axis=1)
-    COM_B, SO_A = BLUE, "#9FCFE8"
+    COM_B, SO_A = BLUE, "#A8CCE0"
     fig = go.Figure()
     for tem_b, cor, nome in [(False, SO_A, "s\u00f3 Corpus A"),
                              (True, COM_B, "com caso do Corpus B")]:
@@ -183,14 +183,14 @@ def map_overview(papers, points, by_country):
             hovertemplate="%{text}", name=nome, legendgroup="corpus",
             legendgrouptitle=dict(text="Pertença"),
             marker=dict(size=marker_sizes(q.n), color=cor, opacity=.92,
-                        line=dict(color="#186C8C", width=.55))))
+                        line=dict(color="#2B5670", width=.55))))
     for n in (1, 5, 20):
         fig.add_trace(go.Scattergeo(
             lon=[None], lat=[None], mode="markers", name=str(n),
             showlegend=True, hoverinfo="skip", legendgroup="tamanho",
             legendgrouptitle=dict(text="Publica\u00e7\u00f5es"),
             marker=dict(size=marker_sizes([n])[0], color=MUTED,
-                        line=dict(color="#186C8C", width=.55))))
+                        line=dict(color="#2B5670", width=.55))))
     geo_style(fig)
     fig.update_geos(lataxis_range=[-56, 84])
     fig.update_layout(

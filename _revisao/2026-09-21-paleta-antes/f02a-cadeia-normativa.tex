@@ -4,7 +4,7 @@
   \centering
   \begin{tikzpicture}[x=1cm,y=1cm,
     elo/.style={ntcaixa,minimum width=6.15cm,minimum height=1.0cm,inner sep=0pt},
-    foco/.style={elo,draw=corDestaque,line width=.7pt,fill=corDestaque!6},
+    foco/.style={elo,draw=corFG,line width=.7pt,fill=corFG!6},
     titulo/.style={anchor=west,align=left,text=corTinta,font=\fontsize{8.5}{10}\selectfont,inner sep=0pt,text width=4.85cm},
     clausula/.style={anchor=west,align=left,text=corCinza,font=\fontsize{6.7}{8}\selectfont,inner sep=0pt},
     numero/.style={circle,minimum size=5.1mm,inner sep=0pt,draw=corCinzaC,line width=.4pt,fill=white,text=corCinza,font=\fontsize{8}{9}\selectfont},
@@ -32,7 +32,7 @@
     \foreach \i in {1,2,3,4,5,6,7}
       \node[numero] at ([xshift=4.5mm]n\i.west) {\i};
     \foreach \i in {5,7}
-      \node[numero,draw=corDestaque,text=corDestaque] at ([xshift=4.5mm]n\i.west) {\i};
+      \node[numero,draw=corFG,text=corFG] at ([xshift=4.5mm]n\i.west) {\i};
 
     \node[titulo] at ([xshift=9mm,yshift=1.45mm]n1.west)
       {Avaliação energética};

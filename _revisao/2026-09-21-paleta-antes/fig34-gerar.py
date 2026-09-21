@@ -16,8 +16,8 @@ HERE = Path(__file__).resolve().parent
 TABLES = (Path.home() / "LocalResearch/Screening/level3_extraction/"
           "bibliometrics/results/corpus_a_registado/tables")
 CM = 1 / 2.54
-BLUE = "#278CB1"   # P3[0]
-SAND = "#AF6F43"   # P3[3]
+BLUE = "#2F6D96"
+SAND = "#B87932"
 GRAY = "#CFCFCF"
 INK = "#1A1A1A"
 MUTED = "#666666"

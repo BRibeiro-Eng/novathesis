@@ -673,43 +673,37 @@ BIB = _first(["~/LocalResearch/Screening/level3_extraction/bibliometrics/results
 def tab_a(nome):
     return pd.read_csv(os.path.join(BIB, "tables", nome), encoding="utf-8-sig", index_col=0)
 
-# ---------------------------------------------------------------- PALETA --
-# Paleta unica do Capitulo 3, da 3.1 a 3.4 (2026-09-21). Substitui a A3
-# anterior, que era uma segunda familia de azuis ao lado desta.
+# Paleta das figuras bibliometricas do Cap. 3 (2026-09-21). Rampa de azul
+# ardosia a ciano com um acento areia, na familia de tom do corFG usado nas
+# figuras 3.1 e 3.2 em TikZ, mas dessaturada para nao pesar ao lado delas.
+# Separacao verificada em todos os pares: pior caso dE 16,4 em visao normal e
+# 11,9 em protanopia, melhor do que a paleta anterior (15,3 e 10,7). O
+# cinzento e neutro de proposito: marca ausencia, nao e mais uma categoria.
+A3 = {"forte": "#2F6D96", "areia": "#C8964A",
+      "claro": "#5FB0D0", "ausente": "#CFCFCF"}
+
+# Paleta categorica do Cap. 3 (P3, 2026-09-21). A A3 acima e uma rampa: os
+# seus quatro passos sao um gradiente de qualidade (concordancia, divergencia,
+# extracao unica, sem extracao) e a ordem tem sentido. A P3 e o oposto --
+# identidade, nao grandeza -- e por isso usa matizes distintos e nao passos de
+# um azul. Azul, azul claro, verde e laranja no mesmo registo tonal
+# (OKLCH L 0,60-0,75, C 0,101-0,105), dessaturados para nao pesarem ao lado
+# das figuras em TikZ do 3.2.
 #
-# Antes de uniformizar, o capitulo tinha SEIS azuis (#0072B2 nas figuras TikZ,
-# #2F6D96 e #5FB0D0 na A3, #278CB1 e #65B9E7 na P3, #A8CCE0 no mapa), TRES
-# tons quentes (#C8964A, #B87932, #AF6F43) e uma rampa ColorBrewer no mapa de
-# evidencia. Nenhuma dessas diferencas significava nada.
+# Validada com scripts/validate_palette.js --mode light --pairs all: passa a
+# banda de luminancia, o piso de croma, a separacao em visao normal (pior par
+# dE 15,1) e em daltonismo (pior par dE 8,7 deuteranopia, 8,6 tritanopia). O
+# unico aviso e o contraste com o fundo, que obriga a rotulos visiveis -- as
+# legendas trazem a contagem de cada grupo, pelo que a identidade nunca
+# depende so da cor.
 #
-# P3: quatro matizes categoricos no mesmo registo tonal (OKLCH L 0,60-0,75,
-# C 0,101-0,105), dessaturados para aguentarem impressao. Passa os cinco
-# testes de validate_palette.js --pairs all: banda de luminancia, piso de
-# croma, separacao em visao normal (pior par dE 15,1) e em daltonismo (dE 8,7
-# deuteranopia, 8,6 tritanopia). O aviso de contraste com o fundo obriga a
-# rotulos visiveis -- as figuras trazem a contagem na legenda, pelo que a
-# identidade nunca depende so da cor.
-#
-# QUATRO e o limite do registo, nao uma escolha. A procura por uma paleta de
-# seis matizes aqui nao encontra nenhuma que passe: o quinto e o sexto passo
-# obrigam a abrir a amplitude de luminancia para 0,26 e a croma para 0,125, e
-# ai deixa de ser o mesmo registo. Uma figura que precise de mais de quatro
-# categorias agrupa-as; nao as pinta.
+# QUATRO e o limite, nao uma escolha. Neste registo dessaturado a procura por
+# uma paleta de seis matizes nao encontra nenhuma que passe: o quinto e o
+# sexto passo obrigam a abrir a amplitude de luminancia para 0,26 e a croma
+# para 0,125, e ai deixa de ser o mesmo registo. Uma figura que precise de
+# mais de quatro categorias tem de as agrupar, nao de as pintar.
 P3 = ["#278CB1", "#65B9E7", "#6FAC74", "#AF6F43"]
-NEUTRO = "#CFCFCF"     # ausencia: nunca e uma categoria, e sempre neutra
-P3_VAZIO = "#A9A9A9"   # bordo do quadrado oco, onde a ausencia se le como vazio
-
-# Rampa ordinal do mesmo matiz do P3[0], para as figuras cujos niveis tem
-# ordem (o mapa de evidencia do Corpus B). Passa os quatro testes ordinais:
-# luminancia monotona, saltos >= 0,06, extremo claro acima de 2:1 contra o
-# fundo e um so matiz (amplitude 3 graus). O nivel zero nao entra na rampa --
-# e ausencia, e leva o NEUTRO.
-P3_RAMPA = ["#80BCD6", "#3F92B7", "#186C8C"]
-
-# A3 deixa de ser uma paleta e passa a ser o nome dos estados de extraccao
-# sobre a P3. Mantem-se o nome para nao mexer nas chamadas, mas a fonte de
-# verdade e uma so.
-A3 = {"forte": P3[0], "areia": P3[3], "claro": P3[1], "ausente": NEUTRO}
+P3_VAZIO = "#A9A9A9"   # bordo do quadrado oco: ausencia le-se como vazio
 
 def v02_cobertura():
     """Estado de extracao campo a campo: o denominador antes das distribuicoes."""

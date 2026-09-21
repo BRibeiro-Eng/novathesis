@@ -1,0 +1,68 @@
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm, font=\scriptsize]
+    % ---------------------------------------------- faixa 1: dados ----
+    \begin{scope}[on background layer]
+      \fill[corFundo, rounded corners=2pt] (-0.15,-0.75) rectangle (13.9,2.95);
+      \draw[white, rounded corners=2pt] (-0.15,-3.95) rectangle (13.9,-1.15);
+      \draw[corCinzaC, line width=.5pt, rounded corners=2pt]
+        (-0.15,-3.95) rectangle (13.9,-1.15);
+    \end{scope}
+    \node[ntrot, anchor=north west, text=corTinta] at (-0.05,2.88)
+      {\textbf{Camada de dados}~\textnormal{---
+       Cap.~\ref{cha:plataforma}; ISO~50001 §9.1}};
+    \node[ntrot, anchor=north west, text=corTinta] at (-0.05,-1.25)
+      {\textbf{Camada analítica}~\textnormal{---
+       Cap.~\ref{cha:diagnostico}; ISO~50006}};
+
+    \node[ntcaixa, text width=2.5cm, minimum height=8mm] (s1) at (1.4,1.75)
+      {Historiador de processo};
+    \node[ntcaixa, text width=2.5cm, minimum height=8mm] (s2) at (1.4,0.70)
+      {Balanços de massa\\e de energia};
+    \node[ntcaixa, text width=2.5cm, minimum height=8mm] (s3) at (1.4,-0.35)
+      {Relatórios mensais\\e outros ficheiros};
+    \node[ntdestaque, text width=3.0cm, minimum height=13mm] (rec) at (5.6,0.70)
+      {Regras de precedência,\\agregação e conversão\\[1pt]
+       {\tiny modelo dimensional único}};
+    \node[ntdestaque, text width=2.7cm, minimum height=11mm] (ind) at (9.7,0.70)
+      {Indicador de\\desempenho (EnPI)};
+    \node[ntcaixa, text width=2.2cm, minimum height=11mm] (dic) at (12.7,0.70)
+      {Proveniência:\\origem, regra\\e versão};
+
+    \draw[ntseta] (s1.east) -- ++(0.45,0) |- (rec.west);
+    \draw[ntseta] (s2.east) -- (rec.west);
+    \draw[ntseta] (s3.east) -- ++(0.45,0) |- (rec.west);
+    \draw[ntsetaf] (rec) -- (ind);
+    \draw[{Stealth[length=4pt,width=3pt]}-{Stealth[length=4pt,width=3pt]},
+          draw=corCinza, line width=.6pt] (ind) -- (dic);
+
+    % ----------------------------------------- faixa 2: analitica -----
+    \node[ntdestaque, text width=2.9cm, minimum height=12mm] (ref) at (1.75,-2.90)
+      {Referência (EnB)\\[1pt]{\tiny reta anual sobre a carga}};
+    \node[ntdestaque, text width=2.5cm, minimum height=12mm] (des) at (5.35,-2.90)
+      {Desvio\\[1pt]{\tiny observado $-$ esperado}};
+    \node[ntcaixa, text width=2.5cm, minimum height=12mm] (ala) at (8.95,-2.90)
+      {Regra de alerta\\[1pt]{\tiny limiar sobre o desvio}};
+    \node[ntcaixa, text width=2.5cm, minimum height=12mm] (inv) at (12.35,-2.90)
+      {Investigação\\e ação};
+    \draw[ntsetaf] (ref) -- (des);
+    \draw[ntsetaf] (des) -- (ala);
+    \draw[ntsetaf] (ala) -- (inv);
+    \draw[ntseta] (ind.south) -- ++(0,-0.62) -| (des.north);
+    \node[ntmini, anchor=west] at (5.55,-0.95) {consumo observado};
+
+    %% 2026-09-19: faixa da "proposta ainda por testar" e legenda do
+    %% tracejado retiradas na revisao integral -- a figura define as duas
+    %% camadas; a proposta e anunciada em 1.4 e desenhada no Cap. 7.
+    %% Versao anterior em _revisao/2026-09-19-f01-antes.tex.
+  \end{tikzpicture}
+  \caption[As duas camadas da fiabilidade do desempenho energético]%
+  {As duas camadas da fiabilidade do desempenho energético e os capítulos
+   que as tratam. A camada de dados responde por rastreabilidade: cada valor
+   tem origem, regra de conversão e versão declaradas. A camada analítica
+   responde por interpretação: converte o consumo observado num desvio face
+   a uma referência e transforma o desvio num alerta. As duas respondem a
+   perguntas diferentes --- rastreabilidade não equivale a exatidão física,
+   e um desvio, por si, não identifica a sua causa.}
+  \label{fig:duas-camadas}
+\end{figure}

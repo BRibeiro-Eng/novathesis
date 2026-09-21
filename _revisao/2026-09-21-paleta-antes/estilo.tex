@@ -1,14 +1,5 @@
 %% Estilos partilhados das figuras vetoriais desenhadas em TikZ (2026-09-17).
-%%
-%% 2026-09-21. Duas paletas, e a distincao importa. As cinco primeiras cores
-%% identificam VETORES ENERGETICOS e so aparecem nas figuras que os mostram
-%% (a f03-cdu e as dos Capitulos 5 a 7): corFG e fuel gas, nao e um azul
-%% generico. As cores do Capitulo 3 (corDestaque e seguintes) sao a paleta P3
-%% definida em _gerador/figuras.py, a mesma das figuras geradas em Python.
-%%
-%% Ate hoje as figuras 1.1, 2.1, 2.2, 3.1 e 3.2 usavam corFG como acento
-%% generico, o que lhes dava o azul do fuel gas sem que isso quisesse dizer
-%% nada, e punha um sexto azul no capitulo. Passam a corDestaque.
+%% Paleta validada (segura para daltonismo) igual a das figuras geradas em Python.
 \usetikzlibrary{arrows.meta, positioning, fit, calc, shapes.geometric,
                 backgrounds, patterns, decorations.pathreplacing}
 \definecolor{corFG}{HTML}{0072B2}   % fuel gas / producao
@@ -20,17 +11,11 @@
 \definecolor{corCinza}{HTML}{6E6E6E}
 \definecolor{corCinzaC}{HTML}{C8C8C8}
 \definecolor{corFundo}{HTML}{F4F4F4}
-%% Paleta P3 do Capitulo 3 (ver _gerador/figuras.py).
-\definecolor{corDestaque}{HTML}{278CB1}
-\definecolor{corDestaqueC}{HTML}{65B9E7}
-\definecolor{corVerde}{HTML}{6FAC74}
-\definecolor{corAreia}{HTML}{AF6F43}
-\definecolor{corAusente}{HTML}{CFCFCF}
 \tikzset{
   ntcaixa/.style={draw=corCinza, line width=.5pt, rounded corners=1.2pt,
                   fill=white, align=center, inner sep=3pt, font=\scriptsize,
                   text=corTinta, minimum height=7mm},
-  ntdestaque/.style={ntcaixa, draw=corDestaque, line width=.7pt, fill=corDestaque!6},
+  ntdestaque/.style={ntcaixa, draw=corFG, line width=.7pt, fill=corFG!6},
   ntproposta/.style={ntcaixa, draw=corCinza, dash pattern=on 2pt off 1.4pt,
                      fill=corFundo},
   ntfaixa/.style={draw=corCinzaC, line width=.5pt, rounded corners=2pt,

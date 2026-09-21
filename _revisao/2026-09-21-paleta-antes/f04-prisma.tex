@@ -20,10 +20,10 @@
 
   \foreach \i/\y in {1/-.43,2/-2.08,3/-3.73,4/-5.38}
     \node[elo] (n\i) at (3.91,\y) {};
-  \node[elo,draw=corDestaque,line width=.7pt,fill=corDestaque!6,minimum height=2.4cm] (n5) at (3.91,-7.62) {};
+  \node[elo,draw=corFG,line width=.7pt,fill=corFG!6,minimum height=2.4cm] (n5) at (3.91,-7.62) {};
   \foreach \i in {1,2,3,4}
     \node[numero] at ([xshift=4.5mm]n\i.west) {\i};
-  \node[numero,draw=corDestaque,text=corDestaque] at ([xshift=4.5mm,yshift=6.9mm]n5.west) {5};
+  \node[numero,draw=corFG,text=corFG] at ([xshift=4.5mm,yshift=6.9mm]n5.west) {5};
 
   \node[titulo] at ([xshift=9mm,yshift=3.5mm]n1.west) {Identificação nas bases};
   \node[titulo,font=\fontsize{9}{10}\selectfont] at ([xshift=9mm,yshift=-.2mm]n1.west) {$n=1\,478$ registos};
@@ -35,8 +35,8 @@
   \node[titulo] at ([xshift=9mm,yshift=3mm]n4.west) {Avaliação da elegibilidade};
   \node[titulo,font=\fontsize{9}{10}\selectfont] at ([xshift=9mm,yshift=-2.5mm]n4.west) {$n=459$ relatórios};
   \node[titulo,font=\fontsize{8.5}{10}\selectfont\bfseries] at ([xshift=9mm,yshift=7mm]n5.west) {Incluídos --- Corpus A};
-  \node[titulo,text=corDestaque,font=\fontsize{10}{11}\selectfont] at ([xshift=9mm,yshift=2.4mm]n5.west) {$n=331$ publicações};
-  \draw[corDestaque!25,line width=.35pt] ([xshift=9mm,yshift=-.8mm]n5.west) -- ([xshift=-3mm,yshift=-.8mm]n5.east);
+  \node[titulo,text=corFG,font=\fontsize{10}{11}\selectfont] at ([xshift=9mm,yshift=2.4mm]n5.west) {$n=331$ publicações};
+  \draw[corFG!25,line width=.35pt] ([xshift=9mm,yshift=-.8mm]n5.west) -- ([xshift=-3mm,yshift=-.8mm]n5.east);
   \node[detalhe] at ([xshift=9mm,yshift=-4.4mm]n5.west) {Corpus B: 40, das quais 39 cartografadas};
   \node[detalhe] at ([xshift=9mm,yshift=-8.6mm]n5.west) {Casos exploratórios: 13, fora de B};
 
