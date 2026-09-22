@@ -1,0 +1,35 @@
+Tabelas: zero overfull, e tres do Apendice E no padrao da 3.2
+
+OVERFULL. As quatro tabelas que transbordavam da mancha eram todas do
+Apendice C, geradas por _gerador/apendice_c.py -- nao editaveis a mao. A
+correccao vai no gerador: write() aceita agora tabcolsep. A goteira de
+origem do LaTeX e 6pt por lado, o que numa tabela de dez colunas sao 120pt
+so de espaco em branco.
+
+  C.2  rajadas de 86,7pt -> scriptsize + tabcolsep 3pt + p{2,4cm}
+  C.9  74,1pt -> scriptsize + tabcolsep 4pt + tres cabecalhos abreviados
+  C.10 19,2pt -> tabcolsep 3pt
+  C.7  17,1pt -> tabcolsep 4pt
+
+Resultado: zero overfull em tabelas em toda a tese (era 4).
+
+Acrescentado _gerador/_overfull.py: o log do TeX da o numero de linha mas
+nao o ficheiro, e sem seguir a pilha de ficheiros um overfull do Apendice C
+parece ser do Apendice A -- foi o que me enganou na primeira leitura.
+
+XLTABULAR. Convertidas as tres tabelas do Apendice E (E.1 guia de consulta,
+E.2 notacao, E.3 regras de sequencia) de table+tabularx para xltabular no
+padrao exacto da Tabela 3.2: \ntzebra, \hiderowcolors no cabecalho,
+\showrowcolors no corpo, cabecalhos a negrito, rodape de continuacao.
+
+Duas correccoes que a primeira passagem expos:
+- sem \showrowcolors depois de \endlastfoot a alternancia de linhas nao
+  aparece; o \hiderowcolors do cabecalho fica activo ate ao fim.
+- uma celula que comeca por \matref numa coluna X abre uma linha vazia
+  antes do texto: o \color no inicio de um p-box com colortbl deixa a
+  celula em modo vertical. Resolvido com \leavevmode.
+
+Build: 303 paginas, zero erros, zero referencias por resolver.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01WMymYi7rCaXPNEYDJVztnV

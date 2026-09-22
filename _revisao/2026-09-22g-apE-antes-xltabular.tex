@@ -10,26 +10,12 @@ Uma mesma quantidade pode servir perguntas diferentes. O erro de uma previsão m
 
 \matref{As convenções aqui declaradas foram confrontadas com o modelo da plataforma e com o código de análise nas passagens que o texto identifica. Essa consulta esclarece convenções; não certifica a correspondência de cada resultado publicado com o lote que o produziu, e a distinção é mantida explícita ao longo do apêndice. Onde uma convenção não pôde ser confirmada na fonte, o limite é declarado em vez de omitido; as formulações ainda não executadas são apresentadas como propostas e identificadas como tal.}
 
-{\small
-\ntzebra
-\begin{xltabular}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
-\caption[Guia de consulta das formulações]{Guia de consulta das formulações matemáticas.}
-\label{tab:mat-acesso}\\
-\hiderowcolors
-\toprule
-\textbf{Secção} & \textbf{Pergunta de consulta} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Secção} & \textbf{Pergunta de consulta} \\
-\midrule
-\endhead
-\midrule
-\rowcolor{white}\multicolumn{2}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
-\showrowcolors
+\begin{table}[htbp]
+\centering\small
+\caption{Guia de consulta das formulações matemáticas.}
+\label{tab:mat-acesso}
+\begin{tabularx}{\linewidth}{@{}lX@{}}\toprule
+Secção & Pergunta de consulta\\\midrule
 \ref{sec:mat-notacao-dados} & Que observações e unidades entram no cálculo?\\
 \ref{sec:mat-energia} & Como se obtêm as grandezas e os indicadores energéticos?\\
 \ref{sec:mat-bibliometria} & O que representam as contagens e as redes da revisão?\\
@@ -41,9 +27,9 @@ Uma mesma quantidade pode servir perguntas diferentes. O erro de uma previsão m
 \ref{sec:mat-bandas} & Que banda se constrói e o que significa a sua cobertura?\\
 \ref{sec:mat-aceitacao} & Como se transforma a evidência numa decisão sobre um candidato?\\
 \ref{sec:mat-monitorizacao} & Que sinal preserva cada canal de monitorização?\\
-\ref{sec:mat-simulacao} & Como se medem falsos sinais e capacidade de deteção?\\
-\end{xltabular}
-}
+\ref{sec:mat-simulacao} & Como se medem falsos sinais e capacidade de deteção?\\\bottomrule
+\end{tabularx}
+\end{table}
 
 \section{Notação, populações e operações sobre dados}
 \label{sec:mat-notacao-dados}
@@ -53,26 +39,12 @@ Uma mesma quantidade pode servir perguntas diferentes. O erro de uma previsão m
 % MAP: M01.01 M01.03
 O índice $t$ designa um dia civil, $y$ um ano, $u$ uma unidade industrial e $v$ um vetor energético. O índice $i$ enumera observações disponíveis; a diferença entre dois índices $i$ não determina a distância entre as respetivas datas. Nas simulações, $r$ identifica uma realização independente e $b$ uma réplica de reamostragem. Quando a unidade e o vetor são fixos, omitem-se os índices $u,v$.
 
-{\small
-\ntzebra
-\begin{xltabular}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
-\caption[Notação principal]{Notação principal. As escalas de erro têm a unidade da resposta.}
-\label{tab:mat-notacao}\\
-\hiderowcolors
-\toprule
-\textbf{Símbolo} & \textbf{Significado e unidade} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Símbolo} & \textbf{Significado e unidade} \\
-\midrule
-\endhead
-\midrule
-\rowcolor{white}\multicolumn{2}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
-\showrowcolors
+\begin{table}[htbp]
+\centering\small
+\caption{Notação principal. As escalas de erro têm a unidade da resposta.}
+\label{tab:mat-notacao}
+\begin{tabularx}{\linewidth}{@{}lX@{}}\toprule
+Símbolo & Significado e unidade\\\midrule
 $E_t$ & Consumo ou saldo energético diário, em t GNE/dia; a soma dos valores diários representa t GNE.\\
 $Q_t$ & Carga processada, em kt/dia. Uma kt corresponde a $1000$ t.\\
 $\boldsymbol Z_t,\boldsymbol x_t$ & Covariáveis operacionais e linha da matriz de desenho, respetivamente.\\
@@ -81,9 +53,9 @@ $\widehat f,\widehat E_t$ & Relação ajustada e valor calculado por essa relaç
 $e_t,r_t,\nu_t$ & Erro de previsão, desvio à referência fixa e inovação do modelo de estado.\\
 $s, s_R,\sigma_\nu,\sigma_{\mathrm{DGP}}$ & Escala residual, escala da referência, escala da inovação e escala do gerador.\\
 $\mathcal R,\mathcal A,\mathcal S$ & Conjuntos de treino/referência, aplicação e observações pontuáveis.\\
-$n,p,\ell,B,R$ & Número de observações, parâmetros, dias por bloco, réplicas de bootstrap e realizações de simulação.\\
-\end{xltabular}
-}
+$n,p,\ell,B,R$ & Número de observações, parâmetros, dias por bloco, réplicas de bootstrap e realizações de simulação.\\\bottomrule
+\end{tabularx}
+\end{table}
 
 O \emph{estimando} é a quantidade que se pretende conhecer numa população definida, por exemplo a diferença esperada de erro absoluto entre dois preditores. O \emph{estimador} é a regra aplicada à amostra para a calcular. A estimativa é o valor obtido. A identificação destes três objetos evita atribuir a uma estatística descritiva uma interpretação populacional que o desenho não suporta.
 
@@ -928,26 +900,12 @@ O intervalo MBB da cobertura reamostra o indicador da equação~\ref{eq:mat-cobe
 % MAP: M09.05
 Defina-se $z_t=(E_t-c_t)/s$ para uma escala positiva. As regras descritas na plataforma podem ser formalizadas numa janela ordenada $z_1,\ldots,z_w$ como na Tabela~\ref{tab:mat-regras}. As condições contam pontos na mesma janela, incluindo o último dia avaliado.
 
-{\small
-\ntzebra
-\begin{xltabular}{\linewidth}{@{}cl>{\raggedright\arraybackslash}X@{}}
-\caption[Formulação das oito regras de sequência]{Formulação das oito regras de sequência descritas. As convenções de calendário e de empate requerem harmonização com a implementação.}
-\label{tab:mat-regras}\\
-\hiderowcolors
-\toprule
-\textbf{Regra} & \textbf{Janela} & \textbf{Condição} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Regra} & \textbf{Janela} & \textbf{Condição} \\
-\midrule
-\endhead
-\midrule
-\rowcolor{white}\multicolumn{3}{r}{\emph{continua na página seguinte}}\\
-\endfoot
-\bottomrule
-\endlastfoot
-\showrowcolors
+\begin{table}[htbp]
+\centering\small
+\caption{Formulação das oito regras de sequência descritas. As convenções de calendário e de empate requerem harmonização com a implementação.}
+\label{tab:mat-regras}
+\begin{tabularx}{\linewidth}{@{}clX@{}}\toprule
+Regra & Janela & Condição\\\midrule
 1 & 1 & $|z_1|>3$.\\
 2 & 3 & Pelo menos dois $z_i>2$ ou pelo menos dois $z_i<-2$.\\
 3 & 5 & Pelo menos quatro $z_i>1$ ou pelo menos quatro $z_i<-1$.\\
@@ -955,9 +913,9 @@ Defina-se $z_t=(E_t-c_t)/s$ para uma escala positiva. As regras descritas na pla
 5 & 6 & $z_{i+1}-z_i>0$ em todos os passos, ou $<0$ em todos.\\
 6 & 14 & Incrementos sucessivos de sinal alternado, sem incrementos nulos.\\
 7 & 15 & Todos os $|z_i|<1$.\\
-8 & 8 & \leavevmode\matref{Todos os $|z_i|>1$, em qualquer dos lados.}\\
-\end{xltabular}
-}
+8 & 8 & \matref{Todos os $|z_i|>1$, em qualquer dos lados.}\\\bottomrule
+\end{tabularx}
+\end{table}
 
 Janelas sobrepostas podem assinalar repetidamente a mesma sequência. O número de dias sinalizados, o número de violações de regras e o número de episódios são contagens diferentes. Uma definição possível de episódio é um conjunto maximal de dias civis consecutivos sinalizados; deve fixar-se se uma lacuna interrompe o episódio ou suspende a avaliação. Nenhuma destas contagens equivale diretamente a uma probabilidade diária independente~\parencite{Nelson1984,Wardell1994}.
 

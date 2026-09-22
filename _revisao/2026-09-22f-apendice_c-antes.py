@@ -36,16 +36,9 @@ def ic(lo, hi, n=2):
     if lo is None or hi is None or not np.isfinite(lo) or not np.isfinite(hi): return "---"
     return "[" + f(lo, n) + "; " + f(hi, n) + "]"
 def tsv(run, name): return pd.read_csv(os.path.join(R, RUNS[run], name), sep="\t")
-def write(fn, head, body, caption, label, colspec, short=None, size="footnotesize",
-          tcs=None):
-    # tcs: meia-goteira entre colunas, em pt. O valor de origem do LaTeX e 6pt;
-    # numa tabela de dez colunas isso sao 120pt so de espaco em branco, e foi
-    # o que punha quatro tabelas a transbordar da mancha (2026-09-22).
+def write(fn, head, body, caption, label, colspec, short=None, size="footnotesize"):
     L = [f"%% Gerado por _gerador/apendice_c.py (2026-09-17) das corridas canonicas. Nao editar a mao.",
-         "{\\" + size]
-    if tcs is not None:
-        L.append("\\setlength{\\tabcolsep}{%gpt}" % tcs)
-    L += [f"\\begin{{xltabular}}{{\\linewidth}}{{{colspec}}}",
+         "{\\" + size, f"\\begin{{xltabular}}{{\\linewidth}}{{{colspec}}}",
          f"\\caption[{short or caption[:60]}]{{{caption}}}\\label{{{label}}}\\\\",
          "\\toprule", head, "\\midrule", "\\endfirsthead", "\\toprule", head, "\\midrule", "\\endhead",
          "\\bottomrule", "\\endfoot"] + body + ["\\end{xltabular}", "}"]
@@ -70,8 +63,7 @@ for r in e.itertuples():
     body.append(f"{VEC[r.vector_id]} & {pair(r.pair_id)} & {NULL[r.null_id]} & {int(r.n_eval)} & {f(r.model_mae)} & {f(r.null_mae)} & {f(r.delta_mae)} & {ci} & {f(r.skill_mae,3)} & {st(r.interval_status)} \\\\")
 write("apC-t2.tex", "Vetor & Par & Comparador & $n$ & MAE mod. & MAE nulo & $\\Delta$MAE & IC 95\\% & \\emph{skill} & Est. \\\\", body,
       "Poder preditivo (E2): diferença emparelhada de perda absoluta entre o modelo do ano de treino e cada comparador, no ano seguinte, com intervalo percentil por \\emph{bootstrap} de blocos móveis (bloco base). Est.: $+$ o intervalo exclui zero pelo lado positivo, $-$ pelo negativo, 0 contém zero, NE não estimável. As últimas linhas são a resolução mensal da eletricidade. Unidades: t~GNE/d (MWh na eletricidade).",
-      "tab:apC-e2", "@{}llp{2.4cm}rrrrlrl@{}", "Poder preditivo por vetor, par e comparador",
-      size="scriptsize", tcs=3)
+      "tab:apC-e2", "@{}llp{2.6cm}rrrrlrl@{}", "Poder preditivo por vetor, par e comparador")
 
 # ---- C3: E2 sensibilidade a blocos -------------------------------------------
 s = tsv("E2", "E2_bootstrap_sensitivity.tsv")
@@ -111,7 +103,7 @@ body = [f"{VEC[r.vector_id]} & {pair(r.pair_id)} & {int(r.n_obs)} & {int(r.n_ala
         f" & {st(r.band_status)} \\\\" for r in c.itertuples()]
 write("apC-t7.tex", "Vetor & Par & $n$ & Alarmes & Cobertura & IC MBB & IC binomial & Estatuto \\\\", body,
       "Calibração (E4): cobertura marginal da banda $\\pm2\\hat\\sigma$ do ano de treino aplicada ao ano seguinte, com intervalo por \\emph{bootstrap} de blocos e intervalo binomial (publicado só como contraste, porque assume independência). Estatuto face à referência de $0{,}9545$. As linhas 2025$\\to$2026 são diagnósticas.",
-      "tab:apC-e4", "@{}llrrrlll@{}", "Cobertura marginal das bandas de alarme", tcs=4)
+      "tab:apC-e4", "@{}llrrrlll@{}", "Cobertura marginal das bandas de alarme")
 cc = tsv("E4", "E4_conditional_coverage.tsv")
 cc = cc[cc.stratum_family != "load_tercile_x_semester"]
 p = cc.pivot_table(index=["vector_id", "pair_id"], columns="stratum_id", values="coverage", aggfunc="first")
@@ -121,16 +113,14 @@ write("apC-t8.tex", "Vetor & Par & " + " & ".join(p.columns) + " \\\\", body,
       "tab:apC-e4-cond", "@{}ll" + "r" * len(p.columns) + "@{}", "Cobertura condicional por tercil e semestre")
 ar = tsv("E4", "E4_alarm_runs.tsv")
 body = [f"{VEC[r.vector_id]} & {pair(r.pair_id)} & {int(r.n_alarms)} & {f(r.alarm_rate,3)} & {int(r.n_runs)} & {f(r.mean_run_length,1)} & {int(r.max_run_length)} & {f(r.median_alarm_gap_days,1)} & {f(r.independence_mean_run_length,2)} \\\\" for r in ar.itertuples()]
-write("apC-t9.tex", "Vetor & Par & Alarmes & Taxa & Rajadas & Compr.\\ méd. & Máx. & Interv.\\ mediano & Compr.\\ indep. \\\\", body,
+write("apC-t9.tex", "Vetor & Par & Alarmes & Taxa & Rajadas & Compr.\\ médio & Máx. & Intervalo mediano & Compr.\\ sob indep. \\\\", body,
       "Rajadas de alarme (E4): número de sequências de dias consecutivos fora da banda, comprimento médio e máximo, intervalo mediano entre alarmes e comprimento médio esperado se os dias fossem independentes.",
-      "tab:apC-e4-rajadas", "@{}llrrrrrrr@{}", "Rajadas de alarme",
-      size="scriptsize", tcs=4)
+      "tab:apC-e4-rajadas", "@{}llrrrrrrr@{}", "Rajadas de alarme")
 bsh = tsv("E4", "E4_band_shape.tsv")
 body = [f"{VEC[r.vector_id]} & {pair(r.pair_id)} & {f(r.sigma_train,2)} & {f(r.constant_half_width,2)} & {f(r.half_width_q_min,2)} & {f(r.half_width_q_median,2)} & {f(r.half_width_q_max,2)} \\\\" for r in bsh.itertuples()]
 write("apC-t10.tex", "Vetor & Par & $\\hat\\sigma$ & Banda constante & \\multicolumn{3}{c}{Intervalo de predição (mín., mediana, máx.\\ da carga)} \\\\", body,
       "Forma da banda (E4): meia-largura da banda constante $\\pm2\\hat\\sigma$ contra a meia-largura de um intervalo de predição clássico, que cresce com a distância à carga média do treino. O intervalo de predição é um comparador homocedástico e independente, não uma banda validada.",
-      "tab:apC-e4-forma", "@{}llrrrrr@{}", "Forma da banda contra o intervalo de predição",
-      tcs=3)
+      "tab:apC-e4-forma", "@{}llrrrrr@{}", "Forma da banda contra o intervalo de predição")
 
 # ---- C6: E6 covariaveis -------------------------------------------------------
 sk = tsv("E6", "E6_skill.tsv")
