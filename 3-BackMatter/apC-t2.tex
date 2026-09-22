@@ -1,8 +1,10 @@
 %% Gerado por _gerador/apendice_c.py (2026-09-17) das corridas canonicas. Nao editar a mao.
 {\scriptsize
 \setlength{\tabcolsep}{3pt}
+\ntzebra
 \begin{xltabular}{\linewidth}{@{}llp{2.4cm}rrrrlrl@{}}
 \caption[Poder preditivo por vetor, par e comparador]{Poder preditivo (E2): diferença emparelhada de perda absoluta entre o modelo do ano de treino e cada comparador, no ano seguinte, com intervalo percentil por \emph{bootstrap} de blocos móveis (bloco base). Est.: $+$ o intervalo exclui zero pelo lado positivo, $-$ pelo negativo, 0 contém zero, NE não estimável. As últimas linhas são a resolução mensal da eletricidade. Unidades: t~GNE/d (MWh na eletricidade).}\label{tab:apC-e2}\\
+\hiderowcolors
 \toprule
 Vetor & Par & Comparador & $n$ & MAE mod. & MAE nulo & $\Delta$MAE & IC 95\% & \emph{skill} & Est. \\
 \midrule
@@ -13,6 +15,7 @@ Vetor & Par & Comparador & $n$ & MAE mod. & MAE nulo & $\Delta$MAE & IC 95\% & \
 \endhead
 \bottomrule
 \endfoot
+\showrowcolors
 Fuel gás & 2020$\to$2021 & média móvel 30 d & 301 & 41,54 & 37,76 & $-$3,78 & [$-$13,09; 4,65] & $-$0,100 & 0 \\
 Fuel gás & 2020$\to$2021 & mesmo dia do ano anterior & 268 & 41,15 & 83,02 & 41,87 & [31,06; 55,77] & 0,504 & + \\
 Fuel gás & 2020$\to$2021 & média do treino & 301 & 41,54 & 65,84 & 24,31 & [16,85; 32,35] & 0,369 & + \\

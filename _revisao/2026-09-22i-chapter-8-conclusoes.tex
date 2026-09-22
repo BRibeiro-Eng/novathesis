@@ -151,10 +151,8 @@ pelas condições que tornam qualquer modelo avaliável
 % deixou de caber numa pagina e transbordava. Passa a xltabular, como as
 % Tabelas 1.1, 2.1 e 2.4--2.6: parte-se com cabecalho repetido.
 {\footnotesize
-\ntzebra
 \begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}X@{}}
 \caption[Roteiro a partir das falhas observadas]{Roteiro de trabalho futuro organizado pelas falhas observadas. As três primeiras linhas são pré-condições das seguintes.}\label{tab:roteiro}\\
-\hiderowcolors
 \toprule
 Falha observada & Opção & Dados adicionais & Comparador & Critério de sucesso \\
 \midrule
@@ -168,7 +166,6 @@ Falha observada & Opção & Dados adicionais & Comparador & Critério de sucesso
 \endfoot
 \bottomrule
 \endlastfoot
-\showrowcolors
     Detetabilidade real não estimável; nenhum desvio classificável & Integrar o calendário operacional e rótulos de eventos na plataforma & Paragens, arranques, limpezas, mudanças de crude, intervenções de instrumentação & Situação atual, sem eventos & Taxa de deteção e atraso medidos sobre eventos reais; alarmes classificados \\
     \addlinespace
     Critério de aceitação sem margens materiais & Elicitar com a operação a menor mudança que importa e a precisão mínima & Margens por vetor; custo de um falso alarme e de um desvio não visto & Regra de 4 em 5 atual & Critério de equivalência ou não inferioridade fixado antes de avaliar qualquer candidato novo \\

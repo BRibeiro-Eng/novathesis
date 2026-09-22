@@ -45,10 +45,15 @@ def write(fn, head, body, caption, label, colspec, short=None, size="footnotesiz
          "{\\" + size]
     if tcs is not None:
         L.append("\\setlength{\\tabcolsep}{%gpt}" % tcs)
-    L += [f"\\begin{{xltabular}}{{\\linewidth}}{{{colspec}}}",
+    # A alternancia de linhas tem de ser fechada no cabecalho repetido e
+    # reaberta no corpo; numa longtable o \hiderowcolors sozinho desliga-a
+    # ate ao fim da tabela.
+    L += ["\\ntzebra",
+         f"\\begin{{xltabular}}{{\\linewidth}}{{{colspec}}}",
          f"\\caption[{short or caption[:60]}]{{{caption}}}\\label{{{label}}}\\\\",
+         "\\hiderowcolors",
          "\\toprule", head, "\\midrule", "\\endfirsthead", "\\toprule", head, "\\midrule", "\\endhead",
-         "\\bottomrule", "\\endfoot"] + body + ["\\end{xltabular}", "}"]
+         "\\bottomrule", "\\endfoot", "\\showrowcolors"] + body + ["\\end{xltabular}", "}"]
     open(os.path.join(OUT, fn), "w", encoding="utf-8").write("\n".join(L) + "\n")
     print(fn, len(body))
 

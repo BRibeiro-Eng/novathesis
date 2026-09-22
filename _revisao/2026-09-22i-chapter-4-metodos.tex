@@ -503,7 +503,6 @@ há desvios rotulados; o que existe é a simulação da Parte~C, que descreve o
 gerador e não a refinaria.
 
 {\footnotesize
-\ntzebra
 \begin{xltabular}{\linewidth}{@{}>{\raggedright\arraybackslash}p{1.9cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{1.8cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{1.9cm}@{}}
 \caption[Contrato inferencial de cada instrumento]{Contrato inferencial
   de cada instrumento do protocolo: o que se estima ou testa, sobre que
@@ -512,7 +511,6 @@ gerador e não a refinaria.
   2\,000 réplicas, bloco base $\lceil n^{1/3}\rceil$ dias (7 nas amostras
   anuais). Os cinco pares são 2020${\to}$2021 a 2024${\to}$2025; o par
   2025${\to}$2026 é parcial e só diagnóstico.}\label{tab:contrato-inferencial}\\
-\hiderowcolors
 \toprule
 Instrumento & Estimando ou $H_0$ & Unidade; amostra & Comparador & Incerteza; multiplicidade & Estatuto \\
 \midrule
@@ -526,7 +524,6 @@ Instrumento & Estimando ou $H_0$ & Unidade; amostra & Comparador & Incerteza; mu
 \endfoot
 \bottomrule
 \endlastfoot
-\showrowcolors
     Desempenho preditivo (E2) & \revisto{média das diferenças diárias de perda absoluta, nulo $-$ modelo, no ano de aplicação} & dia; 5 pares & média do ano de treino (primário); mesmo dia do ano anterior e média móvel de 30 dias (secundários) & MBB sobre a série de diferenças; sensibilidade a blocos de 7, 14, 30, 60 e 90 dias; por contraste, sem correção & confirmatório; critério C1 de aceitação \\
     \addlinespace
     Estabilidade (E3) & $H_0$: declives anuais iguais na regressão empilhada com interações ano$\times$carga & dia; 6 anos & nenhum (teste de igualdade) & Wald com covariância HAC (\emph{kernel} quadrático-espectral, largura de Andrews); família de quatro hipóteses, uma por vetor, BH; BY como verificação & confirmatório \\
