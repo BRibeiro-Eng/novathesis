@@ -10,6 +10,7 @@ Uso:  /usr/local/bin/python3 _gerador/figuras.py [nome ...]
 Saída: 5-Figures/gerado/*.pdf (vetorial).
 """
 import os, sys, json
+from itertools import product
 import numpy as np, pandas as pd
 import matplotlib
 matplotlib.use("Agg")
@@ -1250,7 +1251,86 @@ def fe02_bandas():
     grava(fig, "apE-bandas-comparadas")
 
 
-FIGS = {"f08": f08_validacao, "fe02": fe02_bandas, "f09": f09_populacao, "fe01": fe01_blocos, "f10": f10_amostra, "f11": f11_dispersao, "f12": f12_ganho,
+
+# ------------------------------------------------------------------ FE03 --
+# Apêndice E: contagens separadas contra sucesso conjunto na regra de quatro
+# pares em cinco. Exemplo construído e enumeração exacta; nenhum valor da
+# refinaria entra aqui.
+GEX, CEX, LIM45 = (1, 1, 1, 1, 0), (0, 1, 1, 1, 1), 4
+
+def fe03_conjunto():
+    fig = plt.figure(figsize=(15.5 * CM, 7.0 * CM))
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.36, 1.0], wspace=0.30)
+
+    ax = fig.add_subplot(gs[0, 0])
+    linhas = [(r"$G_j$  ganho exclui zero", GEX, REALCE),
+              (r"$C_j$  cobertura compatível", CEX, MEDIA),
+              (r"$G_jC_j$  ambos no mesmo par",
+               tuple(g * c for g, c in zip(GEX, CEX)), TINTA)]
+    for i, (rot, vec, cor) in enumerate(linhas):
+        y = -i * 1.25
+        for j, v in enumerate(vec):
+            ax.add_patch(Rectangle((j + 0.10, y - 0.34), 0.80, 0.68,
+                                   facecolor=cor if v else "white",
+                                   edgecolor=cor if v else CINZA_C, lw=0.8, zorder=3))
+            if not v:
+                ax.plot([j + 0.28, j + 0.72], [y - 0.16, y + 0.16],
+                        color=CINZA_C, lw=0.8, zorder=4)
+                ax.plot([j + 0.28, j + 0.72], [y + 0.16, y - 0.16],
+                        color=CINZA_C, lw=0.8, zorder=4)
+        ax.annotate(rot, (-0.18, y), ha="right", va="center", fontsize=7.4, color=cor)
+        tot = sum(vec); ok = tot >= LIM45
+        ax.annotate(rf"$\sum_j = {tot}$", (5.35, y), ha="left", va="center",
+                    fontsize=7.4, color=cor)
+        ax.annotate(rf"$\geq {LIM45}$" if ok else rf"$< {LIM45}$", (6.85, y),
+                    ha="left", va="center", fontsize=7.4,
+                    color=REALCE if ok else ALERTA)
+    for j, par in enumerate(PARES5_L):
+        ax.annotate(par, (j + 0.5, 0.52), ha="center", va="bottom", fontsize=6.6,
+                    color=CINZA, rotation=30)
+    ax.annotate("a regra histórica exige as duas primeiras\nsomas em separado, e aqui cumpre-se",
+                (-4.20, -3.25), ha="left", va="top", fontsize=6.5, color=CINZA,
+                linespacing=1.4)
+    ax.set_xlim(-4.30, 8.00); ax.set_ylim(-3.95, 1.35)
+    ax.set_xticks([]); ax.set_yticks([]); ax.tick_params(length=0)
+    for sp in ax.spines.values(): sp.set_visible(False)
+    ax.set_title("A  Um exemplo com cinco pares anuais", loc="left")
+
+    adm = [v for v in product([0, 1], repeat=5) if sum(v) >= LIM45]
+    adm.sort(key=lambda v: (-sum(v), v))
+    M = np.array([[1 if sum(g * c for g, c in zip(G, C)) >= LIM45 else 0
+                   for C in adm] for G in adm])
+    ax = fig.add_subplot(gs[0, 1])
+    for i in range(len(adm)):
+        for j in range(len(adm)):
+            ax.add_patch(Rectangle((j + 0.06, i + 0.06), 0.88, 0.88,
+                                   facecolor=REALCE if M[i, j] else NEUTRO,
+                                   edgecolor="white", lw=0.6, zorder=3))
+    iG, iC = adm.index(GEX), adm.index(CEX)
+    # A moldura assinala o exemplo do painel A; a legenda di-lo, para não
+    # atravessar a matriz com uma linha de chamada.
+    ax.add_patch(Rectangle((iC + 0.06, iG + 0.06), 0.88, 0.88, facecolor="none",
+                           edgecolor=ALERTA, lw=1.4, zorder=5))
+    rot = ["".join(str(x) for x in v) for v in adm]
+    ax.set_xticks(np.arange(len(adm)) + 0.5)
+    ax.set_xticklabels(rot, fontsize=6.4, rotation=90)
+    ax.set_yticks(np.arange(len(adm)) + 0.5)
+    ax.set_yticklabels(rot, fontsize=6.4)
+    ax.set_xlim(0, len(adm)); ax.set_ylim(len(adm) + 0.2, -0.2)
+    ax.set_xlabel(r"vetor de cobertura $C$", labelpad=2)
+    ax.set_ylabel(r"vetor de ganho $G$")
+    ax.tick_params(length=0)
+    for sp in ax.spines.values(): sp.set_visible(False)
+    ax.set_title("B  Todas as configurações que passam a regra", loc="left")
+    n_ok, n_tot = int(M.sum()), M.size
+    ax.annotate(f"{n_tot - n_ok} das {n_tot} ({pt(100 * (n_tot - n_ok) / n_tot)} %) não têm\n"
+                "quatro sucessos conjuntos",
+                (0.02, -0.265), xycoords="axes fraction", ha="left", va="top",
+                fontsize=6.4, color=CINZA, linespacing=1.4, annotation_clip=False)
+    grava(fig, "apE-separado-vs-conjunto")
+
+
+FIGS = {"f08": f08_validacao, "fe02": fe02_bandas, "fe03": fe03_conjunto, "f09": f09_populacao, "fe01": fe01_blocos, "f10": f10_amostra, "f11": f11_dispersao, "f12": f12_ganho,
         "f13": f13_predicoes, "f14": f14_cobertura, "f15": f15_acoplamento,
         "f16": f16_sensibilidade, "f18": f18_matriz, "fdep": fdep_dependencia, "f14b": f14b_rajadas, "f19": f19_injeccao, "f20": f20_deteccao,
         "v02": v02_cobertura, "v03": v03_evolucao, "v06": v06_modelos,

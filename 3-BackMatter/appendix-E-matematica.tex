@@ -937,6 +937,30 @@ A regra descrita exige separadamente
 \end{equation}
 Esta conjunção permite apenas três pares com ambos os critérios satisfeitos. Por exemplo, $G=(1,1,1,1,0)$ e $C=(0,1,1,1,1)$ cumprem a regra, mas $\sum_jG_jC_j=3$. Exigir quatro sucessos conjuntos seria a regra distinta $\sum_jG_jC_j\geq4$. A reprodução dos resultados históricos deve conservar a primeira definição e identificá-la.
 
+\matref{A Figura~\ref{fig:mat-conjunto} desenha esse exemplo e enumera todas
+as configurações em que as duas regras divergem.}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/apE-separado-vs-conjunto}
+  \caption[Contagens separadas e sucesso conjunto na regra de quatro em cinco]%
+  {\matref{A diferença entre exigir as duas somas em separado e exigir
+  sucessos conjuntos. O exemplo é construído e a enumeração é exata; nenhum
+  valor da refinaria entra nesta figura. \textbf{A}: os dois vetores
+  binários do texto sobre os cinco pares anuais encadeados. As somas de
+  $G_j$ e de $C_j$ são ambas quatro, pelo que a regra da
+  equação~\ref{eq:mat-gate-historico} se cumpre; a terceira linha mostra
+  que só três pares satisfazem os dois critérios ao mesmo tempo.
+  \textbf{B}: as seis configurações admissíveis de cada vetor --- as que
+  somam quatro ou cinco --- cruzadas duas a duas. A azul, as combinações
+  que também teriam quatro sucessos conjuntos; a cinzento, as que não
+  teriam. A moldura assinala o exemplo do painel A. Das 36 configurações
+  que passam a regra histórica, 20 --- $56\,\%$ --- falhariam uma regra de
+  sucesso conjunto com o mesmo limiar nominal, o que mede quanto as duas
+  definições diferem e justifica identificar qual foi usada.}}
+  \label{fig:mat-conjunto}
+\end{figure}
+
 \matref{Os dois critérios não incidem sobre o mesmo objeto, e é esse o alcance do resultado histórico. O critério de ganho compara a previsão anual do ajuste oficial com o comparador trivial treinado no mesmo período: o seu centro é $\widehat f(\boldsymbol x_t)$. O critério de cobertura é avaliado sobre a banda do candidato e, na rota autorregressiva, essa banda tem por centro $c_t^{AR}$ da equação~\ref{eq:mat-centro-ar}, que acrescenta ao ajuste a previsão condicional do resíduo e regressa ao centro marginal nos dias sem os desfasamentos civis necessários. Uma aceitação certifica, assim, duas proposições distintas --- que o ajuste anual tem conteúdo preditivo sobre o comparador trivial, e que existe uma banda cuja cobertura é compatível com o valor nominal --- e não que um único preditor satisfaz ambas. Para uma finalidade preditiva, uma nova avaliação deve calcular a perda do preditor completo, incluindo os dias de substituição marginal, e aplicar os dois critérios a esse mesmo objeto. Os resultados já publicados conservam-se com a definição com que foram produzidos, e é com essa definição que devem ser lidos.}
 
 \subsection{Compatibilidade, equivalência e não inferioridade}
@@ -951,7 +975,12 @@ O nível do intervalo deve corresponder ao procedimento de equivalência escolhi
 
 A potência de uma regra é a probabilidade de produzir a decisão pretendida sob uma alternativa especificada. Cinco transições anuais encadeadas partilham dados entre treino e aplicação de pares sucessivos e podem ter dependência operacional. Não devem ser tratadas automaticamente como cinco ensaios Bernoulli independentes. Para calibrar a regra completa, a simulação deve reproduzir essa dependência, a seleção dos candidatos e os estados não estimáveis.
 
-\revisaotese{MAT-F10}{P1}{FIGURA}{Explicar a decisão em duas camadas}{Criar uma matriz candidato--par com colunas separadas para ganho, cobertura e estimabilidade. Junto da matriz, usar os dois vetores binários do exemplo para mostrar a diferença entre contagens separadas e sucesso conjunto. Apresentar margens materiais apenas depois de definidas e identificá-las como critério de uma nova avaliação.}
+\matref{A diferença entre contagens separadas e sucesso conjunto está na
+Figura~\ref{fig:mat-conjunto}; a matriz de decisão por candidato e par
+anual, com os estados efetivamente observados, está na
+Figura~\ref{fig:matriz-decisao} do Capítulo~\ref{cha:discussao}. As margens
+materiais das equações acima permanecem por definir e são critério de uma
+avaliação futura, não deste resultado.}
 
 \section{Referência, estado e monitorização sequencial}
 \label{sec:mat-monitorizacao}
