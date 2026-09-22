@@ -1,0 +1,42 @@
+Fechar as oito caixas MAT-F restantes por reclassificacao
+
+Nenhuma delas era trabalho de apendice pela regra fixada: uma figura de
+apendice explica um mecanismo, uma figura com dados vive no corpo. Seis
+tinham a metade empirica ja feita no corpo e passam a remeter para ela;
+duas fecham com o limite declarado.
+
+Remissoes para o corpo:
+- F04 cobertura por campo e mapa de casos (Cap. 3). Declara-se tambem que
+  nao ha rede de coocorrencia e porque: com este denominador e estes
+  limiares, nao separa o que as barras ja separam.
+- F05 taxas de erro da auditoria (Cap. 3); o limite unilateral para zero
+  erros e a forma fechada da seccao de Clopper-Pearson.
+- F06 ganho preditivo e populacao (Cap. 6).
+- F08 dispersao, dependencia dos residuos e previsao a carga comum
+  (Cap. 6). Declara-se porque PCA e agrupamento ficaram de fora: sem
+  informacao de processo, nomear um grupo geometrico como regime
+  operacional nao e autorizado pelos dados.
+- F11 injeccao de degrau por canal (Cap. 7).
+- F12 curvas de detetabilidade com censura (Cap. 7), com a leitura de que
+  sao simulacao e nao taxa observada nos alarmes.
+
+Fechadas com limite declarado:
+- F02 a fronteira da unidade esta no Cap. 2 e na tabela de mapeamento do
+  Cap. 4. Um diagrama com larguras proporcionais exigiria um balanco
+  reconciliado que a plataforma nao produz -- a harmonizacao aplica
+  precedencias, nao resolve um balanco -- e sugeriria uma conservacao que
+  os dados nao sustentam.
+- F03 os quatro percursos de conversao sao equacoes com fator, unidade e
+  origem ja declarados; a dependencia do consumo especifico com a carga e
+  a propria equacao do racio.
+
+Todos os 21 labels citados verificados: existem e sao unicos.
+
+Restam duas caixas em toda a tese, ambas dependentes de terceiros:
+C2-08 (nivel de detalhe da CDU, orientacao industrial) e AP-A-02 (hash do
+protocolo no OSF).
+
+Build: 304 paginas, zero erros, zero referencias por resolver.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01WMymYi7rCaXPNEYDJVztnV

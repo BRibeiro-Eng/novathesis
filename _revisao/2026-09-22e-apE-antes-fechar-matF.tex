@@ -151,16 +151,7 @@ Desprezando variações de energia cinética e potencial, uma forma do balanço 
 \end{equation}
 $\mathcal Q_{\mathrm{ext}}$ designa calor transferido para o sistema e $\mathcal W_{\mathrm{ext}}$ trabalho realizado pelo sistema. A energia química pode ser incluída nas entalpias ou representada por um termo de combustível numa formulação compatível; deve evitar-se a dupla contabilização. Uma eficiência térmica $\eta=\mathcal Q_{\mathrm{útil}}/E_{\mathrm{fornecida}}$ exige definir o efeito útil e a fronteira. GNE, consumo específico e desvio à baseline são indicadores com outras definições; a sua variação não quantifica, por si só, uma eficiência termodinâmica.
 
-\matref{A fronteira concreta da unidade avaliada --- que correntes entram em
-$Q_t$ e em cada $E_{v,t}$ --- é descrita no
-Capítulo~\ref{cha:enquadramento} e fixada pela tabela de mapeamento do
-Capítulo~\ref{cha:metodos}, que é onde a atribuição de cada corrente fica
-registada linha a linha. Um diagrama de fluxos com larguras proporcionais
-exigiria um balanço reconciliado num período comum, que a plataforma não
-produz: a harmonização da equação~\ref{eq:mat-fontes} aplica precedências
-declaradas e não resolve um balanço com incertezas de medição. Representar
-caudais a escala sem esse balanço sugeriria uma conservação que os dados
-não sustentam.}
+\revisaotese{MAT-F02}{P1}{FIGURA}{Desenhar a fronteira da unidade de destilação}{Usar um esquema de correntes com carga fresca, retornos, produtos, combustível, vapor e eletricidade. Identificar o que entra em $Q_t$ e em cada $E_{v,t}$. Um Sankey só deve ser acrescentado quando existir um balanço reconciliado e um período comum; até lá, setas sem larguras quantitativas. Completar a ligação à descrição física do caso de estudo.}
 
 \subsection{Conversão em gás natural equivalente}
 \label{sec:mat-gne}
@@ -257,14 +248,7 @@ M_{\mathrm{CO_2}}\,[\mathrm{kt}]=\frac1{1000}\sum_v E_{\mathrm{GNE},v}\,[\mathrm
 \end{equation}
 A interpretação depende da origem e do âmbito de cada fator: combustão direta, energia adquirida ou outro critério contabilístico. Para um vetor com crédito, é necessário declarar se o fator se aplica ao consumo bruto, à produção creditada ou ao saldo. O resultado não substitui um inventário de emissões com fronteiras próprias.
 
-\matref{Os quatro percursos de conversão --- combustível, vapor,
-eletricidade e emissões --- estão nas equações~\ref{eq:mat-gne-combustivel}
-a~\ref{eq:mat-emissoes}, e o fator, a unidade e a origem de cada parâmetro
-ficam declarados no final da Secção~\ref{sec:mat-gne}. A dependência do
-consumo específico com a carga é a própria
-equação~\ref{eq:mat-racio-carga}: um termo constante repartido por mais
-produção. Uma figura que repetisse estas identidades acrescentaria uma
-página sem acrescentar leitura.}
+\revisaotese{MAT-F03}{P2}{FIGURA}{Mostrar as conversões sem esconder as unidades}{Criar uma tabela visual de quatro percursos: combustível, vapor, eletricidade e emissões. Cada seta deve indicar fator, unidade e fonte. Acrescentar um pequeno gráfico ilustrativo de $a+bQ$ e de $b+a/Q$, identificado como exemplo algébrico, para explicar a dependência do consumo específico com a carga.}
 
 \section{Contagens, bibliometria e redes}
 \label{sec:mat-bibliometria}
@@ -319,14 +303,7 @@ onde $n_{ij}$ é a frequência do termo $j$ no documento $i$ e $df_j$ o número 
 
 A fatorização não negativa procura $U,V\geq0$ tais que $X\approx UV$, minimizando, na forma quadrática sem penalização, $\tfrac12\|X-UV\|_F^2$. A atribuição dominante é $\widehat c_i=\arg\max_kU_{ik}$. O peso máximo não é uma probabilidade. A configuração consultada limita o número de tópicos a seis, usa palavras e pares de palavras e fixa a semente em 44. Os rótulos dos tópicos resultam de interpretação dos termos e exigem inspeção dos artigos correspondentes.
 
-\matref{As contagens e os mapas efetivamente usados na revisão estão no
-Capítulo~\ref{cha:revisao} --- a cobertura por campo na
-Figura~\ref{fig:cobertura-campos} e o mapa de casos na
-Figura~\ref{fig:mapa-casos} --- e nenhum deles é uma rede de coocorrência.
-A opção foi deliberada: com o denominador e os limiares deste corpus, uma
-rede não separa o que as barras e as interseções exatas já separam. As
-expressões desta secção descrevem, por isso, a construção de uma rede para
-quem queira reproduzi-la, não um resultado apresentado.}
+\revisaotese{MAT-F04}{P2}{FIGURA}{Ligar a tabela à rede}{Usar um exemplo mínimo, explicitamente fictício, com três artigos e quatro termos: matriz de incidência, produto matricial e rede resultante. Na bibliometria real, acrescentar à legenda o denominador, os limiares, a cobertura dos metadados e o significado dos pesos. Para multirrótulos, preferir barras ou interseções exatas quando uma rede não acrescentar informação.}
 
 \section{Auditoria da revisão e controlo da extração}
 \label{sec:mat-auditoria-revisao}
@@ -389,14 +366,7 @@ Uma regra que aciona revisão quando $X\geq c$ tem probabilidade de acionamento
 \end{equation}
 Esta curva permite perceber que taxas de erro o instrumento tem capacidade de assinalar. Não acionar o gatilho é compatível com taxas positivas de erro. Para populações pequenas, a expressão hipergeométrica permite calcular a probabilidade correspondente sem reposição.
 
-\matref{As taxas de erro por campo e os respetivos denominadores estão na
-Figura~\ref{fig:cobertura-campos} do Capítulo~\ref{cha:revisao}, com $n_v$
-declarado em cada ponto. O limite superior unilateral para zero erros é a
-forma fechada da Secção~\ref{sec:mat-clopper-pearson}, e para a amostra
-auditada dá diretamente o valor citado nesse capítulo; é uma identidade de
-uma linha, que uma curva ilustraria sem tornar mais exata. O que importa
-conservar não é a figura mas a separação dos denominadores: as decisões
-censitadas não entram na fração amostral.}
+\revisaotese{MAT-F05}{P2}{FIGURA}{Tornar visível a incerteza da auditoria}{Representar $e_v/n_v$ e o intervalo exato de cada campo, com $n_v$ junto ao ponto. Numa figura explicativa separada, desenhar o limite superior unilateral para zero erros em função de $n$. Identificar o ponto $n=40$ e evitar juntar as decisões censitadas ao denominador amostral.}
 
 \section{Regressão, estimação e modelos comparadores}
 \label{sec:mat-regressao}
@@ -574,10 +544,7 @@ declarados\matref{~\parencite{BergmeirHyndmanKoo2018}}. Como o ajuste dos restan
 % MAP: M06.07
 Uma análise de sensibilidade altera uma escolha de cada vez: janela, conjunto de covariáveis, máscara, comprimento de bloco ou família de banda. Se a alteração muda os dias elegíveis, muda também a população do estimando. A comparação deve apresentar o resultado na população própria e, quando calculável, na interseção comum. A eletricidade mensal conserva a sua unidade de observação mensal, mesmo quando é apresentada numa tabela diária.
 
-\matref{Os ganhos estimados, com intervalo por vetor e par anual e o zero
-como referência, estão na Figura~\ref{fig:ganho-preditivo} do
-Capítulo~\ref{cha:diagnostico}, e a população que os sustenta na
-Figura~\ref{fig:amostra-filtros} do mesmo capítulo.}
+\revisaotese{MAT-F06}{P1}{FIGURA}{Representar os ganhos e a população correspondente}{Usar um gráfico de pontos e intervalos para $\Delta_{MAE}$ por vetor e par anual, com zero como referência e $n$ junto de cada contraste. Um painel adjacente pode apresentar os dias excluídos por comparador. Nos gráficos de modelos móveis, identificar a origem e o fim da janela de treino.}
 
 \section{Inferência sob dependência e multiplicidade}
 \label{sec:mat-inferencia}
@@ -814,15 +781,7 @@ Para dois vetores, a correlação de Pearson é a covariância amostral dividida
 
 \matref{Os graus de liberdade dos testes auxiliares são os declarados na implementação: Ljung--Box compara com $\chi^2_h$ nos desfasamentos de sete e de trinta dias, sem subtrair os parâmetros estimados; a versão studentizada de Breusch--Pagan usa um grau de liberdade; e o diagnóstico ARCH de ordem $h$ usa $h$. Nenhum destes valores $p$ é tratado como calibrado: o código regista-os com o papel explícito de índice descritivo e não os associa a qualquer decisão. Os únicos valores $p$ com calibração sustentada na dissertação são os dos testes de Wald da estabilidade anual, descritos na Secção~\ref{sec:mat-inferencia}, com covariância robusta e correção para a família de vetores. A diferença padronizada entre dias retidos e removidos é igualmente descritiva, e o seu denominador é o declarado na equação~\ref{eq:mat-smd}, com variâncias de divisor $n_g$.}
 
-\matref{O diagnóstico está organizado por pergunta no
-Capítulo~\ref{cha:diagnostico}: a relação com a carga e a população
-excluída na Figura~\ref{fig:dispersao-energia-carga}, a dependência
-temporal dos resíduos na Figura~\ref{fig:dependencia-residuos} e a
-influência medida por variação de previsão a carga comum na
-Figura~\ref{fig:predicoes-carga-comum}. Os gráficos de componentes
-principais e de agrupamento não foram incluídos: sem informação de
-processo com que os confrontar, nomear um grupo geométrico como regime
-operacional seria uma interpretação que os dados não autorizam.}
+\revisaotese{MAT-F08}{P2}{FIGURA}{Organizar o diagnóstico por pergunta}{Propor quatro painéis: resíduo versus carga com escala local; ACF com número de pares por lag; distribuição por mês; suporte treino--aplicação nas covariáveis. Representar a influência por variação de previsão a carga comum. Usar os gráficos de PCA e agrupamento apenas quando acrescentarem uma interpretação confrontável com o processo.}
 
 \section{Bandas, cobertura e regras de alarme}
 \label{sec:mat-bandas}
@@ -1156,12 +1115,7 @@ No início de um degrau, aparece a amplitude total; durante um patamar, resta $(
 % MAP: M11.09
 Uma proposta de governação distingue referência ativa, observação fora do domínio, investigação, suspensão e referência substituída. Um alarme é um evento produzido pela regra estatística; uma mudança de estado operacional depende da evidência e da decisão registadas. A transição pode representar-se por $s_{t+1}=\mathcal T(s_t,a_t,d_t)$, onde $a_t$ é a informação de alarme e $d_t$ a decisão autorizada. A versão da referência e a data de entrada em vigor devem permanecer associadas a cada valor calculado. O manual de utilização deve definir responsabilidades e critérios para estas transições antes da adoção operacional.
 
-\matref{O comportamento de cada canal perante um degrau conhecido está na
-Figura~\ref{fig:injeccao} do Capítulo~\ref{cha:discussao}, gerada por
-simulação com a amplitude e o instante de mudança declarados. A perda de
-sinal por sobreposição da janela de reajuste com o degrau é a
-equação~\ref{eq:mat-projecao-sinal}, cujo efeito o mesmo capítulo
-quantifica.}
+\revisaotese{MAT-F11}{P1}{FIGURA}{Mostrar onde fica um degrau em cada canal}{Gerar um exemplo com a mesma realização de ruído, com e sem um degrau conhecido. Usar quatro painéis alinhados: energia e referência, desvio fixo, estado estimado e inovação. Num segundo painel de comparação, representar a equação~\ref{eq:mat-projecao-sinal} para reajuste com e sem sobreposição da janela com o degrau. As legendas devem identificar o exemplo como simulação, a amplitude, a escala e o início da mudança.}
 
 \section{Simulação, falsos sinais e detetabilidade}
 \label{sec:mat-simulacao}
@@ -1319,9 +1273,5 @@ O stress deve alterar persistência, dimensão, máscara, forma da média, heter
 \matref{Três coisas devem manter-se separadas: a formulação de um cenário, a sua execução sobre um lote válido e um resultado consolidado. Este apêndice descreve os instrumentos; a presença de uma formulação aqui não converte um cenário previsto em resultado executado, nem um lote provisório em evidência consolidada. Cada cenário citado no capítulo de diagnóstico remete para o lote e o manifesto que o produziram, e as condições que o definem --- treino, horizonte, máscara, número de realizações, separação entre calibração e verificação, convenção de censura e família de contrastes --- acompanham esse registo e não este texto.}
 
 \clearpage
-\matref{As curvas de probabilidade de deteção por amplitude, com a
-incerteza Monte Carlo e a censura do menor desvio detetável visível, estão
-na Figura~\ref{fig:deteccao} do Capítulo~\ref{cha:discussao}. São curvas de
-simulação, e é essa a sua leitura: a detetabilidade medida num gerador
-declarado não é uma taxa observada nos alarmes da refinaria.}
+\revisaotese{MAT-F12}{P1}{FIGURA}{Apresentar a detetabilidade com a censura visível}{Usar curvas de probabilidade de deteção por amplitude, com incerteza Monte Carlo e linha horizontal em $50\%$. Marcar o MDD por intervalo de grelha ou seta de censura. Apresentar, ao lado, falsos sinais verificados e atrasos acompanhados da fração não detetada. Para o stress, preferir pequenos múltiplos com os mesmos eixos. Reservar as curvas empíricas para lotes consolidados.}
 
