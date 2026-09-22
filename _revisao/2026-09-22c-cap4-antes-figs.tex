@@ -345,37 +345,6 @@ de uma recalibração anual sobre um desvio é uma consequência desse desenho,
 medida em simulação no Capítulo~\ref{cha:discussao}; não é um episódio
 observado nos alarmes da refinaria.
 
-\matref{A Figura~\ref{fig:populacao-analitica} mostra a população que estes
-filtros deixam, pela ordem em que são aplicados, e duas propriedades da
-construção que a descrição em prosa não torna visíveis: o agregado é somado
-depois dos filtros, pelo que o número de vetores que o compõem varia de dia
-para dia; e um total mensal alocado em dias iguais deixa de somar o total
-medido assim que a seleção retira algum desses dias.}
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=\textwidth]{gerado/cap4-populacao-analitica}
-  \caption[Formação da população analítica na plataforma]%
-  {\matref{Como a plataforma forma a população da unidade de destilação
-  atmosférica. \textbf{A}: a cascata de filtros da tabela calculada de
-  \emph{baselines}, pela ordem em que é aplicada; cada barra conta células
-  vetor--dia, e a anotação dá também os dias civis distintos. Dos 2\,404 dias
-  candidatos entre 2020-01-01 e 2026-07-31, só dois cortes removem população
-  --- os zeros do canal de balanço (1\,230 células) e o limiar de carga de
-  18\,600~t/d (800 células em 251 dias). As etapas a cinzento não removem
-  nenhuma célula nesta extração: o dia corrente não existe numa extração
-  fechada, e há carga registada em todos os dias com energia. \textbf{B}:
-  quantos vetores compõem a linha do agregado em cada um dos 2\,151 dias
-  retidos; em 558 deles o agregado soma menos de seis vetores, sem o
-  assinalar. \textbf{C}: abril de 2025 na eletricidade, que não tem série
-  diária. Um total mensal de 594,63~t~GNE é repartido em 30 dias iguais de
-  19,82~t~GNE e o limiar retira três --- 28, 29 e 30 de abril, este último a
-  18\,551~t/d, 49~t abaixo do limiar --- pelo que a soma retida deixa de
-  coincidir com o total medido. Contagens recalculadas das tabelas congeladas
-  com a precedência de filtros da própria tabela calculada.}}
-  \label{fig:populacao-analitica}
-\end{figure}
-
 \paragraph{Resíduos, bandas e acumulados.} O resíduo diário é a diferença
 entre o consumo observado e o previsto pela \emph{baseline} do ano de
 referência selecionado, aplicada à carga do próprio dia; o resíduo
@@ -574,11 +543,7 @@ da seguinte é quebrada, como em qualquer \emph{bootstrap} de blocos. O
 \revisto{comprimento base é $\lceil n^{1/3}\rceil$ dias civis, sete ou oito nas amostras anuais avaliadas,} e um comprimento declarado que exceda a extensão civil da amostra é
 reportado como inexequível, não substituído. As contagens de janelas
 candidatas e a distribuição do seu número de observações acompanham cada
-intervalo no Apêndice~\ref{app:tabelas}. \matref{A
-Figura~\ref{fig:mat-blocos} do Apêndice~\ref{app:matematica} representa a
-construção num exemplo: os blocos candidatos sobre um calendário com uma
-lacuna, a concatenação de uma réplica e o efeito do comprimento do bloco
-sobre a largura do intervalo.}
+intervalo no Apêndice~\ref{app:tabelas}.
 
 \paragraph{As perguntas e a inferência.} As conclusões do diagnóstico
 assentam em cinco perguntas, cada uma com estimador, comparador e

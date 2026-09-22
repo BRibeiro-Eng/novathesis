@@ -124,10 +124,7 @@ O módulo de $x_0$ permite comparar saldos com sinal. Para $x_0=0$, prevalece a 
 % MAP: M01.10
 Num conjunto de $n$ valores válidos, $\bar x=n^{-1}\sum_i x_i$ e $s_x^2=(n-1)^{-1}\sum_i(x_i-\bar x)^2$. A mediana é o quantil de ordem $0{,}5$ e a amplitude interquartil é $\operatorname{IQR}=q_{0,75}-q_{0,25}$. Para quantis empíricos usados em limites, deve fixar-se o algoritmo de interpolação; neste rascunho, a interpolação linear entre estatísticas de ordem corresponde à convenção computacional habitual consultada. A completude é $n_{\mathrm{disponível}}/n_{\mathrm{esperado}}$, com o denominador definido por campo, vetor e período. Um mês parcial deve ser identificado como tal.
 
-\matref{A população que estes filtros deixam, e a alocação mensal da
-eletricidade a que a equação~\ref{eq:mat-alocacao-mensal} se refere, estão
-representadas na Figura~\ref{fig:populacao-analitica}, no capítulo de
-métodos, com as contagens da extração congelada.}
+\revisaotese{MAT-F01}{P1}{FIGURA}{Mostrar como se forma a população analítica}{Acrescentar um fluxograma com contagens desde o calendário candidato até à interseção pontuável. Ao lado, representar um mês de eletricidade como um total repartido pelos dias. As contagens devem provir do manifesto do lote; a figura deve identificar a resolução de medição e a resolução de apresentação. Colocação preferencial: capítulo de métodos, com remissão para esta secção.}
 
 \section{Grandezas físicas e indicadores energéticos}
 \label{sec:mat-energia}
@@ -633,33 +630,6 @@ Esta é a convenção de calendário consultada: um bloco pode conter menos de $
 
 A regra de base é $\ell_0=\lceil n^{1/3}\rceil$ e o protocolo usa $B=2000$ réplicas nas etapas correspondentes. Os comprimentos adicionais dependem da etapa; a grelha deve acompanhar cada resultado. Reamostrar $d_t$ mantém os parâmetros treinados fixos. O intervalo resultante é condicional a esses ajustes e não incorpora a variabilidade de voltar a selecionar e treinar os modelos. O mesmo princípio se aplica ao indicador de cobertura de uma banda já fixada.
 
-\matref{A Figura~\ref{fig:mat-blocos} representa esta construção num exemplo
-com uma lacuna, e o efeito do comprimento do bloco sobre a largura do
-intervalo.}
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=\textwidth]{gerado/apE-blocos-moveis}
-  \caption[\emph{Bootstrap} de blocos móveis no calendário civil]%
-  {\matref{O \emph{bootstrap} de blocos móveis no calendário civil. O exemplo
-  é construído: nenhum valor da refinaria entra nesta figura. \textbf{A}: um
-  calendário de 22 dias, quatro deles sem registo, com $\ell=5$ e $n=18$
-  observações. Um bloco candidato é o conjunto das observações cuja data cai
-  na janela civil, conforme a equação~\ref{eq:mat-blocos}: $\mathcal B_2$ e
-  $\mathcal B_{14}$ trazem cinco observações, $\mathcal B_9$ traz uma.
-  \textbf{B}: uma réplica, com o sorteio ilustrativo $\mathcal B_2$,
-  $\mathcal B_9$, $\mathcal B_{14}$, $\mathcal B_6$, $\mathcal B_{17}$; as
-  barras verticais marcam as junções artificiais entre blocos e as células
-  tracejadas são o excesso truncado em $n$. \textbf{C}: sensibilidade ao
-  comprimento do bloco, em simulação --- 120 séries AR(1) independentes com
-  $\rho=0{,}6$ e $n=240$, 800 réplicas por $\ell$ e semente fixa. Representa-se
-  a largura média do intervalo de percentil a 95\,\%, centrada, de modo a
-  tornar visível que só a largura responde a $\ell$. Em $\ell=1$ a reamostragem
-  trata os dias como independentes e o intervalo sai 41\,\% mais estreito do
-  que em $\ell_0=\lceil n^{1/3}\rceil$.}}
-  \label{fig:mat-blocos}
-\end{figure}
-
 \subsection{Bootstrap sob a hipótese nula}
 \label{sec:mat-bootstrap-nulo}
 % MAP: M07.07
@@ -681,6 +651,8 @@ Com verdade $\theta_0$ conhecida em $R$ realizações independentes, a cobertura
 \label{eq:mat-wilson}
 \end{equation}
 onde $z$ é o quantil normal correspondente ao nível do intervalo. A cobertura de um intervalo nominal de $90\%$ avalia esse procedimento; não valida automaticamente um intervalo nominal de $95\%$. A validade observada num cenário de simulação mantém-se condicionada ao gerador, à máscara e à dimensão estudados.
+
+\revisaotese{MAT-F07}{P1}{FIGURA}{Desenhar a reamostragem no calendário}{Representar uma sequência com uma lacuna, dois blocos de sete dias e a concatenação de uma réplica. Usar marcas distintas para dias observados e dias sem registo. Acrescentar um gráfico da largura do intervalo em função de $\ell$, com a estimativa pontual fixa, para tornar visível a sensibilidade à dependência.}
 
 \section{Diagnósticos dos dados e dos resíduos}
 \label{sec:mat-diagnosticos}
