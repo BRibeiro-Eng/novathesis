@@ -807,6 +807,35 @@ c_0=\Pr(|Z|\leq2)=2\Phi(2)-1\simeq0{,}9544997.
 \end{equation}
 Este é o nominal de referência de uma banda gaussiana de dois desvios-padrão. Uma banda central de $95\%$ usa outro quantil. Quando o centro e a escala são estimados, ou quando a distribuição se afasta da normal, a cobertura real deve ser medida. Uma banda de alarme pode ainda ser escolhida por um orçamento de falsos sinais durante um horizonte; esse critério é definido na Secção~\ref{sec:mat-limiares}.
 
+\matref{A Figura~\ref{fig:mat-bandas} põe os três objetos no mesmo eixo e
+mede o que a banda de largura constante cobre em função de $n$.}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{gerado/apE-bandas-comparadas}
+  \caption[Intervalo da média, intervalo de predição e banda de largura constante]%
+  {\matref{Três bandas com o mesmo centro, que respondem a perguntas
+  diferentes. O exemplo é construído, em unidades arbitrárias: nenhum valor
+  da refinaria entra nesta figura. \textbf{A}: o intervalo de confiança da
+  média (equação~\ref{eq:mat-ic-media}) localiza a reta; o intervalo de
+  predição (equação~\ref{eq:mat-ip-observacao}) localiza uma observação
+  futura; a banda $\pm 2s$ é a convenção da plataforma. Com $n=40$ as duas
+  últimas quase coincidem, e é o intervalo da média --- aqui $6{,}4$ vezes
+  mais estreito --- que é rotineiramente confundido com elas. \textbf{B}: a
+  semilargura de cada banda em unidades de $s$. Os dois intervalos são
+  ampulhetas, porque o termo de alavancagem cresce ao afastar-se de
+  $\bar Q$; a banda da plataforma é plana e não responde a essa variação.
+  \textbf{C}: a cobertura real da banda $\pm 2s$ para um novo dia, calculada
+  exatamente como $2F_{t,n-2}\!\left(2/\sqrt{1+h_0}\right)-1$, com
+  $h_0=1/n$ no centro do treino e $h_0=4/n$ no seu extremo sob um desenho
+  uniforme; as verticais marcam o mínimo declarado por vetor, 30, e um ano
+  civil completo, 365. A convenção aproxima bem o nominal
+  da equação~\ref{eq:mat-dois-sigma} quando o ajuste tem um ano de dados
+  ($95{,}35\,\%$ no centro), e afasta-se nas células pequenas
+  ($94{,}1\,\%$ com $n=30$, $92{,}9\,\%$ no extremo da gama de carga).}}
+  \label{fig:mat-bandas}
+\end{figure}
+
 \subsection{Cobertura marginal e condicional}
 \label{sec:mat-cobertura}
 % MAP: M09.03 M09.04
@@ -875,7 +904,10 @@ Dois ajustes produzem $L_t=\boldsymbol x_t^{\mathrm T}\widehat{\boldsymbol\beta}
 
 Um envelope fixo usa quantis dos erros da referência, calculados uma vez. Um envelope móvel recalcula-os numa janela estritamente anterior, por exemplo 90 dias civis com mínimo de 60 erros disponíveis no desenho correspondente. Os dois envelopes reagem de forma diferente a uma mudança persistente: os quantis móveis podem incorporar a mudança na largura ou no centro implícito. A avaliação deve conservar os dias comuns e indicar o número de janelas indisponíveis.
 
-\revisaotese{MAT-F09}{P1}{FIGURA}{Comparar bandas no mesmo eixo e nas mesmas datas}{Representar, num exemplo ilustrativo, intervalo da média, intervalo preditivo e banda de largura constante. Numa figura empírica separada, mostrar a banda marginal, o centro AR e os dias de substituição marginal, com resíduos no painel inferior. Incluir cobertura por tercil e largura numa tabela adjacente. Evitar sobrepor todas as bandas se isso impedir ler os limites.}
+\matref{A comparação ilustrativa entre os três tipos de banda está na
+Figura~\ref{fig:mat-bandas}; a comparação empírica, com a banda marginal, o
+centro autorregressivo e a cobertura medida nos dados da unidade, está na
+Figura~\ref{fig:cobertura-bandas} do Capítulo~\ref{cha:diagnostico}.}
 
 \section{Critérios de aceitação e materialidade}
 \label{sec:mat-aceitacao}

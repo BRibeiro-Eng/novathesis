@@ -16,7 +16,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 from matplotlib.lines import Line2D
-from matplotlib.patches import Rectangle, FancyArrowPatch
+from matplotlib.patches import Rectangle, FancyArrowPatch, Patch
 
 # ---------------------------------------------------------------- caminhos --
 def _first(paths):
@@ -1155,7 +1155,102 @@ def fe01_blocos():
     grava(fig, "apE-blocos-moveis")
 
 
-FIGS = {"f08": f08_validacao, "f09": f09_populacao, "fe01": fe01_blocos, "f10": f10_amostra, "f11": f11_dispersao, "f12": f12_ganho,
+
+# ------------------------------------------------------------------ FE02 --
+# Apêndice E: intervalo da média, intervalo de predição e banda de largura
+# constante. Exemplo construído; nenhum valor da refinaria entra aqui.
+MEDIA = COR["vapor_10bar"]
+NEX_B, ALFA_B = 40, 0.05
+
+def fe02_bandas():
+    from scipy.stats import t as tdist, norm
+    rng = np.random.default_rng(20260922)
+    Q = np.linspace(0.0, 10.0, NEX_B)
+    E = 2.0 + 0.8 * Q + rng.normal(0, 1.0, NEX_B)
+    X = np.column_stack([np.ones(NEX_B), Q])
+    beta, *_ = np.linalg.lstsq(X, E, rcond=None)
+    r = E - X @ beta
+    s_ = float(np.sqrt(r @ r / (NEX_B - 2)))
+    Qb = Q.mean(); Sqq = float(((Q - Qb) ** 2).sum())
+    tc = float(tdist.ppf(1 - ALFA_B / 2, NEX_B - 2))
+    g = np.linspace(Q.min(), Q.max(), 400)
+    centro = beta[0] + beta[1] * g
+    h = 1 / NEX_B + (g - Qb) ** 2 / Sqq
+    w_med, w_pre, w_con = tc * s_ * np.sqrt(h), tc * s_ * np.sqrt(1 + h), 2 * s_
+
+    fig = plt.figure(figsize=(15.5 * CM, 9.0 * CM))
+    gs = fig.add_gridspec(2, 2, width_ratios=[1.28, 1.0], height_ratios=[1.0, 1.0],
+                          wspace=0.36, hspace=0.72)
+    ax = fig.add_subplot(gs[:, 0])
+    ax.fill_between(g, centro - w_pre, centro + w_pre, color=REALCE, alpha=0.16,
+                    lw=0, zorder=2)
+    ax.fill_between(g, centro - w_med, centro + w_med, color=MEDIA, alpha=0.40,
+                    lw=0, zorder=4)
+    ax.plot(g, centro - w_con, color=ALERTA, lw=1.2, ls=(0, (4, 2)), zorder=5)
+    ax.plot(g, centro + w_con, color=ALERTA, lw=1.2, ls=(0, (4, 2)), zorder=5)
+    ax.plot(Q, E, "o", ms=2.8, color=TINTA, alpha=0.55, zorder=6)
+    ax.plot(g, centro, color=TINTA, lw=1.0, zorder=7)
+    ax.axvline(Qb, color=CINZA, lw=0.7, ls=(0, (1, 2)), zorder=1)
+    lo, hi = float((centro - w_pre).min()), float((centro + w_pre).max())
+    ax.set_ylim(lo - 0.6, hi + 3.0)
+    ax.annotate(r"$\bar Q$", (Qb, hi + 2.8), xytext=(3, 0), textcoords="offset points",
+                ha="left", va="top", fontsize=7.0, color=CINZA)
+    ax.set_xlabel(r"condição $Q$ (unidades arbitrárias)")
+    ax.set_ylabel(r"consumo $E$ (unidades arbitrárias)")
+    ax.tick_params(length=0)
+    ax.set_title("A  Três bandas, o mesmo centro", loc="left")
+    ax.legend(handles=[
+        Patch(facecolor=MEDIA, alpha=0.40, label="intervalo da média"),
+        Patch(facecolor=REALCE, alpha=0.16, label="intervalo de predição"),
+        Line2D([], [], color=ALERTA, lw=1.2, ls=(0, (4, 2)),
+               label=r"banda $\pm 2s$ da plataforma")],
+        loc="upper left", frameon=False, fontsize=6.8, handlelength=1.5,
+        borderpad=0.1, labelspacing=0.35)
+    guarda(ax)
+
+    ax = fig.add_subplot(gs[0, 1])
+    ax.plot(g, w_med / s_, color=MEDIA, lw=1.3, zorder=4)
+    ax.plot(g, w_pre / s_, color=REALCE, lw=1.3, zorder=4)
+    ax.axhline(2.0, color=ALERTA, lw=1.2, ls=(0, (4, 2)), zorder=4)
+    ax.axvline(Qb, color=CINZA, lw=0.7, ls=(0, (1, 2)), zorder=1)
+    ax.set_ylim(0, (w_pre / s_).max() * 1.22)
+    ax.set_xlabel(r"condição $Q$", labelpad=1)
+    ax.set_ylabel("semilargura / $s$")
+    ax.yaxis.set_major_formatter(virgula(1)); ax.tick_params(length=0)
+    ax.set_title("B  A largura que cada banda tem", loc="left")
+    ax.annotate("a banda da plataforma não alarga\nquando o dia se afasta de $\\bar Q$",
+                (0.5, 0.50), xycoords="axes fraction", ha="center", va="center",
+                fontsize=6.4, color=CINZA, linespacing=1.35)
+    guarda(ax, "y")
+
+    ax = fig.add_subplot(gs[1, 1])
+    ns = np.unique(np.round(np.logspace(np.log10(6), np.log10(400), 90)).astype(int))
+    cc = np.array([2 * tdist.cdf(2 / np.sqrt(1 + 1 / n), df=n - 2) - 1 for n in ns])
+    ce = np.array([2 * tdist.cdf(2 / np.sqrt(1 + 4 / n), df=n - 2) - 1 for n in ns])
+    nom = float(2 * norm.cdf(2) - 1)
+    ax.axhline(nom, color=TINTA, lw=0.9, ls=(0, (3, 2)), zorder=4)
+    ax.plot(ns, cc, color=REALCE, lw=1.3, zorder=5, label=r"em $\bar Q$")
+    ax.plot(ns, ce, color=ALERTA, lw=1.3, zorder=5, label="no extremo do treino")
+    ax.set_xscale("log"); ax.set_xticks([5, 10, 30, 100, 365])
+    ax.get_xaxis().set_major_formatter(FuncFormatter(lambda v, _: pt(v, 0)))
+    ax.set_ylim(0.845, 0.982)
+    ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: pt(100 * v, 1) + " %"))
+    ax.set_xlabel("$n$ (observações do ajuste)", labelpad=1)
+    ax.set_ylabel("cobertura real"); ax.tick_params(length=0)
+    ax.set_title(r"C  O que a banda $\pm 2s$ cobre", loc="left")
+    ax.annotate(f"nominal {pt(100 * nom, 2)} %", (6.2, nom), xytext=(0, 3),
+                textcoords="offset points", ha="left", va="bottom",
+                fontsize=6.4, color=CINZA)
+    for n0 in (30, 365):        # mínimo declarado por vetor e um ano completo
+        ax.axvline(n0, color=CINZA_C, lw=0.7, zorder=1)
+    # Canto inferior direito: única zona vazia, porque ambas sobem ao nominal.
+    ax.legend(loc="lower right", frameon=False, fontsize=6.6, handlelength=1.6,
+              borderpad=0.1, labelspacing=0.32)
+    guarda(ax, "y")
+    grava(fig, "apE-bandas-comparadas")
+
+
+FIGS = {"f08": f08_validacao, "fe02": fe02_bandas, "f09": f09_populacao, "fe01": fe01_blocos, "f10": f10_amostra, "f11": f11_dispersao, "f12": f12_ganho,
         "f13": f13_predicoes, "f14": f14_cobertura, "f15": f15_acoplamento,
         "f16": f16_sensibilidade, "f18": f18_matriz, "fdep": fdep_dependencia, "f14b": f14b_rajadas, "f19": f19_injeccao, "f20": f20_deteccao,
         "v02": v02_cobertura, "v03": v03_evolucao, "v06": v06_modelos,
