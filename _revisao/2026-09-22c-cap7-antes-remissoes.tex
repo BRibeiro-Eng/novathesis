@@ -238,14 +238,12 @@ inclua a banda e não apenas o erro pontual; nunca por catálogo.
 \paragraph{Estimação robusta, pré-especificada.} O estimador primário é
 declarado antes de ver os dados --- um estimador-M de Huber~\cite{Huber1964,HuberRonchetti2009} com constante
 de afinação fixa ($c = 1{,}345$~\cite{HollandWelsch1977}) e escala pela
-mediana dos desvios absolutos \ajuste{(Equações~\ref{eq:mat-huber}
-e~\ref{eq:mat-mad})} ---
+mediana dos desvios absolutos ---
 com os mínimos quadrados reportados ao lado, e um limiar de divergência
 declarado entre os dois que, se excedido, obriga a investigar: a divergência
 pode significar má especificação, não valores atípicos. A alavancagem
 trata-se separadamente, porque um estimador de Huber não resiste a pontos de
-alavancagem elevada~\cite{RousseeuwLeroy1987}. O estimador de Theil--Sen~\cite{Sen1968}
-\ajuste{(Equação~\ref{eq:mat-theil-sen})} serve de referência livre de
+alavancagem elevada~\cite{RousseeuwLeroy1987}. O estimador de Theil--Sen~\cite{Sen1968} serve de referência livre de
 distribuição em regressão simples. Um ponto e uma banda robustos são
 problemas diferentes, e a linha seguinte trata do segundo.
 
@@ -254,10 +252,10 @@ constante $\pm 2\hat\sigma$ assume resíduos independentes e homocedásticos que
 a Secção~\ref{sec:diagnosticos-desc} mostrou não existirem. A rota primária
 modela explicitamente a dependência residual --- um processo autorregressivo
 sobre os resíduos~\cite{BoxJenkins2015}, com desfasamentos civis exatos e
-ordem escolhida só no treino \ajuste{(Equação~\ref{eq:mat-centro-ar})} --- e produz intervalos condicionais, a um passo, validados pela
+ordem escolhida só no treino --- e produz intervalos condicionais, a um passo, validados pela
 cobertura empírica no ano seguinte. A rota de sensibilidade é a regressão
-quantílica~\cite{KoenkerBassett1978} \ajuste{(Equação~\ref{eq:mat-quantil})},
-com restrições de não cruzamento~\cite{Chernozhukov2010} e incerteza por \emph{bootstrap}
+quantílica~\cite{KoenkerBassett1978}, com restrições de não
+cruzamento~\cite{Chernozhukov2010} e incerteza por \emph{bootstrap}
 de blocos --- sobre uma janela plurianual, nunca sobre um ano ($n \approx
 300$ dias a $\tau = 0{,}025$ deixa cerca de sete observações em cada cauda).
 O ponto essencial é o terceiro desfecho: a avaliação pode concluir que
@@ -276,10 +274,7 @@ o parcial de 2026 já tinham informado o Capítulo~\ref{cha:diagnostico} e
 nenhum resultado obtido depois disso pode chamar-se \emph{holdout}. O critério
 tem dois membros e aceita um candidato apenas se ambos se cumprem: conteúdo
 preditivo --- ganho sobre a média do ano de treino, com o intervalo de
-confiança a excluir zero, em pelo menos quatro dos cinco pares
-\ajuste{(Equações~\ref{eq:mat-indicadores-gate} e~\ref{eq:mat-gate-historico};
-a distinção entre compatibilidade e equivalência está na
-Equação~\ref{eq:mat-equivalencia})} (é o que
+confiança a excluir zero, em pelo menos quatro dos cinco pares (é o que
 impede que um modelo vazio, com $R^2 \approx 0$, seja aceite por ter uma
 banda razoável, o defeito da primeira versão das linhas orientadoras); e
 banda compatível pelo critério adotado --- intervalo da cobertura que
@@ -572,10 +567,7 @@ ordenações da primeira versão desta exploração, e a versão que aqui se cit
 \subsection{O que muda quando não se reajusta}
 \label{sec:referencia-fixa}
 
-\paragraph{A referência congelada mede o desvio.} \ajuste{A escala da
-referência é fixada por exclusão de blocos contíguos
-(Equação~\ref{eq:mat-crossfit}), e o que um reajuste faz ao sinal está na
-Equação~\ref{eq:mat-projecao-sinal}.} Aplicada a 2021--2025 na
+\paragraph{A referência congelada mede o desvio.} Aplicada a 2021--2025 na
 população comum aos cinco normalizadores avaliados ($n = 876$ dias), a
 relação de 2020 tem, no fuel gás, \emph{skill} de $41$ a $54\%$ face à média
 de 2020 --- os normalizadores continuam a bater a média cinco anos depois. A
@@ -664,9 +656,9 @@ acomode mais depressa.
 A pergunta que o calendário operacional tornou não estimável no
 Capítulo~\ref{cha:diagnostico} --- que desvio o sistema deteta, e o que
 importa mais para o detetar --- só pode responder-se com verdade conhecida.
-Construiu-se, para cada vetor, um gerador \ajuste{(Equações~\ref{eq:mat-dgp}
-a~\ref{eq:mat-rampa})} com a relação de 2020 (mínimos quadrados com as
-covariáveis de referência), ruído autorregressivo de primeira ordem, $\varepsilon_t = \rho\,\varepsilon_{t-1} + \sigma\sqrt{1-\rho^2}\,z_t$
+Construiu-se, para cada vetor, um gerador com a relação de 2020 (mínimos
+quadrados com as covariáveis de referência), ruído autorregressivo de
+primeira ordem, $\varepsilon_t = \rho\,\varepsilon_{t-1} + \sigma\sqrt{1-\rho^2}\,z_t$
 com $\rho = 0{,}6$ e $z_t$ normal padrão, de modo que a dispersão marginal
 $\sigma$ é a dos resíduos de 2020 e a das inovações é $\sigma\sqrt{1-\rho^2}$,
 366 dias de treino com a máscara real de dias admissíveis de 2020 e uma
@@ -675,8 +667,7 @@ marginal e começam no primeiro dia da aplicação (no dia 45, em
 sensibilidade); o canal de nível é unilateral superior no fuel gás e nos
 vapores de 24 e 3~bar e bilateral no de 10~bar, que é um fluxo líquido. O
 limiar de cada canal, em cada política, é o quantil de 95\% do máximo da
-sua estatística nos noventa dias numa coorte de réplicas de calibração
-\ajuste{(Equação~\ref{eq:mat-fap-horizonte})}: a
+sua estatística nos noventa dias numa coorte de réplicas de calibração: a
 taxa de falso sinal de $5\%$ é a probabilidade de pelo menos um sinal no
 horizonte, por canal. Foi verificada numa coorte independente (quarenta
 canais entre $0{,}020$ e $0{,}072$, um com o intervalo de
@@ -759,8 +750,7 @@ a pesar; a detetabilidade absoluta é pobre, e o resultado do fuel gás não
 transfere.
 
 \paragraph{O desvio mínimo detetável, no gerador.} Sobre a curva de deteção
-por amplitude de degrau \ajuste{(Equações~\ref{eq:mat-deteccao}
-a~\ref{eq:mat-mdd-interpolacao})}, o desvio a que a soma acumulada deteta metade das
+por amplitude de degrau, o desvio a que a soma acumulada deteta metade das
 vezes situa-se entre $0{,}51\sigma$ (vapor de 3~bar) e $0{,}63\sigma$ (vapor
 de 10~bar), contra $0{,}87$ a $1{,}10\sigma$ do filtro de nível e $0{,}95$ a
 $1{,}15\sigma$ do resíduo bruto. Em percentagem do consumo médio dos dias

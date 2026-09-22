@@ -69,9 +69,7 @@ reestimada sobre os dias com carga acima do limiar oficial de
 $18\,600$~t/d --- lido da configuração do modelo dimensional, nunca fixado no
 código --- e comparada com os parâmetros em produção. As 30 células
 vetor--ano reproduzem declive, ordenada na origem, $\hat\sigma$ e $R^2$
-oficiais dentro da tolerância pré-registada de
-$10^{-6}$\ajuste{~(Equações~\ref{eq:mat-modelo-linear} a~\ref{eq:mat-rss-escala}
-e~\ref{eq:mat-tolerancia-replica})}, com erro máximo
+oficiais dentro da tolerância pré-registada de $10^{-6}$, com erro máximo
 observado da ordem de $10^{-10}$; o número de dias selecionados coincide
 em todas as células. Os \emph{fingerprints} --- o \emph{hash} SHA-256 das datas
 selecionadas, por célula --- foram calculados pela própria implementação de
@@ -184,9 +182,7 @@ feita porque exige o acesso que terminou com o estágio.
 
 
 \paragraph{Os resíduos são fortemente dependentes.} A autocorrelação residual
-de primeira ordem das regressões oficiais\ajuste{, calculada sobre pares de
-dias civis consecutivos (Equação~\ref{eq:mat-acf-civil}),} situa-se entre
-$0{,}46$ e $0{,}90$
+de primeira ordem das regressões oficiais situa-se entre $0{,}46$ e $0{,}90$
 consoante o vetor e o ano completo (medição sistemática na
 Secção~\ref{sec:diagnosticos-desc}). Sob esta dependência, os erros-padrão clássicos e
 os $p$-values dos testes de diagnóstico habituais deixam de ser fiáveis, e a
@@ -232,10 +228,6 @@ A Figura~\ref{fig:ganho-preditivo} mostra o contraste por vetor e por transiçã
 \end{figure}
 %% FIGURAS: E2_2_delta_mae_forest.svg, E2_1_skill_heatmap.svg,
 %%          E2_4_fuel_gas_forward_series.svg (bundle E2)
-
-\ajuste{As perdas emparelhadas, o ganho face ao nulo e o intervalo por
-\emph{bootstrap} de blocos em calendário irregular estão definidos nas
-Equações~\ref{eq:mat-perdas}, \ref{eq:mat-ganho} e~\ref{eq:mat-blocos}.}
 
 A primeira pergunta é a mais elementar: os parâmetros oficiais
 de um ano de treino $y$, aplicados sem reestimação ao ano seguinte $y{+}1$,
@@ -324,12 +316,10 @@ A Figura~\ref{fig:predicoes-carga-comum} compara as predições em cargas dentro
 \revisto{Na avaliação encadeada, testa-se se as retas anuais do método de produção reestimam \emph{a mesma} relação entre energia e carga, a menos de ruído amostral.} Este pressuposto foi testado diretamente: uma regressão
 empilhada 2020--2025 com interações ano$\times$carga, e um teste de Wald de
 igualdade dos declives com covariância HAC (\emph{kernel} quadrático-espectral,
-largura de banda de Andrews\ajuste{; Equações~\ref{eq:mat-hac}
-a~\ref{eq:mat-wald}}), cuja validade sob a dependência residual
+largura de banda de Andrews), cuja validade sob a dependência residual
 medida na Secção~\ref{sec:perfil-dados} é assintótica e depende de a largura
 de banda acompanhar a persistência dos resíduos. Os quatro testes de declive formam uma
-família com correção de Benjamini--Hochberg (BH)\ajuste{, que controla a
-taxa de falsas descobertas (Equação~\ref{eq:mat-fdr}),} com
+família com correção de Benjamini--Hochberg (BH), com
 Benjamini--Yekutieli (BY) como verificação conservadora; os testes de nível
 formam família separada e secundária.
 
@@ -403,10 +393,7 @@ A Figura~\ref{fig:cobertura-bandas} reúne a cobertura de todas as transições,
 %% FIGURAS: bundle E4 (cobertura por par, rajadas, forma da banda)
 
 O sistema de alarmes em produção declara um dia anómalo quando o resíduo sai
-da banda $\pm 2\hat\sigma$ do ano de treino\ajuste{, que é uma regra de escala
-sobre os resíduos e não um intervalo de predição
-(Equações~\ref{eq:mat-ip-observacao} e~\ref{eq:mat-dois-sigma}; cobertura na
-Equação~\ref{eq:mat-cobertura})}. Se os pressupostos do desenho
+da banda $\pm 2\hat\sigma$ do ano de treino. Se os pressupostos do desenho
 valessem --- resíduos independentes, homocedásticos, aproximadamente normais,
 relação estável --- a banda aplicada ao ano seguinte cobriria
 $95{,}45\%$ dos dias, a probabilidade normal a $\pm2\sigma$, ignorando a
@@ -544,8 +531,8 @@ com $Z$ pré-especificado antes de qualquer execução (densidade da carga,
 temperatura e pressão de \emph{flash}; o grau API é excluído por ser
 transformação determinista da densidade) --- e comparam-se as perdas absolutas
 no ano seguinte, sem reestimação. O efeito é a diferença emparelhada
-$\Delta_{\mathrm{MAE}} = \mathrm{MAE}_{Q} - \mathrm{MAE}_{Q+Z}$
-\ajuste{(Equação~\ref{eq:mat-perdas})} com intervalo MBB a 95\%: positivo com exclusão de zero, as covariáveis acrescentam;
+$\Delta_{\mathrm{MAE}} = \mathrm{MAE}_{Q} - \mathrm{MAE}_{Q+Z}$ com intervalo
+MBB a 95\%: positivo com exclusão de zero, as covariáveis acrescentam;
 negativo, prejudicam. O ajustamento dentro da amostra --- que na soma dos
 quadrados melhora por construção ao acrescentar regressores --- não entra no
 critério. Os dois modelos são avaliados exatamente nos mesmos dias, e as
@@ -632,10 +619,7 @@ diagnósticos mostram serem falsos, os seus $p$-values não têm interpretação
 inferencial e ficam no Apêndice~\ref{app:tabelas} como contraste técnico, e
 nenhum rótulo aqui é conclusão. As tabelas completas constam do Apêndice~\ref{app:tabelas};
 esta secção destaca os quatro resultados que sustentam ou contextualizam as
-secções anteriores. \ajuste{As estatísticas que aqui se usam --- assimetria e
-curtose, razão de variâncias entre estratos, sobreposição de suporte entre
-anos, agrupamento no espaço operacional e influência de blocos de dias ---
-estão definidas nas Equações~\ref{eq:mat-smd} a~\ref{eq:mat-cook}.}
+secções anteriores.
 
 \paragraph{A dependência residual é universal e forte.} Medida
 sistematicamente sobre os resíduos das regressões oficiais, a autocorrelação
