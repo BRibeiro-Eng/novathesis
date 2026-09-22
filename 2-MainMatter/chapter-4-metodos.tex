@@ -153,15 +153,15 @@ A plataforma é um modelo tabular em esquema em
 estrela~\cite{KimballRoss2013}, \ajuste{com a totalidade dos dados carregada
 em memória e não consultada na origem a cada utilização}. Três tabelas de
 factos concentram a informação: \ajuste{a energia, com 200\,924 linhas, uma
-por dia, unidade e vetor, de 2020-01-01 a 2026-07-31, para 16 unidades e 7
-vetores; a carga, com 45\,408 linhas desde novembro de 2019, com a carga
+por dia, unidade e vetor, de 2020-01-01 a 2026-07-31, para 16 unidades e
+seis vetores mais o agregado global; a carga, com 45\,408 linhas desde novembro de 2019, com a carga
 total e os seus componentes por nível de agregação; e as propriedades da
 carga, com 19\,105 linhas em 8 unidades}, a que se juntam densidades, planos
 de fabrico e crudes. As dimensões são o calendário (gerado, até ao dia
 anterior à atualização), as unidades (16, em três fábricas mais os
 extras, com o limiar de carga mínima de cada uma e a sua composição em
-secções), os vetores (fuel gás, vapor a 24, 10 e 3~bar, energia
-elétrica, coque e outros combustíveis, mais o agregado global), os crudes
+secções), os vetores \ajuste{--- seis: fuel gás, vapor a 24, 10 e 3~bar, energia
+elétrica, e o coque com os outros combustíveis ---, mais o agregado global}, os crudes
 (56) e duas dimensões de apresentação --- janela temporal e métrica ---
 que alimentam os seletores do \emph{dashboard}. Os parâmetros físicos que
 qualquer cálculo usa vivem em duas tabelas de parâmetros e nunca no

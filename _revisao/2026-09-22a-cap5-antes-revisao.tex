@@ -16,8 +16,8 @@
 
 O primeiro resultado desta dissertação é um instrumento. Este capítulo
 descreve o que foi entregue --- a arquitetura da plataforma de
-monitorização energética que está em uso na refinaria ---, \ajuste{mostra que a camada de dados é consistente com os números
-oficiais e declara a origem de cada valor}, apresenta o \emph{dashboard} que a
+monitorização energética que está em uso na refinaria ---, \alterado{prova que a camada de dados reproduz os números oficiais e
+declara a origem de cada valor}, apresenta o \emph{dashboard} que a
 torna legível, e declara o que ficou de fora. Tudo o que o
 Capítulo~\ref{cha:diagnostico} conclui sobre as \emph{baselines} é uma
 consulta ao modelo de dados aqui descrito; se este capítulo falhasse, o
@@ -29,19 +29,12 @@ mostrar como se leem.
 \label{sec:arquitetura}
 
 \paragraph{O que foi entregue.} \emph{Energy Performance Monitor}, versão
-22, de 31 de julho de 2026: um modelo tabular em Power
-BI\ajuste{\footnote{Os termos próprios do Power BI usados neste capítulo ---
-modelo tabular, modo de importação, medida, contexto de filtro, marcador ---
-são os da documentação do produto, em
-\url{https://learn.microsoft.com/pt-pt/power-bi/transform-model/}.}} que cobre 16
+22, de 31 de julho de 2026: um modelo tabular em Power BI que cobre 16
 unidades processuais em três fábricas e nos extras (enxofres e
-\emph{flares}), \ajuste{seis vetores energéticos --- fuel gás, vapor a 24,
-10 e 3~bar, energia elétrica e o coque com os outros combustíveis ---, mais o
-agregado global de cada unidade}, com resolução diária de 1 de janeiro de
-2020 ao dia anterior a cada atualização, e quatro páginas de leitura.
-\ajuste{Foi entregue ao acompanhamento processual, que o mantém, para entrar
-em produção no início de agosto de 2026; a atualização é automática e corre
-de madrugada, uma vez por dia.} Acompanha-o o manual reproduzido no
+\emph{flares}), sete vetores energéticos, com resolução diária de 1 de
+janeiro de 2020 ao dia anterior a cada atualização, e quatro páginas de
+leitura. Foi entregue à equipa de monitorização de processo, que o mantém, e
+atualiza-se uma vez por dia. Acompanha-o o manual reproduzido no
 Apêndice~\ref{app:manual}, que é a condição de a plataforma continuar a ser
 utilizável sem o autor: descreve cada página, cada componente e cada caso de
 manutenção, e o seu dicionário de dados dispensa este capítulo de repetir o
@@ -53,29 +46,26 @@ eletricidade são lidos das pastas de rede onde o Processamento de Dados os
 mantém, e os planos de fabrico do arquivo de planeamento. As consultas ao
 historiador são geradas a partir das tabelas de mapeamento no momento da
 atualização; nenhuma \emph{tag} está escrita no código, e é isso que torna
-a Secção~\ref{sec:validacao-dados} possível \ajuste{sobre o sistema em
-funcionamento, e não sobre uma cópia preparada para ser validada}.
+a Secção~\ref{sec:validacao-dados} possível sobre um artefacto vivo.
 
 \paragraph{Três decisões que o definem.} A primeira é a que a
 Secção~\ref{sec:modelo-dimensional} descreve: os três canais de origem
 coexistem na tabela de factos e uma regra de precedência declarada escolhe
 por linha, com a origem registada --- é o que torna a validação da secção
-seguinte possível, porque um dia com balanço e \ajuste{historiador} em simultâneo é
+seguinte possível, porque um dia com balanço e \emph{tag} em simultâneo é
 um dia com duas leituras da mesma grandeza, processadas por caminhos
 diferentes, que podem ainda assim partilhar o medidor. A segunda é que a
 \emph{baseline} é materializada no modelo: a tabela de coeficientes por
 unidade, vetor e ano é calculada uma vez por atualização e as medidas de
-resíduo, banda e excesso \ajuste{vão lá buscar os coeficientes, em vez de
-reestimarem a regressão de cada vez que um gráfico é desenhado} --- o que tornou o \emph{dashboard} responsivo e,
+resíduo, banda e excesso leem-na por pesquisa, em vez de reestimarem a
+regressão em cada visual --- o que tornou o \emph{dashboard} responsivo e,
 mais importante, tornou a \emph{baseline} exportável e auditável como uma
 tabela. A terceira é que todos os parâmetros que um utilizador pode querer
 mudar --- ano de referência da \emph{baseline}, métrica (toneladas,
 percentagem ou desvios-padrão), janela (último dia, 7 dias, 30 dias,
 acumulado), unidade, vetor, período --- são seletores do modelo e não
-cópias de páginas: \ajuste{cada cálculo é escrito uma só vez e adapta-se ao
-que o utilizador tem selecionado --- é o que o Power BI chama contexto de
-filtro ---, pelo que a mesma medida serve as quatro páginas. O inventário das
-medidas está no Apêndice~\ref{app:manual}.}
+cópias de páginas: as 159 medidas são genéricas em relação ao contexto de
+filtro, e a mesma medida serve as quatro páginas.
 
 \paragraph{Como está organizado.} As medidas vivem em tabelas de domínio
 --- consumos e conversões gerais, \emph{baselines}, resíduos e bandas,
@@ -83,11 +73,10 @@ séries temporais e acumulados, índice de intensidade, seletores e cartões
 --- para que quem mantém o modelo encontre cada cálculo pelo que ele faz.
 Os visuais que o Power BI nativo não oferece (o diagrama de dispersão com
 banda e cor temporal, o mapa de calor de calendário, a cascata, a matriz
-de prioridades, os cartões de indicador) são declarados \ajuste{dentro do
-próprio relatório, em Vega-Lite ou em HTML, sem bibliotecas externas a
-descarregar quando alguém abre a página}, e leem as
-mesmas medidas. \ajuste{Cada página tem uma vista de arranque guardada, a
-que se volta com um botão depois de mexer nos filtros.}
+de prioridades, os cartões de indicador) são declarados em Vega-Lite ou em
+HTML dentro do próprio relatório, sem dependências externas, e leem as
+mesmas medidas. Seis marcadores guardam as vistas de arranque de cada
+página.
 
 \paragraph{Evolução.} A primeira arquitetura, de março de 2026, ligava-se
 ao historiador por consulta direta, usava um limiar de carga único e
@@ -96,9 +85,9 @@ descrita, importa, lê o limiar de cada unidade da sua dimensão,
 materializa a \emph{baseline} e reconcilia três canais. Entre as duas
 versões o mapeamento mestre chegou à sua vigésima segunda revisão, e a
 validação da secção seguinte motivou a maior parte das últimas.
-%% 2026-09-22: pendente fechado -- entrega ao acompanhamento processual para
-%% entrar em producao no inicio de agosto de 2026, com actualizacao automatica
-%% diaria de madrugada. Dito no primeiro paragrafo da Seccao 5.1.
+%% CONFIRMAR: publicacao (workspace Power BI Service? cadencia de atualizacao?
+%% utilizadores — equipa TEC de monitorizacao) — a memoria do projeto diz
+%% "em producao"; precisar onde e desde quando.
 
 \section{Validação da camada de dados}
 \label{sec:validacao-dados}
@@ -137,10 +126,9 @@ A Figura~\ref{fig:validacao-mapeamento} acompanha essa progressão versão a ver
 coincidiam, 64 estavam vazias (combinações unidade--vetor sem consumo) e
 94 divergiam. O trabalho de julho de 2026 foi explicar as 94, uma a uma,
 até nenhuma ficar classificada como inconsistente. Ficaram explicadas por
-\revisto{sete causas, e o resultado mais instrutivo da validação é onde essas causas estavam: \ajuste{no código que lê as fontes}, no mapeamento e no
-relatório oficial.}
+\revisto{sete causas, e o resultado mais instrutivo da validação é onde essas causas estavam: no motor de ingestão, no mapeamento e no relatório oficial.}
 
-\paragraph{Erros \ajuste{no código de ingestão}.} O canal de balanço não tinha mecanismo de
+\paragraph{Erros no motor.} O canal de balanço não tinha mecanismo de
 inclusão: a coluna de factor do mapeamento aplicava-se só ao canal de
 \emph{tags} (conversão de kg/h para t/h), e as dezoito linhas com factor
 zero --- circuitos internos, medidores partilhados --- entravam por
@@ -148,7 +136,7 @@ inteiro, enquanto uma linha de crédito (factor $-1$) não era subtraída.
 Duas unidades apareciam com o dobro do vapor real (48\,461 contra
 26\,019~t num nível; 160\,322 contra 80\,696~t noutro, em cinco meses); a
 correção, uma coluna nova de factor de inclusão para o canal de balanço,
-moveu 251~kt de vapor em módulo sem tocar no \ajuste{canal do historiador}. Um
+moveu 251~kt de vapor em módulo sem tocar no canal de \emph{tags}. Um
 filtro de nomes de folhas que só aceitava as fábricas excluía as folhas
 dos enxofres e dos \emph{flares}: essas unidades nunca entravam na tabela,
 e o mapeamento --- que já estava certo --- não podia ser validado. Um
@@ -323,24 +311,7 @@ persistentes e as sequências, com uma sobreposição opcional do plano de
 fabrico para ligar os dias a campanhas; e uma matriz de prioridades coloca
 cada vetor num plano de fração de dias em alarme contra desvio médio
 fora da banda, com o tamanho proporcional ao excesso acumulado. É a
-página que responde ``qual vetor, e há quanto tempo''
-\ajuste{(Figura~\ref{fig:dashboard-unidade})}.
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=\textwidth]{cap5/dashboard-unidade}
-  \caption[Página de detalhe da unidade]{\ajuste{Página de detalhe da
-  unidade, no mesmo estado de 31 de julho de 2026, para a destilação
-  atmosférica em 2025 com referência em 2024. Em cima, os cartões de síntese
-  do período. Ao centro, o consumo total sobreposto ao consumo específico com
-  as médias móveis de 7 e 30 dias, e à direita a fração de dias dentro e fora
-  da banda de $\pm2\sigma$, vetor a vetor. Em baixo, o mapa de calor de
-  calendário --- um quadrado por dia, colorido pelo resíduo padronizado, com a
-  sobreposição do plano de fabrico ligada --- e a matriz de prioridades. É
-  nesta página que a persistência dos desvios se vê sem nenhum teste: no mapa
-  de calor, dias da mesma cor ocupam semanas seguidas.}}
-  \label{fig:dashboard-unidade}
-\end{figure}
+página que responde ``qual vetor, e há quanto tempo''.
 
 \paragraph{Índice de intensidade.} A terceira página apresenta o índice
 de intensidade energética da unidade (Secção~\ref{sec:metricas}) no dia e
@@ -351,11 +322,7 @@ e do peso da unidade no índice da refinaria; uma cascata que decompõe o
 padrão dia a dia, com o contexto de carga e de qualidade da
 \emph{baseline} ao lado. Serve para situar a unidade face a uma referência
 externa que a refinaria já usa; não substitui a \emph{baseline} interna nem
-foi objeto do diagnóstico. \ajuste{É a única das quatro páginas sem captura
-nesta dissertação: os seus painéis mostram a energia padrão, os valores de
-referência das variáveis que entram na correlação e a composição do
-\emph{slate} de crudes do período, e o adendo de confidencialidade que rege o
-acesso à metodologia proíbe a sua reprodução.}
+foi objeto do diagnóstico.
 
 \paragraph{\emph{Baselines} e diagnóstico.} A quarta página
 (Figura~\ref{fig:dashboard-baselines}) é a que a
@@ -370,8 +337,7 @@ número de ocorrências de cada uma, o total de dias limpos e com violação e
 a regra dominante; a soma acumulada dos resíduos desde o início do
 período, com o ritmo a 7 e a 30 dias, \revisto{que permite acompanhar a acumulação de desvios persistentes, sem que tenha sido medida a sua antecedência face ao alarme diário;} e os resíduos padronizados no tempo
 com as bandas de 1, 2 e 3 desvios-padrão, ou, por alternância, o consumo
-observado contra o previsto. \ajuste{Um exemplo, com outro vetor e outro ano de referência do que os da
-figura: no estado de julho de 2026}, para o fuel gás
+observado contra o previsto. No estado de julho de 2026, para o fuel gás
 da destilação atmosférica com referência em 2024, o painel mostrava sete
 das oito regras violadas e 124 dias em 295 com pelo menos uma violação, a
 regra dominante a ser oito dias consecutivos do mesmo lado --- o retrato,
@@ -404,7 +370,7 @@ com inferência adequada.
 o consumo por unidade e vetor existia em relatórios mensais por fábrica,
 fechados algumas semanas depois do mês, sem normalização pela carga e sem
 comparação entre unidades além da leitura manual. Com ela, o mesmo consumo
-está disponível ao dia, para as 16 unidades e os \ajuste{seis} vetores, com a
+está disponível ao dia, para as 16 unidades e os sete vetores, com a
 carga, a \emph{baseline}, o resíduo e o acumulado no mesmo lugar, e com a
 proveniência de cada valor registada --- que canal o forneceu, e se um
 poder calorífico ou uma propriedade foi medido ou assumido. A pergunta
@@ -415,13 +381,7 @@ válida --- é a do capítulo seguinte.
 \section{Cobertura e limitações da plataforma}
 \label{sec:cobertura}
 
-\ajuste{Esta secção é também a resposta a uma das lacunas que o
-Capítulo~\ref{cha:revisao} documentou: no Corpus~B, 89 das 163 descrições de
-medição não dizem onde a energia é medida face à fronteira do modelo
-(Secção~\ref{sec:gap}). Aqui a fronteira de cada unidade e de cada vetor está
-declarada, e o que fica de fora dela está escrito a seguir.}
-
-\paragraph{O que está dentro.} Dezasseis unidades processuais, \ajuste{seis}
+\paragraph{O que está dentro.} Dezasseis unidades processuais, sete
 vetores, seis anos e sete meses de história diária, três canais
 reconciliados, \emph{baselines} por ano e vetor materializadas e
 exportáveis, índice de intensidade por unidade, planos de fabrico desde

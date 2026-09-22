@@ -47,8 +47,8 @@
 % marcas de uma vez, trocar a definicao activa pela neutra, logo abaixo.
 % (Nao se usa soul/\hl: rebenta com acentos, \ref e \cite em pdflatex.)
 \definecolor{corAlterado}{RGB}{176,0,132}
-%\newcommand{\alterado}[1]{{\color{corAlterado}#1}}
-\newcommand{\alterado}[1]{#1}   %% 2026-09-21: camada fechada, sem marcas
+%\DeclareRobustCommand{\alterado}[1]{\begingroup\color{corAlterado}#1\endgroup}
+\DeclareRobustCommand{\alterado}[1]{#1}   %% 2026-09-21: camada fechada, sem marcas
 % ---------------------------------------------------------------------
 
 % ---------------------------------------------------------------------
@@ -56,8 +56,8 @@
 % de correccoes (Secao 2.3.3, comparadores industriais e legais). Ciano,
 % para se distinguir do magenta das correccoes. Mesma logica de remocao.
 \definecolor{corNovo}{RGB}{0,122,163}
-%\newcommand{\novo}[1]{{\color{corNovo}#1}}
-\newcommand{\novo}[1]{#1}   %% 2026-09-21: camada fechada, sem marcas
+%\DeclareRobustCommand{\novo}[1]{\begingroup\color{corNovo}#1\endgroup}
+\DeclareRobustCommand{\novo}[1]{#1}   %% 2026-09-21: camada fechada, sem marcas
 % ---------------------------------------------------------------------
 
 % ---------------------------------------------------------------------
@@ -66,8 +66,8 @@
 % Roxo, para se distinguir do magenta (correccoes do Cap. 2) e do ciano
 % (material novo). Mesma logica de remocao.
 \definecolor{corRevisto}{RGB}{126,47,186}
-%\newcommand{\revisto}[1]{{\color{corRevisto}#1}}
-\newcommand{\revisto}[1]{#1}   %% 2026-09-21: camada fechada, sem marcas
+%\DeclareRobustCommand{\revisto}[1]{\begingroup\color{corRevisto}#1\endgroup}
+\DeclareRobustCommand{\revisto}[1]{#1}   %% 2026-09-21: camada fechada, sem marcas
 % ---------------------------------------------------------------------
 
 %% ---------------------------------------------------------------------
@@ -76,8 +76,8 @@
 %% roxo) e da cor das referencias cruzadas. Para a versao final, trocar
 %% as duas linhas abaixo.
 \definecolor{corFecho}{RGB}{181,69,11}
-%\newcommand{\fecho}[1]{{\color{corFecho}#1}}
-\newcommand{\fecho}[1]{#1}   %% 2026-09-21: camada fechada, sem marcas
+%\DeclareRobustCommand{\fecho}[1]{\begingroup\color{corFecho}#1\endgroup}
+\DeclareRobustCommand{\fecho}[1]{#1}   %% 2026-09-21: camada fechada, sem marcas
 
 %% ---------------------------------------------------------------------
 %% Camada de correccao (2026-09-21, tarde). Magenta, a mesma cor da
@@ -85,8 +85,8 @@
 %% que marca e da mesma natureza: numeros, denominadores e afirmacoes
 %% corrigidos depois da analise critica do Cap. 3. Para a versao final,
 %% trocar as duas linhas abaixo.
-\newcommand{\corr}[1]{{\color{corAlterado}#1}}
-%\newcommand{\corr}[1]{#1}   %% <- versao final, sem marcas
+\DeclareRobustCommand{\corr}[1]{\begingroup\color{corAlterado}#1\endgroup}
+%\DeclareRobustCommand{\corr}[1]{#1}   %% <- versao final, sem marcas
 
 %% ---------------------------------------------------------------------
 %% Camada de ajuste (2026-09-21, fim de tarde). Ciano, a cor do material
@@ -94,5 +94,5 @@
 %% instrumento traduzido, duplicacoes cortadas e leitura de engenharia
 %% acrescentada. Distinta do magenta, que marca as correccoes de numeros
 %% nas Seccoes 3.1 a 3.3. Para a versao final, trocar as duas linhas.
-\newcommand{\ajuste}[1]{{\color{corNovo}#1}}
-%\newcommand{\ajuste}[1]{#1}   %% <- versao final, sem marcas
+\DeclareRobustCommand{\ajuste}[1]{\begingroup\color{corNovo}#1\endgroup}
+%\DeclareRobustCommand{\ajuste}[1]{#1}   %% <- versao final, sem marcas
