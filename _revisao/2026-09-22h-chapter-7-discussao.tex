@@ -361,16 +361,15 @@ por contraste emparelhado $|e_{\mathrm{OLS}}| - |e_{\mathrm{rob}}|$ com
 intervalo de confiança a 95\%. São quarenta contrastes.
 
 \begin{table}[htbp]
-  \centering\footnotesize
+  \centering
   \caption[Estimadores robustos contra mínimos quadrados]{Contrastes
   emparelhados de perda absoluta no ano seguinte, quatro vetores $\times$
   cinco pares. ``Robusto melhor'' e ``OLS melhor'': o intervalo MBB a 95\%
   exclui zero do lado respetivo.}
   \label{tab:robustos}
-  \ntzebra
   \begin{tabular}{lccc}
     \toprule
-    \textbf{Estimador}  &  \textbf{Robusto melhor}  &  \textbf{OLS melhor}  &  \textbf{Sem evidência} \\
+    Estimador & Robusto melhor & OLS melhor & Sem evidência \\
     \midrule
     Huber ($c = 1{,}345$) & 11 & 6 & 3 \\
     Theil--Sen            & 7  & 8 & 5 \\
@@ -411,7 +410,7 @@ inclui $95{,}45\%$ em pelo menos quatro dos cinco pares, sem degeneração ---
 compatibilidade pelo critério adotado, no sentido e com os limites acima.
 
 \begin{table}[htbp]
-  \centering\footnotesize
+  \centering
   \caption[Bandas alternativas nos vinte pares]{Cobertura no ano seguinte
   das quatro construções de banda, vinte pares vetor--transição. ``Inclui'':
   o intervalo MBB da cobertura inclui a referência de $95{,}45\%$; ``sub'' e
@@ -419,10 +418,9 @@ compatibilidade pelo critério adotado, no sentido e com os limites acima.
   convergência declarada). Meia-largura mediana relativa à banda de
   produção.}
   \label{tab:bandas}
-  \ntzebra
   \begin{tabular}{lccccc}
     \toprule
-    \textbf{Banda}  &  \textbf{Inclui}  &  \textbf{Sub}  &  \textbf{Sobre}  &  \textbf{NE}  &  \textbf{Meia-largura} \\
+    Banda & Inclui & Sub & Sobre & NE & Meia-largura \\
     \midrule
     Produção $\pm 2\hat\sigma$   & 10 & 7  & 3 & 0 & $1{,}00$ \\
     AR, gaussiana                & 9  & 6  & 5 & 0 & $0{,}63$ \\
@@ -486,10 +484,9 @@ da predição autorregressiva.
   se ambos $\geq 4/5$.}
   \label{tab:gate}
   \small
-  \ntzebra
   \begin{tabular}{lcccccc}
     \toprule
-    \textbf{Vetor}  &  \textbf{Cont. preditivo}  &  \textbf{Produção}  &  \textbf{AR gauss.}  &  \textbf{AR emp.}  &  \textbf{Quantílica}  &  \textbf{Aceites} \\
+    Vetor & Cont. preditivo & Produção & AR gauss. & AR emp. & Quantílica & Aceites \\
     \midrule
     Fuel gás     & \textbf{4/5} & 3/5 & 3/5 & 3/5 & 2/5 + NE & 0/4 \\
     Vapor 24 bar & 1/5 & \textbf{5/5} & 2/5 & 2/5 & 2/5 & 0/4 \\
@@ -709,7 +706,7 @@ secção é um facto sobre a refinaria}: é o comportamento de métodos sobre um
 gerador que escrevemos, e deve ser lido como tal.
 
 \begin{table}[htbp]
-  \centering\footnotesize
+  \centering
   \caption[Contrastes co-primários com verdade conhecida]{Diferença de taxa
   de deteção de um degrau de $1\sigma$, emparelhada por réplica, com intervalo
   percentil de 2\,000 reamostragens. Esquerda: trocar a \emph{baseline}
@@ -717,10 +714,9 @@ gerador que escrevemos, e deve ser lido como tal.
   Direita: trocar o monitor (filtro de nível $\to$ soma acumulada) com a
   \emph{baseline} fixa. Gerador com $\rho = 0{,}6$.}
   \label{tab:coprimarias}
-  \ntzebra
   \begin{tabular}{lcccc}
     \toprule
-    \textbf{Vetor}  &  \textbf{Trocar a \emph{baseline}}  &  \textbf{IC 95\%}  &  \textbf{Trocar o monitor}  &  \textbf{IC 95\%} \\
+    Vetor & Trocar a \emph{baseline} & IC 95\% & Trocar o monitor & IC 95\% \\
     \midrule
     Fuel gás     & $-0{,}028$ & $[-0{,}052;\,-0{,}005]$ & $+0{,}323$ & $[0{,}273;\,0{,}370]$ \\
     Vapor 24 bar & $-0{,}013$ & $[-0{,}040;\,0{,}015]$  & $+0{,}438$ & $[0{,}388;\,0{,}487]$ \\

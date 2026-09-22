@@ -343,15 +343,14 @@ Benjamini--Yekutieli (BY) como verificação conservadora; os testes de nível
 formam família separada e secundária.
 
 \begin{table}[htbp]
-  \centering\footnotesize
+  \centering
   \caption[Igualdade dos declives anuais]{Teste de Wald HAC de igualdade
   dos declives anuais, 2020--2025. Família de quatro hipóteses; $q$-values BH
   e BY. Declives anuais extremos em ton~GNE/d por kton de carga.}
   \label{tab:declives-anuais}
-  \ntzebra
   \begin{tabular}{lccccc}
     \toprule
-    \textbf{Vetor}  &  \textbf{$\hat a$ mín.--máx.}  &  \textbf{$W$}  &  \textbf{$p$}  &  \textbf{$q_{\mathrm{BH}}$}  &  \textbf{$q_{\mathrm{BY}}$} \\
+    Vetor & $\hat a$ mín.--máx. & $W$ & $p$ & $q_{\mathrm{BH}}$ & $q_{\mathrm{BY}}$ \\
     \midrule
     Fuel gás        & $8{,}19$ -- $11{,}75$   & $12{,}3$ & $0{,}031$            & $0{,}042$            & $0{,}087$ \\
     Vapor 24 bar    & $-0{,}15$ -- $0{,}31$   & $2{,}8$  & $0{,}731$            & $0{,}731$            & $1$ \\
@@ -574,7 +573,7 @@ operação escolhe e que podem reagir à própria degradação: numa referência
 eficiência, ajustá-las pode absorver parte do sinal que se quer ver.
 
 \begin{table}[htbp]
-  \centering\footnotesize
+  \centering
   \caption[Valor incremental das covariáveis]{Valor preditivo
   incremental das covariáveis pré-especificadas:
   $\Delta_{\mathrm{MAE}} = \mathrm{MAE}_{Q} - \mathrm{MAE}_{Q+Z}$ em
@@ -583,12 +582,11 @@ eficiência, ajustá-las pode absorver parte do sinal que se quer ver.
   úteis); $^{-}$ exclui zero pelo lado negativo (confirmadamente
   prejudiciais); sem marca, o intervalo contém zero.}
   \label{tab:covariaveis-incremental}
-  \ntzebra
   \begin{tabular}{lrrrrr}
     \toprule
-    \textbf{Vetor}  &  \multicolumn{1}{c}{\textbf{20${\to}$21}}  &  \multicolumn{1}{c}{\textbf{21${\to}$22}}
-     &  \multicolumn{1}{c}{\textbf{22${\to}$23}}  &  \multicolumn{1}{c}{\textbf{23${\to}$24}}
-     &  \multicolumn{1}{c}{\textbf{24${\to}$25}} \\
+    Vetor & \multicolumn{1}{c}{20${\to}$21} & \multicolumn{1}{c}{21${\to}$22}
+    & \multicolumn{1}{c}{22${\to}$23} & \multicolumn{1}{c}{23${\to}$24}
+    & \multicolumn{1}{c}{24${\to}$25} \\
     \midrule
     Fuel gás     & $4{,}16^{+}$  & $-3{,}65^{-}$ & $-1{,}05$      & $-0{,}66$     & $-7{,}09^{-}$ \\
     Vapor 24 bar & $-0{,}18^{-}$ & $-0{,}33^{-}$ & $-1{,}09^{-}$  & $-0{,}60^{-}$ & $0{,}26^{+}$  \\
@@ -796,15 +794,15 @@ anticorrelação entre os dois níveis de vapor
   e não há margens materiais que permitam concluir equivalência.}
   \label{tab:sintese-vectores}
   \small
-  \ntzebra
   \begin{tabular}{lp{2.5cm}p{2.6cm}p{2.9cm}p{2.9cm}}
     \toprule
-    \textbf{Vetor}  &  \textbf{Desempenho preditivo}  &  \textbf{Estabilidade}  &  \textbf{Calibração}  &  \textbf{Covariáveis} \\
+    Vetor & Desempenho preditivo & Estabilidade & Calibração & Covariáveis \\
     \midrule
     Fuel gás & demonstrado (0{,}30--0{,}40 em 4/5) & igualdade rejeitada sob BH; sensível (BY, blocos, limiar) & incompatível em 2 pares (0{,}62; 0{,}98) & prejudicam em 2/5 (até $-32\%$) \\
     Vapor 24 bar & sem ganho demonstrado; a média móvel prevê melhor & não rejeitada (não demonstra estabilidade); sensível à partição & compatível nos 5 pares & prejudicam em 4/5 \\
     Vapor 10 bar & sem ganho demonstrado & igualdade rejeitada sob BH; sensível; nível sobe até 2025 & incompatível em 4 pares; parcial de 2026: 0{,}06 & ganho em 4/5; sensível \\
     Vapor 3 bar & sem ganho demonstrado; sinal instável & igualdade rejeitada, resiste a BY; sensível a blocos & a pior (0{,}38--0{,}997, duas direções) & de $-14\%$ a $+42\%$ \\
+    \addlinespace
     Energia elétrica & \multicolumn{4}{l}{resolução mensal: sem análise diária válida (Secção~\ref{sec:perfil-dados})} \\
     \bottomrule
   \end{tabular}
