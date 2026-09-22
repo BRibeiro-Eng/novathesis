@@ -1161,7 +1161,7 @@ def fe01_blocos():
 # Apêndice E: intervalo da média, intervalo de predição e banda de largura
 # constante. Exemplo construído; nenhum valor da refinaria entra aqui.
 MEDIA = COR["vapor_10bar"]
-NEX_B, ALFA_B = 12, 0.05
+NEX_B, ALFA_B = 40, 0.05
 
 def fe02_bandas():
     from scipy.stats import t as tdist, norm
@@ -1199,7 +1199,7 @@ def fe02_bandas():
     ax.set_xlabel(r"condição $Q$ (unidades arbitrárias)")
     ax.set_ylabel(r"consumo $E$ (unidades arbitrárias)")
     ax.tick_params(length=0)
-    ax.set_title(rf"A  Três bandas, o mesmo centro  ($n={NEX_B}$)", loc="left")
+    ax.set_title("A  Três bandas, o mesmo centro", loc="left")
     ax.legend(handles=[
         Patch(facecolor=MEDIA, alpha=0.40, label="intervalo da média"),
         Patch(facecolor=REALCE, alpha=0.16, label="intervalo de predição"),
@@ -1213,15 +1213,14 @@ def fe02_bandas():
     ax.plot(g, w_med / s_, color=MEDIA, lw=1.3, zorder=4)
     ax.plot(g, w_pre / s_, color=REALCE, lw=1.3, zorder=4)
     ax.axhline(2.0, color=ALERTA, lw=1.2, ls=(0, (4, 2)), zorder=4)
-    ax.axvline(Qb, ymin=0, ymax=0.72, color=CINZA, lw=0.7, ls=(0, (1, 2)), zorder=1)
-    ax.set_ylim(0, (w_pre / s_).max() * 1.45)
+    ax.axvline(Qb, color=CINZA, lw=0.7, ls=(0, (1, 2)), zorder=1)
+    ax.set_ylim(0, (w_pre / s_).max() * 1.22)
     ax.set_xlabel(r"condição $Q$", labelpad=1)
     ax.set_ylabel("semilargura / $s$")
     ax.yaxis.set_major_formatter(virgula(1)); ax.tick_params(length=0)
     ax.set_title("B  A largura que cada banda tem", loc="left")
-    ax.annotate("a banda da plataforma é plana: não\n"
-                "alarga quando o dia se afasta de $\\bar Q$",
-                (0.5, 0.975), xycoords="axes fraction", ha="center", va="top",
+    ax.annotate("a banda da plataforma não alarga\nquando o dia se afasta de $\\bar Q$",
+                (0.5, 0.50), xycoords="axes fraction", ha="center", va="center",
                 fontsize=6.4, color=CINZA, linespacing=1.35)
     guarda(ax, "y")
 
@@ -1254,57 +1253,80 @@ def fe02_bandas():
 
 
 # ------------------------------------------------------------------ FE03 --
-# Apêndice E: as somas marginais não determinam a contagem conjunta. Dois
-# exemplos construídos com as mesmas marginais; nenhum valor da refinaria.
-LIM45 = 4
-CASOS = (("A  Pares em falta diferentes", (1, 1, 1, 1, 0), (0, 1, 1, 1, 1)),
-         ("B  O mesmo par em falta",      (1, 1, 1, 1, 0), (1, 1, 1, 1, 0)))
+# Apêndice E: contagens separadas contra sucesso conjunto na regra de quatro
+# pares em cinco. Exemplo construído e enumeração exacta; nenhum valor da
+# refinaria entra aqui.
+GEX, CEX, LIM45 = (1, 1, 1, 1, 0), (0, 1, 1, 1, 1), 4
 
-def _caso(ax, G, C, titulo, com_rotulos):
-    linhas = [(r"$G_j$", "ganho exclui zero", G, REALCE),
-              (r"$C_j$", "cobertura compatível", C, MEDIA),
-              (r"$G_jC_j$", "ambos no mesmo par",
-               tuple(g * c for g, c in zip(G, C)), TINTA)]
-    for i, (sim, desc, vec, cor) in enumerate(linhas):
-        y = -i * 1.30
+def fe03_conjunto():
+    fig = plt.figure(figsize=(15.5 * CM, 7.0 * CM))
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.36, 1.0], wspace=0.30)
+
+    ax = fig.add_subplot(gs[0, 0])
+    linhas = [(r"$G_j$  ganho exclui zero", GEX, REALCE),
+              (r"$C_j$  cobertura compatível", CEX, MEDIA),
+              (r"$G_jC_j$  ambos no mesmo par",
+               tuple(g * c for g, c in zip(GEX, CEX)), TINTA)]
+    for i, (rot, vec, cor) in enumerate(linhas):
+        y = -i * 1.25
         for j, v in enumerate(vec):
-            ax.add_patch(Rectangle((j + 0.10, y - 0.36), 0.80, 0.72,
+            ax.add_patch(Rectangle((j + 0.10, y - 0.34), 0.80, 0.68,
                                    facecolor=cor if v else "white",
                                    edgecolor=cor if v else CINZA_C, lw=0.8, zorder=3))
             if not v:
-                ax.plot([j + 0.30, j + 0.70], [y - 0.17, y + 0.17],
+                ax.plot([j + 0.28, j + 0.72], [y - 0.16, y + 0.16],
                         color=CINZA_C, lw=0.8, zorder=4)
-                ax.plot([j + 0.30, j + 0.70], [y + 0.17, y - 0.17],
+                ax.plot([j + 0.28, j + 0.72], [y + 0.16, y - 0.16],
                         color=CINZA_C, lw=0.8, zorder=4)
-        ax.annotate(sim, (-0.22, y), ha="right", va="center", fontsize=8.0, color=cor)
-        if com_rotulos:
-            ax.annotate(desc, (-1.45, y), ha="right", va="center", fontsize=6.8,
-                        color=CINZA)
+        ax.annotate(rot, (-0.18, y), ha="right", va="center", fontsize=7.4, color=cor)
         tot = sum(vec); ok = tot >= LIM45
-        ax.annotate(rf"$\sum_j = {tot}$", (5.28, y), ha="left", va="center",
-                    fontsize=7.6, color=cor)
-        ax.annotate(rf"$\geq {LIM45}$" if ok else rf"$< {LIM45}$", (6.72, y),
-                    ha="left", va="center", fontsize=7.6,
+        ax.annotate(rf"$\sum_j = {tot}$", (5.35, y), ha="left", va="center",
+                    fontsize=7.4, color=cor)
+        ax.annotate(rf"$\geq {LIM45}$" if ok else rf"$< {LIM45}$", (6.85, y),
+                    ha="left", va="center", fontsize=7.4,
                     color=REALCE if ok else ALERTA)
     for j, par in enumerate(PARES5_L):
-        ax.annotate(par, (j + 0.5, 0.58), ha="center", va="bottom", fontsize=6.6,
+        ax.annotate(par, (j + 0.5, 0.52), ha="center", va="bottom", fontsize=6.6,
                     color=CINZA, rotation=30)
-    ax.plot([-0.05, 7.55], [-1.93, -1.93], color=CINZA_C, lw=0.6, zorder=2)
-    ax.set_xlim(-5.05 if com_rotulos else -1.10, 7.90)
-    ax.set_ylim(-3.30, 1.55)
+    ax.annotate("a regra histórica exige as duas primeiras\nsomas em separado, e aqui cumpre-se",
+                (-4.20, -3.25), ha="left", va="top", fontsize=6.5, color=CINZA,
+                linespacing=1.4)
+    ax.set_xlim(-4.30, 8.00); ax.set_ylim(-3.95, 1.35)
     ax.set_xticks([]); ax.set_yticks([]); ax.tick_params(length=0)
     for sp in ax.spines.values(): sp.set_visible(False)
-    ax.set_title(titulo, loc="left")
+    ax.set_title("A  Um exemplo com cinco pares anuais", loc="left")
 
-def fe03_conjunto():
-    fig = plt.figure(figsize=(15.5 * CM, 5.6 * CM))
-    gs = fig.add_gridspec(1, 2, width_ratios=[1.34, 1.0], wspace=0.10)
-    for k, (titulo, G, C) in enumerate(CASOS):
-        _caso(fig.add_subplot(gs[0, k]), G, C, titulo, k == 0)
-    fig.text(0.5, -0.02,
-             "Nos dois casos $\\sum_j G_j = \\sum_j C_j = 4$ e a regra histórica cumpre-se; "
-             "a contagem conjunta muda porque muda \\emph{qual} o par que falha.".replace("\\emph{qual}", "qual"),
-             ha="center", va="top", fontsize=6.8, color=CINZA)
+    adm = [v for v in product([0, 1], repeat=5) if sum(v) >= LIM45]
+    adm.sort(key=lambda v: (-sum(v), v))
+    M = np.array([[1 if sum(g * c for g, c in zip(G, C)) >= LIM45 else 0
+                   for C in adm] for G in adm])
+    ax = fig.add_subplot(gs[0, 1])
+    for i in range(len(adm)):
+        for j in range(len(adm)):
+            ax.add_patch(Rectangle((j + 0.06, i + 0.06), 0.88, 0.88,
+                                   facecolor=REALCE if M[i, j] else NEUTRO,
+                                   edgecolor="white", lw=0.6, zorder=3))
+    iG, iC = adm.index(GEX), adm.index(CEX)
+    # A moldura assinala o exemplo do painel A; a legenda di-lo, para não
+    # atravessar a matriz com uma linha de chamada.
+    ax.add_patch(Rectangle((iC + 0.06, iG + 0.06), 0.88, 0.88, facecolor="none",
+                           edgecolor=ALERTA, lw=1.4, zorder=5))
+    rot = ["".join(str(x) for x in v) for v in adm]
+    ax.set_xticks(np.arange(len(adm)) + 0.5)
+    ax.set_xticklabels(rot, fontsize=6.4, rotation=90)
+    ax.set_yticks(np.arange(len(adm)) + 0.5)
+    ax.set_yticklabels(rot, fontsize=6.4)
+    ax.set_xlim(0, len(adm)); ax.set_ylim(len(adm) + 0.2, -0.2)
+    ax.set_xlabel(r"vetor de cobertura $C$", labelpad=2)
+    ax.set_ylabel(r"vetor de ganho $G$")
+    ax.tick_params(length=0)
+    for sp in ax.spines.values(): sp.set_visible(False)
+    ax.set_title("B  Todas as configurações que passam a regra", loc="left")
+    n_ok, n_tot = int(M.sum()), M.size
+    ax.annotate(f"{n_tot - n_ok} das {n_tot} ({pt(100 * (n_tot - n_ok) / n_tot)} %) não têm\n"
+                "quatro sucessos conjuntos",
+                (0.02, -0.265), xycoords="axes fraction", ha="left", va="top",
+                fontsize=6.4, color=CINZA, linespacing=1.4, annotation_clip=False)
     grava(fig, "apE-separado-vs-conjunto")
 
 

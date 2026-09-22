@@ -1,0 +1,28 @@
+Refazer as figuras E.3 e E.4: estavam confusas
+
+E.4. A matriz 6x6 de cadeias binarias era uma enumeracao disfarcada de
+figura: pedia ao leitor que descodificasse doze cadeias para verificar um
+numero que ia aceitar de qualquer maneira, e o titulo dizia que a matriz
+mostrava as configuracoes que passam a regra quando todas as 36 passam --
+a cor distinguia outra coisa. Substituida por dois exemplos lado a lado
+com as mesmas somas marginais e contagens conjuntas diferentes: no
+primeiro falham pares diferentes (soma conjunta 3), no segundo falha o
+mesmo par (soma conjunta 4). O mecanismo -- as marginais nao determinam a
+contagem conjunta -- passa a ver-se; os 56 % passam para a legenda, que e
+onde um facto pertence.
+
+E.3. Com n=40 a banda +-2s ficava colada ao intervalo de predicao e lia-se
+como erro de desenho. O exemplo passa a n=12, onde os tres objectos se
+separam e se ve que a banda da plataforma fica DENTRO do intervalo de
+predicao. O painel C ganha coerencia: o defice e efeito de amostra
+pequena, e com um ano civil a convencao reproduz o nominal a tres casas.
+Nota do painel B reduzida a duas linhas e afastada das curvas; a vertical
+de Qbar encurtada para nao a atravessar.
+
+Legendas reescritas para as novas figuras. Nenhuma das duas leva valores
+da refinaria.
+
+Build: 304 paginas, zero erros, zero referencias por resolver.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01WMymYi7rCaXPNEYDJVztnV

@@ -819,9 +819,11 @@ mede o que a banda de largura constante cobre em função de $n$.}
   da refinaria entra nesta figura. \textbf{A}: o intervalo de confiança da
   média (equação~\ref{eq:mat-ic-media}) localiza a reta; o intervalo de
   predição (equação~\ref{eq:mat-ip-observacao}) localiza uma observação
-  futura; a banda $\pm 2s$ é a convenção da plataforma. Com $n=40$ as duas
-  últimas quase coincidem, e é o intervalo da média --- aqui $6{,}4$ vezes
-  mais estreito --- que é rotineiramente confundido com elas. \textbf{B}: a
+  futura; a banda $\pm 2s$ é a convenção da plataforma. O ajuste do exemplo
+  usa deliberadamente poucas observações, $n=12$, para que os três objetos
+  se distingam: o intervalo da média é aqui $3{,}6$ vezes mais estreito do
+  que o de predição no centro do treino, e a banda da plataforma fica
+  \emph{dentro} do intervalo de predição em toda a gama. \textbf{B}: a
   semilargura de cada banda em unidades de $s$. Os dois intervalos são
   ampulhetas, porque o termo de alavancagem cresce ao afastar-se de
   $\bar Q$; a banda da plataforma é plana e não responde a essa variação.
@@ -829,10 +831,11 @@ mede o que a banda de largura constante cobre em função de $n$.}
   exatamente como $2F_{t,n-2}\!\left(2/\sqrt{1+h_0}\right)-1$, com
   $h_0=1/n$ no centro do treino e $h_0=4/n$ no seu extremo sob um desenho
   uniforme; as verticais marcam o mínimo declarado por vetor, 30, e um ano
-  civil completo, 365. A convenção aproxima bem o nominal
-  da equação~\ref{eq:mat-dois-sigma} quando o ajuste tem um ano de dados
-  ($95{,}35\,\%$ no centro), e afasta-se nas células pequenas
-  ($94{,}1\,\%$ com $n=30$, $92{,}9\,\%$ no extremo da gama de carga).}}
+  civil completo, 365. O défice do painel A é um efeito de amostra pequena:
+  com um ano de dados a convenção reproduz o nominal da
+  equação~\ref{eq:mat-dois-sigma} com três casas ($95{,}35\,\%$ contra
+  $95{,}45\,\%$), ao passo que em $n=30$ cobre $94{,}1\,\%$ no centro e
+  $92{,}9\,\%$ no extremo da gama de carga.}}
   \label{fig:mat-bandas}
 \end{figure}
 
@@ -944,20 +947,21 @@ as configurações em que as duas regras divergem.}
   \centering
   \includegraphics[width=\textwidth]{gerado/apE-separado-vs-conjunto}
   \caption[Contagens separadas e sucesso conjunto na regra de quatro em cinco]%
-  {\matref{A diferença entre exigir as duas somas em separado e exigir
-  sucessos conjuntos. O exemplo é construído e a enumeração é exata; nenhum
-  valor da refinaria entra nesta figura. \textbf{A}: os dois vetores
-  binários do texto sobre os cinco pares anuais encadeados. As somas de
-  $G_j$ e de $C_j$ são ambas quatro, pelo que a regra da
-  equação~\ref{eq:mat-gate-historico} se cumpre; a terceira linha mostra
-  que só três pares satisfazem os dois critérios ao mesmo tempo.
-  \textbf{B}: as seis configurações admissíveis de cada vetor --- as que
-  somam quatro ou cinco --- cruzadas duas a duas. A azul, as combinações
-  que também teriam quatro sucessos conjuntos; a cinzento, as que não
-  teriam. A moldura assinala o exemplo do painel A. Das 36 configurações
-  que passam a regra histórica, 20 --- $56\,\%$ --- falhariam uma regra de
-  sucesso conjunto com o mesmo limiar nominal, o que mede quanto as duas
-  definições diferem e justifica identificar qual foi usada.}}
+  {\matref{As somas marginais não determinam a contagem conjunta. Os dois
+  exemplos são construídos; nenhum valor da refinaria entra nesta figura.
+  Em ambos, quatro dos cinco pares anuais encadeados têm ganho que exclui
+  zero e quatro têm cobertura compatível, pelo que a regra da
+  equação~\ref{eq:mat-gate-historico} se cumpre nos dois casos. \textbf{A}:
+  o ganho falha no último par e a cobertura no primeiro; como falham pares
+  diferentes, só três pares satisfazem os dois critérios ao mesmo tempo.
+  \textbf{B}: os mesmos totais, mas o par em falta é o mesmo nos dois
+  vetores, e a contagem conjunta sobe a quatro. Uma regra escrita como
+  $\sum_jG_jC_j\geq4$ separaria estes dois casos; a regra histórica não os
+  separa. A diferença não é uma curiosidade de um exemplo: das 36
+  configurações em que ambos os vetores somam quatro ou cinco, 20 ---
+  $56\,\%$ --- falhariam a versão conjunta com o mesmo limiar nominal. Daí
+  a exigência de identificar qual das duas definições foi usada ao
+  reproduzir um resultado histórico.}}
   \label{fig:mat-conjunto}
 \end{figure}
 
