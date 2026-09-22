@@ -59,11 +59,11 @@ funcionamento, e não sobre uma cópia preparada para ser validada}.
 \paragraph{Três decisões que o definem.} A primeira é a que a
 Secção~\ref{sec:modelo-dimensional} descreve: os três canais de origem
 coexistem na tabela de factos e uma regra de precedência declarada escolhe
-por linha, com a origem registada\matref{~(Equação~\ref{eq:mat-fontes})} --- é o que torna a validação da secção
+por linha, com a origem registada --- é o que torna a validação da secção
 seguinte possível, porque um dia com balanço e \ajuste{historiador} em simultâneo é
 um dia com duas leituras da mesma grandeza, processadas por caminhos
 diferentes, que podem ainda assim partilhar o medidor. A segunda é que a
-\emph{baseline} é materializada no modelo\matref{~(Equação~\ref{eq:mat-modelo-linear})}: a tabela de coeficientes por
+\emph{baseline} é materializada no modelo: a tabela de coeficientes por
 unidade, vetor e ano é calculada uma vez por atualização e as medidas de
 resíduo, banda e excesso \ajuste{vão lá buscar os coeficientes, em vez de
 reestimarem a regressão de cada vez que um gráfico é desenhado} --- o que tornou o \emph{dashboard} responsivo e,
@@ -114,7 +114,7 @@ balanço. A amostra são 400 células: as combinações unidade--vetor do
 relatório nos cinco meses, incluindo as que não têm consumo, contadas à
 parte como vazias. Uma célula coincide quando a diferença absoluta entre o
 \emph{dashboard} e as outras duas leituras não excede 2~t ou 0,2\% do valor,
-o que for maior\matref{~(Equação~\ref{eq:mat-tolerancia-dados})}; o sinal da diferença regista-se para a análise de
+o que for maior; o sinal da diferença regista-se para a análise de
 consistência descrita adiante. As três leituras não são três medições
 independentes. O relatório e a reconstrução partem do mesmo balanço e dos
 mesmos medidores, e o \emph{dashboard} lê esse balanço por outro código:
@@ -267,8 +267,7 @@ métrica e janela escolhidas, distinguindo ``sem vetor'', ``sem
 identifica a melhor e a pior unidade e o melhor e o pior par
 unidade--vetor; um gráfico de barras ordena as unidades pelo desvio; um
 diagrama de Pareto por par unidade--vetor mostra que poucos pares
-concentram o excesso acumulado; um cartão de excesso acumulado\matref{~(Equações~\ref{eq:mat-acumulados}
-e~\ref{eq:mat-excesso-ruido})} dá o total
+concentram o excesso acumulado; um cartão de excesso acumulado dá o total
 do período, o ritmo a 7 e a 30 dias contra a \emph{baseline}, e as unidades
 que mais contribuem; a tendência mensal do excesso da refinaria contra a
 \emph{baseline} mensal; um cartão dos piores e melhores dias do período
@@ -319,7 +318,7 @@ vetor com o seu ritmo. Um gráfico de linhas sobrepõe o consumo total ao
 consumo específico com as médias móveis de 7 e 30 dias; um gráfico de
 barras a 100\% mostra, por vetor, a fração de dias abaixo e acima da
 banda de $\pm2\sigma$; um mapa de calor de calendário --- um quadrado por
-dia, colorido pelo resíduo padronizado\matref{~(Equação~\ref{eq:mat-dois-sigma})} --- torna visíveis os períodos
+dia, colorido pelo resíduo padronizado --- torna visíveis os períodos
 persistentes e as sequências, com uma sobreposição opcional do plano de
 fabrico para ligar os dias a campanhas; e uma matriz de prioridades coloca
 cada vetor num plano de fração de dias em alarme contra desvio médio
@@ -344,8 +343,7 @@ página que responde ``qual vetor, e há quanto tempo''
 \end{figure}
 
 \paragraph{Índice de intensidade.} A terceira página apresenta o índice
-de intensidade energética da unidade (Secção~\ref{sec:metricas}\matref{;
-Equação~\ref{eq:mat-eii}}) no dia e
+de intensidade energética da unidade (Secção~\ref{sec:metricas}) no dia e
 nas janelas de 7 e 30 dias, sobre as bandas de quartil da indústria; os
 cartões de índice atual e médio, do factor padrão da unidade, do quadrante
 e do peso da unidade no índice da refinaria; uma cascata que decompõe o
@@ -424,8 +422,7 @@ medição não dizem onde a energia é medida face à fronteira do modelo
 declarada, e o que fica de fora dela está escrito a seguir.}
 
 \paragraph{O que está dentro.} Dezasseis unidades processuais, \ajuste{seis}
-vetores\matref{~---~com a seleção de dias operacionais da
-Equação~\ref{eq:mat-selecao}~---}, seis anos e sete meses de história diária, três canais
+vetores, seis anos e sete meses de história diária, três canais
 reconciliados, \emph{baselines} por ano e vetor materializadas e
 exportáveis, índice de intensidade por unidade, planos de fabrico desde
 2020 e propriedades da carga onde o historiador as tem.
@@ -440,8 +437,7 @@ composição declarada na dimensão. Os \emph{flares} não têm
 \emph{baseline}, porque não têm carga.
 
 \paragraph{O que ficou de fora, por limitação dos dados.} A energia
-elétrica é uma alocação mensal distribuída uniformemente pelos
-dias\matref{~(Equação~\ref{eq:mat-alocacao-mensal})}:
+elétrica é uma alocação mensal distribuída uniformemente pelos dias:
 qualquer leitura diária dela é uma leitura do mês, e o
 Capítulo~\ref{cha:diagnostico} trata-a como tal. Uma parte das
 \emph{tags} do historiador referidas no mapeamento está anotada como ``a

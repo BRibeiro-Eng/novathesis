@@ -41,8 +41,7 @@ O consumo energético de uma unidade processual não existe numa fonte
 repartida por três famílias de origens, com resoluções, unidades e
 responsáveis diferentes, e a primeira decisão de desenho da plataforma foi
 não escolher uma delas: lê-las todas e reconciliá-las por regras
-declaradas\matref{~(Equações~\ref{eq:mat-fontes}
-e~\ref{eq:mat-tolerancia-dados})}.
+declaradas.
 
 \paragraph{O historiador de processo.} O historiador IP21 regista as
 medições de campo --- caudais de combustível e de vapor, carga das
@@ -197,9 +196,7 @@ código.
 reconciliar é harmonizar fontes: pôr os canais lado a lado, aplicar uma
 regra de precedência declarada e confrontar os resultados com o relatório
 oficial. Não é reconciliação de dados no sentido estatístico, em que as
-medições são ajustadas para satisfazer balanços de massa e
-energia\matref{~(Equações~\ref{eq:mat-balanco-material}
-e~\ref{eq:mat-balanco-energia})}.
+medições são ajustadas para satisfazer balanços de massa e energia.
 \alterado{Esse ajustamento existe, mas a montante deste trabalho: o
 canal de balanço é ele próprio o resultado de um procedimento que
 redistribui os desajustes por certas correntes até as contas fecharem,
@@ -260,7 +257,7 @@ diário têm todos carga abaixo do limiar e já estavam fora do domínio
 operacional. Noutras unidades isto não foi verificado. Não inclui o gás natural nem o
 \emph{tail gas} no perímetro de nenhuma unidade, por decisão de âmbito.
 E trata a eletricidade como o que ela é: uma alocação mensal distribuída
-uniformemente pelos dias\matref{~(Equação~\ref{eq:mat-alocacao-mensal})}, que o Capítulo~\ref{cha:diagnostico} mostra não
+uniformemente pelos dias, que o Capítulo~\ref{cha:diagnostico} mostra não
 ser uma medição diária.
 
 \section{Cálculo de métricas energéticas}
@@ -278,9 +275,7 @@ E_{\mathrm{GNE}} = \frac{E_{\mathrm{el}}\times 860{,}4}{\mathrm{PCI}_{\mathrm{re
 \;\text{(eletricidade)},
 \label{eq:conversao-gne}
 \end{equation}
-\matref{As três formas estão desenvolvidas, com as unidades explícitas, nas
-Equações~\ref{eq:mat-gne-combustivel} a~\ref{eq:mat-gne-eletricidade}.}
-Em que $\mathrm{PCI}_{\mathrm{ref}} = 11\,820$~kcal/kg é o poder calorífico
+em que $\mathrm{PCI}_{\mathrm{ref}} = 11\,820$~kcal/kg é o poder calorífico
 inferior de referência do gás natural (norma interna da empresa),
 $\overline{\mathrm{PCI}}$ o poder calorífico do dia --- no canal de
 \emph{tags}, a média diária da \emph{tag} de poder calorífico; no canal de
@@ -307,17 +302,14 @@ para uma unidade quando a sua carga é igual ou superior ao limiar declarado
 para essa unidade. O consumo específico é o total de GNE nos dias
 operacionais dividido pela carga nesses mesmos dias, em t~GNE por
 quilotonelada; as janelas móveis de 7 e 30 dias e o acumulado do período
-são calculados sobre a mesma seleção\matref{~(Equações~\ref{eq:mat-selecao},
-\ref{eq:mat-consumo-especifico} e~\ref{eq:mat-racio-carga})}. O limiar não é
-um parâmetro de apresentação: é a fronteira do domínio em que a
-\emph{baseline} é estimada,
+são calculados sobre a mesma seleção. O limiar não é um parâmetro de
+apresentação: é a fronteira do domínio em que a \emph{baseline} é estimada,
 e a Secção~\ref{sec:perfil-dados} mostra o que ele exclui.
 
 \paragraph{A \emph{baseline} em produção.} Para cada unidade, vetor e ano
 civil, o modelo estima por mínimos quadrados a relação
 $E = a\,Q + b$ (o modelo estatístico de \emph{baseline} que a ISO~50006
-tipifica~\cite{ISO50006_2014}\matref{; Equações~\ref{eq:mat-modelo-linear}
-a~\ref{eq:mat-rss-escala}}) entre o consumo diário (em t~GNE/d, na coluna sem
+tipifica~\cite{ISO50006_2014}) entre o consumo diário (em t~GNE/d, na coluna sem
 produção) e a carga diária (em kton/d), sobre os dias operacionais do ano
 com energia não nula e anteriores ao dia corrente. A estimação é feita
 dentro do próprio modelo, numa tabela calculada que materializa, por
@@ -371,8 +363,7 @@ referência $k$, um limiar $h$ e uma taxa de falsos alarmes calibrada, e que
 
 \paragraph{O índice de intensidade energética.} Além da \emph{baseline}
 interna, o modelo calcula por unidade o índice de intensidade energética
-da metodologia de \emph{benchmarking} da indústria
-(Solomon)\matref{~(Equação~\ref{eq:mat-eii})}: a razão,
+da metodologia de \emph{benchmarking} da indústria (Solomon): a razão,
 em percentagem, entre o consumo real em kBTU e uma energia padrão que
 depende da carga em barris e de um factor por unidade --- para a
 destilação atmosférica, uma função da densidade da carga, do rendimento em
@@ -387,8 +378,7 @@ disponível na refinaria, e não foi validada contra o valor oficial do
 estudo de \emph{benchmarking}; não se alega equivalência.
 
 \paragraph{Emissões.} O equivalente em CO$_2$ é calculado do consumo
-líquido em GNE com o factor declarado na dimensão dos
-vetores\matref{~(Equação~\ref{eq:mat-emissoes})}, no dia e
+líquido em GNE com o factor declarado na dimensão dos vetores, no dia e
 acumulado, e apresentado ao lado do GNE nas vistas de síntese. O factor é o
 mesmo (2,5) para todos os vetores e a unidade não está declarada na tabela.
 É um indicador interno de ordem de grandeza: não separa emissões diretas da
@@ -441,8 +431,7 @@ congelada do modelo, o protocolo reestima a regressão anual de cada
 unidade--vetor com o limiar lido da configuração e compara declive,
 ordenada na origem, desvio-padrão residual e coeficiente de determinação
 com os da tabela de \emph{baselines} exportada, célula a célula, com
-tolerância pré-registada de
-$10^{-6}$\matref{~(Equação~\ref{eq:mat-tolerancia-replica})}; a identidade dos dias selecionados
+tolerância pré-registada de $10^{-6}$; a identidade dos dias selecionados
 é comparada \ajuste{por uma assinatura do conjunto, que muda se um só dia
 entrar ou sair}. Trinta células têm de
 reproduzir-se; se uma falha, nada a jusante corre. Cada instrumento
@@ -550,9 +539,7 @@ interações ano$\times$carga, na linha do teste de Chow~\cite{Chow1960}; se a b
 cobre a fração nominal dos dias do ano seguinte; que desvio mínimo o
 sistema de alarmes deteta e em quanto tempo; e se covariáveis
 pré-especificadas (densidade da carga, temperatura e pressão de
-\emph{flash}\matref{; a relação entre densidade, grau API e temperatura está
-na Equação~\ref{eq:mat-api-temperatura}}) acrescentam valor preditivo fora da
-amostra. A inferência
+\emph{flash}) acrescentam valor preditivo fora da amostra. A inferência
 respeita a dependência serial que os próprios resíduos exibem: erros-padrão
 robustos à heterocedasticidade e à autocorrelação~\cite{NeweyWest1987}
 (\emph{kernel} quadrático-espectral com largura de banda de

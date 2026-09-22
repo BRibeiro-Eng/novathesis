@@ -680,9 +680,7 @@ A ACF mostra associações por desfasamento; a PACF remove os contributos linear
 
 Num exemplo AR(1) estacionário, sem lacunas e para uma média em série longa, $n_{\mathrm{efetivo}}\approx n(1-\rho)/(1+\rho)$. Esta aproximação ilustra a perda de precisão da média com persistência positiva. Outros estimandos e calendários requerem outra avaliação da informação efetiva.
 
-As expressões clássicas de
-Durbin--Watson\matref{~\parencite{DurbinWatson1951}} e
-Ljung--Box\matref{~\parencite{LjungBox1978}} são
+As expressões clássicas de Durbin--Watson e Ljung--Box são
 \begin{equation}
 DW=\frac{\sum_{t=2}^{n}(e_t-e_{t-1})^2}{\sum_{t=1}^{n}e_t^2},
 \qquad Q_{LB}=n(n+2)\sum_{k=1}^{h}\frac{\widehat\rho_k^2}{n-k}.
@@ -693,9 +691,7 @@ Estas fórmulas supõem uma sequência regularmente indexada. Na adaptação con
 \subsection{Variância condicional e forma da distribuição}
 \label{sec:mat-variancia-forma}
 % MAP: M08.04 M08.05 M08.06
-A heterocedasticidade significa que $\operatorname{Var}(e_t\mid\boldsymbol x_t)$ varia com as condições. Na versão studentizada de
-Breusch--Pagan/Koenker\matref{~\parencite{BreuschPagan1979,Koenker1981}}, a
-regressão auxiliar dos resíduos quadrados nas variáveis declaradas conduz a uma estatística $nR_{\mathrm{aux}}^2$. No diagnóstico ARCH de ordem $h$, a regressão auxiliar inclui $e_{t-1}^2,\ldots,e_{t-h}^2$ e a estatística é $n_{\mathrm{aux}}R_{\mathrm{aux}}^2$. A primeira procura variação associada às covariáveis; a segunda procura persistência na escala. As distribuições assintóticas exigem hipóteses próprias e uma amostra auxiliar admissível.
+A heterocedasticidade significa que $\operatorname{Var}(e_t\mid\boldsymbol x_t)$ varia com as condições. Na versão studentizada de Breusch--Pagan/Koenker, a regressão auxiliar dos resíduos quadrados nas variáveis declaradas conduz a uma estatística $nR_{\mathrm{aux}}^2$. No diagnóstico ARCH de ordem $h$, a regressão auxiliar inclui $e_{t-1}^2,\ldots,e_{t-h}^2$ e a estatística é $n_{\mathrm{aux}}R_{\mathrm{aux}}^2$. A primeira procura variação associada às covariáveis; a segunda procura persistência na escala. As distribuições assintóticas exigem hipóteses próprias e uma amostra auxiliar admissível.
 
 Definindo $m_k=n^{-1}\sum_i(e_i-\bar e)^k$, a assimetria e o excesso de curtose por momentos são $g_1=m_3/m_2^{3/2}$ e $g_2=m_4/m_2^2-3$. As versões com correção amostral, para $n>3$, são
 \begin{equation}
@@ -732,7 +728,7 @@ A configuração exploratória consultada usa quatro componentes para descrever 
 \subsection{Influência e dependência entre vetores}
 \label{sec:mat-influencia}
 % MAP: M08.10 M08.11
-A alavancagem é a diagonal $h_{ii}$ da matriz de projeção $H=X(X^{\mathrm T}X)^{-1}X^{\mathrm T}$. A distância de Cook\matref{~\parencite{Cook1977}} combina alavancagem e resíduo:
+A alavancagem é a diagonal $h_{ii}$ da matriz de projeção $H=X(X^{\mathrm T}X)^{-1}X^{\mathrm T}$. A distância de Cook combina alavancagem e resíduo:
 \begin{equation}
 D_i=\frac{\widehat e_i^2}{p s^2}\frac{h_{ii}}{(1-h_{ii})^2}.
 \label{eq:mat-cook}

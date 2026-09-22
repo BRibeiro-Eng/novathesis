@@ -646,8 +646,7 @@ inovação, porque sobe mais devagar do que o filtro aprende. Esta última
 leitura é sobre a inovação de um filtro, não sobre uma estatística de
 monitorização --- se um monitor deteta a mudança é a pergunta da secção
 seguinte. O que fica medido, sob este desenho, é a atenuação do
-mecanismo descrito no Capítulo~\ref{cha:diagnostico}\matref{, quantificada
-pela Equação~\ref{eq:mat-atenuacao-ar}}: sobre o período usado
+mecanismo descrito no Capítulo~\ref{cha:diagnostico}: sobre o período usado
 para reajustar, o reajuste absorve o degrau e quase toda a rampa.
 
 \paragraph{Janelas de reajuste: hipótese pendente.} A sensibilidade que
@@ -667,11 +666,7 @@ Capítulo~\ref{cha:diagnostico} --- que desvio o sistema deteta, e o que
 importa mais para o detetar --- só pode responder-se com verdade conhecida.
 Construiu-se, para cada vetor, um gerador \ajuste{(Equações~\ref{eq:mat-dgp}
 a~\ref{eq:mat-rampa})} com a relação de 2020 (mínimos quadrados com as
-covariáveis de referência), ruído autorregressivo de primeira ordem,
-\matref{\begin{equation}
-  \varepsilon_t = \rho\,\varepsilon_{t-1} + \sigma\sqrt{1-\rho^2}\,z_t ,
-  \label{eq:gerador-ruido}
-\end{equation}}
+covariáveis de referência), ruído autorregressivo de primeira ordem, $\varepsilon_t = \rho\,\varepsilon_{t-1} + \sigma\sqrt{1-\rho^2}\,z_t$
 com $\rho = 0{,}6$ e $z_t$ normal padrão, de modo que a dispersão marginal
 $\sigma$ é a dos resíduos de 2020 e a das inovações é $\sigma\sqrt{1-\rho^2}$,
 366 dias de treino com a máscara real de dias admissíveis de 2020 e uma
@@ -693,15 +688,9 @@ subsecção, com calibração própria. Sobre este gerador inseriram-se
 alternativas conhecidas --- degrau e rampa de uma escala, alargamento da
 dispersão, recuperação, resposta à carga --- em quatrocentas réplicas por
 célula, e mediu-se a taxa de deteção de cada combinação de \emph{baseline}
-(mínimos quadrados ou modelo
-aditivo~\cite{HastieTibshirani1986,Wood2017}\matref{; Equações~\ref{eq:mat-gam}
-e~\ref{eq:mat-penalizacao}}) e
+(mínimos quadrados ou modelo aditivo~\cite{HastieTibshirani1986,Wood2017}) e
 monitor (resíduo bruto, filtro de
-nível, soma acumulada, e canais de carga e de
-escala)\matref{~---~o modelo de nível local e o seu passo de atualização estão
-nas Equações~\ref{eq:mat-nivel-local} a~\ref{eq:mat-kalman-variancia}, a soma
-acumulada na Equação~\ref{eq:mat-cusum} e os dois canais nas
-Equações~\ref{eq:mat-monitor-carga} e~\ref{eq:mat-monitor-escala}~---}. \textbf{Nada nesta
+nível, soma acumulada, e canais de carga e de escala). \textbf{Nada nesta
 secção é um facto sobre a refinaria}: é o comportamento de métodos sobre um
 gerador que escrevemos, e deve ser lido como tal.
 
@@ -754,10 +743,6 @@ A Figura~\ref{fig:deteccao} compara os três monitores sob o mesmo orçamento de
   {Probabilidade de detetar um desvio nos primeiros 90 dias, por amplitude, para três monitores calibrados ao mesmo orçamento de falsos sinais. Os dois primeiros painéis separam degrau de rampa com dependência moderada ($\rho=0{,}6$); o terceiro fixa a amplitude num desvio-padrão e varia a dependência do gerador. A banda é o intervalo de Wilson sobre as réplicas. A linha a tracejado marca metade das deteções. Os valores descrevem o gerador simulado e as suas hipóteses, e não são uma previsão do que aconteceria na refinaria.}
   \label{fig:deteccao}
 \end{figure}
-\matref{A dependência entre vetores e o efeito da agregação temporal sobre a
-variância estão nas Equações~\ref{eq:mat-ar-multivariado}
-e~\ref{eq:mat-variancia-soma}.}
-
 \paragraph{A dependência decide quanto se deteta.} O gerador primário tem
 $\rho = 0{,}6$, que é a autocorrelação residual observada no fuel gás; os
 três vapores estão entre $0{,}8$ e $0{,}9$, e a subir

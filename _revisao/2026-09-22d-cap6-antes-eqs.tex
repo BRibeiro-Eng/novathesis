@@ -64,13 +64,8 @@ resultado.
 
 Antes de qualquer crítica, o método de produção foi replicado de forma exata a
 partir das tabelas de configuração oficiais: para cada um dos cinco vetores
-energéticos e cada ano civil de 2020 a 2025, a regressão
-\matref{\begin{equation}
-  E_t = a\,Q_t + b + e_t ,
-  \label{eq:baseline-producao}
-\end{equation}
-com $E_t$ o consumo diário em t~GNE/d, $Q_t$ a carga em kton/d e $e_t$ o
-resíduo, foi} reestimada sobre os dias com carga acima do limiar oficial de
+energéticos e cada ano civil de 2020 a 2025, a regressão $E = aQ + b$ foi
+reestimada sobre os dias com carga acima do limiar oficial de
 $18\,600$~t/d --- lido da configuração do modelo dimensional, nunca fixado no
 código --- e comparada com os parâmetros em produção. As 30 células
 vetor--ano reproduzem declive, ordenada na origem, $\hat\sigma$ e $R^2$
@@ -240,16 +235,12 @@ A Figura~\ref{fig:ganho-preditivo} mostra o contraste por vetor e por transiçã
 
 \ajuste{As perdas emparelhadas, o ganho face ao nulo e o intervalo por
 \emph{bootstrap} de blocos em calendário irregular estão definidos nas
-Equações~\ref{eq:mat-perdas}, \ref{eq:mat-ganho} e~\ref{eq:mat-blocos}}\matref{;
-a variante que reamostra sob a hipótese nula está na
-Equação~\ref{eq:mat-bootstrap-nulo}}\ajuste{.}
+Equações~\ref{eq:mat-perdas}, \ref{eq:mat-ganho} e~\ref{eq:mat-blocos}.}
 
 A primeira pergunta é a mais elementar: os parâmetros oficiais
 de um ano de treino $y$, aplicados sem reestimação ao ano seguinte $y{+}1$,
 prevêem o consumo melhor do que referências triviais? A referência primária é
-a média do ano de treino\matref{~---~o comparador constante da
-Equação~\ref{eq:mat-origem}, onde também consta a variante sem termo
-constante~---} --- um ``modelo'' sem carga, que responde sempre o
+a média do ano de treino --- um ``modelo'' sem carga, que responde sempre o
 mesmo valor. O efeito primário é a diferença emparelhada de perda absoluta
 diária, $\Delta_{\mathrm{MAE}} = \mathrm{MAE}_{\mathrm{nulo}} -
 \mathrm{MAE}_{\mathrm{modelo}}$, com intervalo de confiança percentil a 95\%
@@ -413,9 +404,8 @@ A Figura~\ref{fig:cobertura-bandas} reúne a cobertura de todas as transições,
 
 O sistema de alarmes em produção declara um dia anómalo quando o resíduo sai
 da banda $\pm 2\hat\sigma$ do ano de treino\ajuste{, que é uma regra de escala
-sobre os resíduos e não um intervalo de predição}\matref{ nem um intervalo
-de confiança da média (Equações~\ref{eq:mat-ic-media}
-a~\ref{eq:mat-dois-sigma}}\ajuste{; cobertura na
+sobre os resíduos e não um intervalo de predição
+(Equações~\ref{eq:mat-ip-observacao} e~\ref{eq:mat-dois-sigma}; cobertura na
 Equação~\ref{eq:mat-cobertura})}. Se os pressupostos do desenho
 valessem --- resíduos independentes, homocedásticos, aproximadamente normais,
 relação estável --- a banda aplicada ao ano seguinte cobriria
@@ -424,9 +414,7 @@ incerteza dos parâmetros estimados. A cobertura efetiva foi medida nos cinco pa
 treino${\to}$aplicação completos de cada vetor diário, com intervalo de
 confiança MBB a 95\%; a referência de $0{,}9545$ é indicativa, e todas as
 conclusões resultam da sua exclusão pelo intervalo, nunca da comparação de
-pontos. \matref{O intervalo de Wilson e o erro de Monte Carlo associado estão nas
-Equações~\ref{eq:mat-wilson} e~\ref{eq:mat-mc-emparelhado}.} O intervalo
-binomial clássico, que assume independência, é publicado
+pontos. O intervalo binomial clássico, que assume independência, é publicado
 apenas como contraste: o intervalo MBB é $1{,}0$ a $2{,}3$ vezes mais largo em
 todos os 20 pares --- a dependência serial a cobrar o seu preço à precisão.
 
@@ -556,10 +544,7 @@ com $Z$ pré-especificado antes de qualquer execução (densidade da carga,
 temperatura e pressão de \emph{flash}; o grau API é excluído por ser
 transformação determinista da densidade) --- e comparam-se as perdas absolutas
 no ano seguinte, sem reestimação. O efeito é a diferença emparelhada
-\matref{\begin{equation}
-  \Delta_{\mathrm{MAE}} = \mathrm{MAE}_{Q} - \mathrm{MAE}_{Q+Z},
-  \label{eq:delta-mae}
-\end{equation}}
+$\Delta_{\mathrm{MAE}} = \mathrm{MAE}_{Q} - \mathrm{MAE}_{Q+Z}$
 \ajuste{(Equação~\ref{eq:mat-perdas})} com intervalo MBB a 95\%: positivo com exclusão de zero, as covariáveis acrescentam;
 negativo, prejudicam. O ajustamento dentro da amostra --- que na soma dos
 quadrados melhora por construção ao acrescentar regressores --- não entra no
@@ -642,8 +627,7 @@ Apêndice~\ref{app:tabelas}.
 Um conjunto de diagnósticos descritivos fecha o capítulo documentando os
 mecanismos por trás dos resultados anteriores. Descrevem os dados e
 não fazem inferência: os testes clássicos associados (Durbin--Watson,
-Breusch--Pagan, ARCH\matref{; Equações~\ref{eq:mat-dw-lb}
-e~\ref{eq:mat-forma}}) são calculados sob pressupostos que os próprios
+Breusch--Pagan, ARCH) são calculados sob pressupostos que os próprios
 diagnósticos mostram serem falsos, os seus $p$-values não têm interpretação
 inferencial e ficam no Apêndice~\ref{app:tabelas} como contraste técnico, e
 nenhum rótulo aqui é conclusão. As tabelas completas constam do Apêndice~\ref{app:tabelas};
@@ -686,9 +670,6 @@ instabilidade dos parâmetros (Secção~\ref{sec:estabilidade}). Agrupamentos
 geométricos não são regimes físicos, podem existir mudanças no tempo sem
 separação neste espaço, e validar uma família de baselines por regime exige
 eventos externos, que sem o calendário operacional não existem.
-
-\matref{A sobreposição de suporte entre anos é medida pela
-Equação~\ref{eq:mat-overlap}.}
 
 \paragraph{Em carga, a avaliação decorre dentro do domínio amostrado; nas
 covariáveis, o espaço desloca-se.} A sobreposição das densidades de
