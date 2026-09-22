@@ -272,15 +272,13 @@ ser uma medição diária.
 \paragraph{Uma unidade comum.} Todos os vetores são convertidos a
 toneladas de gás natural equivalente por dia (t~GNE/d), a unidade em que
 a refinaria orçamenta e reporta. Com $m$ a massa diária em toneladas,
-\corr{o consumo diário $E_{\mathrm{GNE}}$ de cada vetor é}
 \begin{equation}
-\begin{array}{c@{\qquad}c@{\qquad}c}
-\dfrac{m\,\overline{\mathrm{PCI}}}{\mathrm{PCI}_{\mathrm{ref}}} &
-\dfrac{m\,h_p}{\mathrm{PCI}_{\mathrm{ref}}} &
-\dfrac{E_{\mathrm{el}}\times 860{,}4}{\mathrm{PCI}_{\mathrm{ref}}\times 0{,}57}
-\\[4pt]
-\text{combustíveis} & \text{vapor} & \text{eletricidade}
-\end{array}
+E_{\mathrm{GNE}} = \frac{m\,\overline{\mathrm{PCI}}}{\mathrm{PCI}_{\mathrm{ref}}}
+\;\text{(combustíveis)},\qquad
+E_{\mathrm{GNE}} = \frac{m\,h_p}{\mathrm{PCI}_{\mathrm{ref}}}
+\;\text{(vapor)},\qquad
+E_{\mathrm{GNE}} = \frac{E_{\mathrm{el}}\times 860{,}4}{\mathrm{PCI}_{\mathrm{ref}}\times 0{,}57}
+\;\text{(eletricidade)},
 \label{eq:conversao-gne}
 \end{equation}
 \matref{As três formas estão desenvolvidas, com as unidades explícitas, nas

@@ -1,0 +1,40 @@
+Cabecalhos a negrito nas 24 que faltavam, rodape de continuacao, e eq. 4.1
+
+AUDITORIA. Acrescentado _gerador/_tabelas.py: uma linha por tabela, uma
+coluna por convencao do padrao da 3.2. A pergunta era se a 2.1 destoava --
+nao destoa, e a referencia. Mas a auditoria mostrou 24 tabelas com o
+cabecalho por embolditar, cinco delas as que eu proprio tinha tocado nesta
+sessao para lhes por a zebra.
+
+NEGRITO. Aplicado nas cinco a mao (1.1, 4.1, 8.2, A.3, A.4) e nos dois
+geradores (B.4 e as 17 do Apendice C). Fica zero tabelas com cabecalho por
+embolditar.
+
+RODAPE DE CONTINUACAO. Dezanove tabelas tinham \bottomrule dentro do
+\endfoot e nenhum \endlastfoot: numa longtable isso poe um filete de fecho
+no fundo de TODAS as paginas, e uma tabela que parte a pagina parece
+terminar a meio. Separado em \endfoot com o aviso de continuacao e
+\endlastfoot com o \bottomrule.
+
+Bug apanhado a tempo: o numero de colunas do aviso vinha da contagem de
+celulas do cabecalho, e um \multicolumn{3} conta por uma -- a C.10 saiu com
+\multicolumn{5} numa tabela de sete. Passa a derivar da especificacao de
+colunas.
+
+TABELA B.4. O cabecalho a negrito alargou as colunas fixas e agravou o
+transbordo do apelido Benmakhlouf de 2,1 para 4,9pt. Resolvido com
+\scriptsize, que as tabelas densas do Apendice C ja usam: encolhe as
+colunas fixas e devolve largura a coluna X. Os overfull de paragrafo caem
+de 13 para 7 em toda a tese -- quase todos eram daquela tabela.
+
+EQUACAO 4.1. Os rotulos entre parenteses a seguir a cada fraccao
+empurravam a terceira contra a margem e atiravam o numero da equacao para
+uma linha so sua. Passam para baixo da fraccao respectiva, num array de
+duas linhas; o E_GNE sai das tres fraccoes e passa a frase que as
+introduz.
+
+Build: 306 paginas, zero erros, zero overfull em tabelas, zero
+referencias por resolver.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01WMymYi7rCaXPNEYDJVztnV

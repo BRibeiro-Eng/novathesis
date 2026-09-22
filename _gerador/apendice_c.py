@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Tabelas do Apendice C a partir das corridas canonicas de baselines-cc (2026-09-17).
 Le apenas os TSV pinados em config/params.yaml; nao recalcula nada. Escreve apC-t*.tex."""
-import os, sys, pandas as pd, numpy as np
+import os, re, sys, pandas as pd, numpy as np
 
 _c = [os.path.expanduser(x) for x in ("~/LocalResearch/baselines-cc/outputs", "~/mnt/LocalResearch/baselines-cc/outputs")]
 R = next(x for x in _c if os.path.isdir(x))
@@ -36,6 +36,66 @@ def ic(lo, hi, n=2):
     if lo is None or hi is None or not np.isfinite(lo) or not np.isfinite(hi): return "---"
     return "[" + f(lo, n) + "; " + f(hi, n) + "]"
 def tsv(run, name): return pd.read_csv(os.path.join(R, RUNS[run], name), sep="\t")
+def _ncols(colspec):
+    """Numero de colunas a partir da especificacao. Contar celulas do
+    cabecalho nao serve: um \\multicolumn{3} conta por uma."""
+    t, i, n = colspec, 0, 0
+    while i < len(t):
+        c = t[i]
+        if c in "@><!":                      # @{}, >{}, <{}, !{} nao sao colunas
+            i += 1
+            if i < len(t) and t[i] == "{":
+                d = 1; i += 1
+                while i < len(t) and d:
+                    if t[i] == "\\": i += 2; continue
+                    if t[i] == "{": d += 1
+                    elif t[i] == "}": d -= 1
+                    i += 1
+            continue
+        if c in "pmb" and i + 1 < len(t) and t[i+1] == "{":
+            n += 1; i += 1; d = 1; i += 1
+            while i < len(t) and d:
+                if t[i] == "{": d += 1
+                elif t[i] == "}": d -= 1
+                i += 1
+            continue
+        if c in "lcrX": n += 1
+        i += 1
+    return n
+
+def _neg(head):
+    """Cabecalho a negrito, celula a celula, com o conteudo dos multicolumn
+    embrulhado por dentro."""
+    corpo = head.rstrip()
+    assert corpo.endswith("\\\\"), head
+    cs, cur, d, i = [], "", 0, 0
+    t = corpo[:-2]
+    while i < len(t):
+        c = t[i]
+        if c == "\\" and i + 1 < len(t): cur += t[i:i+2]; i += 2; continue
+        if c == "{": d += 1
+        elif c == "}": d -= 1
+        elif c == "&" and d == 0: cs.append(cur); cur = ""; i += 1; continue
+        cur += c; i += 1
+    cs.append(cur)
+    out = []
+    for cel in cs:
+        x = cel.strip()
+        if not x or "\\textbf" in x:
+            out.append(cel); continue
+        m = re.match(r"^\\multicolumn\{(\d+)\}\{([^{}]*)\}\{", x)
+        if m:
+            j = m.end(); dd = 1
+            while j < len(x) and dd:
+                if x[j] == "\\": j += 2; continue
+                if x[j] == "{": dd += 1
+                elif x[j] == "}": dd -= 1
+                j += 1
+            out.append(" \\multicolumn{%s}{%s}{\\textbf{%s}}%s " % (m.group(1), m.group(2), x[j-1 and m.end():j-1], x[j:]))
+        else:
+            out.append(" \\textbf{%s} " % x)
+    return "&".join(out) + "\\\\", len(cs)
+
 def write(fn, head, body, caption, label, colspec, short=None, size="footnotesize",
           tcs=None):
     # tcs: meia-goteira entre colunas, em pt. O valor de origem do LaTeX e 6pt;
@@ -48,12 +108,17 @@ def write(fn, head, body, caption, label, colspec, short=None, size="footnotesiz
     # A alternancia de linhas tem de ser fechada no cabecalho repetido e
     # reaberta no corpo; numa longtable o \hiderowcolors sozinho desliga-a
     # ate ao fim da tabela.
+    head, _ = _neg(head)
+    _nc = _ncols(colspec)
     L += ["\\ntzebra",
          f"\\begin{{xltabular}}{{\\linewidth}}{{{colspec}}}",
          f"\\caption[{short or caption[:60]}]{{{caption}}}\\label{{{label}}}\\\\",
          "\\hiderowcolors",
          "\\toprule", head, "\\midrule", "\\endfirsthead", "\\toprule", head, "\\midrule", "\\endhead",
-         "\\bottomrule", "\\endfoot", "\\showrowcolors"] + body + ["\\end{xltabular}", "}"]
+         "\\midrule",
+         "\\rowcolor{white}\\multicolumn{%d}{r}{\\emph{continua na página seguinte}}\\\\" % _nc,
+         "\\endfoot", "\\bottomrule", "\\endlastfoot",
+         "\\showrowcolors"] + body + ["\\end{xltabular}", "}"]
     open(os.path.join(OUT, fn), "w", encoding="utf-8").write("\n".join(L) + "\n")
     print(fn, len(body))
 
